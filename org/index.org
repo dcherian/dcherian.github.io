@@ -1,0 +1,66 @@
+#+TITLE: Deepak Cherian
+#+SUBTITLE: physical oceanographer @@html:<br />@@ Research Associate (Post-doc), Oregon State University @@html:<br /> <a href="mailto:dcherian@ceoas.oregonstate.edu">dcherian@ceoas.oregonstate.edu</a>@@
+#+AUTHOR: Deepak Cherian
+#+EMAIL: deepak@cherian.net
+#+KEYWORDS: physical oceanography, eddies, science, ocean,
+#+OPTIONS: toc:nil num:nil
+* @@html:@@
+ :PROPERTIES:
+:HTML_CONTAINER_CLASS: menu
+:END:
+- [[file:static/Deepak-Cherian-CV.pdf][CV]]
+- [[Current Research]]
+- [[Publications]]
+- [[Posts]]
+- [[Contact]]
+* Current Research
+*** Mixing measurements in the Bay of Bengal
+
+   With [[http://people.oregonstate.edu/~shroyere/Welcome.html][Emily Shroyer (OSU)]]
+
+   We are studying measurements of mixing from χ-pod sensors deployed in the Bay of Bengal as part of the Air-Sea Interaction Regional Initiative (ASIRI).
+
+*** Inertial-gravity waves in the equatorial Pacific
+
+   With [[http://www.whoi.edu/profile/tfarrar/][Tom Farrar (WHOI)]] & [[http://ceoas.oregonstate.edu/profile/durland/][Ted Durland (OSU)]].
+
+   Satellite observations give humanity an unprecedented detailed look at the surface ocean. The vertical structure of variability associated with surface signals is relatively less known, and the relevance of theoretical structures derived using strict assumptions is debated; viz., the so-called baroclinic vertical modes.
+
+   Motivated by [zonal wavenumber]-frequency spectra of [[doi:10.1175/JPO-D-11-0235.1][Farrar & Durland (2012)]], I am attempting to infer the vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific.
+
+*** Shelf-water export by mesoscale eddies
+
+Advisor: [[http://www.whoi.edu/page.do?pid=23355][Ken Brink (WHOI)]] | [[doi:10.1175/JPO-D-16-0085.1][Read the paper!]] | [[file:static/ew-34-csdye.mp4][Video!]]
+#+ATTR_HTML: :width 45% :align left
+[[file:./static/eddyshelf-3d.png]]
+
+My dissertation looked at the interaction of deep-ocean mesoscale eddies with continental shelf-slope topography.
+
+When visualized using passive tracer fields (red tracks eddy water and blue, shelf-slope water), the interaction clearly results in the formation of smaller-scale secondary vortices. We term these 'stacked' vortices to reflect their (unexpected) vertical structure wherein shelf-slope water is stacked over eddy water.
+
+[[file:research/eddyshelf.org][More details and a video here.]]
+
+* Publications
+*** 2016
+:PROPERTIES:
+:HTML_CONTAINER_CLASS: papers
+:END:
+- Cherian D.A., Brink K.H.  2016. [[doi:10.1175/JPO-D-16-0085.1][Offshore Transport of Shelf Water by Deep-Ocean Eddies.]] Journal of Physical Oceanography. 46 3599–3621
+*** 2013
+:PROPERTIES:
+:HTML_CONTAINER_CLASS: papers
+:END:
+- Haine T.W.N., Cherian D.A. 2013. [[doi:10.1175/BAMS-D-12-00023.1][Analogies of Ocean/Atmosphere Rotating Fluid Dynamics with Gyroscopes: Teaching Opportunities.]] Bull. Amer. Meteor. Soc.. 94:684.
+
+- Brink K.H., Cherian D.A.  2013. [[doi:10.1357/002224013812587582][Instability of an idealized tidal mixing front: Symmetric instabilities and frictional effects.]] Journal of Marine Research. 71(6):26.
+* Posts
+1. [[file:posts/reproducible-research-1.org][Setup for reproducible research]]
+2. [[file:posts/hemingway-cocktail.org]["Death in the Gulf Stream" - A Hemingway cocktail]]
+* Contact
+Office Address: Burt 434, OSU, Corvallis SSR, OR
+* Acknowledgments
+My work has been funded by the US National Science Foundation and the Office of Naval Research.
+
+Styling gratefully borrowed from [[http://ethanschoonover.com/solarized][Ethan Schoonover]], [[http://www.labri.fr/perso/nrougier/from-python-to-numpy/%20][Nicolas P. Rougier]] and [[http://practicaltypography.com/][Matthew Butterick]].
+
+Website built using [[http://orgmode.org][Emacs Org-mode]]

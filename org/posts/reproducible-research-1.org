@@ -1,0 +1,100 @@
+#+TITLE: A setup for reproducible research
+#+DATE: 19 Jan 2017
+#+KEYWORDS: reproducible; research; physical oceanography, eddies, science, ocean,
+#+OPTIONS: num:nil toc:nil html-style:nil html-postamble:nil
+* @@html:@@ :noexport:
+:PROPERTIES:
+:HTML_CONTAINER_CLASS: menu
+:END:
+- [[Current Research]]
+- [[Publications]]
+- [[Posts]]
+- [[Videos]]
+- [[Contact]]
+
+* Software
+- Version control system to track content. I use [[http://www.git-scm.org][~git~]].
+- [[http://www.sno.phy.queensu.ca/~phil/exiftool/][~exiftool~]] to read and write metadata to images
+- I have some code below for MATLAB but the principles could be extended to any other software package.
+* Strategy
+The approach is simple: use ~git~ to track files that generate output.
+
+~git~ automatically assigns a unique 40 character alphanumeric string (a "hash") that identifies the state of a repository.
+
+By saving the value of the hash when a certain output file is created, we know what code created the output.
+
+With data files, it is simple to add an extra variable containing the hash.
+
+With figures, I use the metadata fields to save the hash value.
+* Getting the current hash in MATLAB
+The following MATLAB function ~githash~ will return the hash of the last commit that modified the file in ~fname~. If not provided with ~fname~ it returns the hash of the last commit in the repository.
+
+#+BEGIN_SRC matlab
+   function [hash] = githash(fname, gitdir)
+
+       if ~exist('fname', 'var')
+           fname = '.';
+       end
+
+       if ~exist('gitdir', 'var')
+           gitdir = '';
+       else
+           gitdir = ['--git-dir=' gitdir];
+       end
+
+       [~, hashout] = system(['TERM=xterm git ' gitdir ...
+                           ' log -n 1 --no-color --pretty=format:''%H'' ''' ...
+                           fname ''' < /dev/null']);
+
+       % remove bash escape characters
+       hash = hashout(9:48)
+   end
+#+END_SRC
+
+Using it in a MATLAB script requires the incantation
+#+BEGIN_SRC matlab
+  hash = githash([mfilename('fullpath') '.m']);
+#+END_SRC
+This provides ~githash~ with the path to the current mfile that is calling ~githash~.
+
+Quite frequently, I calculate diagnostics that take a while which means that rerunning them every time I make an image is not feasible. I save the ~hash~ variable to the file containing diagnostic output. This lets me know what version of the code created that version of the saved output.
+
+* Using the hash
+MATLAB's FileExchange has a couple of useful scripts [[https://www.mathworks.com/matlabcentral/fileexchange/43179-insert-annotation-in-figure-s-metadata][~insertAnnotation~ & ~getAnnotation~]] that insert and recover metadata in MATLAB figure windows.
+
+An obvious choice is to save the hash. More importantly, one can save the exact function call that generated a figure. Then, you know two things:
+1. the version of the code that created the figure, and
+2. all parameters provided to the code;
+both of which are saved in the metadata of the figure /itself/.
+
+~getAnnotation~ can then recover the saved metadata when saving a figure to file.
+
+* Saving the hash in an image file
+Once you have a hash value, or any metadata in general, it needs to be saved when the image is saved. I have modified ~export_fig~ ([[https://github.com/altmany/export_fig][original]], [[https://github.com/dcherian/export_fig][my fork]]) to do this for me.
+
+In general, all you need is a line that looks like
+#+BEGIN_SRC matlab
+  system(['exiftool -overwrite_original -Producer=' ...
+          hash ' ' pdf_nam]);
+#+END_SRC
+The above tells exiftool to save the contents of variable ~hash~ in the metadata field ~Producer~ of the file named ~pdf_nam~. The slight complication here is that the metadata field names are not standardized among different image formats.
+
+#+CAPTION: Metadata fields for various image formats that I use to save hashes.
+| *format*       | pdf, eps | png      | jpg     | tif         |
+| *metadata field* | Producer | Software | Comment | Description |
+
+~exiftool~ is only required to modify the metadata fields of PDF and EPS files. MATLAB's ~imwrite~ can write metadata to bitmap files (e.g. PNG).
+
+Searching for ~hash~ in my fork of [[https://github.com/dcherian/export_fig/blob/master/export_fig.m][~export_fig.m~]] will show you how ~imwrite~ can be used.
+
+* Extracting commit hash from image metadata
+To recover the recorded hash, it suffices to call ~exiftool FILENAME~ which will print all metadata stored in the image; not just the hash. ~grep~ can then find the recorded hash:
+#+BEGIN_SRC bash
+  #!/bin/bash
+  # displays saved git hash of a provided file using exiftool
+
+  file=$1
+  hash=$(exiftool $file | grep -i "hash:")
+
+  echo $hash
+#+END_SRC
