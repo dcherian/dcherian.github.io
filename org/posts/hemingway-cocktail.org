@@ -12,5 +12,3 @@ From [[http://kottke.org/17/01/ernest-hemingways-cocktail-recipe-for-bad-times][
 
     We don’t add sugar to ale, and we don’t need sugar in a “Death in the Gulf Stream”—or at least not more than 1 tsp. Its tartness and its bitterness are its chief charm.
 #+END_QUOTE
-
-A fitting cocktail for the oceanographer, XBTs, lost moorings and maybe a few ARGO floats?
