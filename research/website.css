@@ -1,0 +1,8 @@
+@import url("../website.css");
+
+.title {
+    text-align: left;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    line-height: 1.2em;
+}
