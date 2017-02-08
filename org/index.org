@@ -11,6 +11,7 @@
 - [[file:static/Deepak-Cherian-CV.pdf][CV]]
 - [[Current Research]]
 - [[Publications]]
+- [[Teaching]]
 - [[Posts]]
 - [[Contact]]
 * Current Research
@@ -53,6 +54,15 @@ When visualized using passive tracer fields (red tracks eddy water and blue, she
 - Haine T.W.N., Cherian D.A. 2013. [[doi:10.1175/BAMS-D-12-00023.1][Analogies of Ocean/Atmosphere Rotating Fluid Dynamics with Gyroscopes: Teaching Opportunities.]] Bull. Amer. Meteor. Soc.. 94:684.
 
 - Brink K.H., Cherian D.A.  2013. [[doi:10.1357/002224013812587582][Instability of an idealized tidal mixing front: Symmetric instabilities and frictional effects.]] Journal of Marine Research. 71(6):26.
+* Teaching
+While at MIT, I took the semester-long Teaching Methods class. I learned that it is generally more effective to have students work through a derivation primarily on their own in class with hints. Following that advice, I created worksheets that guide students through a derivation, guiding them toward important implications and reasoning for various steps. Here are the ones I have so far.
+
+1. [[file:static/rossby-adjustment-qns.pdf][Rossby adjustment]]
+2. [[file:static/non-hydrostatic-waves-qns.pdf][Non-hydrostatic internal waves]]
+3. Sverdrup balance - for MIT's 12.808 - Observational Physical Oceanography
+
+Any comments you might have on these are welcome. Please send me an email.
+
 * Posts
 1. [[file:posts/reproducible-research-1.org][Setup for reproducible research]]
 2. [[file:posts/hemingway-cocktail.org]["Death in the Gulf Stream" - A Hemingway cocktail]]
