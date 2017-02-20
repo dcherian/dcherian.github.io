@@ -66,6 +66,7 @@ Any comments you might have on these are welcome. Please send me an email.
 * Posts
 1. [[file:posts/reproducible-research-1.org][Setup for reproducible research]]
 2. [[file:posts/hemingway-cocktail.org]["Death in the Gulf Stream" - A Hemingway cocktail]]
+3. [[file:static/living-with-roms.pdf][Living with ROMS]] - Some notes on ROMS
 * Contact
 Office Address: Burt 434, OSU, Corvallis SSR, OR
 * Acknowledgments
