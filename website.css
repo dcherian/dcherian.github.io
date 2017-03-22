@@ -29,9 +29,9 @@ html {
 
 body {
     color: #657b83;
-    font-family: sans-serif;
+    font-family: 'Fira Sans', sans-serif;
     font-size: 18px;
-    font-weight: 200;
+    font-weight: 300;
     line-height: 1.5em;
     padding: 1em;
     margin: 40px auto;
@@ -42,7 +42,11 @@ body {
 }
 
 strong {
-    font-weight: 400;
+    font-weight: 500;
+}
+
+b {
+    font-weight: 500;
 }
 
 p {
@@ -196,7 +200,7 @@ img {
     color: #839496;
     font-size: 1.2em;
     line-height: 1.6em;
-    font-weight: 200;
+    font-weight: 300;
     text-align: right;
     margin-bottom: 20px;
 }
