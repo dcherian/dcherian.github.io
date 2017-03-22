@@ -51,14 +51,14 @@ When visualized using passive tracer fields (red tracks eddy water and blue, she
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: papers
 :END:
-- Cherian D.A., Brink K.H.  2016. [[doi:10.1175/JPO-D-16-0085.1][Offshore Transport of Shelf Water by Deep-Ocean Eddies.]] /Journal of Physical Oceanography/. 46 3599–3621
+- *Cherian D.A.*, Brink K.H.  2016. [[doi:10.1175/JPO-D-16-0085.1][Offshore Transport of Shelf Water by Deep-Ocean Eddies.]] /Journal of Physical Oceanography/. 46 3599–3621
 *** 2013
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: papers
 :END:
-- Haine T.W.N., Cherian D.A. 2013. [[doi:10.1175/BAMS-D-12-00023.1][Analogies of Ocean/Atmosphere Rotating Fluid Dynamics with Gyroscopes: Teaching Opportunities.]] /Bull. Amer. Meteor. Soc./. 94:684.
+- Haine T.W.N., *Cherian D.A.* 2013. [[doi:10.1175/BAMS-D-12-00023.1][Analogies of Ocean/Atmosphere Rotating Fluid Dynamics with Gyroscopes: Teaching Opportunities.]] /Bull. Amer. Meteor. Soc./. 94:684.
 
-- Brink K.H., Cherian D.A.  2013. [[doi:10.1357/002224013812587582][Instability of an idealized tidal mixing front: Symmetric instabilities and frictional effects.]] /Journal of Marine Research/. 71(6):26.
+- Brink K.H., *Cherian D.A.*  2013. [[doi:10.1357/002224013812587582][Instability of an idealized tidal mixing front: Symmetric instabilities and frictional effects.]] /Journal of Marine Research/. 71(6):26.
 * Teaching
 :PROPERTIES:
 :CUSTOM_ID: teaching
