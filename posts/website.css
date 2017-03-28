@@ -1,1 +1,4 @@
 @import url("../website.css")
+.title::before {
+    content: '';
+}
