@@ -1,0 +1,6 @@
+#+TITLE: Vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific
+#+DATE: 23 Jan 2017
+#+KEYWORDS: equatorial Pacific, inertial-gravity waves
+#+OPTIONS: author:nil num:nil toc:nil html-style:nil html5-fancy:t
+
+The code is available, with instructions, at https://github.com/dcherian/eq_waves/.
