@@ -3,7 +3,7 @@
 #+AUTHOR: Deepak Cherian
 #+EMAIL: deepak@cherian.net
 #+KEYWORDS: physical oceanography, eddies, science, ocean,
-#+OPTIONS: toc:nil num:nil
+#+OPTIONS: toc:nil num:nil html5-fancy:t
 * @@html:@@
  :PROPERTIES:
 :HTML_CONTAINER_CLASS: menu
@@ -81,6 +81,7 @@ Any comments you might have on these are welcome. Please send me an email.
 1. [[file:posts/reproducible-research-1.org][Setup for reproducible research]]
 2. [[file:posts/hemingway-cocktail.org]["Death in the Gulf Stream" - A Hemingway cocktail]]
 3. [[file:static/living-with-roms.pdf][Living with ROMS]] - Some notes on ROMS
+4. [[file:posts/po-movies.org][Some movies relevant to physical oceanographers]]
 * Contact
 :PROPERTIES:
 :CUSTOM_ID: contact
