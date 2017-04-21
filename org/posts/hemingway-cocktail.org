@@ -1,6 +1,5 @@
-#+OPTIONS: toc:nil num:nil
-
-* Death in the Gulf Stream
+#+TITLE: Death in the Gulf Stream
+#+OPTIONS: toc:nil num:nil html5-fancy:t
 
 From [[http://kottke.org/17/01/ernest-hemingways-cocktail-recipe-for-bad-times][Kottke]] who got it from [[https://qz.com/889794/trump-inauguration-ernest-hemingway-has-a-cocktail-recipe-for-days-when-youve-had-just-enough-of-the-world/][Quartz]], a cocktail recipe created by Ernest Hemingway in 1937.
 #+BEGIN_QUOTE

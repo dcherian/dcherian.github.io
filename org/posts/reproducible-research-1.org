@@ -1,7 +1,7 @@
 #+TITLE: A setup for reproducible research
 #+DATE: 19 Jan 2017
 #+KEYWORDS: reproducible; research; physical oceanography, eddies, science, ocean,
-#+OPTIONS: num:nil toc:nil html-style:nil html-postamble:nil
+#+OPTIONS: num:nil toc:nil  html-postamble:nil
 * @@html:@@ :noexport:
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: menu
