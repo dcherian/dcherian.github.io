@@ -13,6 +13,7 @@
 - [[Publications]]
 - [[Teaching]]
 - [[Posts]]
+- [[Links]]
 - [[Contact]]
 * Current Research
 :PROPERTIES:
@@ -92,6 +93,9 @@ Any comments you might have on these are welcome. Please send me an email.
 4. [[file:posts/po-movies.org][Some movies relevant to physical oceanographers]]
 5. [[file:posts/paper-quotes.org][Interesting quotes from the scientific literature]]
 * Links
+:PROPERTIES:
+:CUSTOM_ID: links
+:END:
 1. [[http://peabody.yale.edu/scientific-publications/classic-papers-journal-marine-research][JMR's "classic papers"]]
 2. [[http://img.timeinc.net/time/magazine/archive/covers/1956/1101561217_400.jpg][Carl-Gutsaf Rossby on the cover of TIME magazine]]
 3. [[https://fermatslibrary.com/s/assessing-dangerous-climate-change][Fermat's library featured an annotated Hansen et al. (2013)]]
