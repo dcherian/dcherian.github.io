@@ -22,7 +22,15 @@
 
    With [[http://people.oregonstate.edu/~shroyere/Welcome.html][Emily Shroyer (OSU)]] & the [[http://mixing.coas.oregonstate.edu/][OSU Ocean Mixing Group]].
 
-   We are studying measurements of mixing from [[http://mixing.coas.oregonstate.edu/papers/mixing_measurements.pdf][χ-pod sensors]] deployed in the Bay of Bengal as part of the RAMA array.
+   #+ATTR_HTML: :align left :width 50%
+   [[file:static/bob-chipods.png]]
+
+   #+HTML: <br><br><br>
+   We are studying multiple year-long measurements of mixing from [[http://mixing.coas.oregonstate.edu/papers/mixing_measurements.pdf][χ-pod sensors]] deployed throughout the Bay of Bengal as part of the ASIRI/RAMA/EBoB projects.
+
+   (map courtesy Emily Shroyer)
+
+   #+HTML: <br><br><br>
 
 *** Inertial-gravity waves in the equatorial Pacific
 
