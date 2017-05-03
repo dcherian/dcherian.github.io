@@ -1,0 +1,30 @@
+#+TITLE: Interesting bits from papers.
+#+OPTIONS: toc:nil num:nil html5-fancy:t
+
+1. cite:Flierl1978 quotes Karl Marx:
+   #+BEGIN_QUOTE
+   A second and, in my opinion, more persuasive argument for our studies is that, in sensitive systems, a small quantitative error may lead to large qualitative errors^1.
+
+   ...
+
+   _^1 "Quantitative changes suddenly become qualitative changes" (Karl Marx)
+   #+END_QUOTE
+2. cite:Holte2009 throw shade on under-performing Canadian Argo floats:
+   #+BEGIN_QUOTE
+   Most floats sampled at regular pressure levels, though the Canadian Argo floats often sampled at irregular pressures and required substantial editing.
+   #+END_QUOTE
+3. cite:Sutyrin1994 note insufficient printer resolution in their Figure 2.
+4. cite:MacKinnon2017 summarize
+   #+BEGIN_QUOTE
+   A frequently asked question related to this work is “Which mixing processes matter most for climate?”. As with many alluringly comprehensive sounding questions, the answer is “it depends”.
+   #+END_QUOTE
+   and then end on an inspiring note
+   #+BEGIN_QUOTE
+   At the same time, the epiphanies, new ideas and novel observations that fundamentally drive the field forward frequently come not from big science, but from a cornucopia of much smaller exploratory efforts and the continued small-scale development of innovative observing technology and numerical techniques.  We must not lose the ability to be surprised.
+   #+END_QUOTE
+# 5. Walter Munk introduces the Tijuana boundary condition.
+# 6. Stommel's demon?
+# 7. Fitting an elephant
+
+bibliographystyle:harvard
+bibliography:~/Papers/bibtexLibrary.bib
