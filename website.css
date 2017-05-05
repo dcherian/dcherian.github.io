@@ -32,7 +32,7 @@ body {
     font-family: 'Fira Sans', sans-serif;
     font-size: 18px;
     font-weight: 300;
-    line-height: 1.5em;
+    line-height: 1.6em;
     padding: 1em;
     margin: 40px auto;
     max-width: 42em;
@@ -250,4 +250,12 @@ table {
 video {
     width: 100%;
     height: auto;
+}
+
+ul.org-ref-bib {
+    list-style-type: circle;
+}
+
+li {
+    margin-top: 0.2em;
 }
