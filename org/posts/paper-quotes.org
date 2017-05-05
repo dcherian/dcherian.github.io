@@ -1,4 +1,4 @@
-#+TITLE: Interesting bits from papers.
+#+TITLE: Interesting quotes from papers.
 #+OPTIONS: toc:nil num:nil html5-fancy:t
 
 1. cite:Flierl1978 quotes Karl Marx:
@@ -21,6 +21,11 @@
    and then end on an inspiring note
    #+BEGIN_QUOTE
    At the same time, the epiphanies, new ideas and novel observations that fundamentally drive the field forward frequently come not from big science, but from a cornucopia of much smaller exploratory efforts and the continued small-scale development of innovative observing technology and numerical techniques.  We must not lose the ability to be surprised.
+   #+END_QUOTE
+5. cite:Wunsch2016 cites the Bible
+   #+BEGIN_QUOTE
+   That which is far off, and exceeding deep, who can find it out?
+    — Ecclesiastes 7:24 (King James Version)
    #+END_QUOTE
 # 5. Walter Munk introduces the Tijuana boundary condition.
 # 6. Stommel's demon?
