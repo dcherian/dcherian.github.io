@@ -45,15 +45,25 @@
 
    Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculated by [[doi:10.1175/JPO-D-11-0235.1][Farrar & Durland (2012)]] --- see image on right ---  my goal is to infer the vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific (filter band marked by horizontal lines). I am using long term subsurface temperature measurements and inferred dynamic height from [[http://www.pmel.noaa.gov/tao/drupal/disdel/][the TAO/TRITON project]].
 
+*** Shelf flows forced by mesoscale eddies
+
+Advisor: [[http://www.whoi.edu/page.do?pid=23355][Ken Brink (WHOI)]] | [[file:research/eddyshelf.org][More detail]]
+
+One chapter of my dissertation focused on the shelf flows forced by mesoscale eddies translating at the shelfbreak. A manuscript is in preparation.
+
+#+ATTR_HTML: :width 100% :float left
+[[file:static/shelf-flow-summary.png]]
 *** Shelf-water export by mesoscale eddies
 
 Advisor: [[http://www.whoi.edu/page.do?pid=23355][Ken Brink (WHOI)]] | [[doi:10.1175/JPO-D-16-0085.1][Read the paper!]] | [[file:static/ew-34-csdye.mp4][Video]] | [[file:research/eddyshelf.org][More detail]]
-#+ATTR_HTML: :width 45% :align left
+#+ATTR_HTML: :width 50% :align left
 [[file:./static/eddyshelf-3d.png]]
 
 My dissertation looked at the interaction of deep-ocean mesoscale eddies with continental shelf-slope topography.
 
 When visualized using passive tracer fields (red tracks eddy water and blue, shelf-slope water), the interaction clearly results in the formation of smaller-scale secondary vortices. We term these 'stacked' vortices to reflect their (unexpected) vertical structure wherein shelf-slope water is stacked over eddy water.
+
+Observational evidence for these features remains elusive.
 * Publications
 :PROPERTIES:
 :CUSTOM_ID: publications
@@ -100,7 +110,8 @@ Any comments you might have on these are welcome. Please send me an email.
 2. [[http://img.timeinc.net/time/magazine/archive/covers/1956/1101561217_400.jpg][Carl-Gustaf Rossby on the cover of TIME magazine]]
 3. [[https://fermatslibrary.com/s/assessing-dangerous-climate-change][Fermat's library featured an annotated climate science paper — Hansen et al. (2013)!]]
 4. [[https://empslocal.ex.ac.uk/people/staff/gv219/classics.d/index.html][Geoff Vallis' collection of classic GFD papers]]
-5. [[http://forecastpod.org][Forecastpod]]: Climate science podcast with Nature's editor for climate science, Michael White. Interviews with meteorologists, oceanographers, environmental economists and more! E.g. [[http://forecastpod.org/index.php/2017/04/20/jennifer-mackinnon-swirly-things/][Jen MacKinnon]]
+5. [[http://forecastpod.org][Forecast]]: Climate science podcast with Nature's editor for climate science, Michael White. Interviews with meteorologists, oceanographers, environmental economists and more! E.g. [[http://forecastpod.org/index.php/2017/04/20/jennifer-mackinnon-swirly-things/][Jen MacKinnon]]
+6. Stunning fluid dynamics images from [[http://www.damtp.cam.ac.uk/user/msd38/gallery.html][Dr. Megan S Davies Wykes at DAMTP]].
 * Contact
 :PROPERTIES:
 :CUSTOM_ID: contact
