@@ -113,6 +113,8 @@ Any comments you might have on these are welcome. Please send me an email.
 5. [[http://forecastpod.org][Forecast]]: Climate science podcast with Nature's editor for climate science, Michael White. Interviews with meteorologists, oceanographers, environmental economists and more! E.g. [[http://forecastpod.org/index.php/2017/04/20/jennifer-mackinnon-swirly-things/][Jen MacKinnon]]
 6. Stunning fluid dynamics images from [[http://www.damtp.cam.ac.uk/user/msd38/gallery.html][Dr. Megan S Davies Wykes at DAMTP]].
 7. NASA's [[https://podaac-tools.jpl.nasa.gov/soto/][State of the Ocean]] tool makes it really easy to flip through a bunch of ocean surface variables.
+8. At Real Climate, great [[http://www.realclimate.org/index.php/archives/2017/07/joy-plots-for-climate-change/][animations]] of the change in temperature distributions over the past century.
+9. [[http://bhavana.timc.org.in][Bhāvanā]] - a magazine at the intersection of math & history in India. Good stuff!
 * Contact
 :PROPERTIES:
 :CUSTOM_ID: contact
