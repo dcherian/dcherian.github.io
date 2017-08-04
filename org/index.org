@@ -115,6 +115,7 @@ Any comments you might have on these are welcome. Please send me an email.
 7. NASA's [[https://podaac-tools.jpl.nasa.gov/soto/][State of the Ocean]] tool makes it really easy to flip through a bunch of ocean surface variables.
 8. At Real Climate, great [[http://www.realclimate.org/index.php/archives/2017/07/joy-plots-for-climate-change/][animations]] of the change in temperature distributions over the past century.
 9. [[http://bhavana.timc.org.in][Bhāvanā]] - a magazine at the intersection of math & history in India. Good stuff!
+10. [[https://storify.com/BlueLotus/mughal-science-reactions][Mughal science reactions?!]]
 * Contact
 :PROPERTIES:
 :CUSTOM_ID: contact
