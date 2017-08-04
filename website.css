@@ -32,10 +32,10 @@ body {
     font-family: 'Fira Sans', sans-serif;
     font-size: 18px;
     font-weight: 300;
-    line-height: 1.6em;
+    line-height: 1.5em;
     padding: 1em;
     margin: 40px auto;
-    max-width: 42em;
+    max-width: 44em;
     background: #fdf6e3;
     /* background: #eee; */
     text-rendering: optimizeLegibility;
@@ -78,16 +78,17 @@ a::after {
     top: -0.10em;
     color: #dc322f;
 }
-/* a:visited { */
-/*     color: #06e; */
-/* } */
-
 a:hover {
     background: #eee8d5;
 
     transition-property: background;
     transition-duration: 0.1s;
     border-radius: 4px;
+}
+
+/* --- General lists --- */
+li {
+    padding: 0px 0px 5px 0px;
 }
 
 /* --- Navigation Menu --- */
@@ -144,9 +145,10 @@ h1, h2, h3 {
     font-weight: 400;
 }
 h1 { font-size: 1.5em; padding-top: 2.5em;}
-h2 { font-size: 1.3em; padding-top: 1.5em;}
-h3, h4, h5, h6 { font-size: 1.15em; }
-h4 { font-weight: inherit; color: #073642;}
+h2 { font-size: 1.4em; padding-top: 1.5em;}
+h3, h4 { font-weight: 400; font-size: 1.3em; color: #073642}
+h5, h6 { font-size: 1.15em; }
+h4 {padding-block-start: 0.8em;}
 
 h1, h1 a, h1 a:visited,
 h2, h2 a, h2 a:visited,
@@ -173,7 +175,7 @@ h2 a:hover, h3 a:hover {
 
 /* --- Images -------------------------------------------------------------- */
 img {
-    padding: 5px 15px;
+    padding: 5px 20px;
     /* border: 1px solid; */
 }
 
@@ -250,12 +252,4 @@ table {
 video {
     width: 100%;
     height: auto;
-}
-
-ul.org-ref-bib {
-    list-style-type: circle;
-}
-
-li {
-    margin-top: 0.2em;
 }
