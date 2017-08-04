@@ -87,10 +87,7 @@ a:hover {
 }
 
 /* --- General lists --- */
-.org-ol li {
-    padding: 0px 0px 5px 0px;
-}
-.org-ul li {
+li {
     padding: 0px 0px 5px 0px;
 }
 

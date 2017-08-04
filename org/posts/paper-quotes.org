@@ -9,11 +9,16 @@
 
    _^1 "Quantitative changes suddenly become qualitative changes" (Karl Marx)
    #+END_QUOTE
-2. cite:Holte2009 throw shade on under-performing Canadian Argo floats:
+
+2. cite:Holte2009 throw shade at under-performing Canadian Argo floats:
    #+BEGIN_QUOTE
    Most floats sampled at regular pressure levels, though the Canadian Argo floats often sampled at irregular pressures and required substantial editing.
    #+END_QUOTE
+
 3. cite:Sutyrin1994 note insufficient printer resolution in their Figure 2.
+   #+ATTR_HTML: :width 80%
+   [[file:../static/sutyrin-flierl-fig2.png]]
+
 4. cite:MacKinnon2017 summarize
    #+BEGIN_QUOTE
    A frequently asked question related to this work is “Which mixing processes matter most for climate?”. As with many alluringly comprehensive sounding questions, the answer is “it depends”.
@@ -22,14 +27,32 @@
    #+BEGIN_QUOTE
    At the same time, the epiphanies, new ideas and novel observations that fundamentally drive the field forward frequently come not from big science, but from a cornucopia of much smaller exploratory efforts and the continued small-scale development of innovative observing technology and numerical techniques.  We must not lose the ability to be surprised.
    #+END_QUOTE
+
 5. cite:Wunsch2016 cites the Bible
    #+BEGIN_QUOTE
    That which is far off, and exceeding deep, who can find it out?
     — Ecclesiastes 7:24 (King James Version)
    #+END_QUOTE
+
+6. A long saga on fitting an elephant:
+   First Enrico Fermi quotes John von Neumann to Freeman Dyson, critizing the latter's model (citep:Dyson2004):
+   #+BEGIN_QUOTE
+   "I remember my friend Johnny von Neumann used to say, with four parameters I can fit an elephant, and with five I can make him wiggle his trunk." - Enrico Fermi
+   #+END_QUOTE
+
+   #+ATTR_HTML: :align right :width 40%
+   [[file:../static/elephant.png]]
+
+   cite:Mayer2010 take on the challenge yielding:
+   #+BEGIN_QUOTE
+   The resulting shape is schematic and cartoonlike but is still recognizable as an elephant. Although the use of the Fourier coordinate expansion is not new,2,3 our approach clearly demonstrates its usefulness in reducing the number of parameters needed to describe a two-dimensional contour. In the special case of fitting an elephant, it is even possible to lower it to four complex parameters and therein implement a well-known saying.
+   #+END_QUOTE
+   With five, they give the elephant an eye and make it's trunk wiggle!
+
+   Python implementation [[https://www.johndcook.com/blog/2011/06/21/how-to-fit-an-elephant/][here]].
+
 # 5. Walter Munk introduces the Tijuana boundary condition.
 # 6. Stommel's demon?
-# 7. Fitting an elephant
 
 bibliographystyle:harvard
 bibliography:~/Papers/bibtexLibrary.bib
