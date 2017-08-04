@@ -1,5 +1,5 @@
 #+TITLE: Deepak Cherian
-#+SUBTITLE: physical oceanographer @@html:<br />@@ Research Associate (Post-doc), Oregon State University @@html:<br /> <a href="mailto:dcherian@ceoas.oregonstate.edu">dcherian@ceoas.oregonstate.edu</a>@@
+#+SUBTITLE: physical oceanographer @@html:<br />@@ Research Associate (Post-doc), Oregon State University @@html:<br /> <a href="mailto:dcherian@ceoas.oregonstate.edu">dcherian@ceoas.oregonstate.edu</a> <br /> <a class="logo" href="https://orcid.org/0000-0002-6861-8734" rel="noopener noreferrer"><img src="static/orcid_32x32.png" alt="ORCID iD icon"></a><a class="logo" href="https://github.com/dcherian"><img src="static/github.png" alt="Github link"></a>@@
 #+AUTHOR: Deepak Cherian
 #+EMAIL: deepak@cherian.net
 #+KEYWORDS: physical oceanography, eddies, science, ocean,
