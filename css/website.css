@@ -86,12 +86,6 @@ a:hover {
     border-radius: 4px;
 }
 
-a.logo {
-    vertical-align: middle;
-    width: 32px;
-}
-a.logo:after{all:unset;}
-a.logo:hover{background:none; border-radius:none; transition-property:none;}
 /* --- General lists --- */
 li {
     padding: 0px 0px 5px 0px;
@@ -209,7 +203,7 @@ img {
     line-height: 1.6em;
     font-weight: 300;
     text-align: right;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 
@@ -258,3 +252,17 @@ video {
     width: 100%;
     height: auto;
 }
+
+/*--- Icons ---*/
+
+.logo {
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+}
+a.logo {
+    vertical-align: middle;
+    width: 32px;
+}
+a.logo:after{all:unset;}
+a.logo:hover{background:none; border-radius:none; transition-property:none;}
