@@ -163,7 +163,7 @@ Styling gratefully borrowed from [[http://ethanschoonover.com/solarized][Ethan S
 
 Icons from [[http://fontawesome.io/][FontAwesome]] and [[https://jpswalsh.github.io/academicons/][Academicons]].
 
-Website built using [[http://orgmode.org][Emacs Org-mode]]
+Website built using [[http://orgmode.org][Emacs Org-mode]] ([[https://github.com/dcherian/dcherian.github.io/tree/sources][source code]])
 
 # Local Variables:
 # org-publish-use-timestamps-flag: nil
