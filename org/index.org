@@ -3,7 +3,7 @@
 #+AUTHOR: Deepak Cherian
 #+EMAIL: deepak@cherian.net
 #+KEYWORDS: physical oceanography, eddies, science, ocean,
-#+OPTIONS: toc:nil num:nil html5-fancy:t
+#+OPTIONS: toc:nil num:nil html5-fancy:t h:6
 
 # inline svg icons
 #+BEGIN_EXPORT html
@@ -130,17 +130,20 @@ Any comments you might have on these are welcome. Please send me an email.
 :PROPERTIES:
 :CUSTOM_ID: links
 :END:
+**** Visualization
+1. At Real Climate, great [[http://www.realclimate.org/index.php/archives/2017/07/joy-plots-for-climate-change/][animations]] of the change in temperature distributions over the past century.
+2. [[https://www.flickr.com/photos/150411108@N06/35471910724/][Another sweet temperature anomaly animation]].
+3. NASA's [[https://podaac-tools.jpl.nasa.gov/soto/][State of the Ocean]] tool makes it really easy to flip through a bunch of ocean surface variables.
+4. Stunning fluid dynamics images from [[http://www.damtp.cam.ac.uk/user/msd38/gallery.html][Dr. Megan S Davies Wykes at DAMTP]].
+**** Literature
 1. [[http://peabody.yale.edu/scientific-publications/classic-papers-journal-marine-research][JMR's "classic papers"]]
-2. [[http://img.timeinc.net/time/magazine/archive/covers/1956/1101561217_400.jpg][Carl-Gustaf Rossby on the cover of TIME magazine]]
-3. [[https://fermatslibrary.com/s/assessing-dangerous-climate-change][Fermat's library featured an annotated climate science paper — Hansen et al. (2013)!]]
-4. [[https://empslocal.ex.ac.uk/people/staff/gv219/classics.d/index.html][Geoff Vallis' collection of classic GFD papers]]
-5. [[http://forecastpod.org][Forecast]]: Climate science podcast with Nature's editor for climate science, Michael White. Interviews with meteorologists, oceanographers, environmental economists and more! E.g. [[http://forecastpod.org/index.php/2017/04/20/jennifer-mackinnon-swirly-things/][Jen MacKinnon]]
-6. Stunning fluid dynamics images from [[http://www.damtp.cam.ac.uk/user/msd38/gallery.html][Dr. Megan S Davies Wykes at DAMTP]].
-7. NASA's [[https://podaac-tools.jpl.nasa.gov/soto/][State of the Ocean]] tool makes it really easy to flip through a bunch of ocean surface variables.
-8. At Real Climate, great [[http://www.realclimate.org/index.php/archives/2017/07/joy-plots-for-climate-change/][animations]] of the change in temperature distributions over the past century.
-9. [[http://bhavana.timc.org.in][Bhāvanā]] - a magazine at the intersection of math & history in India. Good stuff!
-10. [[https://storify.com/BlueLotus/mughal-science-reactions][Mughal science reactions?!]]
-11. [[https://www.flickr.com/photos/150411108@N06/35471910724/][Another sweet temperature anomaly animation]].
+2. [[https://empslocal.ex.ac.uk/people/staff/gv219/classics.d/index.html][Geoff Vallis' collection of classic GFD papers]]
+3. [[http://bhavana.timc.org.in][Bhāvanā]] - a magazine at the intersection of math & history in India. Good stuff!
+4. [[http://forecastpod.org][Forecast]]: Climate science podcast with Nature's editor for climate science, Michael White. Interviews with meteorologists, oceanographers, environmental economists and more! E.g. [[http://forecastpod.org/index.php/2017/04/20/jennifer-mackinnon-swirly-things/][Jen MacKinnon]]
+5. [[https://fermatslibrary.com/s/assessing-dangerous-climate-change][Fermat's library featured an annotated climate science paper — Hansen et al. (2013)!]]
+**** Misc.
+1. [[http://img.timeinc.net/time/magazine/archive/covers/1956/1101561217_400.jpg][Carl-Gustaf Rossby on the cover of TIME magazine]]
+2. [[https://storify.com/BlueLotus/mughal-science-reactions][Mughal science reactions?!]]
 
 * Contact
 :PROPERTIES:
