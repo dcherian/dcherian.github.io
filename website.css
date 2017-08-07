@@ -41,11 +41,7 @@ body {
     text-rendering: optimizeLegibility;
 }
 
-strong {
-    font-weight: 500;
-}
-
-b {
+b, strong {
     font-weight: 500;
 }
 
@@ -150,7 +146,13 @@ h1, h2, h3 {
 h1 { font-size: 1.5em; padding-top: 2.5em;}
 h2 { font-size: 1.4em; padding-top: 1.5em;}
 h3, h4 { font-weight: 400; font-size: 1.3em; color: #073642}
-h5, h6 { font-size: 1.15em; }
+h5, h6 {
+    font-size: 1.15em;
+    font-weight:normal;
+    margin-top:-0.15em;
+    margin-bottom:-0.4em;
+    padding-left: 0.5em;
+}
 h4 {padding-block-start: 0.8em;}
 
 h1, h1 a, h1 a:visited,
