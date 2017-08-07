@@ -140,6 +140,8 @@ Any comments you might have on these are welcome. Please send me an email.
 8. At Real Climate, great [[http://www.realclimate.org/index.php/archives/2017/07/joy-plots-for-climate-change/][animations]] of the change in temperature distributions over the past century.
 9. [[http://bhavana.timc.org.in][Bhāvanā]] - a magazine at the intersection of math & history in India. Good stuff!
 10. [[https://storify.com/BlueLotus/mughal-science-reactions][Mughal science reactions?!]]
+11. [[https://www.flickr.com/photos/150411108@N06/35471910724/][Another sweet temperature anomaly animation]].
+
 * Contact
 :PROPERTIES:
 :CUSTOM_ID: contact
@@ -155,6 +157,8 @@ Any comments you might have on these are welcome. Please send me an email.
 My work has been funded by the US National Science Foundation and the Office of Naval Research.
 
 Styling gratefully borrowed from [[http://ethanschoonover.com/solarized][Ethan Schoonover]], [[http://www.labri.fr/perso/nrougier/from-python-to-numpy/%20][Nicolas P. Rougier]] and [[http://practicaltypography.com/][Matthew Butterick]].
+
+Icons from [[http://fontawesome.io/][FontAwesome]] and [[https://jpswalsh.github.io/academicons/][Academicons]].
 
 Website built using [[http://orgmode.org][Emacs Org-mode]]
 
