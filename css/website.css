@@ -20,24 +20,20 @@
 /* $blue:      #268bd2; */
 /* $cyan:      #2aa198; */
 /* $green:     #859900; */
-/* $fontstack: "ff-din-web-pro-1","ff-din-web-pro-2",sans-serif; */
 /* $hmargin:   70px; */
 /* $vmargin:   20px; */
 
-html {
-}
-
 body {
-    color: #094b5c; /* #657b83; */
+    /* color: #094b5c; /\* #657b83; *\/ */
+    color: #073642;
     font-family: 'Fira Sans', sans-serif;
-    font-size: 18px;
+    font-size: 15pt;
     font-weight: 300;
     line-height: 1.5em;
     padding: 1em;
     margin: 40px auto;
     max-width: 44em;
     background: #fdf6e3;
-    /* background: #eee; */
     text-rendering: optimizeLegibility;
 }
 
@@ -47,7 +43,7 @@ b, strong {
 
 p {
     margin: 1em 0;
-    text-align: justify;
+    text-align: left;
 }
 
 ::-moz-selection {
@@ -76,15 +72,9 @@ a::after {
 }
 a:hover {
     background: #eee8d5;
-
     transition-property: background;
     transition-duration: 0.1s;
-    border-radius: 4px;
-}
-
-/* --- General lists --- */
-li {
-    padding: 0px 0px 5px 0px;
+    border-radius: 0.3em;
 }
 
 /* --- Navigation Menu --- */
@@ -118,25 +108,8 @@ li {
 .menu a::after {
     content: "";
 }
+
 /* --- Headers ------------------------------------------------------------- */
-h1::before {
-    counter-increment: h1;
-    margin-right:10px;
-    color: white;
-    background-color: black;
-    padding-left: 10px; padding-right:10px;
-}
-h2::before {
-    counter-increment: h2;
-    margin-right: 10px;
-}
-h3::before {
-    /*
-    content: counter(h1) "."counter(h2) "."counter(h3) " ";
-    counter-increment: h3;
-    margin-right:10px;
-   */
-}
 
 h1, h2, h3 {
     padding: 15px 0 3px;
@@ -145,7 +118,7 @@ h1, h2, h3 {
 }
 h1 { font-size: 1.5em; padding-top: 2.5em;}
 h2 { font-size: 1.4em; padding-top: 1.5em;}
-h3, h4 { font-weight: 400; font-size: 1.3em; color: #073642}
+h3, h4 { font-weight: 400; font-size: 1.3em;}
 h5, h6 {
     font-size: 1.15em;
     font-weight:normal;
@@ -153,36 +126,33 @@ h5, h6 {
     margin-bottom:-0.4em;
     padding-left: 0.5em;
 }
-h4 {padding-block-start: 0.8em;}
 
-h1, h1 a, h1 a:visited,
-h2, h2 a, h2 a:visited,
-h3, h3 a, h3 a:visited {
-    color: black;
-}
-h1, h1 a, h1 a:visited {
-    text-decoration: none;
-    color: black;
-    margin-top: 3em;
-    border-bottom: 2px solid black;
-    padding-left:  5%;
-    margin-left:  -5%;
-}
-h1 a:hover {
-    color: #06e;
-/*       color: white;
-       background-color: black; */
-}
-h2 a:hover, h3 a:hover {
-    color: black;
-    border-bottom: 1px solid black;
+/* ------ sections ------ */
+div.research {
+    overflow: auto;
 }
 
-/* --- Images -------------------------------------------------------------- */
+div.links {
+    margin-left: 1em;
+}
+
+/* --- content lists --- */
+li {
+    padding: 0px 0px 0.2em 0px;
+    margin-left: 0.5em;
+}
+
+/* --- Media ------------ */
 img {
     padding: 5px 20px;
     /* border: 1px solid; */
 }
+
+video {
+    width: 100%;
+    height: auto;
+}
+
 
 /* --- Title/Subtitle ------------------------------------------------------ */
 
@@ -192,30 +162,25 @@ img {
     font-weight: 300;
     text-align: right;
     margin-top: -1em;
-    border: none;
 }
 .title::before {
     content: url('static/me.png');
     float: left;
-    background: inherit;
-    margin-top: -0.3em;
+    /* background: inherit; */
+    /* margin-top: -0.3em; */
 }
 .subtitle {
     font-size: 1.2em;
-    line-height: 1.6em;
+    line-height: 1.5em;
     font-weight: 300;
     text-align: right;
-    margin-bottom: 10px;
+    margin-bottom: 1em;
 }
 
 
 /* --- Code ---------------------------------------------------------------- */
-src {
-    font-size: 95%;
-    font-weight: 300;
-}
 pre.src {
-    font-size:      85%;
+    font-size:      90%;
     font-family:    monospace;
     line-height:    125%;
     /* background:     #fcfcfc; */
@@ -248,21 +213,44 @@ table {
     margin-left: auto;
     margin-right: auto;
     min-width: 33%;
+    border-top:     .5px solid #ccc;
+    border-bottom:  .5px solid #ccc;
+    padding-top:    0.5em;
+    padding-bottom: 0.5em;
 }
 
-video {
-    width: 100%;
-    height: auto;
+td {
+    padding: 0.2em 0.5em;
+    text-align: center;
 }
 
 /*--- Icons ---*/
 
 .logo {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     padding: 4px;
     vertical-align: middle;
 }
-a.logo {width: 32px; height: 32px;}
+a.logo {width: 36px; height: 36px;}
 a.logo:after{all:unset;}
 a.logo:hover{background:none; border-radius:0px; transition-property:none;}
+
+/*
+h1::before {
+    counter-increment: h1;
+    margin-right:10px;
+    color: white;
+    background-color: black;
+    padding-left: 10px; padding-right:10px;
+}
+h2::before {
+    counter-increment: h2;
+    margin-right: 10px;
+}
+h3::before {
+    content: counter(h1) "."counter(h2) "."counter(h3) " ";
+    counter-increment: h3;
+    margin-right:10px;
+}
+*/
