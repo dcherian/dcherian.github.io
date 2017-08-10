@@ -2,8 +2,8 @@
 
 .title {
     text-align: left;
-    margin-top: 32px;
-    margin-bottom: 32px;
+    margin-top: -1em;
+    margin-bottom: 1em;
     line-height: 1.2em;
 }
 .title::before {
