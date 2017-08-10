@@ -85,8 +85,8 @@ a:hover {
     background-color: #eee8d5;
     color: #dc322f;
     margin: auto;
-    padding: 8px;
-    list-style-type: none;
+    padding: 0.4em;
+    /* list-style-type: none; */
     text-align: center;
 }
 
@@ -95,18 +95,27 @@ a:hover {
     /* display: block; */
     padding: 8px;
     text-align: center;
-    border-right: 1px solid #bbb;
+    /* border-left: 1px solid #bbb; */
+    /* border-right: 1px solid #bbb; */
 }
-
+/*
 .menu li:last-child {
     border-right: none;
 }
-
+*/
 .menu a:hover {
     color: #268bd2;
 }
 .menu a::after {
     content: "";
+}
+
+/*--- Responsive --------------------------------------*/
+@media screen and (max-width : 840px){
+    .menu li {
+	display: block;
+	width: 100%;
+    }
 }
 
 /* --- Headers ------------------------------------------------------------- */
