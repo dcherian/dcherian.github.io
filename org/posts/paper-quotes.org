@@ -34,8 +34,7 @@
     — Ecclesiastes 7:24 (King James Version)
    #+END_QUOTE
 
-6. A long saga on fitting an elephant:
-   First Enrico Fermi quotes John von Neumann to Freeman Dyson, critizing the latter's model (citep:Dyson2004):
+6. Enrico Fermi quotes John von Neumann to Freeman Dyson, critizing the latter's model (citep:Dyson2004):
    #+BEGIN_QUOTE
    "I remember my friend Johnny von Neumann used to say, with four parameters I can fit an elephant, and with five I can make him wiggle his trunk." - Enrico Fermi
    #+END_QUOTE
@@ -50,6 +49,10 @@
    With five, they give the elephant an eye and make it's trunk wiggle!
 
    Python implementation [[https://www.johndcook.com/blog/2011/06/21/how-to-fit-an-elephant/][here]].
+
+7. ...
+   #+ATTR_HTML: :width 100%
+   [[file:~/work/website/org/static/obama-author.png]]
 
 # 5. Walter Munk introduces the Tijuana boundary condition.
 # 6. Stommel's demon?
