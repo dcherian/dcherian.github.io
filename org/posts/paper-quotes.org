@@ -52,7 +52,7 @@
 
 7. ...
    #+ATTR_HTML: :width 100%
-   [[file:~/work/website/org/static/obama-author.png]]
+   [[file:../static/obama-author.png]]
 
 # 5. Walter Munk introduces the Tijuana boundary condition.
 # 6. Stommel's demon?
