@@ -13,7 +13,7 @@
 - [[Contact]]
 
 * Update
-[[https://www.researchgate.net/profile/Andre_Paloczy][André Palóczy]] has implemented some of these ideas [[https://github.com/apaloczy/reproducibility][in Python]].
+[[https://www.researchgate.net/profile/Andre_Paloczy][André Palóczy]] has implemented some of [[https://github.com/apaloczy/reproducibility][these ideas in Python]].
 * Software
 - Version control system to track content. I use [[http://www.git-scm.org][~git~]].
 - [[http://www.sno.phy.queensu.ca/~phil/exiftool/][~exiftool~]] to read and write metadata to images
