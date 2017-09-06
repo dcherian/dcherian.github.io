@@ -1,19 +1,27 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html lang="en">
 <head>
-<!-- 2017-08-04 Fri 21:23 -->
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 2017-09-06 Wed 14:48 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A setup for reproducible research</title>
-<meta name="generator" content="Org mode" />
-<meta name="keywords" content="reproducible; research; physical oceanography, eddies, science, ocean," />
+<meta name="generator" content="Org mode">
+<meta name="keywords" content="reproducible; research; physical oceanography, eddies, science, ocean,">
 <link rel="stylesheet" href="./website.css" type="text/css" /> <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500" rel="stylesheet">
 </head>
 <body>
 <div id="content">
 <header>
 <h1 class="title">A setup for reproducible research</h1>
-</header><div id="outline-container-org1ba64a5" class="outline-2">
+</header><section id="outline-container-orgb72b573" class="outline-2">
+<h2 id="orgb72b573">Update</h2>
+<div class="outline-text-2" id="text-orgb72b573">
+<p>
+<a href="https://www.researchgate.net/profile/Andre_Paloczy">André Palóczy</a> has implemented some of <a href="https://github.com/apaloczy/reproducibility">these ideas in Python</a>.
+</p>
+</div>
+</section>
+<section id="outline-container-org1ba64a5" class="outline-2">
 <h2 id="org1ba64a5">Software</h2>
 <div class="outline-text-2" id="text-org1ba64a5">
 <ul class="org-ul">
@@ -22,8 +30,8 @@
 <li>I have some code below for MATLAB but the principles could be extended to any other software package.</li>
 </ul>
 </div>
-</div>
-<div id="outline-container-org628421c" class="outline-2">
+</section>
+<section id="outline-container-org628421c" class="outline-2">
 <h2 id="org628421c">Strategy</h2>
 <div class="outline-text-2" id="text-org628421c">
 <p>
@@ -46,8 +54,8 @@ With data files, it is simple to add an extra variable containing the hash.
 With figures, I use the metadata fields to save the hash value.
 </p>
 </div>
-</div>
-<div id="outline-container-orgfa806fa" class="outline-2">
+</section>
+<section id="outline-container-orgfa806fa" class="outline-2">
 <h2 id="orgfa806fa">Getting the current hash in MATLAB</h2>
 <div class="outline-text-2" id="text-orgfa806fa">
 <p>
@@ -92,9 +100,9 @@ This provides <code>githash</code> with the path to the current mfile that is ca
 Quite frequently, I calculate diagnostics that take a while which means that rerunning them every time I make an image is not feasible. I save the <code>hash</code> variable to the file containing diagnostic output. This lets me know what version of the code created that version of the saved output.
 </p>
 </div>
-</div>
+</section>
 
-<div id="outline-container-org2e3fad8" class="outline-2">
+<section id="outline-container-org2e3fad8" class="outline-2">
 <h2 id="org2e3fad8">Using the hash</h2>
 <div class="outline-text-2" id="text-org2e3fad8">
 <p>
@@ -116,9 +124,9 @@ both of which are saved in the metadata of the figure <i>itself</i>.
 <code>getAnnotation</code> can then recover the saved metadata when saving a figure to file.
 </p>
 </div>
-</div>
+</section>
 
-<div id="outline-container-org7781b68" class="outline-2">
+<section id="outline-container-org7781b68" class="outline-2">
 <h2 id="org7781b68">Saving the hash in an image file</h2>
 <div class="outline-text-2" id="text-org7781b68">
 <p>
@@ -141,15 +149,15 @@ The above tells exiftool to save the contents of variable <code>hash</code> in t
 <caption class="t-above"><span class="table-number">Table 1:</span> Metadata fields for various image formats that I use to save hashes.</caption>
 
 <colgroup>
-<col  class="org-left" />
+<col  class="org-left">
 
-<col  class="org-left" />
+<col  class="org-left">
 
-<col  class="org-left" />
+<col  class="org-left">
 
-<col  class="org-left" />
+<col  class="org-left">
 
-<col  class="org-left" />
+<col  class="org-left">
 </colgroup>
 <tbody>
 <tr>
@@ -178,9 +186,9 @@ The above tells exiftool to save the contents of variable <code>hash</code> in t
 Searching for <code>hash</code> in my fork of <a href="https://github.com/dcherian/export_fig/blob/master/export_fig.m"><code>export_fig.m</code></a> will show you how <code>imwrite</code> can be used.
 </p>
 </div>
-</div>
+</section>
 
-<div id="outline-container-org902090e" class="outline-2">
+<section id="outline-container-org902090e" class="outline-2">
 <h2 id="org902090e">Extracting commit hash from image metadata</h2>
 <div class="outline-text-2" id="text-org902090e">
 <p>
@@ -197,7 +205,7 @@ To recover the recorded hash, it suffices to call <code>exiftool FILENAME</code>
 </pre>
 </div>
 </div>
-</div>
+</section>
 </div>
 </body>
 </html>
