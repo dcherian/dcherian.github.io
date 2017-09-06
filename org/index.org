@@ -28,7 +28,7 @@
 
 # navigation menu
 #+BEGIN_EXPORT html
-<nav class="outline-2 menu">
+<nav class="menu">
 <ul class="org-ul">
 <li><a href="static/Deepak-Cherian-CV.pdf">CV</a></li>
 <li><a href="#current-research">Current Research</a></li>
@@ -55,12 +55,11 @@
    #+ATTR_HTML: :align left :width 50%
    [[file:static/bob-chipods.png]]
 
-   #+HTML: <br><br><br><br>
-   We are studying multiple year-long measurements of mixing from [[http://mixing.coas.oregonstate.edu/papers/mixing_measurements.pdf][χ-pod sensors]] deployed throughout the Bay of Bengal in 2014 and 2015 as part of the ASIRI/EBoB/DYNAMO projects.
+   Multiple year-long moored turbulent mixing measurements collected using fast temperature sensors ([[http://mixing.coas.oregonstate.edu/papers/mixing_measurements.pdf][χ-pods]]) as part of the [[http://journals.ametsoc.org/doi/10.1175/BAMS-D-14-00197.1][ASIRI]]/[[https://www.eol.ucar.edu/field_projects/dynamo][DYNAMO]]/EBoB/[[https://www.pmel.noaa.gov/gtmba/pmel-theme/indian-ocean-rama][RAMA]] programmes paint a picture of mixing across the Bay of Bengal that spans multiple time scales: interannual to diurnal and shorter.
 
-   (map courtesy Emily Shroyer)
+   Interesting signals include interannual & intraseasonal variability, a daily cycle in turbulence, depressed turbulence in barrier layers, elevated mixing associated with the tropical cyclones and a quiet ocean below 50m.
 
-   #+HTML: <br><br><br><br><br>
+   (map shows past and proposed deployments - courtesy Emily Shroyer)
 
 *** Inertial-gravity waves in the equatorial Pacific
 :PROPERTIES:
@@ -75,7 +74,7 @@
 
    Satellite observations give humanity an unprecedented detailed look at the surface ocean. The vertical structure of variability associated with surface signals is relatively less known, and the relevance of theoretical structures derived using strict assumptions is debated; viz., the so-called baroclinic vertical modes.
 
-   Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculated by [[http://dx.doi.org/10.1175/JPO-D-11-0235.1][Farrar & Durland (2012)]] --- see image on right ---  my goal is to infer the vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific (filter band marked by horizontal lines). I am using long term subsurface temperature measurements and inferred dynamic height from [[http://www.pmel.noaa.gov/tao/drupal/disdel/][the TAO/TRITON project]].
+   Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculated by [[http://dx.doi.org/10.1175/JPO-D-11-0235.1][Farrar & Durland (2012)]] --- see image on right ---  my goal is to infer the vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific (filter band marked by horizontal lines). I am using long term subsurface temperature measurements and inferred dynamic height from [[https://www.pmel.noaa.gov/gtmba/pmel-theme/pacific-ocean-tao][the TAO/TRITON project]].
 
 *** Shelf flows forced by mesoscale eddies
 :PROPERTIES:
@@ -141,6 +140,7 @@ Any comments you might have on these are welcome. Please send me an email.
 2. [[file:posts/hemingway-cocktail.org]["Death in the Gulf Stream" - A Hemingway cocktail]]
 3. [[file:static/living-with-roms.pdf][Living with ROMS]] - Some notes on ROMS
 4. [[file:posts/paper-quotes.org][Interesting quotes from the scientific literature]]
+5. [[https://github.com/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb][An IPython notebook demonstrating xkcd-style schematics using matplotlib.]]
 # 4. [[file:posts/po-movies.org][Some movies relevant to physical oceanographers]]
 * Links
 :PROPERTIES:
