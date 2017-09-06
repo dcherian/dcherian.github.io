@@ -50,17 +50,17 @@
 :HTML_CONTAINER_CLASS: research
 :HTML_CONTAINER: article
 :END:
-   With [[http://people.oregonstate.edu/~shroyere/Welcome.html][Emily Shroyer (OSU)]] & the [[http://mixing.coas.oregonstate.edu/][OSU Ocean Mixing Group]].
+   With [[http://people.oregonstate.edu/~shroyere/Welcome.html][Emily Shroyer (OSU)]], [[http://mixing.coas.oregonstate.edu/people/jmoum/][Jim Moum (OSU)]] & the [[http://mixing.coas.oregonstate.edu/][OSU Ocean Mixing Group]].
 
    #+ATTR_HTML: :align left :width 50%
    [[file:static/bob-chipods.png]]
 
-   #+HTML: <br><br><br>
-   We are studying multiple year-long measurements of mixing from [[http://mixing.coas.oregonstate.edu/papers/mixing_measurements.pdf][χ-pod sensors]] deployed throughout the Bay of Bengal in 2014 and 2015 as part of the ASIRI/RAMA/EBoB projects.
+   #+HTML: <br><br><br><br>
+   We are studying multiple year-long measurements of mixing from [[http://mixing.coas.oregonstate.edu/papers/mixing_measurements.pdf][χ-pod sensors]] deployed throughout the Bay of Bengal in 2014 and 2015 as part of the ASIRI/EBoB/DYNAMO projects.
 
    (map courtesy Emily Shroyer)
 
-   #+HTML: <br><br><br>
+   #+HTML: <br><br><br><br><br>
 
 *** Inertial-gravity waves in the equatorial Pacific
 :PROPERTIES:
