@@ -75,7 +75,7 @@
 
    Satellite observations give humanity an unprecedented detailed look at the surface ocean. The vertical structure of variability associated with surface signals is relatively less known, and the relevance of theoretical structures derived using strict assumptions is debated; viz., the so-called baroclinic vertical modes.
 
-   Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculated by [[doi:10.1175/JPO-D-11-0235.1][Farrar & Durland (2012)]] --- see image on right ---  my goal is to infer the vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific (filter band marked by horizontal lines). I am using long term subsurface temperature measurements and inferred dynamic height from [[http://www.pmel.noaa.gov/tao/drupal/disdel/][the TAO/TRITON project]].
+   Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculated by [[http://dx.doi.org/10.1175/JPO-D-11-0235.1][Farrar & Durland (2012)]] --- see image on right ---  my goal is to infer the vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific (filter band marked by horizontal lines). I am using long term subsurface temperature measurements and inferred dynamic height from [[http://www.pmel.noaa.gov/tao/drupal/disdel/][the TAO/TRITON project]].
 
 *** Shelf flows forced by mesoscale eddies
 :PROPERTIES:
@@ -112,15 +112,15 @@ Observational evidence for these features remains elusive.
 :HTML_CONTAINER_CLASS: papers
 :HTML_CONTAINER: article
 :END:
-- *Cherian D.A.*, Brink K.H.  2016. [[doi:10.1175/JPO-D-16-0085.1][Offshore Transport of Shelf Water by Deep-Ocean Eddies.]] /Journal of Physical Oceanography/. 46 3599–3621
+- *Cherian D.A.*, Brink K.H.  2016. [[http://dx.doi.org/10.1175/JPO-D-16-0085.1][Offshore Transport of Shelf Water by Deep-Ocean Eddies.]] /Journal of Physical Oceanography/. 46 3599–3621
 *** 2013
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: papers
 :HTML_CONTAINER: article
 :END:
-- Haine T.W.N., *Cherian D.A.* 2013. [[doi:10.1175/BAMS-D-12-00023.1][Analogies of Ocean/Atmosphere Rotating Fluid Dynamics with Gyroscopes: Teaching Opportunities.]] /Bull. Amer. Meteor. Soc./. 94:684.
+- Haine T.W.N., *Cherian D.A.* 2013. [[http://dx.doi.org/10.1175/BAMS-D-12-00023.1][Analogies of Ocean/Atmosphere Rotating Fluid Dynamics with Gyroscopes: Teaching Opportunities.]] /Bull. Amer. Meteor. Soc./. 94:684.
 
-- Brink K.H., *Cherian D.A.*  2013. [[doi:10.1357/002224013812587582][Instability of an idealized tidal mixing front: Symmetric instabilities and frictional effects.]] /Journal of Marine Research/. 71(6):26.
+- Brink K.H., *Cherian D.A.*  2013. [[http://dx.doi.org/10.1357/002224013812587582][Instability of an idealized tidal mixing front: Symmetric instabilities and frictional effects.]] /Journal of Marine Research/. 71(6):26.
 * Teaching
 :PROPERTIES:
 :CUSTOM_ID: teaching
@@ -172,7 +172,7 @@ Any comments you might have on these are welcome. Please send me an email.
 :HTML_CONTAINER_CLASS: links
 :HTML_CONTAINER: article
 :END:
-1. [[http://img.timeinc.net/time/magazine/archive/covers/1956/1101561217_400.jpg][Carl-Gustaf Rossby on the cover of TIME magazine]]
+1. [[http://img.timeinc.net/time/magazine/archive/covers/1956/1101561217_400.jpg][Carl-Gustaf Rossby on the cover of TIME magazine]].
 2. [[https://storify.com/BlueLotus/mughal-science-reactions][Mughal science reactions?!]]
 * Contact
 :PROPERTIES:
