@@ -81,7 +81,7 @@ a:hover {
 /* --- Navigation Menu --- */
 .menu {
     background-color: #fdf6e3;
-    color: #dc322f;
+    color: #cb4b16;
     position: sticky;		/*fixed */
     top: 0em;
     left: 0;
@@ -91,6 +91,7 @@ a:hover {
     /* padding: -0.5em; */
     display: block;
     z-index: 999;
+    font-size: 1.1em;
     border-top: 1.5px solid #bbb;
     border-bottom: 1.5px solid #bbb;
 }
@@ -152,12 +153,20 @@ h2::before {
     visibility: hidden;
 }
 
+.links h5::before, h4::before {
+    content: "§";
+    padding-right: 1.2%;
+    font-size: 1.5em;
+    font-weight: 100;
+    vertical-align: middle;
+    color: #cb4b16;
+}
 /* ------ sections ------ */
 
 .research {
     overflow: auto;
+    padding-bottom: 2%;
 }
-
 
 article, .outline-text-2 {
     margin-left: 1em;
