@@ -109,7 +109,7 @@ a:hover {
     margin-left: 0px;
 }
 .menu ul:after{
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 
 .menu a:hover {
@@ -153,12 +153,13 @@ h2::before {
 }
 
 /* ------ sections ------ */
+
 .research {
     overflow: auto;
-    display:block;
 }
 
-.links {
+
+article, .outline-text-2 {
     margin-left: 1em;
 }
 
