@@ -153,11 +153,12 @@ h2::before {
 }
 
 /* ------ sections ------ */
-div.research {
+.research {
     overflow: auto;
+    display:block;
 }
 
-div.links {
+.links {
     margin-left: 1em;
 }
 
