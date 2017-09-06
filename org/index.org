@@ -110,11 +110,13 @@ Observational evidence for these features remains elusive.
 *** 2016
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: papers
+:HTML_CONTAINER: article
 :END:
 - *Cherian D.A.*, Brink K.H.  2016. [[doi:10.1175/JPO-D-16-0085.1][Offshore Transport of Shelf Water by Deep-Ocean Eddies.]] /Journal of Physical Oceanography/. 46 3599–3621
 *** 2013
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: papers
+:HTML_CONTAINER: article
 :END:
 - Haine T.W.N., *Cherian D.A.* 2013. [[doi:10.1175/BAMS-D-12-00023.1][Analogies of Ocean/Atmosphere Rotating Fluid Dynamics with Gyroscopes: Teaching Opportunities.]] /Bull. Amer. Meteor. Soc./. 94:684.
 
