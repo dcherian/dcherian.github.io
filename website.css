@@ -80,6 +80,7 @@ a:hover {
 
 /* --- Navigation Menu --- */
 .menu {
+    background-color: #fdf6e3;
     color: #cb4b16;
     position: sticky;		/*fixed */
     top: 0em;
