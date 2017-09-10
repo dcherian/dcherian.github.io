@@ -80,7 +80,6 @@ a:hover {
 
 /* --- Navigation Menu --- */
 .menu {
-    background-color: #fdf6e3;
     color: #cb4b16;
     position: sticky;		/*fixed */
     top: 0em;
@@ -115,7 +114,7 @@ a:hover {
 
 .menu a:hover {
     color: #268bd2;
-    background: #fdf6e3;
+    background: inherit;
 }
 .menu a::after {
     content: "";
