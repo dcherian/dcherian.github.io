@@ -78,6 +78,16 @@ a:hover {
     border-radius: 0.3em;
 }
 
+
+#postamble {
+    padding-top: 1em;
+    border-top: 1.5px solid #bbb;
+}
+
+#content {
+    padding-bottom: 1em;
+}
+
 /* --- Navigation Menu --- */
 .menu {
     background-color: #fdf6e3;
@@ -267,11 +277,6 @@ td {
     height: 36px;
     padding: 4px;
     vertical-align: middle;
-}
-
-#postamble {
-    padding-top: 1em;
-    border-top: 1.5px solid #bbb;
 }
 
 .cc-logo {
