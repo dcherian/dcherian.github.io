@@ -29,38 +29,38 @@
 :HTML_CONTAINER_CLASS: research
 :HTML_CONTAINER: article
 :END:
-   With [[http://people.oregonstate.edu/~shroyere/Welcome.html][Emily Shroyer (OSU)]], [[http://mixing.coas.oregonstate.edu/people/jmoum/][Jim Moum (OSU)]] & the [[http://mixing.coas.oregonstate.edu/][OSU Ocean Mixing Group]].
+With [[http://people.oregonstate.edu/~shroyere/Welcome.html][Emily Shroyer (OSU)]], [[http://mixing.coas.oregonstate.edu/people/jmoum/][Jim Moum (OSU)]] & the [[http://mixing.coas.oregonstate.edu/][OSU Ocean Mixing Group]].
 
-   #+ATTR_HTML: :align left :width 50%
-   [[file:static/bob-chipods.png]]
+#+ATTR_HTML: :align left :width 50%
+[[file:static/bob-chipods.png]]
 
-   Multiple year-long moored turbulent mixing measurements collected using fast temperature sensors ([[http://mixing.coas.oregonstate.edu/papers/mixing_measurements.pdf][χ-pods]]) as part of the [[http://journals.ametsoc.org/doi/10.1175/BAMS-D-14-00197.1][ASIRI]]/[[https://www.eol.ucar.edu/field_projects/dynamo][DYNAMO]]/EBoB/[[https://www.pmel.noaa.gov/gtmba/pmel-theme/indian-ocean-rama][RAMA]] programmes paint a picture of mixing across the Bay of Bengal that spans multiple time scales: interannual to diurnal and shorter.
+Multiple year-long moored turbulent mixing measurements collected using fast temperature sensors ([[http://mixing.coas.oregonstate.edu/papers/mixing_measurements.pdf][χ-pods]]) as part of the [[http://journals.ametsoc.org/doi/10.1175/BAMS-D-14-00197.1][ASIRI]]/[[https://www.eol.ucar.edu/field_projects/dynamo][DYNAMO]]/EBoB/[[https://www.pmel.noaa.gov/gtmba/pmel-theme/indian-ocean-rama][RAMA]] programmes paint a picture of mixing across the Bay of Bengal that spans multiple time scales: interannual to diurnal and shorter.
 
-   Interesting signals include interannual & intraseasonal variability, a daily cycle in turbulence, depressed turbulence in barrier layers, elevated mixing associated with the tropical cyclones and a quiet ocean below 50m.
+Interesting signals include interannual & intraseasonal variability, a daily cycle in turbulence, depressed turbulence in barrier layers, elevated mixing associated with the tropical cyclones and a quiet ocean below 50m.
 
-   (map shows past and proposed deployments - courtesy Emily Shroyer)
+(map shows past and proposed deployments - courtesy Emily Shroyer)
 
 *** Inertial-gravity waves in the equatorial Pacific
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: research
 :HTML_CONTAINER: article
 :END:
-   With [[http://www.whoi.edu/profile/tfarrar/][Tom Farrar (WHOI)]] & [[http://ceoas.oregonstate.edu/profile/durland/][Ted Durland (OSU)]] | [[https://github.com/dcherian/eq_waves/][Code]] | [[file:research/eqwaves.org][More detail]]
-   #+ATTR_HTML: :width 44% :align right
-   [[file:static/farrar-durland-spectrum-deepak.png]]
+With [[http://www.whoi.edu/profile/tfarrar/][Tom Farrar (WHOI)]] & [[http://ceoas.oregonstate.edu/profile/durland/][Ted Durland (OSU)]] | [[https://github.com/dcherian/eq_waves/][Code]] | [[file:research/eqwaves.org][More]]
+#+ATTR_HTML: :width 44% :align right
+[[file:static/farrar-durland-spectrum-deepak.png]]
 
-   # convert -colorspace sRGB -density 180 -transparent white -shave 5x0 ~/eq_waves/notes/images/farrar-durland-spectrum.eps farrar-durland-spectrum-deepak.png
+# convert -colorspace sRGB -density 180 -transparent white -shave 5x0 ~/eq_waves/notes/images/farrar-durland-spectrum.eps farrar-durland-spectrum-deepak.png
 
-   Satellite observations give humanity an unprecedented detailed look at the surface ocean. The vertical structure of variability associated with surface signals is relatively less known, and the relevance of theoretical structures derived using strict assumptions is debated; viz., the so-called baroclinic vertical modes.
+Satellite observations give humanity an unprecedented detailed look at the surface ocean. The vertical structure of variability associated with surface signals is relatively less known, and the relevance of theoretical structures derived using strict assumptions is debated; viz., the so-called baroclinic vertical modes.
 
-   Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculated by [[http://dx.doi.org/10.1175/JPO-D-11-0235.1][Farrar & Durland (2012)]] --- see image on right ---  my goal is to infer the vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific (filter band marked by horizontal lines). I am using long term subsurface temperature measurements and inferred dynamic height from [[https://www.pmel.noaa.gov/gtmba/pmel-theme/pacific-ocean-tao][the TAO/TRITON project]].
+Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculated by [[http://dx.doi.org/10.1175/JPO-D-11-0235.1][Farrar & Durland (2012)]] --- see image on right ---  my goal is to infer the vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific (filter band marked by horizontal lines). I am using long term subsurface temperature measurements and inferred dynamic height from [[https://www.pmel.noaa.gov/gtmba/pmel-theme/pacific-ocean-tao][the TAO/TRITON project]].
 
 *** Shelf flows forced by mesoscale eddies
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: research
 :HTML_CONTAINER: article
 :END:
-Advisor: [[http://www.whoi.edu/page.do?pid=23355][Ken Brink (WHOI)]] | [[file:research/eddyshelf.org][More detail]]
+Advisor: [[http://www.whoi.edu/page.do?pid=23355][Ken Brink (WHOI)]] | [[file:research/eddyshelf.org][More]]
 
 One chapter of my dissertation focused on the shelf flows forced by mesoscale eddies translating at the shelfbreak. A manuscript is in preparation.
 
@@ -71,7 +71,7 @@ One chapter of my dissertation focused on the shelf flows forced by mesoscale ed
 :HTML_CONTAINER_CLASS: research
 :HTML_CONTAINER: article
 :END:
-Advisor: [[http://www.whoi.edu/page.do?pid=23355][Ken Brink (WHOI)]] | [[doi:10.1175/JPO-D-16-0085.1][Read the paper!]] | [[file:static/ew-34-csdye.mp4][Video]] | [[file:research/eddyshelf.org][More detail]]
+Advisor: [[http://www.whoi.edu/page.do?pid=23355][Ken Brink (WHOI)]] | [[doi:10.1175/JPO-D-16-0085.1][Read the paper!]] | [[file:static/ew-34-csdye.mp4][Video]] | [[file:research/eddyshelf.org][More]]
 #+ATTR_HTML: :width 45% :align left
 [[file:./static/eddyshelf-3d.png]]
 
