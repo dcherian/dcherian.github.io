@@ -268,9 +268,20 @@ td {
     padding: 4px;
     vertical-align: middle;
 }
+
+#postamble {
+    padding-top: 1em;
+    border-top: 1.5px solid #bbb;
+}
+
+.cc-logo {
+    height: 2em;
+    padding-bottom: 0.8em;
+    vertical-align: middle;
+}
 a.logo {width: 36px; height: 36px;}
-a.logo:after{all:unset;}
-a.logo:hover{background:none; border-radius:0px; transition-property:none;}
+a.logo:after, a.cc-logo:after{all:unset;}
+a.logo:hover, a.cc-logo:hover{background:none; border-radius:0px; transition-property:none;}
 
 /*
 h1::before {
