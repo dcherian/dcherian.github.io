@@ -1,5 +1,4 @@
 #+TITLE: Interesting quotes from papers.
-#+OPTIONS: toc:nil num:nil html5-fancy:t
 
 1. cite:Flierl1978 quotes Karl Marx:
    #+BEGIN_QUOTE
