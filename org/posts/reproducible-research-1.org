@@ -2,16 +2,6 @@
 #+DATE: 19 Jan 2017
 #+KEYWORDS: reproducible; research; physical oceanography, eddies, science, ocean,
 
-* @@html:@@ :noexport:
-:PROPERTIES:
-:HTML_CONTAINER_CLASS: menu
-:END:
-- [[Current Research]]
-- [[Publications]]
-- [[Posts]]
-- [[Videos]]
-- [[Contact]]
-
 * Update
 [[https://www.researchgate.net/profile/Andre_Paloczy][André Palóczy]] has implemented some of [[https://github.com/apaloczy/reproducibility][these ideas in Python]].
 * Software

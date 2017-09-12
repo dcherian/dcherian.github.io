@@ -284,6 +284,13 @@ a.logo {width: 36px; height: 36px;}
 a.logo:after, a.cc-logo:after{all:unset;}
 a.logo:hover, a.cc-logo:hover{background:none; border-radius:0px; transition-property:none;}
 
+/* Quote */
+
+blockquote {
+    border-left: 0.3em solid #eee8d9;
+    padding: 0 1em;
+    margin: 0 1em;
+}
 /*
 h1::before {
     counter-increment: h1;
