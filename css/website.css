@@ -24,15 +24,14 @@
 /* $vmargin:   20px; */
 
 body {
-    /* color: #094b5c; /\* #657b83; *\/ */
-    color: #000; #073642;
+    color: #000; /* #073642; #094b5c; #657b83; */
     font-family: 'Fira Sans', sans-serif;
     font-size: 15.5pt;
     font-weight: 300;
     line-height: 1.5em;
     padding: 1em;
-    margin: auto;
     max-width: 44em;
+    margin: auto;
     background: #fdf6e3;
     text-rendering: optimizeLegibility;
 }
@@ -91,13 +90,15 @@ a:hover {
 /* --- Navigation Menu --- */
 .menu {
     background-color: #fdf6e3;
+    /* color: #000; #cb4b16; */
     position: sticky;		/*fixed */
     top: 0em;
     left: 0;
-    width: 100%;
+    width: 100%; 
     line-height: 1.0;
     z-index: 999;
     font-size: 1.1em;
+    margin: auto;
     border-top: 1.0px solid #bbb;
     border-bottom: 1.0px solid #bbb;
 }
@@ -118,11 +119,11 @@ a:hover {
     text-align: center;
 }
 
-.menu a {
+a.animate-link, .menu a {
     position: relative;
 }
 
-.menu a:before {
+a.animate-link:before, .menu a:before {
     content: "";
     position: absolute;
     width: 100%;
@@ -137,16 +138,18 @@ a:hover {
     transition: all 0.25s ease-in-out 0s;
 }
 
-.menu a:hover {
+a.animate-link:hover, .menu a:hover {
+    /* color: #000; #268bd2; */
     background: inherit;
     position: relative;
 }
-.menu a:hover::before {
+a.animate-link:hover:before, .menu a:hover:before {
     visibility: visible;
     -webkit-transform: scaleX(1);
     transform: scaleX(1);
 }
-.menu a::after {
+
+a.animate-link:after, .menu a:after {
     content: "";
 }
 
