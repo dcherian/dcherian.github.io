@@ -114,7 +114,7 @@ Any comments you might have on these are welcome. Please send me an email.
 :PROPERTIES:
 :CUSTOM_ID: posts
 :END:
-1. [[file:posts/reproducible-research-1.org][Setup for reproducible research]]
+1. [[file:posts/reproducible-research-1.org][A setup for reproducible research]]
 2. [[file:posts/hemingway-cocktail.org]["Death in the Gulf Stream" - A Hemingway cocktail]]
 3. [[file:static/living-with-roms.pdf][Living with ROMS]] - Some notes on ROMS
 4. [[file:posts/paper-quotes.org][Interesting quotes from the scientific literature]]
