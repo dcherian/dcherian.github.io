@@ -6,6 +6,7 @@
     margin-bottom: 1em;
     line-height: 1.2em;
 }
+
 .title::before {
     content: '';
 }
