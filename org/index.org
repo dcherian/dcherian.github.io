@@ -84,6 +84,14 @@ Observational evidence for these features remains elusive.
 :CUSTOM_ID: publications
 :END:
 [[Contact][Contact me]] for copies if you need them.
+*** nearly done
+:PROPERTIES:
+:HTML_CONTAINER_CLASS: papers
+:HTML_CONTAINER: article
+:END:
+- *Cherian D.A.*, Brink K.H.  Shelf flows forced by deep-water anticyclonic eddies at the shelfbreak.
+
+- *Cherian D.A.*, Farrar J.T., Durland T.S. The upper-ocean vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific.
 *** 2016
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: papers
