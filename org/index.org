@@ -1,5 +1,5 @@
 #+TITLE: Deepak Cherian
-#+SUBTITLE: physical oceanographer @@html:<br />@@ Research Associate (Post-doc), Oregon State University @@html:<br /> <a href="mailto:dcherian@ceoas.oregonstate.edu">dcherian@ceoas.oregonstate.edu</a> <br /><a class="logo" href="rss.xml"><svg class="logo feed-logo"><title>RSS feed</title><use xlink:href="#icon-feed"></use></svg></a> <a class="logo" href="https://github.com/dcherian"><svg class="logo"><title>Github profile</title><use xlink:href="#icon-github"></use></svg></a><a class="logo" href="https://orcid.org/0000-0002-6861-8734" rel="noopener noreferrer"><svg class="logo"><title>ORCID profile</title><use xlink:href="#icon-Orcid"></use></svg></a><a class="logo" href="https://scholar.google.com/citations?user=8FbYoygAAAAJ"><svg class="logo"><title>Google Scholar profile</title><use xlink:href="#icon-GoogleScholar"></use></svg></a>@@
+#+SUBTITLE: physical oceanographer @@html:<br />@@ Research Associate (Post-doc), Oregon State University @@html:<br /> <a href="mailto:dcherian@ceoas.oregonstate.edu"> dcherian@ceoas.oregonstate.edu</a> <br /><a class="logo" href="rss.xml"><svg class="logo feed-logo"><title>RSS feed</title><use xlink:href="#icon-rss-square"></use></svg></a> <a class="logo" href="https://github.com/dcherian"><svg class="logo"><title>Github profile</title><use xlink:href="#icon-github"></use></svg></a><a class="logo" href="https://orcid.org/0000-0002-6861-8734" rel="noopener noreferrer"><svg class="logo"><title>ORCID profile</title><use xlink:href="#icon-Orcid"></use></svg></a><a class="logo" href="https://scholar.google.com/citations?user=8FbYoygAAAAJ"><svg class="logo"><title>Google Scholar profile</title><use xlink:href="#icon-GoogleScholar"></use></svg></a>@@
 #+EMAIL: deepak@cherian.net
 #+KEYWORDS: physical oceanography, eddies, science, ocean
 #+OPTIONS: h:6
@@ -185,9 +185,6 @@ Icons from [[http://fontawesome.io/][FontAwesome]] and [[https://jpswalsh.github
 
 Website built using [[http://orgmode.org][Emacs Org-mode]] ([[https://github.com/dcherian/dcherian.github.io/tree/sources][source code]])
 
-# Local Variables:
-# org-publish-use-timestamps-flag: nil
-# End:
 * icons :noexport:
 ** Instructions
 - go to icomoon.io
@@ -197,6 +194,11 @@ Website built using [[http://orgmode.org][Emacs Org-mode]] ([[https://github.com
 - embed that in html and call it
 ** unused
 #+BEGIN_EXPORT html
+    <symbol id="icon-feed" viewBox="0 0 25 32">
+      <title>feed</title>
+      <path d="M6.857 24c0 1.893-1.536 3.429-3.429 3.429s-3.429-1.536-3.429-3.429 1.536-3.429 3.429-3.429 3.429 1.536 3.429 3.429zM16 26.196c0.018 0.321-0.089 0.625-0.304 0.857-0.214 0.25-0.518 0.375-0.839 0.375h-2.411c-0.589 0-1.071-0.446-1.125-1.036-0.518-5.446-4.839-9.768-10.286-10.286-0.589-0.054-1.036-0.536-1.036-1.125v-2.411c0-0.321 0.125-0.625 0.375-0.839 0.196-0.196 0.482-0.304 0.768-0.304h0.089c3.804 0.304 7.393 1.964 10.089 4.679 2.714 2.696 4.375 6.286 4.679 10.089zM25.143 26.232c0.018 0.304-0.089 0.607-0.321 0.839-0.214 0.232-0.5 0.357-0.821 0.357h-2.554c-0.607 0-1.107-0.464-1.143-1.071-0.589-10.375-8.857-18.643-19.232-19.25-0.607-0.036-1.071-0.536-1.071-1.125v-2.554c0-0.321 0.125-0.607 0.357-0.821 0.214-0.214 0.5-0.321 0.786-0.321h0.054c6.25 0.321 12.125 2.946 16.554 7.393 4.446 4.429 7.071 10.304 7.393 16.554z"></path>
+    </symbol>
+
 <symbol id="icon-Orcid2" viewBox="0 0 27 32">
 <title>Orcid2</title>
 <path d="M17.375 12.929c-0.6-0.311-1.414-0.463-2.45-0.463h-2.551v7.563h2.397c0.676 0 1.129-0.016 1.369-0.055 0.237-0.038 0.501-0.116 0.787-0.228 0.487-0.182 0.915-0.453 1.285-0.818 0.359-0.35 0.639-0.758 0.834-1.222 0.194-0.461 0.296-0.944 0.296-1.451 0-0.709-0.181-1.363-0.536-1.96-0.353-0.604-0.829-1.057-1.429-1.366zM17.413 18.251c-0.166 0.168-0.35 0.306-0.551 0.42-0.2 0.116-0.451 0.208-0.75 0.282s-0.72 0.111-1.262 0.111h-1.388v-5.634h1.355c0.524 0 0.896 0.021 1.131 0.059 0.236 0.039 0.485 0.122 0.75 0.245 0.26 0.123 0.492 0.279 0.694 0.47 0.55 0.516 0.822 1.179 0.822 1.992 0 0.829-0.266 1.509-0.8 2.055zM9.6 20.040h1.083v-7.574h-1.083v7.574zM25.933 3.789c-1.006-1.007-2.218-1.509-3.636-1.509h-17.151c-1.418 0-2.629 0.502-3.636 1.509-1.007 1.005-1.509 2.218-1.509 3.636v17.151c0 1.418 0.502 2.631 1.509 3.638 1.007 1.003 2.221 1.507 3.636 1.507h17.151c1.418 0 2.63-0.504 3.636-1.509 1.007-1.007 1.51-2.217 1.51-3.636v-17.151c0-1.418-0.503-2.631-1.51-3.636zM13.721 25.148c-5.052 0-9.147-4.097-9.147-9.147s4.096-9.147 9.147-9.147 9.147 4.097 9.147 9.147-4.096 9.147-9.147 9.147zM10.137 10.187c-0.408 0-0.741 0.334-0.741 0.742 0 0.414 0.333 0.743 0.741 0.743 0.414 0 0.75-0.329 0.75-0.743 0-0.408-0.335-0.742-0.75-0.742z"></path>
@@ -209,6 +211,7 @@ Website built using [[http://orgmode.org][Emacs Org-mode]] ([[https://github.com
 #+END_EXPORT
 * @@html:@@ :noexport:
 :PROPERTIES:
+:HTML_CONTAINER: nav
 :HTML_CONTAINER_CLASS: menu
 :END:
 - [[file:static/Deepak-Cherian-CV.pdf][CV]]
@@ -218,3 +221,6 @@ Website built using [[http://orgmode.org][Emacs Org-mode]] ([[https://github.com
 - [[Posts]]
 - [[Links]]
 - [[Contact]]
+# Local Variables:
+# org-publish-use-timestamps-flag: nil
+# End:
