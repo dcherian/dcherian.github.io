@@ -200,6 +200,10 @@ h2::before {
     padding-bottom: 2%;
 }
 
+.paper-quotes li {
+    margin-bottom: 1em;
+}
+
 article, .outline-text-2 {
     margin-left: 1em;
 }
@@ -335,6 +339,17 @@ h3::before {
     margin-right:10px;
 }
 */
+
+/* Bibliography */
+
+.org-ref-bib b {
+    color: inherit;
+    font-weight: inherit;
+}
+
+.org-ref-bib li {
+    margin-bottom: 0.2em;
+}
 
 /*--- Responsive --------------------------------------*/
 @media screen and (max-width : 1000px){
