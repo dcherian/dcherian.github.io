@@ -1,0 +1,29 @@
+#+TITLE: Deepak Cherian
+#+RSS_FEED_URL: http://www.cherian.net/rss.xml
+
+* xkcd-style schematics using matplotlib.
+:PROPERTIES:
+:ID:       f9f8da88-648a-44a6-88b2-90902e8d08cc
+:PUBDATE:  <2017-09-17 Sun 12:36>
+:END:
+
+[[https://github.com/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb][IPython notebook here.]]
+* Interesting quotes from the scientific literature
+:PROPERTIES:
+:ID:       892e1c45-7e0e-4532-ba6e-e6b7cd62cb77
+:PUBDATE:  <2017-09-17 Sun 12:34>
+:END:
+#+INCLUDE: "paper-quotes.org" :lines "2-"
+
+* "Death in the Gulf Stream" - A Hemingway cocktail
+:PROPERTIES:
+:ID:       8cbacf56-8d94-4e7d-aa27-72425b47367b
+:PUBDATE:  <2017-09-17 Sun 12:36>
+:END:
+#+INCLUDE: "hemingway-cocktail.org" :lines "2-"
+* A setup for reproducible research
+:PROPERTIES:
+:ID:       fc394899-42da-4330-8671-d0fc14d1ac31
+:PUBDATE:  <2017-09-17 Sun 12:34>
+:END:
+#+INCLUDE: "reproducible-research-1.org" :lines "2-"
