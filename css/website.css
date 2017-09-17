@@ -200,6 +200,10 @@ h2::before {
     padding-bottom: 2%;
 }
 
+.paper-quotes li {
+    margin-bottom: 1em;
+}
+
 article, .outline-text-2 {
     margin-left: 1em;
 }
@@ -316,6 +320,35 @@ blockquote {
     border-left: 0.3em solid #eee8d9;
     padding: 0 1em;
     margin: 0 1em;
+}
+/*
+h1::before {
+    counter-increment: h1;
+    margin-right:10px;
+    color: white;
+    background-color: black;
+    padding-left: 10px; padding-right:10px;
+}
+h2::before {
+    counter-increment: h2;
+    margin-right: 10px;
+}
+h3::before {
+    content: counter(h1) "."counter(h2) "."counter(h3) " ";
+    counter-increment: h3;
+    margin-right:10px;
+}
+*/
+
+/* Bibliography */
+
+.org-ref-bib b {
+    color: inherit;
+    font-weight: inherit;
+}
+
+.org-ref-bib li {
+    margin-bottom: 0.2em;
 }
 
 /*--- Responsive --------------------------------------*/
