@@ -305,9 +305,9 @@ td {
     vertical-align: middle;
 }
 .feed-logo {
-    width: 30px;
-    height: 30px;
-    padding: 0;
+    width: 32px;
+    height: 32px;
+    /* padding: 0; */
     margin-bottom: -4px;
 }
 
