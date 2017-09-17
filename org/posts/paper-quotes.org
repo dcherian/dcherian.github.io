@@ -1,6 +1,7 @@
 #+TITLE: Interesting quotes from papers
 #+DATE: 04 July 2017
 
+#+HTML: <div class="paper-quotes">
 1. cite:Flierl1978 quotes Karl Marx:
    #+BEGIN_QUOTE
    A second and, in my opinion, more persuasive argument for our studies is that, in sensitive systems, a small quantitative error may lead to large qualitative errors^1.
@@ -16,7 +17,7 @@
    #+END_QUOTE
 
 3. cite:Sutyrin1994 note insufficient printer resolution in their Figure 2.
-   #+ATTR_HTML: :width 80%
+   #+ATTR_HTML: :style width:70%
    [[file:../static/sutyrin-flierl-fig2.png]]
 
 4. cite:MacKinnon2017 summarize
@@ -39,7 +40,7 @@
    "I remember my friend Johnny von Neumann used to say, with four parameters I can fit an elephant, and with five I can make him wiggle his trunk." - Enrico Fermi
    #+END_QUOTE
 
-   #+ATTR_HTML: :align right :width 40%
+   #+ATTR_HTML: :style float:right;width:40%
    [[file:../static/elephant.png]]
 
    cite:Mayer2010 take on the challenge yielding:
@@ -51,11 +52,12 @@
    Python implementation [[https://www.johndcook.com/blog/2011/06/21/how-to-fit-an-elephant/][here]].
 
 7. ...
-   #+ATTR_HTML: :width 100%
+   #+ATTR_HTML: :style width:100%
    [[file:../static/obama-author.png]]
 
 # 5. Walter Munk introduces the Tijuana boundary condition.
 # 6. Stommel's demon?
 
+#+HTML: </div>
 bibliographystyle:harvard
 bibliography:~/Papers/bibtexLibrary.bib
