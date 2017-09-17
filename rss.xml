@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+     xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+     xmlns:georss="http://www.georss.org/georss"
+     xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+     xmlns:media="http://search.yahoo.com/mrss/"><channel>
+  <title>Deepak Cherian</title>
+  <atom:link href="http://www.cherian.net/rss.xml" rel="self" type="application/rss+xml" />
+  <link>http://www.cherian.net/</link>
+  <description><![CDATA[]]></description>
+  <language>en</language>
+  <pubDate>Sun, 17 Sep 2017 12:53:10 -0700</pubDate>
+  <lastBuildDate>Sun, 17 Sep 2017 12:53:10 -0700</lastBuildDate>
+  <generator>Emacs 25.3 Org-mode 9.1</generator>
+  <webMaster>deepak@darya (Deepak Cherian)</webMaster>
+  <image>
+    <url>http://orgmode.org/img/org-mode-unicorn-logo.png</url>
+    <title>Deepak Cherian</title>
+    <link>http://www.cherian.net/</link>
+  </image>
+
+
+  <item>
+    <title>xkcd-style schematics using matplotlib.</title>
+    <link>http://www.cherian.net/rss.html#org5080931</link>
+    <author>deepak@darya (Deepak Cherian)</author>
+    <guid isPermaLink="false">http://www.cherian.net/rss.html#org5080931</guid>
+    <pubDate>Sun, 17 Sep 2017 12:36:00 -0700</pubDate>
+
+    <description><![CDATA[<p>
+    <a href="https://github.com/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb">IPython notebook here.</a>
+    </p>
+    ]]></description>
+  </item>
+  <item>
+    <title>Interesting quotes from the scientific literature</title>
+    <link>http://www.cherian.net/rss.html#org8ed13ea</link>
+    <author>deepak@darya (Deepak Cherian)</author>
+    <guid isPermaLink="false">http://www.cherian.net/rss.html#org8ed13ea</guid>
+    <pubDate>Sun, 17 Sep 2017 12:34:00 -0700</pubDate>
+
+    <description><![CDATA[<div class="paper-quotes">
+    <ol class="org-ol">
+    <li><p>
+    <a class='org-ref-reference' href="#Flierl1978">Flierl1978</a> quotes Karl Marx:
+    </p>
+    <blockquote>
+    <p>
+    A second and, in my opinion, more persuasive argument for our studies is that, in sensitive systems, a small quantitative error may lead to large qualitative errors<sup>1</sup>.
+    </p>
+
+    <p>
+    ...
+    </p>
+
+    <p>
+    _<sup>1</sup> "Quantitative changes suddenly become qualitative changes" (Karl Marx)
+    </p>
+    </blockquote></li>
+
+    <li><p>
+    <a class='org-ref-reference' href="#Holte2009">Holte2009</a> throw shade at under-performing Canadian Argo floats:
+    </p>
+    <blockquote>
+    <p>
+    Most floats sampled at regular pressure levels, though the Canadian Argo floats often sampled at irregular pressures and required substantial editing.
+    </p>
+    </blockquote></li>
+
+    <li><p>
+    <a class='org-ref-reference' href="#Sutyrin1994">Sutyrin1994</a> note insufficient printer resolution in their Figure 2.
+    </p>
+
+    <div class="figure">
+    <p><img src="http://www.cherian.net/../static/sutyrin-flierl-fig2.png" alt="sutyrin-flierl-fig2.png" style="width:70%" />
+    </p>
+    </div></li>
+
+    <li><p>
+    <a class='org-ref-reference' href="#MacKinnon2017">MacKinnon2017</a> summarize
+    </p>
+    <blockquote>
+    <p>
+    A frequently asked question related to this work is “Which mixing processes matter most for climate?”. As with many alluringly comprehensive sounding questions, the answer is “it depends”.
+    </p>
+    </blockquote>
+    <p>
+    and then end on an inspiring note
+    </p>
+    <blockquote>
+    <p>
+    At the same time, the epiphanies, new ideas and novel observations that fundamentally drive the field forward frequently come not from big science, but from a cornucopia of much smaller exploratory efforts and the continued small-scale development of innovative observing technology and numerical techniques.  We must not lose the ability to be surprised.
+    </p>
+    </blockquote></li>
+
+    <li><p>
+    <a class='org-ref-reference' href="#Wunsch2016">Wunsch2016</a> cites the Bible
+    </p>
+    <blockquote>
+    <p>
+    That which is far off, and exceeding deep, who can find it out?
+    — Ecclesiastes 7:24 (King James Version)
+    </p>
+    </blockquote></li>
+
+    <li><p>
+    Enrico Fermi quotes John von Neumann to Freeman Dyson, critizing the latter's model (<a class='org-ref-reference' href="#Dyson2004">Dyson2004</a>):
+    </p>
+    <blockquote>
+    <p>
+    "I remember my friend Johnny von Neumann used to say, with four parameters I can fit an elephant, and with five I can make him wiggle his trunk." - Enrico Fermi
+    </p>
+    </blockquote>
+
+
+    <div class="figure">
+    <p><img src="http://www.cherian.net/../static/elephant.png" alt="elephant.png" style="float:right;width:40%" />
+    </p>
+    </div>
+
+    <p>
+    <a class='org-ref-reference' href="#Mayer2010">Mayer2010</a> take on the challenge yielding:
+    </p>
+    <blockquote>
+    <p>
+    The resulting shape is schematic and cartoonlike but is still recognizable as an elephant. Although the use of the Fourier coordinate expansion is not new,2,3 our approach clearly demonstrates its usefulness in reducing the number of parameters needed to describe a two-dimensional contour. In the special case of fitting an elephant, it is even possible to lower it to four complex parameters and therein implement a well-known saying.
+    </p>
+    </blockquote>
+    <p>
+    With five, they give the elephant an eye and make it's trunk wiggle!
+    </p>
+
+    <p>
+    Python implementation <a href="https://www.johndcook.com/blog/2011/06/21/how-to-fit-an-elephant/">here</a>.
+    </p></li>
+
+    <li><p>
+    ...
+    </p>
+
+    <div class="figure">
+    <p><img src="http://www.cherian.net/../static/obama-author.png" alt="obama-author.png" style="width:100%" />
+    </p>
+    </div></li>
+    </ol>
+
+    </div>
+    <p>
+
+    <h1 class='org-ref-bib-h1'>Bibliography</h1>
+    <ul class='org-ref-bib'><li><a id="Flierl1978">[Flierl1978] Flierl, Models of Vertical Structure and the Calibration of Two-Layer Models, <i>Dynamics of Atmospheres and Oceans</i>, <b>2(4)</b>, 341-381 (1978). <a href="http://dx.doi.org/10.1016/0377-0265(78)90002-7">doi</a>.</a></li>
+    <li><a id="Holte2009">[Holte2009] Holte & Talley, A New Algorithm for Finding Mixed Layer Depths with Applications to Argo Data and Subantarctic Mode Water Formation*, <i>Journal of Atmospheric and Oceanic Technology</i>, <b>26(9)</b>, 1920-1939 (2009). <a href="http://dx.doi.org/10.1175/2009JTECHO543.1">doi</a>.</a></li>
+    <li><a id="Sutyrin1994">[Sutyrin1994] Sutyrin & Flierl, Intense Vortex Motion on the Beta Plane: Development of the Beta Gyres, <i>Journal of the Atmospheric Sciences</i>, <b>51(5)</b>, 773-790 (1994). <a href="http://dx.doi.org/10.1175/1520-0469(1994)051<0773:IVMOTB>2.0.CO;2">doi</a>.</a></li>
+    <li><a id="MacKinnon2017">[MacKinnon2017] MacKinnon, Alford, Ansong, Arbic, Barna, Briegleb, Bryan, Buijsman, Chassignet, Danabasoglu, Diggs, Griffies, Hallberg, Jayne, Jochum, Klymak, Kunze, Large, Legg, Mater, Melet, Merchant, Musgrave, Nash, Norton, Pickering, Pinkel, Polzin, Simmons, Laurent, Sun, Trossman, Waterhouse, Whalen & Zhao, Climate Process Team on Internal-Wave Driven Ocean Mixing, <i>Bulletin of the American Meteorological Society</i>, <b></b>, (2017). <a href="http://dx.doi.org/10.1175/BAMS-D-16-0030.1">doi</a>.</a></li>
+    <li><a id="Wunsch2016">[Wunsch2016] Wunsch, Global Ocean Integrals and Means, with Trend Implications, <i>Annual Review of Marine Science</i>, <b>8(1)</b>, 1-33 (2016). <a href="http://dx.doi.org/10.1146/annurev-marine-122414-034040">doi</a>.</a></li>
+    <li><a id="Dyson2004">[Dyson2004] Dyson, A Meeting with Enrico Fermi, <i>Nature</i>, <b>427(6972)</b>, 297-297 (2004). <a href="http://dx.doi.org/10.1038/427297a">doi</a>.</a></li>
+    <li><a id="Mayer2010">[Mayer2010] Mayer, Khairy & Howard, Drawing an Elephant with Four Complex Parameters, <i>American Journal of Physics</i>, <b>78(6)</b>, 648 (2010). <a href="http://dx.doi.org/10.1119/1.3254017">doi</a>.</a></li>
+    </ul>
+    </p>
+    ]]></description>
+</item>
+
+<item>
+  <title>"Death in the Gulf Stream" - A Hemingway cocktail</title>
+  <link>http://www.cherian.net/rss.html#orgcde2819</link>
+  <author>deepak@darya (Deepak Cherian)</author>
+  <guid isPermaLink="false">http://www.cherian.net/rss.html#orgcde2819</guid>
+  <pubDate>Sun, 17 Sep 2017 12:36:00 -0700</pubDate>
+
+  <description><![CDATA[<p>
+  From <a href="http://kottke.org/17/01/ernest-hemingways-cocktail-recipe-for-bad-times">Kottke</a> who got it from <a href="https://qz.com/889794/trump-inauguration-ernest-hemingway-has-a-cocktail-recipe-for-days-when-youve-had-just-enough-of-the-world/">Quartz</a>, a cocktail recipe created by Ernest Hemingway in 1937.
+  </p>
+  <blockquote>
+  <p>
+  Take a tall thin water tumbler and fill it with finely cracked ice.
+  </p>
+
+  <p>
+  Lace this broken debris with 4 good purple splashes of Angostura, add the juice and crushed peel of 1 green lime, and fill glass almost full with Holland gin…
+  </p>
+
+  <p>
+  No sugar, no fancying. It’s strong, it’s bitter—but so is English ale strong and bitter, in many cases.
+  </p>
+
+  <p>
+  We don’t add sugar to ale, and we don’t need sugar in a “Death in the Gulf Stream”—or at least not more than 1 tsp. Its tartness and its bitterness are its chief charm.
+  </p>
+  </blockquote>
+  ]]></description>
+</item>
+<item>
+  <title>A setup for reproducible research</title>
+  <link>http://www.cherian.net/rss.html#orgb7039af</link>
+  <author>deepak@darya (Deepak Cherian)</author>
+  <guid isPermaLink="false">http://www.cherian.net/rss.html#orgb7039af</guid>
+  <pubDate>Sun, 17 Sep 2017 12:34:00 -0700</pubDate>
+
+  <description><![CDATA[
+  <div id="outline-container-org2208ea0" class="outline-3">
+  <h3 id="org2208ea0">Update</h3>
+  <div class="outline-text-3" id="text-org2208ea0">
+  <p>
+  <a href="https://www.researchgate.net/profile/Andre_Paloczy">André Palóczy</a> has implemented some of <a href="https://github.com/apaloczy/reproducibility">these ideas in Python</a>.
+  </p>
+  </div>
+  </div>
+  <div id="outline-container-orgf711a27" class="outline-3">
+  <h3 id="orgf711a27">Software</h3>
+  <div class="outline-text-3" id="text-orgf711a27">
+  <ul class="org-ul">
+  <li>Version control system to track content. I use <a href="http://www.git-scm.org"><code>git</code></a>.</li>
+  <li><a href="http://www.sno.phy.queensu.ca/~phil/exiftool/"><code>exiftool</code></a> to read and write metadata to images</li>
+  <li>I have some code below for MATLAB but the principles could be extended to any other software package.</li>
+  </ul>
+  </div>
+  </div>
+  <div id="outline-container-orgc857f49" class="outline-3">
+  <h3 id="orgc857f49">Strategy</h3>
+  <div class="outline-text-3" id="text-orgc857f49">
+  <p>
+  The approach is simple: use <code>git</code> to track files that generate output.
+  </p>
+
+  <p>
+  <code>git</code> automatically assigns a unique 40 character alphanumeric string (a "hash") that identifies the state of a repository.
+  </p>
+
+  <p>
+  By saving the value of the hash when a certain output file is created, we know what code created the output.
+  </p>
+
+  <p>
+  With data files, it is simple to add an extra variable containing the hash.
+  </p>
+
+  <p>
+  With figures, I use the metadata fields to save the hash value.
+  </p>
+  </div>
+  </div>
+  <div id="outline-container-org01b9c0e" class="outline-3">
+  <h3 id="org01b9c0e">Getting the current hash in MATLAB</h3>
+  <div class="outline-text-3" id="text-org01b9c0e">
+  <p>
+  The following MATLAB function <code>githash</code> will return the hash of the last commit that modified the file in <code>fname</code>. If not provided with <code>fname</code> it returns the hash of the last commit in the repository.
+  </p>
+
+  <div class="org-src-container">
+  <pre><code class="src src-matlab">   <span style="color: #859900;">function</span> <span style="color: #268bd2;">[hash]</span> = <span style="color: #268bd2;">githash</span>(<span style="color: #268bd2;">fname</span>, <span style="color: #268bd2;">gitdir</span>)
+
+  <span style="color: #859900;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'fname'</span>, <span style="color: #2aa198;">'var'</span>)
+  fname = <span style="color: #2aa198;">'.'</span>;
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'gitdir'</span>, <span style="color: #2aa198;">'var'</span>)
+  gitdir = <span style="color: #2aa198;">''</span>;
+  <span style="color: #859900;">else</span>
+  gitdir = [<span style="color: #2aa198;">'--git-dir='</span> gitdir];
+  <span style="color: #859900;">end</span>
+
+  [<span style="color: #b58900;">~</span>, hashout] = system([<span style="color: #2aa198;">'TERM=xterm git '</span> gitdir <span style="text-decoration: underline;">...</span>
+  <span style="color: #2aa198;">' log -n 1 --no-color --pretty=format:''%H'' '''</span> <span style="text-decoration: underline;">...</span>
+  fname <span style="color: #2aa198;">''' &lt; /dev/null'</span>]);
+
+  <span style="color: #93a1a1;">% remove bash escape characters</span>
+  hash = hashout(9<span style="color: #b58900;">:</span>48)
+  <span style="color: #859900;">end</span>
+  </code></pre>
+  </div>
+
+  <p>
+  Using it in a MATLAB script requires the incantation
+  </p>
+  <div class="org-src-container">
+  <pre><code class="src src-matlab">  hash = githash([mfilename(<span style="color: #2aa198;">'fullpath'</span>) <span style="color: #2aa198;">'.m'</span>]);
+  </code></pre>
+  </div>
+  <p>
+  This provides <code>githash</code> with the path to the current mfile that is calling <code>githash</code>.
+  </p>
+
+  <p>
+  Quite frequently, I calculate diagnostics that take a while which means that rerunning them every time I make an image is not feasible. I save the <code>hash</code> variable to the file containing diagnostic output. This lets me know what version of the code created that version of the saved output.
+  </p>
+  </div>
+  </div>
+
+  <div id="outline-container-orge8854d7" class="outline-3">
+  <h3 id="orge8854d7">Using the hash</h3>
+  <div class="outline-text-3" id="text-orge8854d7">
+  <p>
+  MATLAB's FileExchange has a couple of useful scripts <a href="https://www.mathworks.com/matlabcentral/fileexchange/43179-insert-annotation-in-figure-s-metadata"><code>insertAnnotation</code> &amp; <code>getAnnotation</code></a> that insert and recover metadata in MATLAB figure windows.
+  </p>
+
+  <p>
+  An obvious choice is to save the hash. More importantly, one can save the exact function call that generated a figure. Then, you know two things:
+  </p>
+  <ol class="org-ol">
+  <li>the version of the code that created the figure, and</li>
+  <li>all parameters provided to the code;</li>
+  </ol>
+  <p>
+  both of which are saved in the metadata of the figure <i>itself</i>.
+  </p>
+
+  <p>
+  <code>getAnnotation</code> can then recover the saved metadata when saving a figure to file.
+  </p>
+  </div>
+  </div>
+
+  <div id="outline-container-org856ef0f" class="outline-3">
+  <h3 id="org856ef0f">Saving the hash in an image file</h3>
+  <div class="outline-text-3" id="text-org856ef0f">
+  <p>
+  Once you have a hash value, or any metadata in general, it needs to be saved when the image is saved. I have modified <code>export_fig</code> (<a href="https://github.com/altmany/export_fig">original</a>, <a href="https://github.com/dcherian/export_fig">my fork</a>) to do this for me.
+  </p>
+
+  <p>
+  In general, all you need is a line that looks like
+  </p>
+  <div class="org-src-container">
+  <pre><code class="src src-matlab">  system([<span style="color: #2aa198;">'exiftool -overwrite_original -Producer='</span> <span style="text-decoration: underline;">...</span>
+  hash <span style="color: #2aa198;">' '</span> pdf_nam]);
+  </code></pre>
+  </div>
+  <p>
+  The above tells exiftool to save the contents of variable <code>hash</code> in the metadata field <code>Producer</code> of the file named <code>pdf_nam</code>. The slight complication here is that the metadata field names are not standardized among different image formats.
+  </p>
+
+  <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+  <caption class="t-above"><span class="table-number">Table 1:</span> Metadata fields for various image formats that I use to save hashes.</caption>
+
+  <colgroup>
+  <col  class="org-left" />
+
+  <col  class="org-left" />
+
+  <col  class="org-left" />
+
+  <col  class="org-left" />
+
+  <col  class="org-left" />
+  </colgroup>
+  <tbody>
+  <tr>
+  <td class="org-left"><b>format</b></td>
+  <td class="org-left">pdf, eps</td>
+  <td class="org-left">png</td>
+  <td class="org-left">jpg</td>
+  <td class="org-left">tif</td>
+  </tr>
+
+  <tr>
+  <td class="org-left"><b>metadata field</b></td>
+  <td class="org-left">Producer</td>
+  <td class="org-left">Software</td>
+  <td class="org-left">Comment</td>
+  <td class="org-left">Description</td>
+  </tr>
+  </tbody>
+  </table>
+
+  <p>
+  <code>exiftool</code> is only required to modify the metadata fields of PDF and EPS files. MATLAB's <code>imwrite</code> can write metadata to bitmap files (e.g. PNG).
+  </p>
+
+  <p>
+  Searching for <code>hash</code> in my fork of <a href="https://github.com/dcherian/export_fig/blob/master/export_fig.m"><code>export_fig.m</code></a> will show you how <code>imwrite</code> can be used.
+  </p>
+  </div>
+  </div>
+
+  <div id="outline-container-org676513c" class="outline-3">
+  <h3 id="org676513c">Extracting commit hash from image metadata</h3>
+  <div class="outline-text-3" id="text-org676513c">
+  <p>
+  To recover the recorded hash, it suffices to call <code>exiftool FILENAME</code> which will print all metadata stored in the image; not just the hash. <code>grep</code> can then find the recorded hash:
+  </p>
+  <div class="org-src-container">
+  <pre><code class="src src-bash">  <span style="color: #93a1a1;">#</span><span style="color: #93a1a1;">!/bin/bash</span>
+  <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">displays saved git hash of a provided file using exiftool</span>
+
+  <span style="color: #268bd2;">file</span>=$<span style="color: #268bd2;">1</span>
+  <span style="color: #268bd2;">hash</span>=$(<span style="color: #6c71c4; font-weight: bold;">exiftool</span> $<span style="color: #268bd2;">file</span> | grep -i <span style="color: #2aa198;">"hash:"</span>)
+
+  <span style="color: #b58900;">echo</span> $<span style="color: #268bd2;">hash</span>
+  </code></pre>
+  </div>
+  </div>
+  </div>
+  ]]></description>
+</item>
+</channel>
+</rss>

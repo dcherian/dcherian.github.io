@@ -304,6 +304,12 @@ td {
     padding: 4px;
     vertical-align: middle;
 }
+.feed-logo {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    margin-bottom: -4px;
+}
 
 .cc-logo {
     height: 2em;
