@@ -95,7 +95,7 @@ a:hover {
     top: 0em;
     left: 0;
     width: 100%; 
-    line-height: 1.0;
+    line-height: 0.5;
     z-index: 999;
     font-size: 1.1em;
     margin: auto;
