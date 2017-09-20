@@ -238,8 +238,8 @@ video {
 .title::before {
     content: url('static/me.png');
     float: left;
-    /* background: inherit; */
-    /* margin-top: -0.3em; */
+    /*! background: inherit; */
+    /*! margin-top: -0.3em; */
 }
 .subtitle {
     font-size: 1.2em;
@@ -371,25 +371,85 @@ h3::before {
 	float: none;
     }
     .menu ul {
-	position: sticky;
+	   position: sticky;
+    }
+    .menu li {
+        padding: 0;
     }
 
 }
 @media screen and (max-width : 780px){
     img {
-	width: 90%;
-        float: none;
+	   width: 90%;
+       float: none;
     }
     .menu {position: unset;}
+    
     .menu ul {
 	flex-direction: column;
 	line-height: 1.5;
+    }
+    
+    .research {
+        overflow:unset;
+    }
+    
+    .research h4::before{
+        content:'§';
+        display: block;
+        padding-bottom: 1%;
+    }
+    
+    h4,h5,h6 {
+        text-align:center;
+        width: 90vw;
     }
 }
 
 @media screen and (max-width : 550px){
     img {
-	width: 100%;
-	float: none;
+	   width: 100%;
+	   float: unset;
+    }
+    
+    .menu ul {
+        line-height: 1.8;
+    }
+    
+    .logo {
+        width: 12%;
+    }
+    
+    .title{
+       margin: auto;
+       padding: 5%;
+       line-height: 1.2;
+       text-align: center;       
+    }
+    
+    .title::before{
+        float: unset;
+        display:block;
+    }
+    
+    .subtitle {
+        text-align: center; 
+        line-height: 1.8;
+        width: 70%;
+        margin: auto;
+    }
+    li {
+        margin: 0 -7%;
+        padding-left:unset;
+        padding-bottom: 1em;
+    }
+    h1,h2,h3,h4,h5,h6 {
+        text-align:center;
+        width: 90vw;
+    }
+    body { 
+        width: 95%;
+        padding: unset; 
+        margin: unset;
     }
 }
