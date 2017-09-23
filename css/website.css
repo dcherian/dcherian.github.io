@@ -1,4 +1,3 @@
-
 /**
  * Primary styles (custom section, non htmlboilerplate)
  * Author: Ethan Schoonover
@@ -189,7 +188,7 @@ h2::before {
     content: "§";
     padding-right: 1.2%;
     font-size: 1.5em;
-    font-weight: 100;
+    font-weight: 300;
     vertical-align: middle;
     color: #cb4b16;
 }
