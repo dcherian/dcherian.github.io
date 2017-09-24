@@ -166,7 +166,6 @@ h5, h6 {
     font-weight:normal;
     margin-top:-0.15em;
     margin-bottom:-0.4em;
-    padding-left: 0.5em;
 }
 
 h2 { font-weight: 400;
@@ -248,7 +247,7 @@ video {
 
 
 /* --- Code ---------------------------------------------------------------- */
-pre.src {
+pre {
     font-size:      90%;
     font-family:    monospace;
     line-height:    125%;
@@ -358,66 +357,75 @@ h3::before {
 
 @media screen and (max-width : 800px){
 
-    .menu ul {
-	position: sticky;
+    .menu ul { position: sticky; }
+    .menu li { padding: 0; }
+
+    pre {
+	display: block;
+	width: 100%;
+	line-height: 100%;
+	font-size: 80%;
+	padding-left: unset;
+	margin-left: -2em;
     }
 
-    .menu li {
-        padding: 0;
+    figure, img {
+	position: relative;
+	width: 50%; !important
+        float: unset; !important
+    	display:block;
+	padding: 0 0 0 0;
+	margin-bottom: 1.5em;
     }
-
-
-    img {
-	   width: 80%; !important
-	   float: unset; !important
-       padding: 1em 0;
+    figure {
+	margin: 1.5em auto;
     }
-
 }
+
 @media screen and (max-width : 780px){
 
-    .menu {position: unset;}
+    .menu {
+	position: unset;
+	width: 100vw;
+	margin-top: 1em;
+    }
 
     .menu ul {
 	flex-direction: column;
 	line-height: 1.5;
     }
 
-    .research {
-        overflow:unset;
-    }
-
-    .research h4::before{
-        content:'§';
-        display: block;
-        padding-bottom: 1%;
-    }
+    .research { overflow:unset;}
 
     h4,h5,h6 {
         text-align:center;
         width: 90vw;
+	margin: auto;
     }
 }
 
 @media screen and (max-width : 550px){
 
+    .subtitle .email {font-size: 0.8em; margin: auto;}
 
-    img {
-	   width: 100%; !important
-	   float: unset; !important
-       padding: 5px 0;
+    .email {font-size: 1em;}
+
+    h4::before, .links h5::before{
+        content:' ';
+        display: block;
     }
 
-    .menu ul {
-        line-height: 1.8;
-    }
+    figure, img { width: 100%; !important }
 
-    .logo {
-        width: 12%;
+    .menu ul { line-height: 1.8; }
+
+    a.logo {
+        width: 15%;
+	padding: 1px;
     }
 
     .title{
-       margin: auto;
+       margin: auto; !important
        padding: 5%;
        line-height: 1.2;
        text-align: center;
@@ -435,7 +443,7 @@ h3::before {
         margin: auto;
     }
     li {
-        margin: 0 -7%;
+        margin-left: -7%;
         padding-left:unset;
         padding-bottom: 1em;
     }
@@ -448,4 +456,11 @@ h3::before {
         padding: unset;
         margin: unset;
     }
+}
+
+@media screen and (max-width : 360px){
+
+    .subtitle .email {font-size: 0.8em; margin-left: -2em;}
+    .email {font-size: 0.9em;}
+
 }

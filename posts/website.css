@@ -1,14 +1,18 @@
 @import url("../website.css");
 
-.title {
-    text-align: left;
-    margin-top: -2em;
-    margin-bottom: 1em;
-    line-height: 1.2em;
-}
+/* .title { */
+/*     text-align: left; */
+/*     margin-top: -2em; */
+/*     margin-bottom: 1em; */
+/*     line-height: 1.2em; */
+/* } */
 
 .title::before {
-    content: '';
+    content: ''; !important
+}
+
+body {
+    margin: auto;
 }
 
 .post-subtitle {
