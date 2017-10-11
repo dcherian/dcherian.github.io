@@ -55,6 +55,11 @@
    #+ATTR_HTML: :style width:100%
    [[file:../static/obama-author.png]]
 
+8. cite:Lindzen1988
+   #+BEGIN_QUOTE
+   As it turns out, the observations provide a clue to the problem.
+   #+END_QUOTE
+
 # 5. Walter Munk introduces the Tijuana boundary condition.
 # 6. Stommel's demon?
 
