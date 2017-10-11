@@ -14,9 +14,9 @@
   <link>http://www.cherian.net/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Sat, 23 Sep 2017 17:09:34 -0700</pubDate>
-  <lastBuildDate>Sat, 23 Sep 2017 17:09:34 -0700</lastBuildDate>
-  <generator>Emacs 25.3 Org-mode 9.1</generator>
+  <pubDate>Tue, 10 Oct 2017 21:26:38 -0600</pubDate>
+  <lastBuildDate>Tue, 10 Oct 2017 21:26:38 -0600</lastBuildDate>
+  <generator>Emacs 25.3 Org-mode 9.1.2</generator>
   <webMaster>deepak@darya (Deepak Cherian)</webMaster>
   <image>
     <url>http://orgmode.org/img/org-mode-unicorn-logo.png</url>
@@ -30,7 +30,7 @@
     <link>http://www.cherian.net/rss.html#org5080931</link>
     <author>deepak@darya (Deepak Cherian)</author>
     <guid isPermaLink="false">http://www.cherian.net/rss.html#org5080931</guid>
-    <pubDate>Sun, 17 Sep 2017 12:36:00 -0700</pubDate>
+    <pubDate>Sun, 17 Sep 2017 12:36:00 -0600</pubDate>
 
     <description><![CDATA[<p>
     <a href="https://github.com/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb">IPython notebook here.</a>
@@ -42,7 +42,7 @@
     <link>http://www.cherian.net/rss.html#org8ed13ea</link>
     <author>deepak@darya (Deepak Cherian)</author>
     <guid isPermaLink="false">http://www.cherian.net/rss.html#org8ed13ea</guid>
-    <pubDate>Sun, 17 Sep 2017 12:34:00 -0700</pubDate>
+    <pubDate>Sun, 17 Sep 2017 12:34:00 -0600</pubDate>
 
     <description><![CDATA[<div class="paper-quotes">
     <ol class="org-ol">
@@ -147,6 +147,17 @@
     <p><img src="http://www.cherian.net/../static/obama-author.png" alt="obama-author.png" style="width:100%" />
     </p>
     </div></li>
+
+    <li><p>
+    <a class='org-ref-reference' href="#Lindzen1988">Lindzen1988</a>
+    </p>
+    <blockquote>
+    <p>
+    As it turns out, the observations provide a clue to the problem.
+    </p>
+    </blockquote></li>
+
+    <li>Smyth textbook + the dude abides</li>
     </ol>
 
     </div>
@@ -160,6 +171,7 @@
     <li><a id="Wunsch2016">[Wunsch2016] Wunsch, Global Ocean Integrals and Means, with Trend Implications, <i>Annual Review of Marine Science</i>, <b>8(1)</b>, 1-33 (2016). <a href="http://dx.doi.org/10.1146/annurev-marine-122414-034040">doi</a>.</a></li>
     <li><a id="Dyson2004">[Dyson2004] Dyson, A Meeting with Enrico Fermi, <i>Nature</i>, <b>427(6972)</b>, 297-297 (2004). <a href="http://dx.doi.org/10.1038/427297a">doi</a>.</a></li>
     <li><a id="Mayer2010">[Mayer2010] Mayer, Khairy & Howard, Drawing an Elephant with Four Complex Parameters, <i>American Journal of Physics</i>, <b>78(6)</b>, 648 (2010). <a href="http://dx.doi.org/10.1119/1.3254017">doi</a>.</a></li>
+    <li><a id="Lindzen1988">[Lindzen1988] Lindzen & Hou, Hadley Circulations for Zonally Averaged Heating Centered off the Equator, <i>Journal of the Atmospheric Sciences</i>, <b>45(17)</b>, 2416-2427 (1988). <a href="http://dx.doi.org/10.1175/1520-0469(1988)045<2416:HCFZAH>2.0.CO;2">doi</a>.</a></li>
     </ul>
     </p>
     ]]></description>
@@ -170,7 +182,7 @@
   <link>http://www.cherian.net/rss.html#orgcde2819</link>
   <author>deepak@darya (Deepak Cherian)</author>
   <guid isPermaLink="false">http://www.cherian.net/rss.html#orgcde2819</guid>
-  <pubDate>Sun, 17 Sep 2017 12:36:00 -0700</pubDate>
+  <pubDate>Sun, 17 Sep 2017 12:36:00 -0600</pubDate>
 
   <description><![CDATA[<p>
   From <a href="http://kottke.org/17/01/ernest-hemingways-cocktail-recipe-for-bad-times">Kottke</a> who got it from <a href="https://qz.com/889794/trump-inauguration-ernest-hemingway-has-a-cocktail-recipe-for-days-when-youve-had-just-enough-of-the-world/">Quartz</a>, a cocktail recipe created by Ernest Hemingway in 1937.
@@ -199,7 +211,7 @@
   <link>http://www.cherian.net/rss.html#orgb7039af</link>
   <author>deepak@darya (Deepak Cherian)</author>
   <guid isPermaLink="false">http://www.cherian.net/rss.html#orgb7039af</guid>
-  <pubDate>Sun, 17 Sep 2017 12:34:00 -0700</pubDate>
+  <pubDate>Sun, 17 Sep 2017 12:34:00 -0600</pubDate>
 
   <description><![CDATA[
   <div id="outline-container-org2208ea0" class="outline-3">
@@ -252,7 +264,7 @@
   </p>
 
   <div class="org-src-container">
-  <pre><code class="src src-matlab">   <span style="color: #859900;">function</span> <span style="color: #268bd2;">[hash]</span> = <span style="color: #268bd2;">githash</span>(<span style="color: #268bd2;">fname</span>, <span style="color: #268bd2;">gitdir</span>)
+  <pre class="src src-matlab">   <span style="color: #859900;">function</span> <span style="color: #268bd2;">[hash]</span> = <span style="color: #268bd2;">githash</span>(<span style="color: #268bd2;">fname</span>, <span style="color: #268bd2;">gitdir</span>)
 
   <span style="color: #859900;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'fname'</span>, <span style="color: #2aa198;">'var'</span>)
   fname = <span style="color: #2aa198;">'.'</span>;
@@ -271,15 +283,15 @@
   <span style="color: #93a1a1;">% remove bash escape characters</span>
   hash = hashout(9<span style="color: #b58900;">:</span>48)
   <span style="color: #859900;">end</span>
-  </code></pre>
+  </pre>
   </div>
 
   <p>
   Using it in a MATLAB script requires the incantation
   </p>
   <div class="org-src-container">
-  <pre><code class="src src-matlab">  hash = githash([mfilename(<span style="color: #2aa198;">'fullpath'</span>) <span style="color: #2aa198;">'.m'</span>]);
-  </code></pre>
+  <pre class="src src-matlab">  hash = githash([mfilename(<span style="color: #2aa198;">'fullpath'</span>) <span style="color: #2aa198;">'.m'</span>]);
+  </pre>
   </div>
   <p>
   This provides <code>githash</code> with the path to the current mfile that is calling <code>githash</code>.
@@ -326,9 +338,9 @@
   In general, all you need is a line that looks like
   </p>
   <div class="org-src-container">
-  <pre><code class="src src-matlab">  system([<span style="color: #2aa198;">'exiftool -overwrite_original -Producer='</span> <span style="text-decoration: underline;">...</span>
+  <pre class="src src-matlab">  system([<span style="color: #2aa198;">'exiftool -overwrite_original -Producer='</span> <span style="text-decoration: underline;">...</span>
   hash <span style="color: #2aa198;">' '</span> pdf_nam]);
-  </code></pre>
+  </pre>
   </div>
   <p>
   The above tells exiftool to save the contents of variable <code>hash</code> in the metadata field <code>Producer</code> of the file named <code>pdf_nam</code>. The slight complication here is that the metadata field names are not standardized among different image formats.
@@ -384,14 +396,14 @@
   To recover the recorded hash, it suffices to call <code>exiftool FILENAME</code> which will print all metadata stored in the image; not just the hash. <code>grep</code> can then find the recorded hash:
   </p>
   <div class="org-src-container">
-  <pre><code class="src src-bash">  <span style="color: #93a1a1;">#</span><span style="color: #93a1a1;">!/bin/bash</span>
+  <pre class="src src-bash">  <span style="color: #93a1a1;">#</span><span style="color: #93a1a1;">!/bin/bash</span>
   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">displays saved git hash of a provided file using exiftool</span>
 
   <span style="color: #268bd2;">file</span>=$<span style="color: #268bd2;">1</span>
   <span style="color: #268bd2;">hash</span>=$(<span style="color: #6c71c4; font-weight: bold;">exiftool</span> $<span style="color: #268bd2;">file</span> | grep -i <span style="color: #2aa198;">"hash:"</span>)
 
   <span style="color: #b58900;">echo</span> $<span style="color: #268bd2;">hash</span>
-  </code></pre>
+  </pre>
   </div>
   </div>
   </div>

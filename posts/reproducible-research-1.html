@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2017-09-23 Sat 17:09 -->
+<!-- 2017-10-10 Tue 21:26 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A setup for reproducible research</title>
@@ -69,7 +69,7 @@ The following MATLAB function <code>githash</code> will return the hash of the l
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-matlab">   <span style="color: #859900;">function</span> <span style="color: #268bd2;">[hash]</span> = <span style="color: #268bd2;">githash</span>(<span style="color: #268bd2;">fname</span>, <span style="color: #268bd2;">gitdir</span>)
+<pre class="src src-matlab">   <span style="color: #859900;">function</span> <span style="color: #268bd2;">[hash]</span> = <span style="color: #268bd2;">githash</span>(<span style="color: #268bd2;">fname</span>, <span style="color: #268bd2;">gitdir</span>)
 
        <span style="color: #859900;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'fname'</span>, <span style="color: #2aa198;">'var'</span>)
            fname = <span style="color: #2aa198;">'.'</span>;
@@ -88,15 +88,15 @@ The following MATLAB function <code>githash</code> will return the hash of the l
        <span style="color: #93a1a1;">% remove bash escape characters</span>
        hash = hashout(9<span style="color: #b58900;">:</span>48)
    <span style="color: #859900;">end</span>
-</code></pre>
+</pre>
 </div>
 
 <p>
 Using it in a MATLAB script requires the incantation
 </p>
 <div class="org-src-container">
-<pre><code class="src src-matlab">  hash = githash([mfilename(<span style="color: #2aa198;">'fullpath'</span>) <span style="color: #2aa198;">'.m'</span>]);
-</code></pre>
+<pre class="src src-matlab">  hash = githash([mfilename(<span style="color: #2aa198;">'fullpath'</span>) <span style="color: #2aa198;">'.m'</span>]);
+</pre>
 </div>
 <p>
 This provides <code>githash</code> with the path to the current mfile that is calling <code>githash</code>.
@@ -143,9 +143,9 @@ Once you have a hash value, or any metadata in general, it needs to be saved whe
 In general, all you need is a line that looks like
 </p>
 <div class="org-src-container">
-<pre><code class="src src-matlab">  system([<span style="color: #2aa198;">'exiftool -overwrite_original -Producer='</span> <span style="text-decoration: underline;">...</span>
+<pre class="src src-matlab">  system([<span style="color: #2aa198;">'exiftool -overwrite_original -Producer='</span> <span style="text-decoration: underline;">...</span>
           hash <span style="color: #2aa198;">' '</span> pdf_nam]);
-</code></pre>
+</pre>
 </div>
 <p>
 The above tells exiftool to save the contents of variable <code>hash</code> in the metadata field <code>Producer</code> of the file named <code>pdf_nam</code>. The slight complication here is that the metadata field names are not standardized among different image formats.
@@ -201,14 +201,14 @@ Searching for <code>hash</code> in my fork of <a href="https://github.com/dcheri
 To recover the recorded hash, it suffices to call <code>exiftool FILENAME</code> which will print all metadata stored in the image; not just the hash. <code>grep</code> can then find the recorded hash:
 </p>
 <div class="org-src-container">
-<pre><code class="src src-bash">  <span style="color: #93a1a1;">#</span><span style="color: #93a1a1;">!/bin/bash</span>
+<pre class="src src-bash">  <span style="color: #93a1a1;">#</span><span style="color: #93a1a1;">!/bin/bash</span>
   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">displays saved git hash of a provided file using exiftool</span>
 
   <span style="color: #268bd2;">file</span>=$<span style="color: #268bd2;">1</span>
   <span style="color: #268bd2;">hash</span>=$(<span style="color: #6c71c4; font-weight: bold;">exiftool</span> $<span style="color: #268bd2;">file</span> | grep -i <span style="color: #2aa198;">"hash:"</span>)
 
   <span style="color: #b58900;">echo</span> $<span style="color: #268bd2;">hash</span>
-</code></pre>
+</pre>
 </div>
 </div>
 </section>
