@@ -35,8 +35,8 @@ body {
     font-weight: 300;
     line-height: 1.5em;
     padding: 1em;
-    /* max-width: 44em; */
-    /* margin: auto; */
+    max-width: 44em;
+    margin: auto;
     /* background: #eff4e2; */
     background: #fdf6e3;
     text-rendering: optimizeLegibility;
