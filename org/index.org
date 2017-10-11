@@ -130,6 +130,8 @@ While at MIT, I took the semester-long [[https://tll.mit.edu/help/graduate-stude
 
 Any comments you might have on these are welcome. Please send me an email.
 
+Latex source is also available on request.
+
 * Posts
 :PROPERTIES:
 :CUSTOM_ID: posts
