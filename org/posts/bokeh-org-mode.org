@@ -1,0 +1,282 @@
+#+TITLE:  bokeh and Emacs org-mode
+#+OPTIONS: toc:t num:2
+#+KEYWORDS: bokeh, ob-ipython, babel, org-mode, emacs
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.10.min.css" type="text/css" />
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.10.min.css" type="text/css" />
+#+HTML_HEAD_EXTRA: <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.10.min.js"></script>
+#+HTML_HEAD_EXTRA: <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.10.min.js"></script>
+#+HTML_HEAD_EXTRA: <style> .bk-plot-layout, .bk-grid-column { max-width: 100%; margin: auto;} </style>
+
+* Introduction
+I've been wanting to play around with interactive Javascript plots for a while; for example: https://demo.bokehplots.com/apps/selection_histogram. The selection functionality is really cool!
+
+This post is an experiment in embedding [[http://bokeh.pydata.org][bokeh]] plots in org-mode notebooks that rendered properly when exported as HTML pages. There are two approaches for embedding.
+
+* Using ~autoload_static~ (preferred)
+Based on https://necromuralist.github.io/data_science/posts/bokeh-test/
+
+Some notes:
+1. This method stores the data in a separate ~.js~ file which should make the org file easier to handle. Also, the figure can embedded freely in many places.
+2. Figuring where to get the bokeh css and js files can be tricky ([[https://bokeh.pydata.org/en/latest/docs/reference/resources.html][docs]]):
+   1. You can use the CDN:  ~from bokeh.resources import CDN~ to load the bokeh js file over the internet. Not good for future-proofing.
+   2. Using ~bokeh.resources.Resources(mode='absolute')~ or ~'mode=relative'~ loads bokeh from your local python installation; so that's good for /local/ notebooks but your figures/notebooks might break when bokeh updates.
+   3. The ~inline~ option inlines the necessary js and css in the exported ~.js~ file but then with multiple images; you end up with multiple copies so that's wasteful, but seems like the only future-proof option. Also, you can have two figures made with different bokeh versions embedded in the same document, so that's a plus.
+
+** Prerequisites
+I am using
+
+1. bokeh 0.12.10
+2. org 9.1.2
+3. emacs 25.3.50.2
+4. [[https://github.com/gregsexton/ob-ipython/commit/1642a74d4402b77ce051879e7605bc7c6537f922][ob-ipython @ 1642a74]]
+
+I define a function ~export_bokeh~ to do the actual heavy lifting. This function could be moved to your ipython ~startup.py~ file so that it is defined for every ipython session.
+#+NAME: define-org-static
+#+BEGIN_SRC ipython :session :exports code :results none
+def export_bokeh(plot, outPNG, outJS, outHTML, bkjs='inline'):
+    from bokeh.io import export_png
+    from bokeh.embed import autoload_static, file_html
+    import bokeh.resources
+
+    if bkjs is 'local':
+        # use local installed bokeh scripts
+        wherebokeh = bokeh.resources.Resources(mode='absolute')
+
+    if bkjs is 'remote' or bkjs is 'CDN':
+        # use CDN bokeh scripts
+        wherebokeh = bokeh.resources.CDN
+
+    if bkjs is 'relative':
+        # bkjs is a relative path to the locally installed bokeh files
+        wherebokeh = bokeh.resources.Resources(mode='relative', root_dir='./')
+
+    if bkjs is 'inline':
+        wherebokeh = bokeh.resources.INLINE
+
+    # save the png file
+    export_png(plot, filename=outPNG)
+
+    # save the html file
+    html = file_html(plot, wherebokeh, None)
+    with open(outHTML, 'w') as file:
+        file.write(html)
+
+    js, script = autoload_static(plot, wherebokeh, outJS)
+
+    # save the .js file
+    with open(outJS, "w") as writer:
+        writer.write(js)
+
+    # embed in the org-exported HTML file
+    print('''#+BEGIN_EXPORT html\n{script}\n#+END_EXPORT'''.format(script=script.lstrip()))
+#+END_SRC
+
+Embedding the figure is then quite easy once you
+1. tell ob-ipython to capture stdout and put it in a drawer so that it's replaced everytime to rerun the source block.
+2. provide a custom filename for export (~fname~ below).
+I use this header line:
+#+BEGIN_EXAMPLE
+#+BEGIN_SRC ipython :session :results output drawer :exports both :var fname="my-image" :var titlestr="Demonstrating bokeh"
+#+END_EXAMPLE
+** Example
+This will export a [[../static/my-image.png][png image]], an [[../static/html/my-image.html][HTML file]] and a [[../static/js/my-image.js][Javascript file]]. That way there are both static and dynamic versions that are easy to share as well as an emebeddable version.
+#+BEGIN_SRC ipython :session :results output drawer :exports both :var fname="my-image" :var titlestr="Demonstrating Bokeh"
+from bokeh.plotting import figure
+from bokeh.layouts import gridplot
+from bokeh.models import ColumnDataSource, HoverTool, WheelZoomTool
+
+tools='box_select, reset'
+
+# create "subplots"
+p1 = figure(tools=tools)
+p1.background_fill_alpha = 0.0
+p1.border_fill_alpha = 0.0
+
+p2 = figure(tools=tools, x_range=p1.x_range, y_range=p1.y_range)
+p2.background_fill_alpha = 0.0
+p2.border_fill_alpha = 0.0
+
+# generate data
+x = np.random.randn(200)
+y0 = x**3 - 100
+y1 = x**2 - 100
+
+# generate random letters
+import string
+import random
+label = [random.choice(string.ascii_letters) for aa in range(200)]
+
+# needed for linked selection
+source = ColumnDataSource(data={'x': x, 'y0': y0, 'y1': y1,
+                                'label': label})
+
+# plot the data
+p1.circle('x', 'y0', source=source)
+p2.scatter('x', 'y1', source=source)
+
+p1.title.text = titlestr
+
+wheel = WheelZoomTool()
+# add some tooltips
+hover = HoverTool()
+hover.tooltips = [
+    ("(x,y)", "($x, $y)"),  # '$' for co-ordinates
+    ("label", "@label")  # note '@' for column lookup
+]
+p1.add_tools(hover, wheel)
+p2.add_tools(hover, wheel)
+
+p1.toolbar.active_scroll = wheel
+p2.toolbar.active_scroll = wheel
+
+# layout the subplots
+pg = gridplot([[p1, p2]], plot_width=400, plot_height=400)
+
+export_bokeh(pg,
+             '../static/'+fname+'.png',
+             '../static/js/'+fname+'.js',
+             '../static/html/'+fname+'.html')
+#+END_SRC
+#+RESULTS:
+:RESULTS:
+#+BEGIN_EXPORT html
+<script
+    src="../static/js/my-image.js"
+    id="f1c145ed-260c-411c-8c26-f71b52427218"
+    data-bokeh-model-id="5f0145de-1c4e-4ee2-9a64-f38f255c81ff"
+    data-bokeh-doc-id="20261111-dbef-4dd0-b40c-d8c04db088bd"
+></script>
+#+END_EXPORT
+:END:
+** Improvements
+Things I would like:
+
+- Automatically run the HTML export when running the code block.
+  - Can I add-hook to ~org-babel-execute-maybe~?
+
+- The ability to auto-hide the javascript in the ~RESULTS~ drawer but show the exported png file.
+  - Ideally, I would see the png in the org file and the javascript in the HTML file. The other should be hidden. Seems too complicated.
+  - A nice solution would be to insert a link to the png file in the image caption.
+
+- Are _actual_ captions (~#+CAPTION~) possible with bokeh figures?
+
+- Avoid the explicit ~export_bokeh~ call if possible.
+  - Ideally, ~ob-ipython~ would be able to tell that this is a bokeh block; use the ~fname~ var to pass the figure handle ~p~ and ~fname~ to ~export_bokeh~ and do everything. This would be close to jupyter notebook workflow.
+  - This might be possible using IPython formatters as suggested by the ~ob-ipython~ README.
+    - Could we then define ~export_bokeh~ in ~Formatters.py~ and call that when the returned object is a bokeh figure handle?
+
+- Can we get holoviews to work with this? Optionally tell it to use either matplotlib or bokeh backends
+* Using components (not-recommended)
+I made some slight modifications to http://kitchingroup.cheme.cmu.edu/blog/2016/02/07/Interactive-Bokeh-plots-in-HTML/ though I didn't need to embed anything in a frame. The principal drawback here is that all the data is returned in ~stdout~ and written to the org file. This would get unwieldy for big plots.
+
+1. Add the following at the top of my org file to use locally downloaded versions of bokeh. Note that versions need to match/be compatible with what you have installed (~bokeh.__version__~).
+   #+BEGIN_SRC org
+   ,#+HTML_HEAD: <link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-0.12.10.min.css" type="text/css" />
+   ,#+HTML_HEAD: <link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.css" type="text/css" />
+   ,#+HTML_HEAD: <script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-0.12.10.min.js"></script>
+   ,#+HTML_HEAD: <script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.js"></script>
+   #+END_SRC
+
+2. For this website I use the CDN urls they provide : ~http://cdn.pydata.org/bokeh/release/bokeh-x.y.z.min.css~ etc.
+
+#+BEGIN_SRC ipython :session :results output drawer
+def WriteToOrg(p):
+    script, div = components(p)
+
+    script = '\n'.join(['#+HTML_HEAD_EXTRA: ' + line for line in script.lstrip().split('\n')])
+
+    print('''{script}\n#+BEGIN_EXPORT html\n{div}\n#+END_EXPORT'''.format(script=script, div=div))
+
+
+from bokeh.plotting import figure
+from bokeh.embed import components
+
+p = figure()
+p.line(np.random.randn(200), np.random.randn(200))
+WriteToOrg(p)
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+#+HTML_HEAD_EXTRA: <script type="text/javascript">
+#+HTML_HEAD_EXTRA:     (function() {
+#+HTML_HEAD_EXTRA:   var fn = function() {
+#+HTML_HEAD_EXTRA:     Bokeh.safely(function() {
+#+HTML_HEAD_EXTRA:       (function(root) {
+#+HTML_HEAD_EXTRA:         function embed_document(root) {
+#+HTML_HEAD_EXTRA:           var docs_json = {"ab74654d-d1b1-45c2-abb3-6b774dbf7a7d":{"roots":{"references":[{"attributes":{},"id":"4ab9f9f2-f38e-4b3b-ac50-cd8a16af7324","type":"BasicTicker"},{"attributes":{},"id":"31cf222e-ae0a-4251-a9eb-8f2d3c225c5e","type":"LinearScale"},{"attributes":{},"id":"773a7e3a-3459-499c-8f32-f31e89925128","type":"BasicTickFormatter"},{"attributes":{},"id":"9862cdc7-1e76-4e2f-ad34-c26d137c0e76","type":"BasicTickFormatter"},{"attributes":{"line_alpha":{"value":0.1},"line_color":{"value":"#1f77b4"},"x":{"field":"x"},"y":{"field":"y"}},"id":"4089f2e2-48ce-4d8b-9bfb-dd17920df103","type":"Line"},{"attributes":{"dimension":1,"plot":{"id":"5ad32e3c-4562-4ffb-bc23-c12c3828909f","subtype":"Figure","type":"Plot"},"ticker":{"id":"54321f35-a60f-46d1-adba-d608d8c3487b","type":"BasicTicker"}},"id":"6494d576-57bf-4e53-8d55-433ee30bc577","type":"Grid"},{"attributes":{"callback":null},"id":"4935631c-e917-4e0f-86fd-d39ed0d22516","type":"DataRange1d"},{"attributes":{},"id":"54321f35-a60f-46d1-adba-d608d8c3487b","type":"BasicTicker"},{"attributes":{},"id":"0a809f5c-a67a-43fb-9d16-f0d74c1b66bc","type":"LinearScale"},{"attributes":{},"id":"09512859-5090-4fbe-b725-d73ecdbf8730","type":"PanTool"},{"attributes":{"callback":null},"id":"c8887d8d-c83a-47a6-8a2f-5afc26dfd8c6","type":"DataRange1d"},{"attributes":{"bottom_units":"screen","fill_alpha":{"value":0.5},"fill_color":{"value":"lightgrey"},"left_units":"screen","level":"overlay","line_alpha":{"value":1.0},"line_color":{"value":"black"},"line_dash":[4,4],"line_width":{"value":2},"plot":null,"render_mode":"css","right_units":"screen","top_units":"screen"},"id":"c9ffa814-3caa-48da-8133-adaa8d0b54a4","type":"BoxAnnotation"},{"attributes":{"below":[{"id":"f98a4541-5a12-4215-94a6-0cb2e8b3e245","type":"LinearAxis"}],"left":[{"id":"8878d2b3-b40c-4d19-9f96-b4505f3447bf","type":"LinearAxis"}],"renderers":[{"id":"f98a4541-5a12-4215-94a6-0cb2e8b3e245","type":"LinearAxis"},{"id":"595a8577-4f47-49a1-befa-7de5238c86da","type":"Grid"},{"id":"8878d2b3-b40c-4d19-9f96-b4505f3447bf","type":"LinearAxis"},{"id":"6494d576-57bf-4e53-8d55-433ee30bc577","type":"Grid"},{"id":"c9ffa814-3caa-48da-8133-adaa8d0b54a4","type":"BoxAnnotation"},{"id":"0210ede7-abd3-40c7-8797-00f737f7f381","type":"GlyphRenderer"}],"title":{"id":"31becec0-956d-44ec-be37-fb1edef75350","type":"Title"},"toolbar":{"id":"618f0da1-0645-480c-8602-5ed7dead01d1","type":"Toolbar"},"x_range":{"id":"4935631c-e917-4e0f-86fd-d39ed0d22516","type":"DataRange1d"},"x_scale":{"id":"0a809f5c-a67a-43fb-9d16-f0d74c1b66bc","type":"LinearScale"},"y_range":{"id":"c8887d8d-c83a-47a6-8a2f-5afc26dfd8c6","type":"DataRange1d"},"y_scale":{"id":"31cf222e-ae0a-4251-a9eb-8f2d3c225c5e","type":"LinearScale"}},"id":"5ad32e3c-4562-4ffb-bc23-c12c3828909f","subtype":"Figure","type":"Plot"},{"attributes":{"data_source":{"id":"f317a7a2-e7a2-4823-a975-1619e8b4afa4","type":"ColumnDataSource"},"glyph":{"id":"6f07ca7a-6af1-4417-af27-fa6fd267bcd3","type":"Line"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"4089f2e2-48ce-4d8b-9bfb-dd17920df103","type":"Line"},"selection_glyph":null,"view":{"id":"cd6d7f5b-8746-4ffe-829a-1d16e0d29e1b","type":"CDSView"}},"id":"0210ede7-abd3-40c7-8797-00f737f7f381","type":"GlyphRenderer"},{"attributes":{"line_color":{"value":"#1f77b4"},"x":{"field":"x"},"y":{"field":"y"}},"id":"6f07ca7a-6af1-4417-af27-fa6fd267bcd3","type":"Line"},{"attributes":{"plot":null,"text":""},"id":"31becec0-956d-44ec-be37-fb1edef75350","type":"Title"},{"attributes":{},"id":"46bf0f22-57d2-422e-a4d6-d775f750d0f6","type":"ResetTool"},{"attributes":{},"id":"e89dc72f-e878-46ee-9aaa-d35115e57567","type":"HelpTool"},{"attributes":{},"id":"09a7678c-bd6b-4dcd-ac82-93289aba789a","type":"SaveTool"},{"attributes":{"formatter":{"id":"9862cdc7-1e76-4e2f-ad34-c26d137c0e76","type":"BasicTickFormatter"},"plot":{"id":"5ad32e3c-4562-4ffb-bc23-c12c3828909f","subtype":"Figure","type":"Plot"},"ticker":{"id":"4ab9f9f2-f38e-4b3b-ac50-cd8a16af7324","type":"BasicTicker"}},"id":"f98a4541-5a12-4215-94a6-0cb2e8b3e245","type":"LinearAxis"},{"attributes":{"overlay":{"id":"c9ffa814-3caa-48da-8133-adaa8d0b54a4","type":"BoxAnnotation"}},"id":"db1db6e4-2f3e-411d-9cc8-500080c22a74","type":"BoxZoomTool"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_scroll":"auto","active_tap":"auto","tools":[{"id":"09512859-5090-4fbe-b725-d73ecdbf8730","type":"PanTool"},{"id":"f059ddd5-2a8c-45b0-929c-05353a49acd9","type":"WheelZoomTool"},{"id":"db1db6e4-2f3e-411d-9cc8-500080c22a74","type":"BoxZoomTool"},{"id":"09a7678c-bd6b-4dcd-ac82-93289aba789a","type":"SaveTool"},{"id":"46bf0f22-57d2-422e-a4d6-d775f750d0f6","type":"ResetTool"},{"id":"e89dc72f-e878-46ee-9aaa-d35115e57567","type":"HelpTool"}]},"id":"618f0da1-0645-480c-8602-5ed7dead01d1","type":"Toolbar"},{"attributes":{},"id":"f059ddd5-2a8c-45b0-929c-05353a49acd9","type":"WheelZoomTool"},{"attributes":{"source":{"id":"f317a7a2-e7a2-4823-a975-1619e8b4afa4","type":"ColumnDataSource"}},"id":"cd6d7f5b-8746-4ffe-829a-1d16e0d29e1b","type":"CDSView"},{"attributes":{"formatter":{"id":"773a7e3a-3459-499c-8f32-f31e89925128","type":"BasicTickFormatter"},"plot":{"id":"5ad32e3c-4562-4ffb-bc23-c12c3828909f","subtype":"Figure","type":"Plot"},"ticker":{"id":"54321f35-a60f-46d1-adba-d608d8c3487b","type":"BasicTicker"}},"id":"8878d2b3-b40c-4d19-9f96-b4505f3447bf","type":"LinearAxis"},{"attributes":{"callback":null,"column_names":["x","y"],"data":{"x":{"__ndarray__":"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","dtype":"float64","shape":[200]},"y":{"__ndarray__":"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","dtype":"float64","shape":[200]}}},"id":"f317a7a2-e7a2-4823-a975-1619e8b4afa4","type":"ColumnDataSource"},{"attributes":{"plot":{"id":"5ad32e3c-4562-4ffb-bc23-c12c3828909f","subtype":"Figure","type":"Plot"},"ticker":{"id":"4ab9f9f2-f38e-4b3b-ac50-cd8a16af7324","type":"BasicTicker"}},"id":"595a8577-4f47-49a1-befa-7de5238c86da","type":"Grid"}],"root_ids":["5ad32e3c-4562-4ffb-bc23-c12c3828909f"]},"title":"Bokeh Application","version":"0.12.10"}};
+#+HTML_HEAD_EXTRA:           var render_items = [{"docid":"ab74654d-d1b1-45c2-abb3-6b774dbf7a7d","elementid":"2752c053-1ddb-4dad-9a62-afb09a61cc38","modelid":"5ad32e3c-4562-4ffb-bc23-c12c3828909f"}];
+#+HTML_HEAD_EXTRA:
+#+HTML_HEAD_EXTRA:           root.Bokeh.embed.embed_items(docs_json, render_items);
+#+HTML_HEAD_EXTRA:         }
+#+HTML_HEAD_EXTRA:
+#+HTML_HEAD_EXTRA:         if (root.Bokeh !== undefined) {
+#+HTML_HEAD_EXTRA:           embed_document(root);
+#+HTML_HEAD_EXTRA:         } else {
+#+HTML_HEAD_EXTRA:           var attempts = 0;
+#+HTML_HEAD_EXTRA:           var timer = setInterval(function(root) {
+#+HTML_HEAD_EXTRA:             if (root.Bokeh !== undefined) {
+#+HTML_HEAD_EXTRA:               embed_document(root);
+#+HTML_HEAD_EXTRA:               clearInterval(timer);
+#+HTML_HEAD_EXTRA:             }
+#+HTML_HEAD_EXTRA:             attempts++;
+#+HTML_HEAD_EXTRA:             if (attempts > 100) {
+#+HTML_HEAD_EXTRA:               console.log("Bokeh: ERROR: Unable to embed document because BokehJS library is missing")
+#+HTML_HEAD_EXTRA:               clearInterval(timer);
+#+HTML_HEAD_EXTRA:             }
+#+HTML_HEAD_EXTRA:           }, 10, root)
+#+HTML_HEAD_EXTRA:         }
+#+HTML_HEAD_EXTRA:       })(window);
+#+HTML_HEAD_EXTRA:     });
+#+HTML_HEAD_EXTRA:   };
+#+HTML_HEAD_EXTRA:   if (document.readyState != "loading") fn();
+#+HTML_HEAD_EXTRA:   else document.addEventListener("DOMContentLoaded", fn);
+#+HTML_HEAD_EXTRA: })();
+#+HTML_HEAD_EXTRA:
+#+HTML_HEAD_EXTRA: </script>
+#+BEGIN_EXPORT html
+
+<div class="bk-root">
+    <div class="bk-plotdiv" id="2752c053-1ddb-4dad-9a62-afb09a61cc38"></div>
+</div>
+#+END_EXPORT
+:END:
+* Appendix
+** yasnippet
+A simplified version of the one on ~ob-ipython~. This autogenerates a random filename.
+
+#+BEGIN_EXAMPLE
+#+BEGIN_SRC ipython :session :results output drawer :exports both :var fname=${1:`(make-temp-name "img")`}
+from bokeh.plotting import figure
+from bokeh.layouts import gridplot
+from bokeh.models import ColumnDataSource, HoverTool, WheelZoomTool
+
+tools='box_select, reset'
+
+# create "subplots"
+hf = figure(tools=tools)
+hf.background_fill_alpha = 0.0
+hf.border_fill_alpha = 0.0
+
+hf.$0
+
+export_bokeh(hf, 'images/'+fname+'.png', 'images/js/'+fname+'.js', bkjs='inline')
+#+END_SRC
+#+END_EXAMPLE
+
+** Dependencies
+Looks like exporting to PNG requires
+#+BEGIN_EXAMPLE
+conda install phantomjs selenium
+#+END_EXAMPLE
+** Styling
+1. Either include a css file or add a style tag to ~HTML_HEAD~ at the top of your org file.
+   #+BEGIN_SRC org
+   ,#+HTML_HEAD: <style> add-stuff-here </style>
+   #+END_SRC
+2. Targeting the css class ~bk-plot-layout~ lets you center the image. ~bk-grid-column~ does it for ~gridplot~
+   #+BEGIN_SRC css
+   .bk-plot-layout .bk-grid-column { max-width: 100%; margin: auto;}
+   #+END_SRC
+** Source
+Here is [[https://raw.githubusercontent.com/dcherian/dcherian.github.io/sources/org/posts/bokeh-org-mode.org][org-mode source]] for this page.
