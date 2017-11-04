@@ -48,7 +48,7 @@ header, section {
 }
 
 b, strong {
-    font-weight: 500;
+    /* font-weight: 500; */
     color: #2aa198;
 }
 
@@ -263,11 +263,14 @@ video {
 
 
 /* --- Code ---------------------------------------------------------------- */
-pre {
+code, pre {
     font-size:      90%;
     font-family:    monospace;
     line-height:    125%;
+    color: #555;
     /* background:     #fcfcfc; */
+}
+pre {
     border-top:     .5px solid #ccc;
     border-bottom:  .5px solid #ccc;
     padding-left:   2.0em;
