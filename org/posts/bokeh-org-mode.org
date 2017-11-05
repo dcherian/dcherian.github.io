@@ -179,7 +179,7 @@ I made some slight modifications to http://kitchingroup.cheme.cmu.edu/blog/2016/
 
 2. For this website I use the CDN urls they provide : ~http://cdn.pydata.org/bokeh/release/bokeh-x.y.z.min.css~ etc.
 
-#+BEGIN_SRC ipython :session :results output drawer
+#+BEGIN_SRC ipython :session :results output drawer :exports both
 def WriteToOrg(p):
     script, div = components(p)
 
