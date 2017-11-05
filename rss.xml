@@ -14,8 +14,8 @@
   <link>http://www.cherian.net/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Sat, 04 Nov 2017 01:50:44 -0700</pubDate>
-  <lastBuildDate>Sat, 04 Nov 2017 01:50:44 -0700</lastBuildDate>
+  <pubDate>Sat, 04 Nov 2017 21:29:02 -0700</pubDate>
+  <lastBuildDate>Sat, 04 Nov 2017 21:29:02 -0700</lastBuildDate>
   <generator>Emacs 25.3 Org-mode 9.1.2</generator>
   <webMaster>deepak@darya (Deepak Cherian)</webMaster>
   <image>
@@ -24,165 +24,549 @@
     <link>http://www.cherian.net/</link>
   </image>
 
+  <div id="table-of-contents">
+    <h2>Table of Contents</h2>
+    <div id="text-table-of-contents">
+      <ul>
+	<li><a href="#org80dae8d">1. bokeh js plots and org-mode HTML export</a>
+	<ul>
+	  <li><a href="#orgdf4de0b">1.1. Introduction</a></li>
+	  <li><a href="#org212cb5b">1.2. Using <code>autoload_static</code> (preferred)</a>
+	  <ul>
+	    <li><a href="#org6ed7ed7">Prerequisites</a></li>
+	    <li><a href="#org323dee3">Example</a></li>
+	    <li><a href="#orgb1dc936">Improvements</a></li>
+	  </ul>
+	  </li>
+	  <li><a href="#org6345e24">1.3. Using components (not-recommended)</a></li>
+	  <li><a href="#org9ca504f">1.4. Appendix</a>
+	  <ul>
+	    <li><a href="#orgba0d579">yasnippet</a></li>
+	    <li><a href="#org5cd39aa">Dependencies</a></li>
+	    <li><a href="#org2bf4b72">Styling</a></li>
+	    <li><a href="#orgd5dcba2">Source</a></li>
+	  </ul>
+	  </li>
+	</ul>
+	</li>
+	<li><a href="#org5080931">2. xkcd-style schematics using matplotlib.</a></li>
+	<li><a href="#org8ed13ea">3. Interesting quotes from the scientific literature</a></li>
+	<li><a href="#orgcde2819">4. "Death in the Gulf Stream" - A Hemingway cocktail</a></li>
+	<li><a href="#orgb7039af">5. A setup for reproducible research</a>
+	<ul>
+	  <li><a href="#org2208ea0">5.1. Update</a></li>
+	  <li><a href="#orgf711a27">5.2. Software</a></li>
+	  <li><a href="#orgc857f49">5.3. Strategy</a></li>
+	  <li><a href="#org01b9c0e">5.4. Getting the current hash in MATLAB</a></li>
+	  <li><a href="#orge8854d7">5.5. Using the hash</a></li>
+	  <li><a href="#org856ef0f">5.6. Saving the hash in an image file</a></li>
+	  <li><a href="#org676513c">5.7. Extracting commit hash from image metadata</a></li>
+	</ul>
+	</li>
+      </ul>
+    </div>
+  </div>
 
   <item>
-    <title>xkcd-style schematics using matplotlib.</title>
-    <link>http://www.cherian.net/rss.html#org5080931</link>
+    <title>bokeh js plots and org-mode HTML export</title>
+    <link>http://www.cherian.net/rss.html#org80dae8d</link>
     <author>deepak@darya (Deepak Cherian)</author>
-    <guid isPermaLink="false">http://www.cherian.net/rss.html#org5080931</guid>
-    <pubDate>Sun, 17 Sep 2017 12:36:00 -0700</pubDate>
+    <guid isPermaLink="false">http://www.cherian.net/rss.html#org80dae8d</guid>
+    <pubDate>Sat, 04 Nov 2017 21:28:00 -0700</pubDate>
 
-    <description><![CDATA[<p>
-    <a href="https://github.com/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb">IPython notebook here.</a>
-    </p>
-    ]]></description>
-  </item>
-  <item>
-    <title>Interesting quotes from the scientific literature</title>
-    <link>http://www.cherian.net/rss.html#org8ed13ea</link>
-    <author>deepak@darya (Deepak Cherian)</author>
-    <guid isPermaLink="false">http://www.cherian.net/rss.html#org8ed13ea</guid>
-    <pubDate>Sun, 17 Sep 2017 12:34:00 -0700</pubDate>
-
-    <description><![CDATA[<div class="paper-quotes">
-    <ol class="org-ol">
-    <li><p>
-    <a class='org-ref-reference' href="#Vallis1993">Vallis1993</a> :
-    </p>
-    <blockquote>
+    <description><![CDATA[
+    <div id="outline-container-orgdf4de0b" class="outline-3">
+    <h3 id="orgdf4de0b"><span class="section-number-3">1.1</span> Introduction</h3>
+    <div class="outline-text-3" id="text-1-1">
     <p>
-    A factor of 2 sometimes finds itself, rather arbitrarily, in the denominator.
-    </p>
-    </blockquote></li>
-
-    <li><p>
-    <a class='org-ref-reference' href="#Flierl1978">Flierl1978</a> quotes Karl Marx:
-    </p>
-    <blockquote>
-    <p>
-    A second and, in my opinion, more persuasive argument for our studies is that, in sensitive systems, a small quantitative error may lead to large qualitative errors<sup>1</sup>.
+    I've been wanting to play around with interactive Javascript plots for a while; for example: <a href="https://demo.bokehplots.com/apps/selection_histogram">https://demo.bokehplots.com/apps/selection_histogram</a>. The selection functionality is really cool!
     </p>
 
     <p>
-    ...
-    </p>
-
-    <p>
-    _<sup>1</sup> "Quantitative changes suddenly become qualitative changes" (Karl Marx)
-    </p>
-    </blockquote></li>
-
-    <li><p>
-    <a class='org-ref-reference' href="#Holte2009">Holte2009</a> throw shade at under-performing Canadian Argo floats:
-    </p>
-    <blockquote>
-    <p>
-    Most floats sampled at regular pressure levels, though the Canadian Argo floats often sampled at irregular pressures and required substantial editing.
-    </p>
-    </blockquote></li>
-
-    <li><p>
-    <a class='org-ref-reference' href="#Sutyrin1994">Sutyrin1994</a> note insufficient printer resolution in their Figure 2.
-    </p>
-
-    <div class="figure">
-    <p><img src="http://www.cherian.net/../static/sutyrin-flierl-fig2.png" alt="sutyrin-flierl-fig2.png" style="width:70%" />
-    </p>
-    </div></li>
-
-    <li><p>
-    <a class='org-ref-reference' href="#MacKinnon2017">MacKinnon2017</a> summarize
-    </p>
-    <blockquote>
-    <p>
-    A frequently asked question related to this work is “Which mixing processes matter most for climate?”. As with many alluringly comprehensive sounding questions, the answer is “it depends”.
-    </p>
-    </blockquote>
-    <p>
-    and then end on an inspiring note
-    </p>
-    <blockquote>
-    <p>
-    At the same time, the epiphanies, new ideas and novel observations that fundamentally drive the field forward frequently come not from big science, but from a cornucopia of much smaller exploratory efforts and the continued small-scale development of innovative observing technology and numerical techniques.  We must not lose the ability to be surprised.
-    </p>
-    </blockquote></li>
-
-    <li><p>
-    <a class='org-ref-reference' href="#Wunsch2016">Wunsch2016</a> cites the Bible
-    </p>
-    <blockquote>
-    <p>
-    That which is far off, and exceeding deep, who can find it out?
-    — Ecclesiastes 7:24 (King James Version)
-    </p>
-    </blockquote></li>
-
-    <li><p>
-    Enrico Fermi quotes John von Neumann to Freeman Dyson, critizing the latter's model (<a class='org-ref-reference' href="#Dyson2004">Dyson2004</a>):
-    </p>
-    <blockquote>
-    <p>
-    "I remember my friend Johnny von Neumann used to say, with four parameters I can fit an elephant, and with five I can make him wiggle his trunk." - Enrico Fermi
-    </p>
-    </blockquote>
-
-
-    <div class="figure">
-    <p><img src="http://www.cherian.net/../static/elephant.png" alt="elephant.png" style="float:right;width:40%" />
+    This post is an experiment in embedding <a href="http://bokeh.pydata.org">bokeh</a> plots in org-mode notebooks that rendered properly when exported as HTML pages. There are two approaches for embedding.
     </p>
     </div>
+    </div>
 
+    <div id="outline-container-org212cb5b" class="outline-3">
+    <h3 id="org212cb5b"><span class="section-number-3">1.2</span> Using <code>autoload_static</code> (preferred)</h3>
+    <div class="outline-text-3" id="text-1-2">
     <p>
-    <a class='org-ref-reference' href="#Mayer2010">Mayer2010</a> take on the challenge yielding:
-    </p>
-    <blockquote>
-    <p>
-    The resulting shape is schematic and cartoonlike but is still recognizable as an elephant. Although the use of the Fourier coordinate expansion is not new,2,3 our approach clearly demonstrates its usefulness in reducing the number of parameters needed to describe a two-dimensional contour. In the special case of fitting an elephant, it is even possible to lower it to four complex parameters and therein implement a well-known saying.
-    </p>
-    </blockquote>
-    <p>
-    With five, they give the elephant an eye and make it's trunk wiggle!
+    Based on <a href="https://necromuralist.github.io/data_science/posts/bokeh-test/">https://necromuralist.github.io/data_science/posts/bokeh-test/</a>
     </p>
 
     <p>
-    Python implementation <a href="https://www.johndcook.com/blog/2011/06/21/how-to-fit-an-elephant/">here</a>.
-    </p></li>
-
-    <li><p>
-    ...
+    Some notes:
     </p>
+    <ol class="org-ol">
+    <li>This method stores the data in a separate <code>.js</code> file which should make the org file easier to handle. Also, the figure can embedded freely in many places.</li>
+    <li>Figuring where to get the bokeh css and js files can be tricky (<a href="https://bokeh.pydata.org/en/latest/docs/reference/resources.html">docs</a>):
+    <ol class="org-ol">
+    <li>You can use the CDN:  <code>from bokeh.resources import CDN</code> to load the bokeh js file over the internet. Not good for future-proofing.</li>
+    <li>Using <code>bokeh.resources.Resources(mode='absolute')</code> or <code>'mode=relative'</code> loads bokeh from your local python installation; so that's good for <i>local</i> notebooks but your figures/notebooks might break when bokeh updates.</li>
+    <li>The <code>inline</code> option inlines the necessary js and css in the exported <code>.js</code> file but then with multiple images; you end up with multiple copies so that's wasteful, but seems like the only future-proof option. Also, you can have two figures made with different bokeh versions embedded in the same document, so that's a plus.</li>
+    </ol></li>
+    </ol>
+    </div>
 
-    <div class="figure">
-    <p><img src="http://www.cherian.net/../static/obama-author.png" alt="obama-author.png" style="width:100%" />
-    </p>
-    </div></li>
-
-    <li><p>
-    <a class='org-ref-reference' href="#Lindzen1988">Lindzen1988</a>
-    </p>
-    <blockquote>
+    <div id="outline-container-org6ed7ed7" class="outline-4">
+    <h4 id="org6ed7ed7">Prerequisites</h4>
+    <div class="outline-text-4" id="text-org6ed7ed7">
     <p>
-    As it turns out, the observations provide a clue to the problem.
+    I am using
     </p>
-    </blockquote></li>
+
+    <ol class="org-ol">
+    <li>bokeh 0.12.10</li>
+    <li>org 9.1.2</li>
+    <li>emacs 25.3.50.2</li>
+    <li><a href="https://github.com/gregsexton/ob-ipython/commit/1642a74d4402b77ce051879e7605bc7c6537f922">ob-ipython @ 1642a74</a></li>
     </ol>
 
-    </div>
     <p>
-
-    <h1 class='org-ref-bib-h1'>Bibliography</h1>
-    <ul class='org-ref-bib'><li><a id="Vallis1993">[Vallis1993] Vallis & Maltrud, Generation of Mean Flows and Jets on a Beta Plane and over Topography, <i>Journal of Physical Oceanography</i>, <b>23(7)</b>, 1346-1362 (1993). <a href="http://dx.doi.org/10.1175/1520-0485(1993)023<1346:GOMFAJ>2.0.CO;2">doi</a>.</a></li>
-    <li><a id="Flierl1978">[Flierl1978] Flierl, Models of Vertical Structure and the Calibration of Two-Layer Models, <i>Dynamics of Atmospheres and Oceans</i>, <b>2(4)</b>, 341-381 (1978). <a href="http://dx.doi.org/10.1016/0377-0265(78)90002-7">doi</a>.</a></li>
-    <li><a id="Holte2009">[Holte2009] Holte & Talley, A New Algorithm for Finding Mixed Layer Depths with Applications to Argo Data and Subantarctic Mode Water Formation*, <i>Journal of Atmospheric and Oceanic Technology</i>, <b>26(9)</b>, 1920-1939 (2009). <a href="http://dx.doi.org/10.1175/2009JTECHO543.1">doi</a>.</a></li>
-    <li><a id="Sutyrin1994">[Sutyrin1994] Sutyrin & Flierl, Intense Vortex Motion on the Beta Plane: Development of the Beta Gyres, <i>Journal of the Atmospheric Sciences</i>, <b>51(5)</b>, 773-790 (1994). <a href="http://dx.doi.org/10.1175/1520-0469(1994)051<0773:IVMOTB>2.0.CO;2">doi</a>.</a></li>
-    <li><a id="MacKinnon2017">[MacKinnon2017] MacKinnon, Alford, Ansong, Arbic, Barna, Briegleb, Bryan, Buijsman, Chassignet, Danabasoglu, Diggs, Griffies, Hallberg, Jayne, Jochum, Klymak, Kunze, Large, Legg, Mater, Melet, Merchant, Musgrave, Nash, Norton, Pickering, Pinkel, Polzin, Simmons, Laurent, Sun, Trossman, Waterhouse, Whalen & Zhao, Climate Process Team on Internal-Wave Driven Ocean Mixing, <i>Bulletin of the American Meteorological Society</i>, <b></b>, (2017). <a href="http://dx.doi.org/10.1175/BAMS-D-16-0030.1">doi</a>.</a></li>
-    <li><a id="Wunsch2016">[Wunsch2016] Wunsch, Global Ocean Integrals and Means, with Trend Implications, <i>Annual Review of Marine Science</i>, <b>8(1)</b>, 1-33 (2016). <a href="http://dx.doi.org/10.1146/annurev-marine-122414-034040">doi</a>.</a></li>
-    <li><a id="Dyson2004">[Dyson2004] Dyson, A Meeting with Enrico Fermi, <i>Nature</i>, <b>427(6972)</b>, 297-297 (2004). <a href="http://dx.doi.org/10.1038/427297a">doi</a>.</a></li>
-    <li><a id="Mayer2010">[Mayer2010] Mayer, Khairy & Howard, Drawing an Elephant with Four Complex Parameters, <i>American Journal of Physics</i>, <b>78(6)</b>, 648 (2010). <a href="http://dx.doi.org/10.1119/1.3254017">doi</a>.</a></li>
-    <li><a id="Lindzen1988">[Lindzen1988] Lindzen & Hou, Hadley Circulations for Zonally Averaged Heating Centered off the Equator, <i>Journal of the Atmospheric Sciences</i>, <b>45(17)</b>, 2416-2427 (1988). <a href="http://dx.doi.org/10.1175/1520-0469(1988)045<2416:HCFZAH>2.0.CO;2">doi</a>.</a></li>
-    </ul>
+    I define a function <code>export_bokeh</code> to do the actual heavy lifting. This function could be moved to your ipython <code>startup.py</code> file so that it is defined for every ipython session.
     </p>
+    <div class="org-src-container">
+    <pre class="src src-ipython" id="org3425727"><span style="color: #859900;">def</span> <span style="color: #268bd2;">export_bokeh</span>(plot, outPNG, outJS, outHTML, bkjs=<span style="color: #2aa198;">'inline'</span>):
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">from</span> bokeh.io <span style="color: #859900;">import</span> export_png
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">from</span> bokeh.embed <span style="color: #859900;">import</span> autoload_static, file_html
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">import</span> bokeh.resources
+
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'local'</span>:
+    <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">use local installed bokeh scripts</span>
+    <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #2aa198;">'absolute'</span>)
+
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'remote'</span> <span style="color: #859900;">or</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'CDN'</span>:
+    <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">use CDN bokeh scripts</span>
+    <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.CDN
+
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'relative'</span>:
+    <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">bkjs is a relative path to the locally installed bokeh files</span>
+    <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #2aa198;">'relative'</span>, root_dir=<span style="color: #2aa198;">'./'</span>)
+
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'inline'</span>:
+    <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.INLINE
+
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">save the png file</span>
+    <span style="background-color: #eee8d5;"> </span>   export_png(plot, filename=outPNG)
+
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">save the html file</span>
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">html</span> = file_html(plot, wherebokeh, <span style="color: #268bd2;">None</span>)
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">with</span> <span style="color: #b58900;">open</span>(outHTML, <span style="color: #2aa198;">'w'</span>) <span style="color: #859900;">as</span> <span style="color: #b58900;">file</span>:
+    <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #b58900;">file</span>.write(html)
+
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">js</span>, <span style="color: #268bd2;">script</span> = autoload_static(plot, wherebokeh, outJS)
+
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">save the .js file</span>
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">with</span> <span style="color: #b58900;">open</span>(outJS, <span style="color: #2aa198;">"w"</span>) <span style="color: #859900;">as</span> writer:
+    <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   writer.write(js)
+
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">embed in the org-exported HTML file</span>
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''#+BEGIN_EXPORT html\n{script}\n#+END_EXPORT'''</span>.<span style="color: #b58900;">format</span>(script=script.lstrip()))
+    </pre>
+    </div>
+
+    <p>
+    Embedding the figure is then quite easy once you
+    </p>
+    <ol class="org-ol">
+    <li>tell ob-ipython to capture stdout and put it in a drawer so that it's replaced everytime to rerun the source block.</li>
+    <li>provide a custom filename for export (<code>fname</code> below).</li>
+    </ol>
+    <p>
+    I use this header line:
+    </p>
+    <pre class="example">
+    #+BEGIN_SRC ipython :session :results output drawer :exports both :var fname="my-image" :var titlestr="Demonstrating bokeh"
+    </pre>
+    </div>
+    </div>
+    <div id="outline-container-org323dee3" class="outline-4">
+    <h4 id="org323dee3">Example</h4>
+    <div class="outline-text-4" id="text-org323dee3">
+    <p>
+    This will export a <a href="http://www.cherian.net/../static/my-image.png">png image</a>, an <a href="http://www.cherian.net/../static/html/my-image.html">HTML file</a> and a <a href="http://www.cherian.net/../static/js/my-image.js">Javascript file</a>. That way there are both static and dynamic versions that are easy to share as well as an emebeddable version.
+    </p>
+    <div class="org-src-container">
+    <pre class="src src-ipython"><span style="color: #859900;">from</span> bokeh.plotting <span style="color: #859900;">import</span> figure
+    <span style="color: #859900;">from</span> bokeh.layouts <span style="color: #859900;">import</span> gridplot
+    <span style="color: #859900;">from</span> bokeh.models <span style="color: #859900;">import</span> ColumnDataSource, HoverTool, WheelZoomTool
+
+    <span style="color: #268bd2;">tools</span>=<span style="color: #2aa198;">'box_select, reset'</span>
+
+    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">create "subplots"</span>
+    <span style="color: #268bd2;">p1</span> = figure(tools=tools)
+    <span style="color: #268bd2;">p1.background_fill_alpha</span> = 0.0
+    <span style="color: #268bd2;">p1.border_fill_alpha</span> = 0.0
+
+    <span style="color: #268bd2;">p2</span> = figure(tools=tools, x_range=p1.x_range, y_range=p1.y_range)
+    <span style="color: #268bd2;">p2.background_fill_alpha</span> = 0.0
+    <span style="color: #268bd2;">p2.border_fill_alpha</span> = 0.0
+
+    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">generate data</span>
+    <span style="color: #268bd2;">x</span> = np.random.randn(200)
+    <span style="color: #268bd2;">y0</span> = x**3 - 100
+    <span style="color: #268bd2;">y1</span> = x**2 - 100
+
+    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">generate random letters</span>
+    <span style="color: #859900;">import</span> string
+    <span style="color: #859900;">import</span> random
+    <span style="color: #268bd2;">label</span> = [random.choice(string.ascii_letters) <span style="color: #859900;">for</span> aa <span style="color: #859900;">in</span> <span style="color: #b58900;">range</span>(200)]
+
+    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">needed for linked selection</span>
+    <span style="color: #268bd2;">source</span> = ColumnDataSource(data={<span style="color: #2aa198;">'x'</span>: x, <span style="color: #2aa198;">'y0'</span>: y0, <span style="color: #2aa198;">'y1'</span>: y1,
+    <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #2aa198;">'label'</span>: label})
+
+    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">plot the data</span>
+    p1.circle(<span style="color: #2aa198;">'x'</span>, <span style="color: #2aa198;">'y0'</span>, source=source)
+    p2.scatter(<span style="color: #2aa198;">'x'</span>, <span style="color: #2aa198;">'y1'</span>, source=source)
+
+    <span style="color: #268bd2;">p1.title.text</span> = titlestr
+
+    <span style="color: #268bd2;">wheel</span> = WheelZoomTool()
+    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">add some tooltips</span>
+    <span style="color: #268bd2;">hover</span> = HoverTool()
+    <span style="color: #268bd2;">hover.tooltips</span> = [
+    <span style="background-color: #eee8d5;"> </span>   (<span style="color: #2aa198;">"(x,y)"</span>, <span style="color: #2aa198;">"($x, $y)"</span>),  <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">'$' for co-ordinates</span>
+    <span style="background-color: #eee8d5;"> </span>   (<span style="color: #2aa198;">"label"</span>, <span style="color: #2aa198;">"@label"</span>)  <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">note '@' for column lookup</span>
+    ]
+    p1.add_tools(hover, wheel)
+    p2.add_tools(hover, wheel)
+
+    <span style="color: #268bd2;">p1.toolbar.active_scroll</span> = wheel
+    <span style="color: #268bd2;">p2.toolbar.active_scroll</span> = wheel
+
+    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">layout the subplots</span>
+    <span style="color: #268bd2;">pg</span> = gridplot([[p1, p2]], plot_width=400, plot_height=400)
+
+    export_bokeh(pg,
+    <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span><span style="color: #2aa198;">'../static/'</span>+fname+<span style="color: #2aa198;">'.png'</span>,
+    <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span><span style="color: #2aa198;">'../static/js/'</span>+fname+<span style="color: #2aa198;">'.js'</span>,
+    <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span><span style="color: #2aa198;">'../static/html/'</span>+fname+<span style="color: #2aa198;">'.html'</span>)
+    </pre>
+    </div>
+    <script
+    src="../static/js/my-image.js"
+    id="f1c145ed-260c-411c-8c26-f71b52427218"
+    data-bokeh-model-id="5f0145de-1c4e-4ee2-9a64-f38f255c81ff"
+    data-bokeh-doc-id="20261111-dbef-4dd0-b40c-d8c04db088bd"
+    ></script>
+    </div>
+    </div>
+    <div id="outline-container-orgb1dc936" class="outline-4">
+    <h4 id="orgb1dc936">Improvements</h4>
+    <div class="outline-text-4" id="text-orgb1dc936">
+    <p>
+    Things I would like:
+    </p>
+
+    <ul class="org-ul">
+    <li>Automatically run the HTML export when running the code block.
+    <ul class="org-ul">
+    <li>Can I add-hook to <code>org-babel-execute-maybe</code>?</li>
+    </ul></li>
+
+    <li>The ability to auto-hide the javascript in the <code>RESULTS</code> drawer but show the exported png file.
+    <ul class="org-ul">
+    <li>Ideally, I would see the png in the org file and the javascript in the HTML file. The other should be hidden. Seems too complicated.</li>
+    <li>A nice solution would be to insert a link to the png file in the image caption.</li>
+    </ul></li>
+
+    <li>Are <span class="underline">actual</span> captions (<code>#+CAPTION</code>) possible with bokeh figures?</li>
+
+    <li>Avoid the explicit <code>export_bokeh</code> call if possible.
+    <ul class="org-ul">
+    <li>Ideally, <code>ob-ipython</code> would be able to tell that this is a bokeh block; use the <code>fname</code> var to pass the figure handle <code>p</code> and <code>fname</code> to <code>export_bokeh</code> and do everything. This would be close to jupyter notebook workflow.</li>
+    <li>This might be possible using IPython formatters as suggested by the <code>ob-ipython</code> README.
+    <ul class="org-ul">
+    <li>Could we then define <code>export_bokeh</code> in <code>Formatters.py</code> and call that when the returned object is a bokeh figure handle?</li>
+    </ul></li>
+    </ul></li>
+
+    <li>Can we get holoviews to work with this? Optionally tell it to use either matplotlib or bokeh backends</li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    <div id="outline-container-org6345e24" class="outline-3">
+    <h3 id="org6345e24"><span class="section-number-3">1.3</span> Using components (not-recommended)</h3>
+    <div class="outline-text-3" id="text-1-3">
+    <p>
+    I made some slight modifications to <a href="http://kitchingroup.cheme.cmu.edu/blog/2016/02/07/Interactive-Bokeh-plots-in-HTML/">http://kitchingroup.cheme.cmu.edu/blog/2016/02/07/Interactive-Bokeh-plots-in-HTML/</a> though I didn't need to embed anything in a frame. The principal drawback here is that all the data is returned in <code>stdout</code> and written to the org file. This would get unwieldy for big plots.
+    </p>
+
+    <ol class="org-ol">
+    <li><p>
+    Add the following at the top of my org file to use locally downloaded versions of bokeh. Note that versions need to match/be compatible with what you have installed (<code>bokeh.__version__</code>).
+    </p>
+    <div class="org-src-container">
+    <pre class="src src-org"><span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-0.12.10.min.css" type="text/css" /&gt;</span>
+    <span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.css" type="text/css" /&gt;</span>
+    <span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-0.12.10.min.js"&gt;&lt;/script&gt;</span>
+    <span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.js"&gt;&lt;/script&gt;</span>
+    </pre>
+    </div></li>
+
+    <li>For this website I use the CDN urls they provide : <code>http://cdn.pydata.org/bokeh/release/bokeh-x.y.z.min.css</code> etc.</li>
+    </ol>
+
+    <div class="org-src-container">
+    <pre class="src src-ipython"><span style="color: #859900;">def</span> <span style="color: #268bd2;">WriteToOrg</span>(p):
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">script</span>, <span style="color: #268bd2;">div</span> = components(p)
+
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">script</span> = <span style="color: #2aa198;">'\n'</span>.join([<span style="color: #2aa198;">'#+HTML_HEAD_EXTRA: '</span> + line <span style="color: #859900;">for</span> line <span style="color: #859900;">in</span> script.lstrip().split(<span style="color: #2aa198;">'\n'</span>)])
+
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''{script}\n#+BEGIN_EXPORT html\n{div}\n#+END_EXPORT'''</span>.<span style="color: #b58900;">format</span>(script=script, div=div))
+
+
+    <span style="color: #859900;">from</span> bokeh.plotting <span style="color: #859900;">import</span> figure
+    <span style="color: #859900;">from</span> bokeh.embed <span style="color: #859900;">import</span> components
+
+    <span style="color: #268bd2;">p</span> = figure()
+    p.line(np.random.randn(200), np.random.randn(200))
+    WriteToOrg(p)
+    </pre>
+    </div>
+
+
+    <div class="bk-root">
+    <div class="bk-plotdiv" id="2752c053-1ddb-4dad-9a62-afb09a61cc38"></div>
+    </div>
+    </div>
+    </div>
+    <div id="outline-container-org9ca504f" class="outline-3">
+    <h3 id="org9ca504f"><span class="section-number-3">1.4</span> Appendix</h3>
+    <div class="outline-text-3" id="text-1-4">
+    </div>
+    <div id="outline-container-orgba0d579" class="outline-4">
+    <h4 id="orgba0d579">yasnippet</h4>
+    <div class="outline-text-4" id="text-orgba0d579">
+    <p>
+    A simplified version of the one on <code>ob-ipython</code>. This autogenerates a random filename.
+    </p>
+
+    <pre class="example">
+    #+BEGIN_SRC ipython :session :results output drawer :exports both :var fname=${1:`(make-temp-name "img")`}
+    from bokeh.plotting import figure
+    from bokeh.layouts import gridplot
+    from bokeh.models import ColumnDataSource, HoverTool, WheelZoomTool
+
+    tools='box_select, reset'
+
+    # create "subplots"
+    hf = figure(tools=tools)
+    hf.background_fill_alpha = 0.0
+    hf.border_fill_alpha = 0.0
+
+    hf.$0
+
+    export_bokeh(hf, 'images/'+fname+'.png', 'images/js/'+fname+'.js', bkjs='inline')
+    #+END_SRC
+    </pre>
+    </div>
+    </div>
+
+    <div id="outline-container-org5cd39aa" class="outline-4">
+    <h4 id="org5cd39aa">Dependencies</h4>
+    <div class="outline-text-4" id="text-org5cd39aa">
+    <p>
+    Looks like exporting to PNG requires
+    </p>
+    <pre class="example">
+    conda install phantomjs selenium
+    </pre>
+    </div>
+    </div>
+    <div id="outline-container-org2bf4b72" class="outline-4">
+    <h4 id="org2bf4b72">Styling</h4>
+    <div class="outline-text-4" id="text-org2bf4b72">
+    <ol class="org-ol">
+    <li><p>
+    Either include a css file or add a style tag to <code>HTML_HEAD</code> at the top of your org file.
+    </p>
+    <div class="org-src-container">
+    <pre class="src src-org"><span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;style&gt; add-stuff-here &lt;/style&gt;</span>
+    </pre>
+    </div></li>
+    <li><p>
+    Targeting the css class <code>bk-plot-layout</code> lets you center the image. <code>bk-grid-column</code> does it for <code>gridplot</code>
+    </p>
+    <div class="org-src-container">
+    <pre class="src src-css">   <span style="color: #268bd2;">.bk-plot-layout .bk-grid-column </span>{ <span style="color: #268bd2;">max-width</span>: 100%; <span style="color: #268bd2;">margin</span>: auto;}
+    </pre>
+    </div></li>
+    </ol>
+    </div>
+    </div>
+    <div id="outline-container-orgd5dcba2" class="outline-4">
+    <h4 id="orgd5dcba2">Source</h4>
+    <div class="outline-text-4" id="text-orgd5dcba2">
+    <p>
+    Here is <a href="https://raw.githubusercontent.com/dcherian/dcherian.github.io/sources/org/posts/bokeh-org-mode.org">org-mode source</a> for this page.
+    </p>
+    </div>
+    </div>
+    </div>
     ]]></description>
+</item>
+<item>
+  <title>xkcd-style schematics using matplotlib.</title>
+  <link>http://www.cherian.net/rss.html#org5080931</link>
+  <author>deepak@darya (Deepak Cherian)</author>
+  <guid isPermaLink="false">http://www.cherian.net/rss.html#org5080931</guid>
+  <pubDate>Sun, 17 Sep 2017 12:36:00 -0700</pubDate>
+
+  <description><![CDATA[<p>
+  <a href="https://github.com/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb">IPython notebook here.</a>
+  </p>
+  ]]></description>
+</item>
+<item>
+  <title>Interesting quotes from the scientific literature</title>
+  <link>http://www.cherian.net/rss.html#org8ed13ea</link>
+  <author>deepak@darya (Deepak Cherian)</author>
+  <guid isPermaLink="false">http://www.cherian.net/rss.html#org8ed13ea</guid>
+  <pubDate>Sun, 17 Sep 2017 12:34:00 -0700</pubDate>
+
+  <description><![CDATA[<div class="paper-quotes">
+  <ol class="org-ol">
+  <li><p>
+  <a class='org-ref-reference' href="#Vallis1993">Vallis1993</a> :
+  </p>
+  <blockquote>
+  <p>
+  A factor of 2 sometimes finds itself, rather arbitrarily, in the denominator.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  <a class='org-ref-reference' href="#Flierl1978">Flierl1978</a> quotes Karl Marx:
+  </p>
+  <blockquote>
+  <p>
+  A second and, in my opinion, more persuasive argument for our studies is that, in sensitive systems, a small quantitative error may lead to large qualitative errors<sup>1</sup>.
+  </p>
+
+  <p>
+  ...
+  </p>
+
+  <p>
+  _<sup>1</sup> "Quantitative changes suddenly become qualitative changes" (Karl Marx)
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  <a class='org-ref-reference' href="#Holte2009">Holte2009</a> throw shade at under-performing Canadian Argo floats:
+  </p>
+  <blockquote>
+  <p>
+  Most floats sampled at regular pressure levels, though the Canadian Argo floats often sampled at irregular pressures and required substantial editing.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  <a class='org-ref-reference' href="#Sutyrin1994">Sutyrin1994</a> note insufficient printer resolution in their Figure 2.
+  </p>
+
+  <div class="figure">
+  <p><img src="http://www.cherian.net/../static/sutyrin-flierl-fig2.png" alt="sutyrin-flierl-fig2.png" style="width:70%" />
+  </p>
+  </div></li>
+
+  <li><p>
+  <a class='org-ref-reference' href="#MacKinnon2017">MacKinnon2017</a> summarize
+  </p>
+  <blockquote>
+  <p>
+  A frequently asked question related to this work is “Which mixing processes matter most for climate?”. As with many alluringly comprehensive sounding questions, the answer is “it depends”.
+  </p>
+  </blockquote>
+  <p>
+  and then end on an inspiring note
+  </p>
+  <blockquote>
+  <p>
+  At the same time, the epiphanies, new ideas and novel observations that fundamentally drive the field forward frequently come not from big science, but from a cornucopia of much smaller exploratory efforts and the continued small-scale development of innovative observing technology and numerical techniques.  We must not lose the ability to be surprised.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  <a class='org-ref-reference' href="#Wunsch2016">Wunsch2016</a> cites the Bible
+  </p>
+  <blockquote>
+  <p>
+  That which is far off, and exceeding deep, who can find it out?
+  — Ecclesiastes 7:24 (King James Version)
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  Enrico Fermi quotes John von Neumann to Freeman Dyson, critizing the latter's model (<a class='org-ref-reference' href="#Dyson2004">Dyson2004</a>):
+  </p>
+  <blockquote>
+  <p>
+  "I remember my friend Johnny von Neumann used to say, with four parameters I can fit an elephant, and with five I can make him wiggle his trunk." - Enrico Fermi
+  </p>
+  </blockquote>
+
+
+  <div class="figure">
+  <p><img src="http://www.cherian.net/../static/elephant.png" alt="elephant.png" style="float:right;width:40%" />
+  </p>
+  </div>
+
+  <p>
+  <a class='org-ref-reference' href="#Mayer2010">Mayer2010</a> take on the challenge yielding:
+  </p>
+  <blockquote>
+  <p>
+  The resulting shape is schematic and cartoonlike but is still recognizable as an elephant. Although the use of the Fourier coordinate expansion is not new,2,3 our approach clearly demonstrates its usefulness in reducing the number of parameters needed to describe a two-dimensional contour. In the special case of fitting an elephant, it is even possible to lower it to four complex parameters and therein implement a well-known saying.
+  </p>
+  </blockquote>
+  <p>
+  With five, they give the elephant an eye and make it's trunk wiggle!
+  </p>
+
+  <p>
+  Python implementation <a href="https://www.johndcook.com/blog/2011/06/21/how-to-fit-an-elephant/">here</a>.
+  </p></li>
+
+  <li><p>
+  ...
+  </p>
+
+  <div class="figure">
+  <p><img src="http://www.cherian.net/../static/obama-author.png" alt="obama-author.png" style="width:100%" />
+  </p>
+  </div></li>
+
+  <li><p>
+  <a class='org-ref-reference' href="#Lindzen1988">Lindzen1988</a>
+  </p>
+  <blockquote>
+  <p>
+  As it turns out, the observations provide a clue to the problem.
+  </p>
+  </blockquote></li>
+  </ol>
+
+  </div>
+  <p>
+
+  <h1 class='org-ref-bib-h1'>Bibliography</h1>
+  <ul class='org-ref-bib'><li><a id="Vallis1993">[Vallis1993] Vallis & Maltrud, Generation of Mean Flows and Jets on a Beta Plane and over Topography, <i>Journal of Physical Oceanography</i>, <b>23(7)</b>, 1346-1362 (1993). <a href="http://dx.doi.org/10.1175/1520-0485(1993)023<1346:GOMFAJ>2.0.CO;2">doi</a>.</a></li>
+  <li><a id="Flierl1978">[Flierl1978] Flierl, Models of Vertical Structure and the Calibration of Two-Layer Models, <i>Dynamics of Atmospheres and Oceans</i>, <b>2(4)</b>, 341-381 (1978). <a href="http://dx.doi.org/10.1016/0377-0265(78)90002-7">doi</a>.</a></li>
+  <li><a id="Holte2009">[Holte2009] Holte & Talley, A New Algorithm for Finding Mixed Layer Depths with Applications to Argo Data and Subantarctic Mode Water Formation*, <i>Journal of Atmospheric and Oceanic Technology</i>, <b>26(9)</b>, 1920-1939 (2009). <a href="http://dx.doi.org/10.1175/2009JTECHO543.1">doi</a>.</a></li>
+  <li><a id="Sutyrin1994">[Sutyrin1994] Sutyrin & Flierl, Intense Vortex Motion on the Beta Plane: Development of the Beta Gyres, <i>Journal of the Atmospheric Sciences</i>, <b>51(5)</b>, 773-790 (1994). <a href="http://dx.doi.org/10.1175/1520-0469(1994)051<0773:IVMOTB>2.0.CO;2">doi</a>.</a></li>
+  <li><a id="MacKinnon2017">[MacKinnon2017] MacKinnon, Alford, Ansong, Arbic, Barna, Briegleb, Bryan, Buijsman, Chassignet, Danabasoglu, Diggs, Griffies, Hallberg, Jayne, Jochum, Klymak, Kunze, Large, Legg, Mater, Melet, Merchant, Musgrave, Nash, Norton, Pickering, Pinkel, Polzin, Simmons, Laurent, Sun, Trossman, Waterhouse, Whalen & Zhao, Climate Process Team on Internal-Wave Driven Ocean Mixing, <i>Bulletin of the American Meteorological Society</i>, <b></b>, (2017). <a href="http://dx.doi.org/10.1175/BAMS-D-16-0030.1">doi</a>.</a></li>
+  <li><a id="Wunsch2016">[Wunsch2016] Wunsch, Global Ocean Integrals and Means, with Trend Implications, <i>Annual Review of Marine Science</i>, <b>8(1)</b>, 1-33 (2016). <a href="http://dx.doi.org/10.1146/annurev-marine-122414-034040">doi</a>.</a></li>
+  <li><a id="Dyson2004">[Dyson2004] Dyson, A Meeting with Enrico Fermi, <i>Nature</i>, <b>427(6972)</b>, 297-297 (2004). <a href="http://dx.doi.org/10.1038/427297a">doi</a>.</a></li>
+  <li><a id="Mayer2010">[Mayer2010] Mayer, Khairy & Howard, Drawing an Elephant with Four Complex Parameters, <i>American Journal of Physics</i>, <b>78(6)</b>, 648 (2010). <a href="http://dx.doi.org/10.1119/1.3254017">doi</a>.</a></li>
+  <li><a id="Lindzen1988">[Lindzen1988] Lindzen & Hou, Hadley Circulations for Zonally Averaged Heating Centered off the Equator, <i>Journal of the Atmospheric Sciences</i>, <b>45(17)</b>, 2416-2427 (1988). <a href="http://dx.doi.org/10.1175/1520-0469(1988)045<2416:HCFZAH>2.0.CO;2">doi</a>.</a></li>
+  </ul>
+  </p>
+  ]]></description>
 </item>
 
 <item>
@@ -223,16 +607,16 @@
 
   <description><![CDATA[
   <div id="outline-container-org2208ea0" class="outline-3">
-  <h3 id="org2208ea0">Update</h3>
-  <div class="outline-text-3" id="text-org2208ea0">
+  <h3 id="org2208ea0"><span class="section-number-3">5.1</span> Update</h3>
+  <div class="outline-text-3" id="text-5-1">
   <p>
   <a href="https://www.researchgate.net/profile/Andre_Paloczy">André Palóczy</a> has implemented some of <a href="https://github.com/apaloczy/reproducibility">these ideas in Python</a>.
   </p>
   </div>
   </div>
   <div id="outline-container-orgf711a27" class="outline-3">
-  <h3 id="orgf711a27">Software</h3>
-  <div class="outline-text-3" id="text-orgf711a27">
+  <h3 id="orgf711a27"><span class="section-number-3">5.2</span> Software</h3>
+  <div class="outline-text-3" id="text-5-2">
   <ul class="org-ul">
   <li>Version control system to track content. I use <a href="http://www.git-scm.org"><code>git</code></a>.</li>
   <li><a href="http://www.sno.phy.queensu.ca/~phil/exiftool/"><code>exiftool</code></a> to read and write metadata to images</li>
@@ -241,8 +625,8 @@
   </div>
   </div>
   <div id="outline-container-orgc857f49" class="outline-3">
-  <h3 id="orgc857f49">Strategy</h3>
-  <div class="outline-text-3" id="text-orgc857f49">
+  <h3 id="orgc857f49"><span class="section-number-3">5.3</span> Strategy</h3>
+  <div class="outline-text-3" id="text-5-3">
   <p>
   The approach is simple: use <code>git</code> to track files that generate output.
   </p>
@@ -265,8 +649,8 @@
   </div>
   </div>
   <div id="outline-container-org01b9c0e" class="outline-3">
-  <h3 id="org01b9c0e">Getting the current hash in MATLAB</h3>
-  <div class="outline-text-3" id="text-org01b9c0e">
+  <h3 id="org01b9c0e"><span class="section-number-3">5.4</span> Getting the current hash in MATLAB</h3>
+  <div class="outline-text-3" id="text-5-4">
   <p>
   The following MATLAB function <code>githash</code> will return the hash of the last commit that modified the file in <code>fname</code>. If not provided with <code>fname</code> it returns the hash of the last commit in the repository.
   </p>
@@ -312,8 +696,8 @@
   </div>
 
   <div id="outline-container-orge8854d7" class="outline-3">
-  <h3 id="orge8854d7">Using the hash</h3>
-  <div class="outline-text-3" id="text-orge8854d7">
+  <h3 id="orge8854d7"><span class="section-number-3">5.5</span> Using the hash</h3>
+  <div class="outline-text-3" id="text-5-5">
   <p>
   MATLAB's FileExchange has a couple of useful scripts <a href="https://www.mathworks.com/matlabcentral/fileexchange/43179-insert-annotation-in-figure-s-metadata"><code>insertAnnotation</code> &amp; <code>getAnnotation</code></a> that insert and recover metadata in MATLAB figure windows.
   </p>
@@ -336,8 +720,8 @@
   </div>
 
   <div id="outline-container-org856ef0f" class="outline-3">
-  <h3 id="org856ef0f">Saving the hash in an image file</h3>
-  <div class="outline-text-3" id="text-org856ef0f">
+  <h3 id="org856ef0f"><span class="section-number-3">5.6</span> Saving the hash in an image file</h3>
+  <div class="outline-text-3" id="text-5-6">
   <p>
   Once you have a hash value, or any metadata in general, it needs to be saved when the image is saved. I have modified <code>export_fig</code> (<a href="https://github.com/altmany/export_fig">original</a>, <a href="https://github.com/dcherian/export_fig">my fork</a>) to do this for me.
   </p>
@@ -398,8 +782,8 @@
   </div>
 
   <div id="outline-container-org676513c" class="outline-3">
-  <h3 id="org676513c">Extracting commit hash from image metadata</h3>
-  <div class="outline-text-3" id="text-org676513c">
+  <h3 id="org676513c"><span class="section-number-3">5.7</span> Extracting commit hash from image metadata</h3>
+  <div class="outline-text-3" id="text-5-7">
   <p>
   To recover the recorded hash, it suffices to call <code>exiftool FILENAME</code> which will print all metadata stored in the image; not just the hash. <code>grep</code> can then find the recorded hash:
   </p>
