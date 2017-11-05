@@ -164,7 +164,7 @@ Things I would like:
 - Avoid the explicit ~export_bokeh~ call if possible.
   - Ideally, ~ob-ipython~ would be able to tell that this is a bokeh block; use the ~fname~ var to pass the figure handle ~p~ and ~fname~ to ~export_bokeh~ and do everything. This would be close to jupyter notebook workflow.
   - This might be possible using IPython formatters as suggested by the ~ob-ipython~ README.
-    - Could we then define ~export_bokeh~ in ~Formatters.py~ and call that when the returned object is a bokeh figure handle?
+    - Could we then define ~export_bokeh~ in ~imports.py~ and call that when the returned object is a bokeh figure handle?
 
 - Can we get holoviews to work with this? Optionally tell it to use either matplotlib or bokeh backends
 * Using components (not-recommended)
