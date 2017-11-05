@@ -1,6 +1,12 @@
 #+TITLE: Deepak Cherian
 #+RSS_FEED_URL: http://www.cherian.net/rss.xml
 
+* bokeh js plots and org-mode HTML export
+:PROPERTIES:
+:ID:       b7eac161-74ef-4456-881a-69c69e4e5e77
+:PUBDATE:  <2017-11-04 Sat 21:28>
+:END:
+#+INCLUDE: "bokeh-org-mode.org" :lines "2-"
 * xkcd-style schematics using matplotlib.
 :PROPERTIES:
 :ID:       f9f8da88-648a-44a6-88b2-90902e8d08cc

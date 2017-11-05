@@ -1,4 +1,5 @@
 #+TITLE:  bokeh and Emacs org-mode
+#+DATE: 03 Nov 2017
 #+OPTIONS: toc:t num:2
 #+KEYWORDS: bokeh, ob-ipython, babel, org-mode, emacs
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.10.min.css" type="text/css" />
