@@ -315,6 +315,24 @@ Add the following at the top of my org file to use locally downloaded versions o
 <li>For this website I use the CDN urls they provide : <code>http://cdn.pydata.org/bokeh/release/bokeh-x.y.z.min.css</code> etc.</li>
 </ol>
 
+<div class="org-src-container">
+<pre class="src src-ipython"><span style="color: #859900;">def</span> <span style="color: #268bd2;">WriteToOrg</span>(p):
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">script</span>, <span style="color: #268bd2;">div</span> = components(p)
+
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">script</span> = <span style="color: #2aa198;">'\n'</span>.join([<span style="color: #2aa198;">'#+HTML_HEAD_EXTRA: '</span> + line <span style="color: #859900;">for</span> line <span style="color: #859900;">in</span> script.lstrip().split(<span style="color: #2aa198;">'\n'</span>)])
+
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''{script}\n#+BEGIN_EXPORT html\n{div}\n#+END_EXPORT'''</span>.<span style="color: #b58900;">format</span>(script=script, div=div))
+
+
+<span style="color: #859900;">from</span> bokeh.plotting <span style="color: #859900;">import</span> figure
+<span style="color: #859900;">from</span> bokeh.embed <span style="color: #859900;">import</span> components
+
+<span style="color: #268bd2;">p</span> = figure()
+p.line(np.random.randn(200), np.random.randn(200))
+WriteToOrg(p)
+</pre>
+</div>
+
 
 <div class="bk-root">
     <div class="bk-plotdiv" id="2752c053-1ddb-4dad-9a62-afb09a61cc38"></div>
