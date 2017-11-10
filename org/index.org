@@ -168,6 +168,7 @@ Latex source is also available on request.
 3. [[http://bhavana.timc.org.in][Bhāvanā]] - a magazine at the intersection of math & history in India. Good stuff!
 4. [[http://forecastpod.org][Forecast]]: Climate science podcast with Nature's editor for climate science, Michael White. Interviews with meteorologists, oceanographers, environmental economists and more! E.g. [[http://forecastpod.org/index.php/2017/04/20/jennifer-mackinnon-swirly-things/][Jen MacKinnon]]
 5. [[https://fermatslibrary.com/s/assessing-dangerous-climate-change][Fermat's library featured an annotated climate science paper — Hansen et al. (2013)!]]
+6. [[https://eartharxiv.org/][EarthArXiv needs your preprints!]]
 **** Misc.
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: links
