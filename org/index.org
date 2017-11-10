@@ -9,7 +9,7 @@
 <nav class="menu">
 <ul>
 <li><a href="static/Deepak-Cherian-CV.pdf">CV</a></li>
-<li><a href="#current-research">Current Research</a></li>
+<li><a href="#current-research">Research</a></li>
 <li><a href="#publications">Publications</a></li>
 <li><a href="#teaching">Teaching</a></li>
 <li><a href="#posts">Posts</a></li>
@@ -19,7 +19,13 @@
 </nav>
 #+END_EXPORT
 
-* Current Research
+* Research interests
+:PROPERTIES:
+:CUSTOM_ID: research-interests
+:END:
+
+Turbulent mixing, large scale air-sea interaction (intraseasonal oscillations and such), mesoscale oceanic eddies, baroclinic instabilities, continental shelf flow, equatorial dynamics
+* Current research
 :PROPERTIES:
 :CUSTOM_ID: current-research
 :END:
