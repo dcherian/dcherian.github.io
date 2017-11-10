@@ -5,12 +5,25 @@
 
 Advisor: [[http://www.whoi.edu/page.do?pid=23355][Ken Brink (WHOI)]]
 
-Advised by Ken Brink (WHOI), I studied the interaction of eddies with continental shelf-slope topography. I used the [[http://www.myroms.org][ROMS ocean model]] to simulate the interaction in an extremely idealized manner.
+I studied the interaction of eddies with continental shelf-slope topography. I used the [[http://www.myroms.org][ROMS ocean model]] to simulate the interaction after distilling the elements of the problem down to an idealized setup.
 
-The following video shows the evolution of a passive tracer initialized to the initial latitude location of a water parcel. The coast is at the southern boundary; and horizontal lines are isobaths. The time series is the cross-shelfbreak flux of shelf-water (defined as water parcels starting on the shelf at $t=0$.)
+The following video shows the evolution of a passive tracer initialized to the initial latitude location of a water parcel. The coast is at the southern boundary; and horizontal lines are isobaths. The time series is the cross-shelfbreak flux of shelf-water (defined as water parcels starting on the shelf at t = 0.)
 
 #+ATTR_HTML: :controls controls
 #+BEGIN_video
 #+HTML: <source src="../static/ew-34-csdye.mp4" type="video/mp4">
 Your browser does not support the video tag.
 #+END_video
+
+
+* The formation of stacked cyclones
+As seen in the video, the interaction clearly results in the formation of smaller-scale secondary vortices. We term these 'stacked' vortices to reflect their (unexpected) vertical structure wherein shelf-slope water is stacked over eddy water.
+
+#+CAPTION: This sequence of images illustrates their formation. Eddy water parcels are tagged by red dye, and shelf water parcels are tagged by blue dye. A major implication is that the shelf water export is permanent, the shelf water parcels being trapped in these cyclones.
+#+ATTR_HTML: :width 100%
+[[file:../static/stacked-cyclone-3d-schematic.png]]
+
+* Shelf flow field forced by eddies
+#+ATTR_HTML: :width 90%
+#+CAPTION: I studied the shelf flow field  forced by such eddies, yielding the following schematic.
+[[file:../static/shelf-flow-summary.png]]
