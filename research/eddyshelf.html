@@ -8,28 +8,6 @@
 <meta name="keywords" content="eddy, continental shelf, continental slope, physical oceanography, eddies, science, ocean,">
 <link rel="stylesheet" href="../research-posts.css" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500" rel="stylesheet">
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
-</script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="preamble" class="status">
@@ -43,11 +21,11 @@ Advisor: <a href="http://www.whoi.edu/page.do?pid=23355">Ken Brink (WHOI)</a>
 </p>
 
 <p>
-Advised by Ken Brink (WHOI), I studied the interaction of eddies with continental shelf-slope topography. I used the <a href="http://www.myroms.org">ROMS ocean model</a> to simulate the interaction in an extremely idealized manner.
+I studied the interaction of eddies with continental shelf-slope topography. I used the <a href="http://www.myroms.org">ROMS ocean model</a> to simulate the interaction after distilling the elements of the problem down to an idealized setup.
 </p>
 
 <p>
-The following video shows the evolution of a passive tracer initialized to the initial latitude location of a water parcel. The coast is at the southern boundary; and horizontal lines are isobaths. The time series is the cross-shelfbreak flux of shelf-water (defined as water parcels starting on the shelf at \(t=0\).)
+The following video shows the evolution of a passive tracer initialized to the initial latitude location of a water parcel. The coast is at the southern boundary; and horizontal lines are isobaths. The time series is the cross-shelfbreak flux of shelf-water (defined as water parcels starting on the shelf at t = 0.)
 </p>
 
 <video controls="controls">
@@ -56,6 +34,35 @@ The following video shows the evolution of a passive tracer initialized to the i
 Your browser does not support the video tag.
 </p>
 </video>
+
+
+<section id="outline-container-org5c7b902" class="outline-2">
+<h2 id="org5c7b902">The formation of stacked cyclones</h2>
+<div class="outline-text-2" id="text-org5c7b902">
+<p>
+As seen in the video, the interaction clearly results in the formation of smaller-scale secondary vortices. We term these 'stacked' vortices to reflect their (unexpected) vertical structure wherein shelf-slope water is stacked over eddy water.
+</p>
+
+
+<figure>
+<img src="../static/stacked-cyclone-3d-schematic.png" alt="stacked-cyclone-3d-schematic.png" width="100%">
+
+<figcaption><span class="figure-number">Figure 1: </span>This sequence of images illustrates their formation. Eddy water parcels are tagged by red dye, and shelf water parcels are tagged by blue dye. A major implication is that the shelf water export is permanent, the shelf water parcels being trapped in these cyclones.</figcaption>
+</figure>
+</div>
+</section>
+
+<section id="outline-container-org3851834" class="outline-2">
+<h2 id="org3851834">Shelf flow field forced by eddies</h2>
+<div class="outline-text-2" id="text-org3851834">
+
+<figure>
+<img src="../static/shelf-flow-summary.png" alt="shelf-flow-summary.png" width="90%">
+
+<figcaption><span class="figure-number">Figure 2: </span>I studied the shelf flow field  forced by such eddies, yielding the following schematic.</figcaption>
+</figure>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
