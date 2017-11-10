@@ -14,8 +14,8 @@
   <link>http://www.cherian.net/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Sun, 05 Nov 2017 09:18:17 -0800</pubDate>
-  <lastBuildDate>Sun, 05 Nov 2017 09:18:17 -0800</lastBuildDate>
+  <pubDate>Fri, 10 Nov 2017 11:09:09 -0800</pubDate>
+  <lastBuildDate>Fri, 10 Nov 2017 11:09:09 -0800</lastBuildDate>
   <generator>Emacs 25.3 Org-mode 9.1.2</generator>
   <webMaster>deepak@darya (Deepak Cherian)</webMaster>
   <image>
@@ -151,18 +151,18 @@
     <span style="background-color: #eee8d5;"> </span>   export_png(plot, filename=outPNG)
 
     <span style="background-color: #eee8d5;"> </span>   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">save the html file</span>
-    <span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">html</span> = file_html(plot, wherebokeh, <span style="color: #268bd2; font-weight: bold;">None</span>)
-    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">with</span> <span style="color: #657b83;">open</span>(outHTML, <span style="color: #2aa198;">'w'</span>) <span style="color: #859900;">as</span> <span style="color: #657b83;">file</span>:
-    <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #657b83;">file</span>.write(html)
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">html</span> = file_html(plot, wherebokeh, <span style="color: #268bd2;">None</span>)
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">with</span> <span style="color: #b58900;">open</span>(outHTML, <span style="color: #2aa198;">'w'</span>) <span style="color: #859900;">as</span> <span style="color: #b58900;">file</span>:
+    <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #b58900;">file</span>.write(html)
 
     <span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">js</span>, <span style="color: #268bd2;">script</span> = autoload_static(plot, wherebokeh, outJS)
 
     <span style="background-color: #eee8d5;"> </span>   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">save the .js file</span>
-    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">with</span> <span style="color: #657b83;">open</span>(outJS, <span style="color: #2aa198;">"w"</span>) <span style="color: #859900;">as</span> writer:
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">with</span> <span style="color: #b58900;">open</span>(outJS, <span style="color: #2aa198;">"w"</span>) <span style="color: #859900;">as</span> writer:
     <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   writer.write(js)
 
     <span style="background-color: #eee8d5;"> </span>   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">embed in the org-exported HTML file</span>
-    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''#+BEGIN_EXPORT html\n{script}\n#+END_EXPORT'''</span>.<span style="color: #657b83;">format</span>(script=script.lstrip()))
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''#+BEGIN_EXPORT html\n{script}\n#+END_EXPORT'''</span>.<span style="color: #b58900;">format</span>(script=script.lstrip()))
     </pre>
     </div>
 
@@ -211,7 +211,7 @@
     <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">generate random letters</span>
     <span style="color: #859900;">import</span> string
     <span style="color: #859900;">import</span> random
-    <span style="color: #268bd2;">label</span> = [random.choice(string.ascii_letters) <span style="color: #859900;">for</span> aa <span style="color: #859900;">in</span> <span style="color: #657b83;">range</span>(200)]
+    <span style="color: #268bd2;">label</span> = [random.choice(string.ascii_letters) <span style="color: #859900;">for</span> aa <span style="color: #859900;">in</span> <span style="color: #b58900;">range</span>(200)]
 
     <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">needed for linked selection</span>
     <span style="color: #268bd2;">source</span> = ColumnDataSource(data={<span style="color: #2aa198;">'x'</span>: x, <span style="color: #2aa198;">'y0'</span>: y0, <span style="color: #2aa198;">'y1'</span>: y1,
@@ -333,7 +333,7 @@
 
     <span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">script</span> = <span style="color: #2aa198;">'\n'</span>.join([<span style="color: #2aa198;">'#+HTML_HEAD_EXTRA: '</span> + line <span style="color: #859900;">for</span> line <span style="color: #859900;">in</span> script.lstrip().split(<span style="color: #2aa198;">'\n'</span>)])
 
-    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''{script}\n#+BEGIN_EXPORT html\n{div}\n#+END_EXPORT'''</span>.<span style="color: #657b83;">format</span>(script=script, div=div))
+    <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''{script}\n#+BEGIN_EXPORT html\n{div}\n#+END_EXPORT'''</span>.<span style="color: #b58900;">format</span>(script=script, div=div))
 
 
     <span style="color: #859900;">from</span> bokeh.plotting <span style="color: #859900;">import</span> figure
@@ -811,7 +811,7 @@
   <span style="color: #268bd2;">file</span>=$<span style="color: #268bd2;">1</span>
   <span style="color: #268bd2;">hash</span>=$(<span style="color: #6c71c4; font-weight: bold;">exiftool</span> $<span style="color: #268bd2;">file</span> | grep -i <span style="color: #2aa198;">"hash:"</span>)
 
-  <span style="color: #657b83;">echo</span> $<span style="color: #268bd2;">hash</span>
+  <span style="color: #b58900;">echo</span> $<span style="color: #268bd2;">hash</span>
   </pre>
   </div>
   </div>
