@@ -48,7 +48,7 @@ header, section {
 }
 
 b, strong {
-    /* font-weight: 500; */
+    font-weight: 400;
     color: #2aa198;
 }
 
