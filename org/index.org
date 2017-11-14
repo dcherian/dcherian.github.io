@@ -23,8 +23,7 @@
 :PROPERTIES:
 :CUSTOM_ID: research
 :END:
-
-My interests are wide-ranging. Themes include turbulent mixing, large scale air-sea interaction (intraseasonal oscillations and such), mesoscale oceanic eddies, baroclinic instabilities, continental shelf flow and equatorial dynamics. My toolkit includes both high resolution idealized process study models as well as observational records from moored and satellite platforms.
+I study dynamical connections between disparate scales of motion in the climate system with a diverse set of tools. Themes include small-scale turbulence & mixing, large scale air-sea interaction (intraseasonal oscillations and such), mesoscale oceanic eddies, baroclinic instabilities, continental shelf flow and equatorial dynamics. My toolkit includes observational records from moored and satellite platforms as well as high resolution idealized process-study models.
 
 *** Mixing measurements in the Bay of Bengal
 :PROPERTIES:
@@ -74,7 +73,7 @@ Your browser does not support the video tag.
 #+ATTR_HTML: :class coauthors
 Advisor: [[http://www.whoi.edu/page.do?pid=23355][Ken Brink (WHOI)]] | [[file:research/eddyshelf.org][More]]
 
-One chapter of my dissertation focused on the shelf flows forced by mesoscale eddies translating at the shelfbreak. A manuscript has been submitted.
+One chapter of my thesis focused on the shelf flows forced by mesoscale eddies translating at the shelfbreak. The flow field is summarized below. What I found most interesting was the difference in vertical structure of the cross-shelfbreak flow. The shelf-water outflow is approximately vertically uniform  whereas the eddy- and slope-water inflow is strongly sheared. Our paper explains why this happens.
 
 #+ATTR_HTML: :width 90%
 [[file:static/shelf-flow-summary.png]]
@@ -105,9 +104,11 @@ Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculat
 :HTML_CONTAINER_CLASS: papers
 :HTML_CONTAINER: article
 :END:
-- *Cherian D.A.*, Brink K.H.  Shelf flows forced by deep-water anticyclonic eddies at the shelfbreak.
+(drafts available on request)
 
-- *Cherian D.A.*, Farrar J.T., Durland T.S. The upper-ocean vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific.
+- *Cherian D.A.*, Brink K.H.  Shelf flows forced by deep-ocean anticyclonic eddies at the shelfbreak. /*submitted* to Journal of Physical Oceanography/.
+
+- *Cherian D.A.*, Farrar J.T., Durland T.S. /in prep./ The upper-ocean vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific.
 *** 2016
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: papers
@@ -134,11 +135,11 @@ Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculat
 :END:
 While at MIT, I took the semester-long [[https://tll.mit.edu/help/graduate-student-teaching-certificate-program][Teaching Certificate Program]]. I learned that it is generally more effective to have students work through a derivation primarily on their own in class with hints. Following that advice, I created worksheets that guide students through a derivation, guiding them toward important implications and reasoning for various steps. Here are the ones I have so far.
 
-1. [[file:static/rossby-adjustment-qns.pdf][Rossby adjustment]]
-2. [[file:static/non-hydrostatic-waves-qns.pdf][Non-hydrostatic internal waves]]
+1. [[file:static/rossby-adjustment-qns.pdf][Rossby adjustment]] - for OSU's Geophysical Waves class
+2. [[file:static/non-hydrostatic-waves-qns.pdf][Non-hydrostatic internal waves]] - for OSU's Geophysical Waves class
 3. [[file:static/sverdrup-qns.pdf][Sverdrup balance]] - for MIT's 12.808 - Observational Physical Oceanography
 
-Any comments you might have on these are welcome. Please send me an email.
+These are targeted at beginning graduate students. Any comments you might have on these are welcome. Please send me an email.
 
 Latex source is also available on request.
 
