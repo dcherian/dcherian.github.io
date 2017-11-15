@@ -202,6 +202,8 @@ h2::before {
     font-weight: 300;
     vertical-align: middle;
     color: #cb4b16;
+    position: absolute;
+    margin: 0 -0.65em;
 }
 /* ------ sections ------ */
 
