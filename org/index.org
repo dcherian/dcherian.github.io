@@ -55,10 +55,9 @@ Advisor: [[http://www.whoi.edu/page.do?pid=23355][Ken Brink (WHOI)]] | [[doi:10.
 
 My dissertation looked at the interaction of deep-ocean mesoscale eddies with continental shelf-slope topography.
 
-When visualized using passive tracer fields (red tracks eddy water and blue, shelf-slope water), the interaction clearly results in the formation of smaller-scale secondary vortices. We term these 'stacked' vortices to reflect their (unexpected) vertical structure wherein shelf-slope water is stacked over eddy water.
+When visualized using passive tracer fields (red tracks eddy water and blue, shelf-slope water), the interaction clearly results in the formation of smaller-scale secondary vortices. We term these 'stacked' vortices to reflect their (unexpected) vertical structure wherein shelf-slope water is stacked over eddy water. Observational evidence for these features remains elusive.
 
-Observational evidence for these features remains elusive.
-
+Here's a video showing the evolution of a passive tracer. The southern boundary is the coast, the eddy is started in the northeast in deep water (flat bottom) and the β > 0. The lower panel  shows a time series of volume flux of shelf water: defined to be water parcels that start on the shelf at t=0. The shelf is ≈ 40 km wide and the continental slope is 50 km wide.
 #+ATTR_HTML: :controls controls
 #+BEGIN_video
 #+HTML: <source src="static/ew-34-csdye.mp4" type="video/mp4">
@@ -180,6 +179,7 @@ Latex source is also available on request.
 4. [[http://forecastpod.org][Forecast]]: Climate science podcast with Nature's editor for climate science, Michael White. Interviews with meteorologists, oceanographers, environmental economists and more! E.g. [[http://forecastpod.org/index.php/2017/04/20/jennifer-mackinnon-swirly-things/][Jen MacKinnon]]
 5. [[https://fermatslibrary.com/s/assessing-dangerous-climate-change][Fermat's library featured an annotated climate science paper — Hansen et al. (2013)!]]
 6. [[https://eartharxiv.org/][EarthArXiv needs your preprints!]]
+7. [[http://www.sherpa.ac.uk/romeo/index.php][SHERPA/RoMEO:]] Simple summaries of journal copyright policies.
 **** Misc.
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: links
