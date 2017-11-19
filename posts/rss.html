@@ -59,52 +59,52 @@ else document.addEventListener("DOMContentLoaded", fn);
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orga8e787e">1. bokeh js plots and org-mode HTML export</a>
+<li><a href="#orgfd3a074">1. bokeh js plots and org-mode HTML export</a>
 <ul>
-<li><a href="#org7304bb2">1.1. Introduction</a></li>
-<li><a href="#org5709d60">1.2. Using <code>autoload_static</code> (preferred)</a>
+<li><a href="#org1167cc1">1.1. Introduction</a></li>
+<li><a href="#org57e4be1">1.2. Using <code>autoload_static</code> (preferred)</a>
 <ul>
-<li><a href="#org818bcfe">Prerequisites</a></li>
-<li><a href="#org2b135b6">Example</a></li>
-<li><a href="#org7497e11">Improvements</a></li>
+<li><a href="#orgedd2daf">Prerequisites</a></li>
+<li><a href="#org74b43f2">Example</a></li>
+<li><a href="#org91fda26">Improvements</a></li>
 </ul>
 </li>
-<li><a href="#org8ad73ca">1.3. Using components (not-recommended)</a></li>
-<li><a href="#org67a34fb">1.4. Appendix</a>
+<li><a href="#org97c1171">1.3. Using components (not-recommended)</a></li>
+<li><a href="#orgc1d3de2">1.4. Appendix</a>
 <ul>
-<li><a href="#org89d0d56">yasnippet</a></li>
-<li><a href="#orge588734">Dependencies</a></li>
-<li><a href="#org8c9befd">Styling</a></li>
-<li><a href="#org7ce892f">Source</a></li>
+<li><a href="#orgfde3e83">yasnippet</a></li>
+<li><a href="#org976a5b8">Dependencies</a></li>
+<li><a href="#orgb81ebda">Styling</a></li>
+<li><a href="#org64a8096">Source</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org8906a6c">2. xkcd-style schematics using matplotlib.</a></li>
-<li><a href="#orge3a03d5">3. Interesting quotes from the scientific literature</a></li>
-<li><a href="#org9ba2c84">4. "Death in the Gulf Stream" - A Hemingway cocktail</a></li>
-<li><a href="#org68473d5">5. A setup for reproducible research</a>
+<li><a href="#orgfe15f61">2. xkcd-style schematics using matplotlib.</a></li>
+<li><a href="#org4e63892">3. Interesting quotes from the scientific literature</a></li>
+<li><a href="#org4fae096">4. "Death in the Gulf Stream" - A Hemingway cocktail</a></li>
+<li><a href="#org7262bcb">5. A setup for reproducible research</a>
 <ul>
-<li><a href="#orgc1b82c5">5.1. Update</a></li>
-<li><a href="#org68bda91">5.2. Software</a></li>
-<li><a href="#orge8fdbfa">5.3. Strategy</a></li>
-<li><a href="#orgf1018d5">5.4. Getting the current hash in MATLAB</a></li>
-<li><a href="#org7088483">5.5. Using the hash</a></li>
-<li><a href="#orgcd54a97">5.6. Saving the hash in an image file</a></li>
-<li><a href="#org723105f">5.7. Extracting commit hash from image metadata</a></li>
+<li><a href="#orgc08709c">5.1. Update</a></li>
+<li><a href="#org0f8ce16">5.2. Software</a></li>
+<li><a href="#orgbf74d7b">5.3. Strategy</a></li>
+<li><a href="#org25783f1">5.4. Getting the current hash in MATLAB</a></li>
+<li><a href="#org107fec0">5.5. Using the hash</a></li>
+<li><a href="#org76690e6">5.6. Saving the hash in an image file</a></li>
+<li><a href="#orgf4cd1d2">5.7. Extracting commit hash from image metadata</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </nav>
 
-<section id="outline-container-orga8e787e" class="outline-2">
-<h2 id="orga8e787e"><a id="ID-b7eac161-74ef-4456-881a-69c69e4e5e77"></a><span class="section-number-2">1</span> bokeh js plots and org-mode HTML export</h2>
+<section id="outline-container-orgfd3a074" class="outline-2">
+<h2 id="orgfd3a074"><a id="ID-b7eac161-74ef-4456-881a-69c69e4e5e77"></a><span class="section-number-2">1</span> bokeh js plots and org-mode HTML export</h2>
 <div class="outline-text-2" id="text-1">
 </div>
 
-<div id="outline-container-org7304bb2" class="outline-3">
-<h3 id="org7304bb2"><span class="section-number-3">1.1</span> Introduction</h3>
+<div id="outline-container-org1167cc1" class="outline-3">
+<h3 id="org1167cc1"><span class="section-number-3">1.1</span> Introduction</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 I've been wanting to play around with interactive Javascript plots for a while; for example: <a href="https://demo.bokehplots.com/apps/selection_histogram">https://demo.bokehplots.com/apps/selection_histogram</a>. The selection functionality is really cool!
@@ -116,8 +116,8 @@ This post is an experiment in embedding <a href="http://bokeh.pydata.org">bokeh<
 </div>
 </div>
 
-<div id="outline-container-org5709d60" class="outline-3">
-<h3 id="org5709d60"><span class="section-number-3">1.2</span> Using <code>autoload_static</code> (preferred)</h3>
+<div id="outline-container-org57e4be1" class="outline-3">
+<h3 id="org57e4be1"><span class="section-number-3">1.2</span> Using <code>autoload_static</code> (preferred)</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Based on <a href="https://necromuralist.github.io/data_science/posts/bokeh-test/">https://necromuralist.github.io/data_science/posts/bokeh-test/</a>
@@ -137,9 +137,9 @@ Some notes:
 </ol>
 </div>
 
-<div id="outline-container-org818bcfe" class="outline-4">
-<h4 id="org818bcfe">Prerequisites</h4>
-<div class="outline-text-4" id="text-org818bcfe">
+<div id="outline-container-orgedd2daf" class="outline-4">
+<h4 id="orgedd2daf">Prerequisites</h4>
+<div class="outline-text-4" id="text-orgedd2daf">
 <p>
 I am using
 </p>
@@ -155,7 +155,7 @@ I am using
 I define a function <code>export_bokeh</code> to do the actual heavy lifting. This function could be moved to your ipython <code>startup.py</code> file so that it is defined for every ipython session.
 </p>
 <div class="org-src-container">
-<pre class="src src-ipython" id="org41bacf4"><span style="color: #859900;">def</span> <span style="color: #268bd2;">export_bokeh</span>(plot, outPNG, outJS, outHTML, bkjs=<span style="color: #2aa198;">'inline'</span>):
+<pre class="src src-ipython" id="org902014a"><span style="color: #859900;">def</span> <span style="color: #268bd2;">export_bokeh</span>(plot, outPNG, outJS, outHTML, bkjs=<span style="color: #2aa198;">'inline'</span>):
 <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">from</span> bokeh.io <span style="color: #859900;">import</span> export_png
 <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">from</span> bokeh.embed <span style="color: #859900;">import</span> autoload_static, file_html
 <span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">import</span> bokeh.resources
@@ -209,9 +209,9 @@ I use this header line:
 </pre>
 </div>
 </div>
-<div id="outline-container-org2b135b6" class="outline-4">
-<h4 id="org2b135b6">Example</h4>
-<div class="outline-text-4" id="text-org2b135b6">
+<div id="outline-container-org74b43f2" class="outline-4">
+<h4 id="org74b43f2">Example</h4>
+<div class="outline-text-4" id="text-org74b43f2">
 <p>
 This will export a <a href="../static/my-image.png">png image</a>, an <a href="../static/html/my-image.html">HTML file</a> and a <a href="../static/js/my-image.js">Javascript file</a>. That way there are both static and dynamic versions that are easy to share as well as an emebeddable version.
 </p>
@@ -298,9 +298,9 @@ The above figure is a rendering of the <code>RESULTS</code> block:
 </pre>
 </div>
 </div>
-<div id="outline-container-org7497e11" class="outline-4">
-<h4 id="org7497e11">Improvements</h4>
-<div class="outline-text-4" id="text-org7497e11">
+<div id="outline-container-org91fda26" class="outline-4">
+<h4 id="org91fda26">Improvements</h4>
+<div class="outline-text-4" id="text-org91fda26">
 <p>
 Things I would like:
 </p>
@@ -333,8 +333,8 @@ Things I would like:
 </div>
 </div>
 </div>
-<div id="outline-container-org8ad73ca" class="outline-3">
-<h3 id="org8ad73ca"><span class="section-number-3">1.3</span> Using components (not-recommended)</h3>
+<div id="outline-container-org97c1171" class="outline-3">
+<h3 id="org97c1171"><span class="section-number-3">1.3</span> Using components (not-recommended)</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 I made some slight modifications to <a href="http://kitchingroup.cheme.cmu.edu/blog/2016/02/07/Interactive-Bokeh-plots-in-HTML/">http://kitchingroup.cheme.cmu.edu/blog/2016/02/07/Interactive-Bokeh-plots-in-HTML/</a> though I didn't need to embed anything in a frame. The principal drawback here is that all the data is returned in <code>stdout</code> and written to the org file. This would get unwieldy for big plots.
@@ -379,13 +379,13 @@ WriteToOrg(p)
 </div>
 </div>
 </div>
-<div id="outline-container-org67a34fb" class="outline-3">
-<h3 id="org67a34fb"><span class="section-number-3">1.4</span> Appendix</h3>
+<div id="outline-container-orgc1d3de2" class="outline-3">
+<h3 id="orgc1d3de2"><span class="section-number-3">1.4</span> Appendix</h3>
 <div class="outline-text-3" id="text-1-4">
 </div>
-<div id="outline-container-org89d0d56" class="outline-4">
-<h4 id="org89d0d56">yasnippet</h4>
-<div class="outline-text-4" id="text-org89d0d56">
+<div id="outline-container-orgfde3e83" class="outline-4">
+<h4 id="orgfde3e83">yasnippet</h4>
+<div class="outline-text-4" id="text-orgfde3e83">
 <p>
 A simplified version of the one on <code>ob-ipython</code>. This autogenerates a random filename.
 </p>
@@ -411,9 +411,9 @@ export_bokeh(hf, 'images/'+fname+'.png', 'images/js/'+fname+'.js', bkjs='inline'
 </div>
 </div>
 
-<div id="outline-container-orge588734" class="outline-4">
-<h4 id="orge588734">Dependencies</h4>
-<div class="outline-text-4" id="text-orge588734">
+<div id="outline-container-org976a5b8" class="outline-4">
+<h4 id="org976a5b8">Dependencies</h4>
+<div class="outline-text-4" id="text-org976a5b8">
 <p>
 Looks like exporting to PNG requires
 </p>
@@ -422,9 +422,9 @@ conda install phantomjs selenium
 </pre>
 </div>
 </div>
-<div id="outline-container-org8c9befd" class="outline-4">
-<h4 id="org8c9befd">Styling</h4>
-<div class="outline-text-4" id="text-org8c9befd">
+<div id="outline-container-orgb81ebda" class="outline-4">
+<h4 id="orgb81ebda">Styling</h4>
+<div class="outline-text-4" id="text-orgb81ebda">
 <ol class="org-ol">
 <li><p>
 Either include a css file or add a style tag to <code>HTML_HEAD</code> at the top of your org file.
@@ -443,9 +443,9 @@ Targeting the css class <code>bk-plot-layout</code> lets you center the image. <
 </ol>
 </div>
 </div>
-<div id="outline-container-org7ce892f" class="outline-4">
-<h4 id="org7ce892f">Source</h4>
-<div class="outline-text-4" id="text-org7ce892f">
+<div id="outline-container-org64a8096" class="outline-4">
+<h4 id="org64a8096">Source</h4>
+<div class="outline-text-4" id="text-org64a8096">
 <p>
 Here is <a href="https://raw.githubusercontent.com/dcherian/dcherian.github.io/sources/org/posts/bokeh-org-mode.org">org-mode source</a> for this page.
 </p>
@@ -453,16 +453,16 @@ Here is <a href="https://raw.githubusercontent.com/dcherian/dcherian.github.io/s
 </div>
 </div>
 </section>
-<section id="outline-container-org8906a6c" class="outline-2">
-<h2 id="org8906a6c"><a id="ID-f9f8da88-648a-44a6-88b2-90902e8d08cc"></a><span class="section-number-2">2</span> xkcd-style schematics using matplotlib.</h2>
+<section id="outline-container-orgfe15f61" class="outline-2">
+<h2 id="orgfe15f61"><a id="ID-f9f8da88-648a-44a6-88b2-90902e8d08cc"></a><span class="section-number-2">2</span> xkcd-style schematics using matplotlib.</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 <a href="https://github.com/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb">IPython notebook here.</a>
 </p>
 </div>
 </section>
-<section id="outline-container-orge3a03d5" class="outline-2">
-<h2 id="orge3a03d5"><a id="ID-892e1c45-7e0e-4532-ba6e-e6b7cd62cb77"></a><span class="section-number-2">3</span> Interesting quotes from the scientific literature</h2>
+<section id="outline-container-org4e63892" class="outline-2">
+<h2 id="org4e63892"><a id="ID-892e1c45-7e0e-4532-ba6e-e6b7cd62cb77"></a><span class="section-number-2">3</span> Interesting quotes from the scientific literature</h2>
 <div class="outline-text-2" id="text-3">
 <div class="paper-quotes">
 <ol class="org-ol">
@@ -615,8 +615,8 @@ As it turns out, the observations provide a clue to the problem.
 </div>
 </section>
 
-<section id="outline-container-org9ba2c84" class="outline-2">
-<h2 id="org9ba2c84"><a id="ID-8cbacf56-8d94-4e7d-aa27-72425b47367b"></a><span class="section-number-2">4</span> "Death in the Gulf Stream" - A Hemingway cocktail</h2>
+<section id="outline-container-org4fae096" class="outline-2">
+<h2 id="org4fae096"><a id="ID-8cbacf56-8d94-4e7d-aa27-72425b47367b"></a><span class="section-number-2">4</span> "Death in the Gulf Stream" - A Hemingway cocktail</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 From <a href="http://kottke.org/17/01/ernest-hemingways-cocktail-recipe-for-bad-times">Kottke</a> who got it from <a href="https://qz.com/889794/trump-inauguration-ernest-hemingway-has-a-cocktail-recipe-for-days-when-youve-had-just-enough-of-the-world/">Quartz</a>, a cocktail recipe created by Ernest Hemingway in 1937.
@@ -640,21 +640,21 @@ We don’t add sugar to ale, and we don’t need sugar in a “Death in the Gulf
 </blockquote>
 </div>
 </section>
-<section id="outline-container-org68473d5" class="outline-2">
-<h2 id="org68473d5"><a id="ID-fc394899-42da-4330-8671-d0fc14d1ac31"></a><span class="section-number-2">5</span> A setup for reproducible research</h2>
+<section id="outline-container-org7262bcb" class="outline-2">
+<h2 id="org7262bcb"><a id="ID-fc394899-42da-4330-8671-d0fc14d1ac31"></a><span class="section-number-2">5</span> A setup for reproducible research</h2>
 <div class="outline-text-2" id="text-5">
 </div>
 
-<div id="outline-container-orgc1b82c5" class="outline-3">
-<h3 id="orgc1b82c5"><span class="section-number-3">5.1</span> Update</h3>
+<div id="outline-container-orgc08709c" class="outline-3">
+<h3 id="orgc08709c"><span class="section-number-3">5.1</span> Update</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 <a href="https://www.researchgate.net/profile/Andre_Paloczy">André Palóczy</a> has implemented some of <a href="https://github.com/apaloczy/reproducibility">these ideas in Python</a>.
 </p>
 </div>
 </div>
-<div id="outline-container-org68bda91" class="outline-3">
-<h3 id="org68bda91"><span class="section-number-3">5.2</span> Software</h3>
+<div id="outline-container-org0f8ce16" class="outline-3">
+<h3 id="org0f8ce16"><span class="section-number-3">5.2</span> Software</h3>
 <div class="outline-text-3" id="text-5-2">
 <ul class="org-ul">
 <li>Version control system to track content. I use <a href="http://www.git-scm.org"><code>git</code></a>.</li>
@@ -663,8 +663,8 @@ We don’t add sugar to ale, and we don’t need sugar in a “Death in the Gulf
 </ul>
 </div>
 </div>
-<div id="outline-container-orge8fdbfa" class="outline-3">
-<h3 id="orge8fdbfa"><span class="section-number-3">5.3</span> Strategy</h3>
+<div id="outline-container-orgbf74d7b" class="outline-3">
+<h3 id="orgbf74d7b"><span class="section-number-3">5.3</span> Strategy</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
 The approach is simple: use <code>git</code> to track files that generate output.
@@ -687,8 +687,8 @@ With figures, I use the metadata fields to save the hash value.
 </p>
 </div>
 </div>
-<div id="outline-container-orgf1018d5" class="outline-3">
-<h3 id="orgf1018d5"><span class="section-number-3">5.4</span> Getting the current hash in MATLAB</h3>
+<div id="outline-container-org25783f1" class="outline-3">
+<h3 id="org25783f1"><span class="section-number-3">5.4</span> Getting the current hash in MATLAB</h3>
 <div class="outline-text-3" id="text-5-4">
 <p>
 The following MATLAB function <code>githash</code> will return the hash of the last commit that modified the file in <code>fname</code>. If not provided with <code>fname</code> it returns the hash of the last commit in the repository.
@@ -734,8 +734,8 @@ Quite frequently, I calculate diagnostics that take a while which means that rer
 </div>
 </div>
 
-<div id="outline-container-org7088483" class="outline-3">
-<h3 id="org7088483"><span class="section-number-3">5.5</span> Using the hash</h3>
+<div id="outline-container-org107fec0" class="outline-3">
+<h3 id="org107fec0"><span class="section-number-3">5.5</span> Using the hash</h3>
 <div class="outline-text-3" id="text-5-5">
 <p>
 MATLAB's FileExchange has a couple of useful scripts <a href="https://www.mathworks.com/matlabcentral/fileexchange/43179-insert-annotation-in-figure-s-metadata"><code>insertAnnotation</code> &amp; <code>getAnnotation</code></a> that insert and recover metadata in MATLAB figure windows.
@@ -758,8 +758,8 @@ both of which are saved in the metadata of the figure <i>itself</i>.
 </div>
 </div>
 
-<div id="outline-container-orgcd54a97" class="outline-3">
-<h3 id="orgcd54a97"><span class="section-number-3">5.6</span> Saving the hash in an image file</h3>
+<div id="outline-container-org76690e6" class="outline-3">
+<h3 id="org76690e6"><span class="section-number-3">5.6</span> Saving the hash in an image file</h3>
 <div class="outline-text-3" id="text-5-6">
 <p>
 Once you have a hash value, or any metadata in general, it needs to be saved when the image is saved. I have modified <code>export_fig</code> (<a href="https://github.com/altmany/export_fig">original</a>, <a href="https://github.com/dcherian/export_fig">my fork</a>) to do this for me.
@@ -820,8 +820,8 @@ Searching for <code>hash</code> in my fork of <a href="https://github.com/dcheri
 </div>
 </div>
 
-<div id="outline-container-org723105f" class="outline-3">
-<h3 id="org723105f"><span class="section-number-3">5.7</span> Extracting commit hash from image metadata</h3>
+<div id="outline-container-orgf4cd1d2" class="outline-3">
+<h3 id="orgf4cd1d2"><span class="section-number-3">5.7</span> Extracting commit hash from image metadata</h3>
 <div class="outline-text-3" id="text-5-7">
 <p>
 To recover the recorded hash, it suffices to call <code>exiftool FILENAME</code> which will print all metadata stored in the image; not just the hash. <code>grep</code> can then find the recorded hash:

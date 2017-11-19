@@ -18,17 +18,17 @@
 <header>
 <h1 class="title">A setup for reproducible research</h1>
 </header>
-<section id="outline-container-org84fdb01" class="outline-2">
-<h2 id="org84fdb01">Update</h2>
-<div class="outline-text-2" id="text-org84fdb01">
+<section id="outline-container-orgbcad169" class="outline-2">
+<h2 id="orgbcad169">Update</h2>
+<div class="outline-text-2" id="text-orgbcad169">
 <p>
 <a href="https://www.researchgate.net/profile/Andre_Paloczy">André Palóczy</a> has implemented some of <a href="https://github.com/apaloczy/reproducibility">these ideas in Python</a>.
 </p>
 </div>
 </section>
-<section id="outline-container-org8da6cc2" class="outline-2">
-<h2 id="org8da6cc2">Software</h2>
-<div class="outline-text-2" id="text-org8da6cc2">
+<section id="outline-container-orgc8c95ec" class="outline-2">
+<h2 id="orgc8c95ec">Software</h2>
+<div class="outline-text-2" id="text-orgc8c95ec">
 <ul class="org-ul">
 <li>Version control system to track content. I use <a href="http://www.git-scm.org"><code>git</code></a>.</li>
 <li><a href="http://www.sno.phy.queensu.ca/~phil/exiftool/"><code>exiftool</code></a> to read and write metadata to images</li>
@@ -36,9 +36,9 @@
 </ul>
 </div>
 </section>
-<section id="outline-container-orga314a9a" class="outline-2">
-<h2 id="orga314a9a">Strategy</h2>
-<div class="outline-text-2" id="text-orga314a9a">
+<section id="outline-container-org451bf76" class="outline-2">
+<h2 id="org451bf76">Strategy</h2>
+<div class="outline-text-2" id="text-org451bf76">
 <p>
 The approach is simple: use <code>git</code> to track files that generate output.
 </p>
@@ -60,9 +60,9 @@ With figures, I use the metadata fields to save the hash value.
 </p>
 </div>
 </section>
-<section id="outline-container-orgf1a3cfc" class="outline-2">
-<h2 id="orgf1a3cfc">Getting the current hash in MATLAB</h2>
-<div class="outline-text-2" id="text-orgf1a3cfc">
+<section id="outline-container-org53d314a" class="outline-2">
+<h2 id="org53d314a">Getting the current hash in MATLAB</h2>
+<div class="outline-text-2" id="text-org53d314a">
 <p>
 The following MATLAB function <code>githash</code> will return the hash of the last commit that modified the file in <code>fname</code>. If not provided with <code>fname</code> it returns the hash of the last commit in the repository.
 </p>
@@ -107,9 +107,9 @@ Quite frequently, I calculate diagnostics that take a while which means that rer
 </div>
 </section>
 
-<section id="outline-container-orgd5fb1f9" class="outline-2">
-<h2 id="orgd5fb1f9">Using the hash</h2>
-<div class="outline-text-2" id="text-orgd5fb1f9">
+<section id="outline-container-orgc0f8ee2" class="outline-2">
+<h2 id="orgc0f8ee2">Using the hash</h2>
+<div class="outline-text-2" id="text-orgc0f8ee2">
 <p>
 MATLAB's FileExchange has a couple of useful scripts <a href="https://www.mathworks.com/matlabcentral/fileexchange/43179-insert-annotation-in-figure-s-metadata"><code>insertAnnotation</code> &amp; <code>getAnnotation</code></a> that insert and recover metadata in MATLAB figure windows.
 </p>
@@ -131,9 +131,9 @@ both of which are saved in the metadata of the figure <i>itself</i>.
 </div>
 </section>
 
-<section id="outline-container-orgb648b87" class="outline-2">
-<h2 id="orgb648b87">Saving the hash in an image file</h2>
-<div class="outline-text-2" id="text-orgb648b87">
+<section id="outline-container-org5713797" class="outline-2">
+<h2 id="org5713797">Saving the hash in an image file</h2>
+<div class="outline-text-2" id="text-org5713797">
 <p>
 Once you have a hash value, or any metadata in general, it needs to be saved when the image is saved. I have modified <code>export_fig</code> (<a href="https://github.com/altmany/export_fig">original</a>, <a href="https://github.com/dcherian/export_fig">my fork</a>) to do this for me.
 </p>
@@ -193,9 +193,9 @@ Searching for <code>hash</code> in my fork of <a href="https://github.com/dcheri
 </div>
 </section>
 
-<section id="outline-container-org74bce25" class="outline-2">
-<h2 id="org74bce25">Extracting commit hash from image metadata</h2>
-<div class="outline-text-2" id="text-org74bce25">
+<section id="outline-container-org54c0314" class="outline-2">
+<h2 id="org54c0314">Extracting commit hash from image metadata</h2>
+<div class="outline-text-2" id="text-org54c0314">
 <p>
 To recover the recorded hash, it suffices to call <code>exiftool FILENAME</code> which will print all metadata stored in the image; not just the hash. <code>grep</code> can then find the recorded hash:
 </p>
