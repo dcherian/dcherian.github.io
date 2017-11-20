@@ -162,6 +162,7 @@ a.animate-link:hover:before, .menu a:hover:before {
 
 a.animate-link:after, .menu a:after {
     content: "";
+    margin: unset;
 }
 
 /* --- Headers ------------------------------------------------------------- */
