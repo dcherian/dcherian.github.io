@@ -168,6 +168,7 @@ Latex source is also available on request.
 4. Stunning fluid dynamics images from [[http://www.damtp.cam.ac.uk/user/msd38/gallery.html][Dr. Megan S Davies Wykes at DAMTP]].
 5. [[https://anaconda.org/jbednar/plotting_pitfalls/notebook][Great python notebook on visualizing data with high dynamic range.]] Apparently, [[https://en.wikipedia.org/wiki/Histogram_equalization][histogram equalization]] (contrast enhancement) is a pretty good default. Here's the [[https://www.mathworks.com/help/images/ref/histeq.html][equivalent MATLAB function]].
 6. From the Climate Impact Lab, [[http://www.impactlab.org/map/][a great map of projected temperature increase]] around the world.
+7. Visualizing chemical reactions: [[http://www.beautifulchemistry.net/][Beautiful Chemistry,]] and the sequel [[https://www.envisioningchemistry.com/films][Envisioning Chemistry.]]
 **** Literature
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: links
