@@ -15,9 +15,9 @@
    #+BEGIN_QUOTE
    A second and, in my opinion, more persuasive argument for our studies is that, in sensitive systems, a small quantitative error may lead to large qualitative errors^1.
 
-   ...
+   ⋮
 
-   _^1 "Quantitative changes suddenly become qualitative changes" (Karl Marx)
+   _^{1} "Quantitative changes suddenly become qualitative changes" (Karl Marx)
    #+END_QUOTE
 
 4. cite:Holte2009 throw shade at under-performing Canadian Argo floats:
@@ -46,7 +46,7 @@
 
 8. Enrico Fermi quotes John von Neumann to Freeman Dyson, critizing the latter's model (citep:Dyson2004):
    #+BEGIN_QUOTE
-   "I remember my friend Johnny von Neumann used to say, with four parameters I can fit an elephant, and with five I can make him wiggle his trunk." - Enrico Fermi
+   "I remember my friend Johnny von Neumann used to say, with four parameters I can fit an elephant, and with five I can make him wiggle his trunk." — Enrico Fermi
    #+END_QUOTE
 
    #+ATTR_HTML: :style float:right;width:40%
@@ -54,7 +54,7 @@
 
    cite:Mayer2010 take on the challenge yielding:
    #+BEGIN_QUOTE
-   The resulting shape is schematic and cartoonlike but is still recognizable as an elephant. Although the use of the Fourier coordinate expansion is not new,2,3 our approach clearly demonstrates its usefulness in reducing the number of parameters needed to describe a two-dimensional contour. In the special case of fitting an elephant, it is even possible to lower it to four complex parameters and therein implement a well-known saying.
+   The resulting shape is schematic and cartoonlike but is still recognizable as an elephant. Although the use of the Fourier coordinate expansion is not new, our approach clearly demonstrates its usefulness in reducing the number of parameters needed to describe a two-dimensional contour. In the special case of fitting an elephant, it is even possible to lower it to four complex parameters and therein implement a well-known saying.
    #+END_QUOTE
    With five, they give the elephant an eye and make it's trunk wiggle!
 
