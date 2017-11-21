@@ -31,7 +31,7 @@
 body {
     color: #000; /* #073642; #094b5c; #657b83; */
     font-family: 'Fira Sans', sans-serif;
-    font-size: 16pt;
+    font-size: 16.5pt;
     font-weight: 300;
     line-height: 1.5em;
     padding: 1em;
@@ -339,9 +339,21 @@ a.logo:hover, a.cc-logo:hover{background:none; border-radius:0px; transition-pro
 
 blockquote {
     /* border-left: 0.3em solid #eee8d9; */
+    color: #cb4b16;
+    font-size: 1.04em;
     padding: 0 1em;
-    margin: 0 1em;
+    margin: 1.2em 3em;
 }
+
+blockquote:before {
+    position:absolute;
+    content: "“";
+    font-size: 3em;
+    opacity: 0.4;
+    margin: 0.15em -0.44em;
+    vertical-align: top;
+}
+
 /*
 h1::before {
     counter-increment: h1;
@@ -363,13 +375,19 @@ h3::before {
 
 /* Bibliography */
 
+/* Bibliography */
+h1.org-ref-bib-h1 {
+    padding-top: 1em;
+}
+
 .org-ref-bib b {
     color: inherit;
     font-weight: inherit;
 }
 
-.org-ref-bib li {
-    margin-bottom: 0.2em;
+.org-ref-bib li{
+    list-style-type: none;
+    margin: 0 0 0.8em 0;
 }
 
 /*--- Responsive --------------------------------------*/
@@ -390,8 +408,8 @@ h3::before {
 
     figure, img {
 	position: relative;
-	width: 50%; !important
-        float: unset; !important
+	width: 50% !important;
+        float: unset !important;
     	display:block;
 	padding: 0 0 0 0;
 	margin-bottom: 1.5em;
@@ -434,7 +452,7 @@ h3::before {
         display: block;
     }
 
-    figure, img { width: 100%; !important }
+    figure, img { width: 100% !important; }
 
     .menu ul { line-height: 1.8; }
 
@@ -444,10 +462,10 @@ h3::before {
     }
 
     .title{
-       margin: auto; !important
-       padding: 5%;
-       line-height: 1.2;
-       text-align: center;
+	margin: auto !important;
+	padding: 5%;
+	line-height: 1.2;
+	text-align: center;
     }
 
     .title::before{

@@ -8,7 +8,7 @@
 }
 
 .title::before {
-    content: ''; !important
+    content: '' !important;
 }
 
 body {
