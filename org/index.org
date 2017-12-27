@@ -149,7 +149,7 @@ Latex source is also available on request.
 1. [[file:posts/reproducible-research-1.org][A setup for reproducible research]]
 2. [[file:posts/hemingway-cocktail.org]["Death in the Gulf Stream" - A Hemingway cocktail]]
 3. [[file:static/living-with-roms.pdf][Living with ROMS]] - Some notes on ROMS
-4. [[file:posts/paper-quotes.org][Interesting quotes from the scientific literature]]
+4. [[file:posts/paper-quotes.org][Interesting quotes from the scientific literature]] (frequently updated)
 5. An IPython notebook demonstrating xkcd-style schematics using matplotlib: [[https://github.com/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb][Github]] | [[https://nbviewer.jupyter.org/github/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb][nbviewer]]
 6. [[file:posts/bokeh-org-mode.org][bokeh and Emacs org-mode]]
 # 4. [[file:posts/po-movies.org][Some movies relevant to physical oceanographers]]
@@ -189,6 +189,10 @@ Latex source is also available on request.
 1. [[http://img.timeinc.net/time/magazine/archive/covers/1956/1101561217_400.jpg][Carl-Gustaf Rossby on the cover of TIME magazine]].
 2. [[https://storify.com/BlueLotus/mughal-science-reactions][Mughal science reactions?!]]
 3. [[file:static/church-of-climatology-2.jpg][The Church of Climatology]]
+4. [[http://www.realclimate.org/index.php/archives/2017/12/what-did-nasa-know-and-when-did-they-know-it/#ITEM-20924-2][Real Climate details the story behind detection of the ozone hole]]:
+   #+BEGIN_QUOTE
+    It isn’t a simple tale of over-confidence in algorithms in the face of black swan events, but rather a tale of poor communications and siloed researchers that slowed down the ability of the wider community to see and interpret what was going on.
+   #+END_QUOTE
 * Contact
 :PROPERTIES:
 :CUSTOM_ID: contact
