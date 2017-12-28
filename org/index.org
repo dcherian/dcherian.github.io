@@ -181,6 +181,7 @@ Latex source is also available on request.
 5. [[https://fermatslibrary.com/s/assessing-dangerous-climate-change][Fermat's library featured an annotated climate science paper — Hansen et al. (2013)!]]
 6. [[https://eartharxiv.org/][EarthArXiv needs your preprints!]]
 7. [[http://www.sherpa.ac.uk/romeo/index.php][SHERPA/RoMEO:]] Simple summaries of journal copyright policies.
+8. Climate simulations of [[http://www.bristol.ac.uk/university/media/press/10013-english.pdf][Middle Earth]] and [[https://www.paleo.bristol.ac.uk/~ggdjl/westeros/game_thrones_1.0.pdf][Game of Thrones]] by [[http://www.bris.ac.uk/geography/people/dan-j-lunt/][Dan Lunt]].
 **** Misc.
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: links
