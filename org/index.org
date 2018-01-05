@@ -12,9 +12,9 @@
 <li><a href="#research">Research</a></li>
 <li><a href="#publications">Publications</a></li>
 <li><a href="#teaching">Teaching</a></li>
+<li><a href="#contact">Contact</a></li>
 <li><a href="#posts">Posts</a></li>
 <li><a href="#links">Links</a></li>
-<li><a href="#contact">Contact</a></li>
 </ul>
 </nav>
 #+END_EXPORT
@@ -141,6 +141,13 @@ While at MIT, I took the semester-long [[https://tll.mit.edu/help/graduate-stude
 These are targeted at beginning graduate students. Any comments you might have on these are welcome. Please send me an email.
 
 Latex source is also available on request.
+* Contact
+:PROPERTIES:
+:CUSTOM_ID: contact
+:END:
+#+HTML: Email: <a class="email" href="mailto:dcherian@ceoas.oregonstate.edu">dcherian@ceoas.oregonstate.edu</a>
+
+Office Address: Burt 434, OSU, Corvallis SSR, OR
 
 * Posts
 :PROPERTIES:
@@ -195,13 +202,6 @@ Latex source is also available on request.
     It isn’t a simple tale of over-confidence in algorithms in the face of black swan events, but rather a tale of poor communications and siloed researchers that slowed down the ability of the wider community to see and interpret what was going on.
    #+END_QUOTE
 5. [[http://primes.utm.edu/notes/faq/why.html][On why people search for large prime numbers.]]
-* Contact
-:PROPERTIES:
-:CUSTOM_ID: contact
-:END:
-#+HTML: Email: <a class="email" href="mailto:dcherian@ceoas.oregonstate.edu">dcherian@ceoas.oregonstate.edu</a>
-
-Office Address: Burt 434, OSU, Corvallis SSR, OR
 
 * Acknowledgments
 :PROPERTIES:
