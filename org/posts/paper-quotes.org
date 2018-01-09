@@ -2,72 +2,77 @@
 #+DATE: Last updated: 15 Nov 2017
 
 #+HTML: <div class="paper-quotes">
-1. cite:Penland1995 throw down a challenge:
-   #+ATTR_HTML: :width 95%
-   [[file:../static/penland-sardeshmukh.png]]
++ John Lumley, quoted in cite:Leibovich2018
+  #+BEGIN_QUOTE
+  Turbulence is rent by factionalism. Traditional approaches in the field are under attack, and one hears intemperate statements against long time averaging, Reynolds decomposition, and so forth. Some of these are reminiscent of the Einstein-Heisenberg controversy over quantum mechanics, and smack of a mistrust of any statistical approach. Coherent structure people sound like /The Emperor’s New Clothes/ when they say that all turbulent flows consist primarily of coherent structures, in the face of visual evidence to the contrary. Dynamical systems theory people are sure that turbulence is chaos. Simulators have convinced many that we will be able to compute /anything/ within a decade. Modeling is thus attacked as unnecessary, or irrelevant because it starts with Reynolds stress averaging or ignores coherent structures. The card-carrying physicists dismiss everything that has been done on turbulence from Osborne Reynolds until the last decade. Cellular Automata were hailed on their appearance as the answer to a maiden’s prayer, so far as turbulence was concerned. It is no wonder that funding agencies are confused. (quoted in Cantwell 1990, p. 97)
+  #+END_QUOTE
 
-2. cite:Vallis1993 :
-   #+BEGIN_QUOTE
-   A factor of 2 sometimes finds itself, rather arbitrarily, in the denominator.
-   #+END_QUOTE
++ cite:Penland1995 throw down a challenge:
+  #+ATTR_HTML: :width 95%
+  [[file:../static/penland-sardeshmukh.png]]
 
-3. cite:Flierl1978 quotes Karl Marx:
-   #+BEGIN_QUOTE
-   A second and, in my opinion, more persuasive argument for our studies is that, in sensitive systems, a small quantitative error may lead to large qualitative errors^1.
++ cite:Vallis1993 :
+  #+BEGIN_QUOTE
+  A factor of 2 sometimes finds itself, rather arbitrarily, in the denominator.
+  #+END_QUOTE
 
-   ⋮
++ cite:Flierl1978 quotes Karl Marx:
+  #+BEGIN_QUOTE
+  A second and, in my opinion, more persuasive argument for our studies is that, in sensitive systems, a small quantitative error may lead to large qualitative errors^1.
 
-   _^{1} "Quantitative changes suddenly become qualitative changes" (Karl Marx)
-   #+END_QUOTE
+  ⋮
 
-4. cite:Holte2009 throw shade at under-performing Canadian Argo floats:
-   #+BEGIN_QUOTE
-   Most floats sampled at regular pressure levels, though the Canadian Argo floats often sampled at irregular pressures and required substantial editing.
-   #+END_QUOTE
+  _^{1} "Quantitative changes suddenly become qualitative changes" (Karl Marx)
+  #+END_QUOTE
 
-5. cite:Sutyrin1994 note insufficient printer resolution in their Figure 2.
-   #+ATTR_HTML: :style width:70%
-   [[file:../static/sutyrin-flierl-fig2.png]]
++ cite:Holte2009 throw shade at under-performing Canadian Argo floats:
+  #+BEGIN_QUOTE
+  Most floats sampled at regular pressure levels, though the Canadian Argo floats often sampled at irregular pressures and required substantial editing.
+  #+END_QUOTE
 
-6. cite:MacKinnon2017 summarize
-   #+BEGIN_QUOTE
-   A frequently asked question related to this work is “Which mixing processes matter most for climate?”. As with many alluringly comprehensive sounding questions, the answer is “it depends”.
-   #+END_QUOTE
-   and then end on an inspiring note
-   #+BEGIN_QUOTE
-   At the same time, the epiphanies, new ideas and novel observations that fundamentally drive the field forward frequently come not from big science, but from a cornucopia of much smaller exploratory efforts and the continued small-scale development of innovative observing technology and numerical techniques.  We must not lose the ability to be surprised.
-   #+END_QUOTE
++ cite:Sutyrin1994 note insufficient printer resolution in their Figure 2.
+  #+ATTR_HTML: :style width:70%
+  [[file:../static/sutyrin-flierl-fig2.png]]
 
-7. cite:Wunsch2016 cites the Bible
-   #+BEGIN_QUOTE
-   That which is far off, and exceeding deep, who can find it out?
-    — Ecclesiastes 7:24 (King James Version)
-   #+END_QUOTE
++ cite:MacKinnon2017 summarize
+  #+BEGIN_QUOTE
+  A frequently asked question related to this work is “Which mixing processes matter most for climate?”. As with many alluringly comprehensive sounding questions, the answer is “it depends”.
+  #+END_QUOTE
+  and then end on an inspiring note
+  #+BEGIN_QUOTE
+  At the same time, the epiphanies, new ideas and novel observations that fundamentally drive the field forward frequently come not from big science, but from a cornucopia of much smaller exploratory efforts and the continued small-scale development of innovative observing technology and numerical techniques.  We must not lose the ability to be surprised.
+  #+END_QUOTE
 
-8. Enrico Fermi quotes John von Neumann to Freeman Dyson, critizing the latter's model (citep:Dyson2004):
-   #+BEGIN_QUOTE
-   "I remember my friend Johnny von Neumann used to say, with four parameters I can fit an elephant, and with five I can make him wiggle his trunk." — Enrico Fermi
-   #+END_QUOTE
++ cite:Wunsch2016 cites the Bible
+  #+BEGIN_QUOTE
+  That which is far off, and exceeding deep, who can find it out?
+   — Ecclesiastes 7:24 (King James Version)
+  #+END_QUOTE
 
-   #+ATTR_HTML: :style float:right;width:40%
-   [[file:../static/elephant.png]]
++ Enrico Fermi quotes John von Neumann to Freeman Dyson, critizing the latter's model (citep:Dyson2004):
+  #+BEGIN_QUOTE
+  "I remember my friend Johnny von Neumann used to say, with four parameters I can fit an elephant, and with five I can make him wiggle his trunk." — Enrico Fermi
+  #+END_QUOTE
 
-   cite:Mayer2010 take on the challenge yielding:
-   #+BEGIN_QUOTE
-   The resulting shape is schematic and cartoonlike but is still recognizable as an elephant. Although the use of the Fourier coordinate expansion is not new, our approach clearly demonstrates its usefulness in reducing the number of parameters needed to describe a two-dimensional contour. In the special case of fitting an elephant, it is even possible to lower it to four complex parameters and therein implement a well-known saying.
-   #+END_QUOTE
-   With five, they give the elephant an eye and make it's trunk wiggle!
+  #+ATTR_HTML: :style float:right;width:40%
+  [[file:../static/elephant.png]]
 
-   Python implementation [[https://www.johndcook.com/blog/2011/06/21/how-to-fit-an-elephant/][here]].
+  cite:Mayer2010 take on the challenge yielding:
+  #+BEGIN_QUOTE
+  The resulting shape is schematic and cartoonlike but is still recognizable as an elephant. Although the use of the Fourier coordinate expansion is not new, our approach clearly demonstrates its usefulness in reducing the number of parameters needed to describe a two-dimensional contour. In the special case of fitting an elephant, it is even possible to lower it to four complex parameters and therein implement a well-known saying.
+  #+END_QUOTE
+  With five, they give the elephant an eye and make it's trunk wiggle!
 
-9. ...
-   #+ATTR_HTML: :style width:100%
-   [[file:../static/obama-author.png]]
+  Python implementation [[https://www.johndcook.com/blog/2011/06/21/how-to-fit-an-elephant/][here]].
 
-10. cite:Lindzen1988
-    #+BEGIN_QUOTE
-    As it turns out, the observations provide a clue to the problem.
-    #+END_QUOTE
++ ...
+  #+ATTR_HTML: :style width:100%
+  [[file:../static/obama-author.png]]
+
++ cite:Lindzen1988
+  #+BEGIN_QUOTE
+  As it turns out, the observations provide a clue to the problem.
+  #+END_QUOTE
 
 # 9. Smyth textbook + the dude abides
 
