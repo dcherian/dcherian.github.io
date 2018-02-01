@@ -156,41 +156,41 @@ I define a function <code>export_bokeh</code> to do the actual heavy lifting. Th
 </p>
 <div class="org-src-container">
 <pre class="src src-ipython" id="org902014a"><span style="color: #859900;">def</span> <span style="color: #268bd2;">export_bokeh</span>(plot, outPNG, outJS, outHTML, bkjs=<span style="color: #2aa198;">'inline'</span>):
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">from</span> bokeh.io <span style="color: #859900;">import</span> export_png
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">from</span> bokeh.embed <span style="color: #859900;">import</span> autoload_static, file_html
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">import</span> bokeh.resources
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">from</span> bokeh.io <span style="color: #859900;">import</span> export_png
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">from</span> bokeh.embed <span style="color: #859900;">import</span> autoload_static, file_html
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">import</span> bokeh.resources
 
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'local'</span>:
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #586e75;"># </span><span style="color: #586e75;">use local installed bokeh scripts</span>
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #2aa198;">'absolute'</span>)
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'local'</span>:
+<span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">use local installed bokeh scripts</span>
+<span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #2aa198;">'absolute'</span>)
 
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'remote'</span> <span style="color: #859900;">or</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'CDN'</span>:
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #586e75;"># </span><span style="color: #586e75;">use CDN bokeh scripts</span>
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.CDN
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'remote'</span> <span style="color: #859900;">or</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'CDN'</span>:
+<span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">use CDN bokeh scripts</span>
+<span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.CDN
 
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'relative'</span>:
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #586e75;"># </span><span style="color: #586e75;">bkjs is a relative path to the locally installed bokeh files</span>
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #2aa198;">'relative'</span>, root_dir=<span style="color: #2aa198;">'./'</span>)
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'relative'</span>:
+<span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">bkjs is a relative path to the locally installed bokeh files</span>
+<span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #2aa198;">'relative'</span>, root_dir=<span style="color: #2aa198;">'./'</span>)
 
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'inline'</span>:
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.INLINE
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'inline'</span>:
+<span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.INLINE
 
-<span style="background-color: #073642;"> </span>   <span style="color: #586e75;"># </span><span style="color: #586e75;">save the png file</span>
-<span style="background-color: #073642;"> </span>   export_png(plot, filename=outPNG)
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">save the png file</span>
+<span style="background-color: #eee8d5;"> </span>   export_png(plot, filename=outPNG)
 
-<span style="background-color: #073642;"> </span>   <span style="color: #586e75;"># </span><span style="color: #586e75;">save the html file</span>
-<span style="background-color: #073642;"> </span>   <span style="color: #268bd2;">html</span> = file_html(plot, wherebokeh, <span style="color: #268bd2; font-weight: bold;">None</span>)
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">with</span> <span style="color: #839496;">open</span>(outHTML, <span style="color: #2aa198;">'w'</span>) <span style="color: #859900;">as</span> <span style="color: #839496;">file</span>:
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #839496;">file</span>.write(html)
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">save the html file</span>
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">html</span> = file_html(plot, wherebokeh, <span style="color: #268bd2;">None</span>)
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">with</span> <span style="color: #b58900;">open</span>(outHTML, <span style="color: #2aa198;">'w'</span>) <span style="color: #859900;">as</span> <span style="color: #b58900;">file</span>:
+<span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #b58900;">file</span>.write(html)
 
-<span style="background-color: #073642;"> </span>   <span style="color: #268bd2;">js</span>, <span style="color: #268bd2;">script</span> = autoload_static(plot, wherebokeh, outJS)
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">js</span>, <span style="color: #268bd2;">script</span> = autoload_static(plot, wherebokeh, outJS)
 
-<span style="background-color: #073642;"> </span>   <span style="color: #586e75;"># </span><span style="color: #586e75;">save the .js file</span>
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">with</span> <span style="color: #839496;">open</span>(outJS, <span style="color: #2aa198;">"w"</span>) <span style="color: #859900;">as</span> writer:
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   writer.write(js)
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">save the .js file</span>
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">with</span> <span style="color: #b58900;">open</span>(outJS, <span style="color: #2aa198;">"w"</span>) <span style="color: #859900;">as</span> writer:
+<span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   writer.write(js)
 
-<span style="background-color: #073642;"> </span>   <span style="color: #586e75;"># </span><span style="color: #586e75;">embed in the org-exported HTML file</span>
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''#+BEGIN_EXPORT html\n{script}\n#+END_EXPORT'''</span>.<span style="color: #839496;">format</span>(script=script.lstrip()))
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">embed in the org-exported HTML file</span>
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''#+BEGIN_EXPORT html\n{script}\n#+END_EXPORT'''</span>.<span style="color: #b58900;">format</span>(script=script.lstrip()))
 </pre>
 </div>
 
@@ -222,7 +222,7 @@ This will export a <a href="../static/my-image.png">png image</a>, an <a href=".
 
 <span style="color: #268bd2;">tools</span>=<span style="color: #2aa198;">'box_select, reset'</span>
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">create "subplots"</span>
+<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">create "subplots"</span>
 <span style="color: #268bd2;">p1</span> = figure(tools=tools)
 <span style="color: #268bd2;">p1.background_fill_alpha</span> = 0.0
 <span style="color: #268bd2;">p1.border_fill_alpha</span> = 0.0
@@ -231,32 +231,32 @@ This will export a <a href="../static/my-image.png">png image</a>, an <a href=".
 <span style="color: #268bd2;">p2.background_fill_alpha</span> = 0.0
 <span style="color: #268bd2;">p2.border_fill_alpha</span> = 0.0
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">generate data</span>
+<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">generate data</span>
 <span style="color: #268bd2;">x</span> = np.random.randn(200)
 <span style="color: #268bd2;">y0</span> = x**3 - 100
 <span style="color: #268bd2;">y1</span> = x**2 - 100
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">generate random letters</span>
+<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">generate random letters</span>
 <span style="color: #859900;">import</span> string
 <span style="color: #859900;">import</span> random
-<span style="color: #268bd2;">label</span> = [random.choice(string.ascii_letters) <span style="color: #859900;">for</span> aa <span style="color: #859900;">in</span> <span style="color: #839496;">range</span>(200)]
+<span style="color: #268bd2;">label</span> = [random.choice(string.ascii_letters) <span style="color: #859900;">for</span> aa <span style="color: #859900;">in</span> <span style="color: #b58900;">range</span>(200)]
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">needed for linked selection</span>
+<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">needed for linked selection</span>
 <span style="color: #268bd2;">source</span> = ColumnDataSource(data={<span style="color: #2aa198;">'x'</span>: x, <span style="color: #2aa198;">'y0'</span>: y0, <span style="color: #2aa198;">'y1'</span>: y1,
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #2aa198;">'label'</span>: label})
+<span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="color: #2aa198;">'label'</span>: label})
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">plot the data</span>
+<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">plot the data</span>
 p1.circle(<span style="color: #2aa198;">'x'</span>, <span style="color: #2aa198;">'y0'</span>, source=source)
 p2.scatter(<span style="color: #2aa198;">'x'</span>, <span style="color: #2aa198;">'y1'</span>, source=source)
 
 <span style="color: #268bd2;">p1.title.text</span> = titlestr
 
 <span style="color: #268bd2;">wheel</span> = WheelZoomTool()
-<span style="color: #586e75;"># </span><span style="color: #586e75;">add some tooltips</span>
+<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">add some tooltips</span>
 <span style="color: #268bd2;">hover</span> = HoverTool()
 <span style="color: #268bd2;">hover.tooltips</span> = [
-<span style="background-color: #073642;"> </span>   (<span style="color: #2aa198;">"(x,y)"</span>, <span style="color: #2aa198;">"($x, $y)"</span>),  <span style="color: #586e75;"># </span><span style="color: #586e75;">'$' for co-ordinates</span>
-<span style="background-color: #073642;"> </span>   (<span style="color: #2aa198;">"label"</span>, <span style="color: #2aa198;">"@label"</span>)  <span style="color: #586e75;"># </span><span style="color: #586e75;">note '@' for column lookup</span>
+<span style="background-color: #eee8d5;"> </span>   (<span style="color: #2aa198;">"(x,y)"</span>, <span style="color: #2aa198;">"($x, $y)"</span>),  <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">'$' for co-ordinates</span>
+<span style="background-color: #eee8d5;"> </span>   (<span style="color: #2aa198;">"label"</span>, <span style="color: #2aa198;">"@label"</span>)  <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">note '@' for column lookup</span>
 ]
 p1.add_tools(hover, wheel)
 p2.add_tools(hover, wheel)
@@ -264,13 +264,13 @@ p2.add_tools(hover, wheel)
 <span style="color: #268bd2;">p1.toolbar.active_scroll</span> = wheel
 <span style="color: #268bd2;">p2.toolbar.active_scroll</span> = wheel
 
-<span style="color: #586e75;"># </span><span style="color: #586e75;">layout the subplots</span>
+<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">layout the subplots</span>
 <span style="color: #268bd2;">pg</span> = gridplot([[p1, p2]], plot_width=400, plot_height=400)
 
 export_bokeh(pg,
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span><span style="color: #2aa198;">'../static/'</span>+fname+<span style="color: #2aa198;">'.png'</span>,
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span><span style="color: #2aa198;">'../static/js/'</span>+fname+<span style="color: #2aa198;">'.js'</span>,
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span><span style="color: #2aa198;">'../static/html/'</span>+fname+<span style="color: #2aa198;">'.html'</span>)
+<span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span><span style="color: #2aa198;">'../static/'</span>+fname+<span style="color: #2aa198;">'.png'</span>,
+<span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span><span style="color: #2aa198;">'../static/js/'</span>+fname+<span style="color: #2aa198;">'.js'</span>,
+<span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span>   <span style="background-color: #eee8d5;"> </span><span style="color: #2aa198;">'../static/html/'</span>+fname+<span style="color: #2aa198;">'.html'</span>)
 </pre>
 </div>
 <script
@@ -345,10 +345,10 @@ I made some slight modifications to <a href="http://kitchingroup.cheme.cmu.edu/b
 Add the following at the top of my org file to use locally downloaded versions of bokeh. Note that versions need to match/be compatible with what you have installed (<code>bokeh.__version__</code>).
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #586e75; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-0.12.10.min.css" type="text/css" /&gt;</span>
-<span style="color: #586e75; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.css" type="text/css" /&gt;</span>
-<span style="color: #586e75; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-0.12.10.min.js"&gt;&lt;/script&gt;</span>
-<span style="color: #586e75; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.js"&gt;&lt;/script&gt;</span>
+<pre class="src src-org"><span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-0.12.10.min.css" type="text/css" /&gt;</span>
+<span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.css" type="text/css" /&gt;</span>
+<span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-0.12.10.min.js"&gt;&lt;/script&gt;</span>
+<span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.js"&gt;&lt;/script&gt;</span>
 </pre>
 </div></li>
 
@@ -357,11 +357,11 @@ Add the following at the top of my org file to use locally downloaded versions o
 
 <div class="org-src-container">
 <pre class="src src-ipython"><span style="color: #859900;">def</span> <span style="color: #268bd2;">WriteToOrg</span>(p):
-<span style="background-color: #073642;"> </span>   <span style="color: #268bd2;">script</span>, <span style="color: #268bd2;">div</span> = components(p)
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">script</span>, <span style="color: #268bd2;">div</span> = components(p)
 
-<span style="background-color: #073642;"> </span>   <span style="color: #268bd2;">script</span> = <span style="color: #2aa198;">'\n'</span>.join([<span style="color: #2aa198;">'#+HTML_HEAD_EXTRA: '</span> + line <span style="color: #859900;">for</span> line <span style="color: #859900;">in</span> script.lstrip().split(<span style="color: #2aa198;">'\n'</span>)])
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #268bd2;">script</span> = <span style="color: #2aa198;">'\n'</span>.join([<span style="color: #2aa198;">'#+HTML_HEAD_EXTRA: '</span> + line <span style="color: #859900;">for</span> line <span style="color: #859900;">in</span> script.lstrip().split(<span style="color: #2aa198;">'\n'</span>)])
 
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''{script}\n#+BEGIN_EXPORT html\n{div}\n#+END_EXPORT'''</span>.<span style="color: #839496;">format</span>(script=script, div=div))
+<span style="background-color: #eee8d5;"> </span>   <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''{script}\n#+BEGIN_EXPORT html\n{div}\n#+END_EXPORT'''</span>.<span style="color: #b58900;">format</span>(script=script, div=div))
 
 
 <span style="color: #859900;">from</span> bokeh.plotting <span style="color: #859900;">import</span> figure
@@ -430,7 +430,7 @@ conda install phantomjs selenium
 Either include a css file or add a style tag to <code>HTML_HEAD</code> at the top of your org file.
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #586e75; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;style&gt; add-stuff-here &lt;/style&gt;</span>
+<pre class="src src-org"><span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;style&gt; add-stuff-here &lt;/style&gt;</span>
 </pre>
 </div></li>
 <li><p>
@@ -465,7 +465,16 @@ Here is <a href="https://raw.githubusercontent.com/dcherian/dcherian.github.io/s
 <h2 id="org4e63892"><a id="ID-892e1c45-7e0e-4532-ba6e-e6b7cd62cb77"></a><span class="section-number-2">3</span> Interesting quotes from the scientific literature</h2>
 <div class="outline-text-2" id="text-3">
 <div class="paper-quotes">
-<ol class="org-ol">
+<ul class="org-ul">
+<li><p>
+John Lumley, quoted in <a class='org-ref-reference' href="#Leibovich2018">Leibovich2018</a>
+</p>
+<blockquote>
+<p>
+Turbulence is rent by factionalism. Traditional approaches in the field are under attack, and one hears intemperate statements against long time averaging, Reynolds decomposition, and so forth. Some of these are reminiscent of the Einstein-Heisenberg controversy over quantum mechanics, and smack of a mistrust of any statistical approach. Coherent structure people sound like <i>The Emperor’s New Clothes</i> when they say that all turbulent flows consist primarily of coherent structures, in the face of visual evidence to the contrary. Dynamical systems theory people are sure that turbulence is chaos. Simulators have convinced many that we will be able to compute <i>anything</i> within a decade. Modeling is thus attacked as unnecessary, or irrelevant because it starts with Reynolds stress averaging or ignores coherent structures. The card-carrying physicists dismiss everything that has been done on turbulence from Osborne Reynolds until the last decade. Cellular Automata were hailed on their appearance as the answer to a maiden’s prayer, so far as turbulence was concerned. It is no wonder that funding agencies are confused. (quoted in Cantwell 1990, p. 97)
+</p>
+</blockquote></li>
+
 <li><p>
 <a class='org-ref-reference' href="#Penland1995">Penland1995</a> throw down a challenge:
 </p>
@@ -594,13 +603,14 @@ Python implementation <a href="https://www.johndcook.com/blog/2011/06/21/how-to-
 As it turns out, the observations provide a clue to the problem.
 </p>
 </blockquote></li>
-</ol>
+</ul>
 
 </div>
 <p>
 
 <h1 class='org-ref-bib-h1'>Bibliography</h1>
-<ul class='org-ref-bib'><li><a id="Penland1995">[Penland1995]</a> Penland & Sardeshmukh, The Optimal Growth of Tropical Sea Surface Temperature Anomalies, <i>Journal of Climate</i>, <b>8(8)</b>, 1999-2024 (1995). <a href="http://dx.doi.org/10.1175/1520-0442(1995)008<1999:TOGOTS>2.0.CO;2">doi</a>.</li>
+<ul class='org-ref-bib'><li><a id="Leibovich2018">[Leibovich2018]</a> Leibovich & Warhaft, John Leask Lumley: Whither Turbulence?, <i>Annual Review of Fluid Mechanics</i>, <b>50(1)</b>, 1-23 (2018). <a href="http://dx.doi.org/10.1146/annurev-fluid-122316-044524">doi</a>.</li>
+<li><a id="Penland1995">[Penland1995]</a> Penland & Sardeshmukh, The Optimal Growth of Tropical Sea Surface Temperature Anomalies, <i>Journal of Climate</i>, <b>8(8)</b>, 1999-2024 (1995). <a href="http://dx.doi.org/10.1175/1520-0442(1995)008<1999:TOGOTS>2.0.CO;2">doi</a>.</li>
 <li><a id="Vallis1993">[Vallis1993]</a> Vallis & Maltrud, Generation of Mean Flows and Jets on a Beta Plane and over Topography, <i>Journal of Physical Oceanography</i>, <b>23(7)</b>, 1346-1362 (1993). <a href="http://dx.doi.org/10.1175/1520-0485(1993)023<1346:GOMFAJ>2.0.CO;2">doi</a>.</li>
 <li><a id="Flierl1978">[Flierl1978]</a> Flierl, Models of Vertical Structure and the Calibration of Two-Layer Models, <i>Dynamics of Atmospheres and Oceans</i>, <b>2(4)</b>, 341-381 (1978). <a href="http://dx.doi.org/10.1016/0377-0265(78)90002-7">doi</a>.</li>
 <li><a id="Holte2009">[Holte2009]</a> Holte & Talley, A New Algorithm for Finding Mixed Layer Depths with Applications to Argo Data and Subantarctic Mode Water Formation*, <i>Journal of Atmospheric and Oceanic Technology</i>, <b>26(9)</b>, 1920-1939 (2009). <a href="http://dx.doi.org/10.1175/2009JTECHO543.1">doi</a>.</li>
@@ -711,7 +721,7 @@ The following MATLAB function <code>githash</code> will return the hash of the l
                            <span style="color: #2aa198;">' log -n 1 --no-color --pretty=format:''%H'' '''</span> <span style="text-decoration: underline;">...</span>
                            fname <span style="color: #2aa198;">''' &lt; /dev/null'</span>]);
 
-       <span style="color: #586e75;">% remove bash escape characters</span>
+       <span style="color: #93a1a1;">% remove bash escape characters</span>
        hash = hashout(9<span style="color: #b58900;">:</span>48)
    <span style="color: #859900;">end</span>
 </pre>
@@ -827,13 +837,13 @@ Searching for <code>hash</code> in my fork of <a href="https://github.com/dcheri
 To recover the recorded hash, it suffices to call <code>exiftool FILENAME</code> which will print all metadata stored in the image; not just the hash. <code>grep</code> can then find the recorded hash:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">  <span style="color: #586e75;">#</span><span style="color: #586e75;">!/bin/bash</span>
-  <span style="color: #586e75;"># </span><span style="color: #586e75;">displays saved git hash of a provided file using exiftool</span>
+<pre class="src src-bash">  <span style="color: #93a1a1;">#</span><span style="color: #93a1a1;">!/bin/bash</span>
+  <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">displays saved git hash of a provided file using exiftool</span>
 
   <span style="color: #268bd2;">file</span>=$<span style="color: #268bd2;">1</span>
   <span style="color: #268bd2;">hash</span>=$(<span style="color: #6c71c4; font-weight: bold;">exiftool</span> $<span style="color: #268bd2;">file</span> | grep -i <span style="color: #2aa198;">"hash:"</span>)
 
-  <span style="color: #839496;">echo</span> $<span style="color: #268bd2;">hash</span>
+  <span style="color: #b58900;">echo</span> $<span style="color: #268bd2;">hash</span>
 </pre>
 </div>
 </div>
