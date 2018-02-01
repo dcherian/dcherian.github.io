@@ -133,41 +133,41 @@ I define a function <code>export_bokeh</code> to do the actual heavy lifting. Th
 </p>
 <div class="org-src-container">
 <pre class="src src-ipython" id="org2338297"><span style="color: #859900;">def</span> <span style="color: #268bd2;">export_bokeh</span>(plot, outPNG, outJS, outHTML, bkjs=<span style="color: #2aa198;">'inline'</span>):
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">from</span> bokeh.io <span style="color: #859900;">import</span> export_png
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">from</span> bokeh.embed <span style="color: #859900;">import</span> autoload_static, file_html
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">import</span> bokeh.resources
+    <span style="color: #859900;">from</span> bokeh.io <span style="color: #859900;">import</span> export_png
+    <span style="color: #859900;">from</span> bokeh.embed <span style="color: #859900;">import</span> autoload_static, file_html
+    <span style="color: #859900;">import</span> bokeh.resources
 
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'local'</span>:
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #586e75;"># </span><span style="color: #586e75;">use local installed bokeh scripts</span>
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #2aa198;">'absolute'</span>)
+    <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'local'</span>:
+        <span style="color: #586e75;"># </span><span style="color: #586e75;">use local installed bokeh scripts</span>
+        <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #2aa198;">'absolute'</span>)
 
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'remote'</span> <span style="color: #859900;">or</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'CDN'</span>:
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #586e75;"># </span><span style="color: #586e75;">use CDN bokeh scripts</span>
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.CDN
+    <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'remote'</span> <span style="color: #859900;">or</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'CDN'</span>:
+        <span style="color: #586e75;"># </span><span style="color: #586e75;">use CDN bokeh scripts</span>
+        <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.CDN
 
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'relative'</span>:
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #586e75;"># </span><span style="color: #586e75;">bkjs is a relative path to the locally installed bokeh files</span>
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #2aa198;">'relative'</span>, root_dir=<span style="color: #2aa198;">'./'</span>)
+    <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'relative'</span>:
+        <span style="color: #586e75;"># </span><span style="color: #586e75;">bkjs is a relative path to the locally installed bokeh files</span>
+        <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #2aa198;">'relative'</span>, root_dir=<span style="color: #2aa198;">'./'</span>)
 
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'inline'</span>:
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.INLINE
+    <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'inline'</span>:
+        <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.INLINE
 
-<span style="background-color: #073642;"> </span>   <span style="color: #586e75;"># </span><span style="color: #586e75;">save the png file</span>
-<span style="background-color: #073642;"> </span>   export_png(plot, filename=outPNG)
+    <span style="color: #586e75;"># </span><span style="color: #586e75;">save the png file</span>
+    export_png(plot, filename=outPNG)
 
-<span style="background-color: #073642;"> </span>   <span style="color: #586e75;"># </span><span style="color: #586e75;">save the html file</span>
-<span style="background-color: #073642;"> </span>   <span style="color: #268bd2;">html</span> = file_html(plot, wherebokeh, <span style="color: #268bd2; font-weight: bold;">None</span>)
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">with</span> <span style="color: #839496;">open</span>(outHTML, <span style="color: #2aa198;">'w'</span>) <span style="color: #859900;">as</span> <span style="color: #839496;">file</span>:
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #839496;">file</span>.write(html)
+    <span style="color: #586e75;"># </span><span style="color: #586e75;">save the html file</span>
+    <span style="color: #268bd2;">html</span> = file_html(plot, wherebokeh, <span style="color: #268bd2; font-weight: bold;">None</span>)
+    <span style="color: #859900;">with</span> <span style="color: #839496;">open</span>(outHTML, <span style="color: #2aa198;">'w'</span>) <span style="color: #859900;">as</span> <span style="color: #839496;">file</span>:
+        <span style="color: #839496;">file</span>.write(html)
 
-<span style="background-color: #073642;"> </span>   <span style="color: #268bd2;">js</span>, <span style="color: #268bd2;">script</span> = autoload_static(plot, wherebokeh, outJS)
+    <span style="color: #268bd2;">js</span>, <span style="color: #268bd2;">script</span> = autoload_static(plot, wherebokeh, outJS)
 
-<span style="background-color: #073642;"> </span>   <span style="color: #586e75;"># </span><span style="color: #586e75;">save the .js file</span>
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">with</span> <span style="color: #839496;">open</span>(outJS, <span style="color: #2aa198;">"w"</span>) <span style="color: #859900;">as</span> writer:
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   writer.write(js)
+    <span style="color: #586e75;"># </span><span style="color: #586e75;">save the .js file</span>
+    <span style="color: #859900;">with</span> <span style="color: #839496;">open</span>(outJS, <span style="color: #2aa198;">"w"</span>) <span style="color: #859900;">as</span> writer:
+        writer.write(js)
 
-<span style="background-color: #073642;"> </span>   <span style="color: #586e75;"># </span><span style="color: #586e75;">embed in the org-exported HTML file</span>
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''#+BEGIN_EXPORT html\n{script}\n#+END_EXPORT'''</span>.<span style="color: #839496;">format</span>(script=script.lstrip()))
+    <span style="color: #586e75;"># </span><span style="color: #586e75;">embed in the org-exported HTML file</span>
+    <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''#+BEGIN_EXPORT html\n{script}\n#+END_EXPORT'''</span>.<span style="color: #839496;">format</span>(script=script.lstrip()))
 </pre>
 </div>
 
@@ -220,7 +220,7 @@ This will export a <a href="../static/my-image.png">png image</a>, an <a href=".
 
 <span style="color: #586e75;"># </span><span style="color: #586e75;">needed for linked selection</span>
 <span style="color: #268bd2;">source</span> = ColumnDataSource(data={<span style="color: #2aa198;">'x'</span>: x, <span style="color: #2aa198;">'y0'</span>: y0, <span style="color: #2aa198;">'y1'</span>: y1,
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="color: #2aa198;">'label'</span>: label})
+                                <span style="color: #2aa198;">'label'</span>: label})
 
 <span style="color: #586e75;"># </span><span style="color: #586e75;">plot the data</span>
 p1.circle(<span style="color: #2aa198;">'x'</span>, <span style="color: #2aa198;">'y0'</span>, source=source)
@@ -232,8 +232,8 @@ p2.scatter(<span style="color: #2aa198;">'x'</span>, <span style="color: #2aa198
 <span style="color: #586e75;"># </span><span style="color: #586e75;">add some tooltips</span>
 <span style="color: #268bd2;">hover</span> = HoverTool()
 <span style="color: #268bd2;">hover.tooltips</span> = [
-<span style="background-color: #073642;"> </span>   (<span style="color: #2aa198;">"(x,y)"</span>, <span style="color: #2aa198;">"($x, $y)"</span>),  <span style="color: #586e75;"># </span><span style="color: #586e75;">'$' for co-ordinates</span>
-<span style="background-color: #073642;"> </span>   (<span style="color: #2aa198;">"label"</span>, <span style="color: #2aa198;">"@label"</span>)  <span style="color: #586e75;"># </span><span style="color: #586e75;">note '@' for column lookup</span>
+    (<span style="color: #2aa198;">"(x,y)"</span>, <span style="color: #2aa198;">"($x, $y)"</span>),  <span style="color: #586e75;"># </span><span style="color: #586e75;">'$' for co-ordinates</span>
+    (<span style="color: #2aa198;">"label"</span>, <span style="color: #2aa198;">"@label"</span>)  <span style="color: #586e75;"># </span><span style="color: #586e75;">note '@' for column lookup</span>
 ]
 p1.add_tools(hover, wheel)
 p2.add_tools(hover, wheel)
@@ -245,9 +245,9 @@ p2.add_tools(hover, wheel)
 <span style="color: #268bd2;">pg</span> = gridplot([[p1, p2]], plot_width=400, plot_height=400)
 
 export_bokeh(pg,
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span><span style="color: #2aa198;">'../static/'</span>+fname+<span style="color: #2aa198;">'.png'</span>,
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span><span style="color: #2aa198;">'../static/js/'</span>+fname+<span style="color: #2aa198;">'.js'</span>,
-<span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span>   <span style="background-color: #073642;"> </span><span style="color: #2aa198;">'../static/html/'</span>+fname+<span style="color: #2aa198;">'.html'</span>)
+             <span style="color: #2aa198;">'../static/'</span>+fname+<span style="color: #2aa198;">'.png'</span>,
+             <span style="color: #2aa198;">'../static/js/'</span>+fname+<span style="color: #2aa198;">'.js'</span>,
+             <span style="color: #2aa198;">'../static/html/'</span>+fname+<span style="color: #2aa198;">'.html'</span>)
 </pre>
 </div>
 <script
@@ -334,11 +334,11 @@ Add the following at the top of my org file to use locally downloaded versions o
 
 <div class="org-src-container">
 <pre class="src src-ipython"><span style="color: #859900;">def</span> <span style="color: #268bd2;">WriteToOrg</span>(p):
-<span style="background-color: #073642;"> </span>   <span style="color: #268bd2;">script</span>, <span style="color: #268bd2;">div</span> = components(p)
+    <span style="color: #268bd2;">script</span>, <span style="color: #268bd2;">div</span> = components(p)
 
-<span style="background-color: #073642;"> </span>   <span style="color: #268bd2;">script</span> = <span style="color: #2aa198;">'\n'</span>.join([<span style="color: #2aa198;">'#+HTML_HEAD_EXTRA: '</span> + line <span style="color: #859900;">for</span> line <span style="color: #859900;">in</span> script.lstrip().split(<span style="color: #2aa198;">'\n'</span>)])
+    <span style="color: #268bd2;">script</span> = <span style="color: #2aa198;">'\n'</span>.join([<span style="color: #2aa198;">'#+HTML_HEAD_EXTRA: '</span> + line <span style="color: #859900;">for</span> line <span style="color: #859900;">in</span> script.lstrip().split(<span style="color: #2aa198;">'\n'</span>)])
 
-<span style="background-color: #073642;"> </span>   <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''{script}\n#+BEGIN_EXPORT html\n{div}\n#+END_EXPORT'''</span>.<span style="color: #839496;">format</span>(script=script, div=div))
+    <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''{script}\n#+BEGIN_EXPORT html\n{div}\n#+END_EXPORT'''</span>.<span style="color: #839496;">format</span>(script=script, div=div))
 
 
 <span style="color: #859900;">from</span> bokeh.plotting <span style="color: #859900;">import</span> figure
