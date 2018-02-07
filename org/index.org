@@ -205,7 +205,8 @@ Office Address: Burt 434, OSU, Corvallis SSR, OR
     It isn’t a simple tale of over-confidence in algorithms in the face of black swan events, but rather a tale of poor communications and siloed researchers that slowed down the ability of the wider community to see and interpret what was going on.
    #+END_QUOTE
 5. [[http://primes.utm.edu/notes/faq/why.html][On why people search for large prime numbers.]]
-
+6. [[https://www.autodeskresearch.com/publications/samestats][The Datasaurus Dozen (Same Stats, Different Graphs)]].
+7. [[https://www.youtube.com/watch?v=PlN6qs55NNE][IPCC video on climate science outreach]].
 * Acknowledgments
 :PROPERTIES:
 :CUSTOM_ID: ack
