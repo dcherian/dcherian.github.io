@@ -70,6 +70,7 @@
 	("posts"
 	 :base-directory "~/website/org/posts/"
 	 :base-extension "org"
+	 :exclude "rss.org"
 	 :recursive nil
 	 :html-head ,research-posts-head
 	 :html-preamble t
