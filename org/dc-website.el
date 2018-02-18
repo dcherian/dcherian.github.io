@@ -51,6 +51,8 @@
 	("research"
 	 :base-directory "~/website/org/research/"
 	 :base-extension "org"
+	 :auto-sitemap t
+	 :sitemap-filename "sitemap.org"
 	 :recursive nil
 	 :html-head ,research-posts-head
 	 :html-preamble t
@@ -84,6 +86,8 @@
 	 :html-head-include-scripts nil
 	 :html-head-include-default-style nil
 	 :html-container "section"
+	 :auto-sitemap t
+	 :sitemap-filename "sitemap.org"
 	 :publishing-directory "~/website/publish/posts/"
 	 :publishing-function org-html-publish-to-html)
 
