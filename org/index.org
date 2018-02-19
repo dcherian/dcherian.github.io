@@ -23,7 +23,7 @@
 :PROPERTIES:
 :CUSTOM_ID: research
 :END:
-I study dynamical connections between disparate scales of motion in the climate system with a diverse set of tools. Themes include small-scale turbulence & mixing, large scale air-sea interaction (intraseasonal oscillations and such), mesoscale oceanic eddies, baroclinic instabilities, continental shelf flow and equatorial dynamics. My toolkit includes observational records from moored and satellite platforms as well as high resolution idealized process-study models.
+Themes include small-scale turbulence & mixing, large scale air-sea interaction (intraseasonal oscillations and such), mesoscale oceanic eddies, baroclinic instabilities, continental shelf flow and equatorial dynamics. My toolkit includes observational records from moored and satellite platforms as well as high resolution idealized process-study models.
 
 *** Mixing measurements in the Bay of Bengal
 :PROPERTIES:
@@ -34,14 +34,13 @@ I study dynamical connections between disparate scales of motion in the climate 
 #+ATTR_HTML: :class coauthors
 With [[http://people.oregonstate.edu/~shroyere/Welcome.html][Emily Shroyer (OSU)]], [[http://mixing.coas.oregonstate.edu/people/jmoum/][Jim Moum (OSU)]] & the [[http://mixing.coas.oregonstate.edu/][OSU Ocean Mixing Group]].
 
-#+ATTR_HTML: :width 50% :style float:left
-[[file:static/bob-chipods.png]]
+#+ATTR_HTML: :width 60% :style float:left
+[[file:static/bob-chipods-2.png]]
 
-Multiple year-long moored turbulent mixing measurements collected using fast temperature sensors ([[http://mixing.coas.oregonstate.edu/papers/mixing_measurements.pdf][χ-pods]]) as part of the [[http://journals.ametsoc.org/doi/10.1175/BAMS-D-14-00197.1][ASIRI]]/[[https://www.eol.ucar.edu/field_projects/dynamo][DYNAMO]]/EBoB/[[https://www.pmel.noaa.gov/gtmba/pmel-theme/indian-ocean-rama][RAMA]] programmes paint a picture of mixing across the Bay of Bengal that spans multiple time scales: interannual to diurnal and shorter.
+Multiple year-long moored turbulent mixing measurements collected using fast temperature sensors ([[http://mixing.coas.oregonstate.edu/papers/mixing_measurements.pdf][χ-pods]]) as part of the [[http://journals.ametsoc.org/doi/10.1175/BAMS-D-14-00197.1][ASIRI]]/EBoB/[[https://www.pmel.noaa.gov/gtmba/pmel-theme/indian-ocean-rama][RAMA]] programmes paint a picture of mixing across the Bay of Bengal that spans multiple time scales: interannual to diurnal and shorter.
 
 Interesting signals include interannual & intraseasonal variability, a daily cycle in turbulence, depressed turbulence in barrier layers, elevated mixing associated with the tropical cyclones and a quiet ocean below 50m.
 
-(map shows past and proposed deployments - courtesy Emily Shroyer)
 *** Cross-shelfbreak exchange by mesoscale eddies
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: research
@@ -207,6 +206,8 @@ Office Address: Burt 434, OSU, Corvallis SSR, OR
 5. [[http://primes.utm.edu/notes/faq/why.html][On why people search for large prime numbers.]]
 6. [[https://www.autodeskresearch.com/publications/samestats][The Datasaurus Dozen (Same Stats, Different Graphs)]].
 7. [[https://www.youtube.com/watch?v=PlN6qs55NNE][IPCC video on climate science outreach]].
+**** Code / Data
+- [[https://cims.nyu.edu/~shafer/tools/index.html][Shafer Smith's QG model]]
 * Acknowledgments
 :PROPERTIES:
 :CUSTOM_ID: ack
