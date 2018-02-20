@@ -246,6 +246,15 @@ img.full-width {
     left: calc((-90vw + 44em) / 2 - 40px);
 }
 
+figcaption {
+    display: table-caption;
+    text-align: center;
+    caption-side: top;
+    margin-top: 2em;
+    margin-bottom: 1em;
+    width: 100%;
+}
+
 video {
     width: 100%;
     height: auto;
