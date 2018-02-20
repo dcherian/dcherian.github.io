@@ -84,7 +84,7 @@ The following MATLAB function <code>githash</code> will return the hash of the l
                            <span style="color: #2aa198;">' log -n 1 --no-color --pretty=format:''%H'' '''</span> <span style="text-decoration: underline;">...</span>
                            fname <span style="color: #2aa198;">''' &lt; /dev/null'</span>]);
 
-       <span style="color: #586e75;">% remove bash escape characters</span>
+       <span style="color: #93a1a1;">% remove bash escape characters</span>
        hash = hashout(9<span style="color: #b58900;">:</span>48)
    <span style="color: #859900;">end</span>
 </pre>
@@ -200,13 +200,13 @@ Searching for <code>hash</code> in my fork of <a href="https://github.com/dcheri
 To recover the recorded hash, it suffices to call <code>exiftool FILENAME</code> which will print all metadata stored in the image; not just the hash. <code>grep</code> can then find the recorded hash:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">  <span style="color: #586e75;">#</span><span style="color: #586e75;">!/bin/bash</span>
-  <span style="color: #586e75;"># </span><span style="color: #586e75;">displays saved git hash of a provided file using exiftool</span>
+<pre class="src src-bash">  <span style="color: #93a1a1;">#</span><span style="color: #93a1a1;">!/bin/bash</span>
+  <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">displays saved git hash of a provided file using exiftool</span>
 
   <span style="color: #268bd2;">file</span>=$<span style="color: #268bd2;">1</span>
   <span style="color: #268bd2;">hash</span>=$(<span style="color: #6c71c4; font-weight: bold;">exiftool</span> $<span style="color: #268bd2;">file</span> | grep -i <span style="color: #2aa198;">"hash:"</span>)
 
-  <span style="color: #839496;">echo</span> $<span style="color: #268bd2;">hash</span>
+  <span style="color: #b58900;">echo</span> $<span style="color: #268bd2;">hash</span>
 </pre>
 </div>
 </div>
