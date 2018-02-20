@@ -247,9 +247,8 @@ img.full-width {
 }
 
 figcaption {
-    display: table-caption;
+    display: table;
     text-align: center;
-    caption-side: top;
     margin-top: 2em;
     margin-bottom: 1em;
     width: 100%;
