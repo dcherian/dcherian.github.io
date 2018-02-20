@@ -207,6 +207,10 @@ Office Address: Burt 434, OSU, Corvallis SSR, OR
 6. [[https://www.autodeskresearch.com/publications/samestats][The Datasaurus Dozen (Same Stats, Different Graphs)]].
 7. [[https://www.youtube.com/watch?v=PlN6qs55NNE][IPCC video on climate science outreach]].
 **** Code / Data
+:PROPERTIES:
+:HTML_CONTAINER_CLASS: links
+:HTML_CONTAINER: article
+:END:
 - [[https://cims.nyu.edu/~shafer/tools/index.html][Shafer Smith's QG model]]
 * Acknowledgments
 :PROPERTIES:

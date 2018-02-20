@@ -2,21 +2,20 @@
 (require 'ox-html)
 (require 'ox-publish)
 
-(setq website-head
-      (concat
-       "<link rel=\"stylesheet\" href=\"./website.css\" type=\"text/css\" />\n"
-       "<link href=\"https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500\" rel=\"stylesheet\">"))
-
 (setq research-posts-head
       (concat
        "<link rel=\"stylesheet\" href=\"../research-posts.css\" type=\"text/css\" />\n"
        "<link href=\"https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500\" rel=\"stylesheet\">"))
 
-(setq website-header-file "~/website/org/website-icons.html")
-(defun website-header (arg)
+(defun website-header-icons (arg)
   (with-temp-buffer
-    (insert-file-contents website-header-file)
+    (insert-file-contents "~/website/org/website-icons.html")
     (buffer-string)))
+
+(setq website-head
+      (with-temp-buffer
+	(insert-file-contents "~/website/org/website-head.html")
+	(buffer-string)))
 
 (setq website-footer-file "~/website/org/website-footer.html")
 (defun website-footer (arg)
@@ -34,10 +33,11 @@
 	 :base-directory "~/website/org/"
 	 :base-extension "org"
 	 :recursive nil
+	 :description "Describing my ocean sciences research"
 	 :html-head ,website-head
-	 :html-preamble website-header
+	 :html-preamble website-header-icons
 	 :html-postamble nil
-	 :author "Deepak Cherian"
+	 :author "Deepak Cherian, oceanographer"
 	 :section-numbers nil
 	 :with-toc nil
 	 :html-doctype "html5"
@@ -78,7 +78,7 @@
 	 :html-preamble t
 	 ;; :html-preamble-format - how do I do this?
 	 :html-postamble website-footer
-	 :author "Deepak Cherian"
+	 :author "Deepak Cherian, oceanographer"
 	 :html-doctype "html5"
 	 :html-html5-fancy t
 	 :section-numbers nil
