@@ -3,24 +3,111 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sitemap for project research</title>
+<title>Subsurface turbulent mixing in the Bay of Bengal</title>
 <meta name="generator" content="Org mode">
-<meta name="author" content="Deepak Cherian">
+<meta name="keywords" content="bay of bengal, monsoon, mixing">
 <link rel="stylesheet" href="../research-posts.css" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500" rel="stylesheet">
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="preamble" class="status">
-<p class="post-subtitle"><a class="animate-link back" href="../index.html"> ← Back</a> |  Deepak Cherian | </p>
+<p class="post-subtitle"><a class="animate-link back" href="../index.html"> ← Back</a> |  Deepak Cherian | 18 Feb 2018</p>
 </div>
 <div id="content">
 <header>
-<h1 class="title">Sitemap for project research</h1>
-</header><ul class="org-ul">
-<li><a href="bay.html">Subsurface turbulent mixing in the Bay of Bengal</a></li>
-<li><a href="eqwaves.html">Vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific</a></li>
-<li><a href="eddyshelf.html">When an eddy encounters shelf-slope topography</a></li>
-</ul>
+<h1 class="title">Subsurface turbulent mixing in the Bay of Bengal</h1>
+</header>
+<section id="outline-container-orgb317786" class="outline-2">
+<h2 id="orgb317786">Measurements</h2>
+<div class="outline-text-2" id="text-orgb317786">
+
+<figure>
+<img src="../static/bob-chipods-2.png" alt="bob-chipods-2.png" style="width:60%;">
+
+<figcaption><span class="figure-number">Figure 1: </span>Locations and depths of χpods deployed in the Bay during 2014-15. The NRL moorings suffered some blowdown (depth ranges are indicated in parenthesis)</figcaption>
+</figure>
+</div>
+</section>
+<section id="outline-container-org763c9e2" class="outline-2">
+<h2 id="org763c9e2">\(K_T\) maps</h2>
+<div class="outline-text-2" id="text-org763c9e2">
+<p>
+For now I am ignoring the data at 18N. The map below consists of data from RAMA moorings at 12N, 15N and the NRL EBoB array.
+</p>
+</div>
+
+<div id="outline-container-org1bbb2ad" class="outline-3">
+<h3 id="org1bbb2ad">Method</h3>
+<div class="outline-text-3" id="text-org1bbb2ad">
+<p>
+To combine data at different depths and locations throughout the Bay:
+</p>
+<ol class="org-ol">
+<li>Label each \(K_T\) estimate by whether it was made in the mixed layer <i>ML</i> or barrier layer <i>BL</i>, otherwise label it with the density of water parcel. In addition, label \(K_T\) estimate with the depth at which that estimate was made.</li>
+<li>Bin all observations in density space.
+<ol class="org-ol">
+<li>For each density bin, estimate a "mean depth" and standard deviation of observation depths. In addition, make a <a href="https://en.wikipedia.org/wiki/Kernel_density_estimation">kernel density estimate</a> which is one way to estimate a PDF.</li>
+</ol></li>
+<li>Make a vertical profile of the PDFs:
+<ol class="org-ol">
+<li>The baseline of each PDF is located at the "mean depth".</li>
+<li>The extent of the baseline ranges from the minimum value observed to the 99th percentile.</li>
+<li>The vertical bar at the left edge of the baseline spans one standard deviation above and below the "mean depth". This gives us an impression of how much depth space is occupied by that isopycnal bin.</li>
+<li>Means and medians are represented by triangles and circles respectively.</li>
+</ol></li>
+</ol>
+
+
+<figure>
+<img src="../static/kt-dist-legend.png" alt="kt-dist-legend.png" style="width:60%;">
+
+</figure>
+</div>
+</div>
+
+<div id="outline-container-org08f7d7a" class="outline-3">
+<h3 id="org08f7d7a">Caveats</h3>
+<div class="outline-text-3" id="text-org08f7d7a">
+<p>
+Binning in isopycnal space results in spatial aliasing — there is no guarantee that all moorings in an isopycnal bin witness the same mesoscale/internal-wave climate. One example is the double peaked distributions in the last column of the figure below. There are 3 moorings represented in these distributions: one mooring at (85.5E, 5N) consistently shows higher mixing than the other two &#x2014; (87E, 8N) and (88.5E, 8N).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6356d56" class="outline-3">
+<h3 id="org6356d56">\(K_T\) summary</h3>
+<div class="outline-text-3" id="text-org6356d56">
+
+<figure>
+<img src="../static/bay-KT-vert-profile-labeled.png" alt="bay-KT-vert-profile-labeled.png" class="full-width">
+
+<figcaption><span class="figure-number">Figure 3: </span>Seasonal variation of the vertical profile of \(K_T\) distributions in the Bay. <i>ML</i>: mixed layer; <i>BL</i>: barrier layer. The numbers (e.g. 19.5) represent the mean density in that density bin. In this case 19.6 → 1019.6 kg/m³. Each column is a season; Dec-Feb means Dec 01-Feb 28.</figcaption>
+</figure>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
