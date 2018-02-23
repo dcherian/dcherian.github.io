@@ -177,6 +177,7 @@ Office Address: Burt 434, OSU, Corvallis SSR, OR
 5. [[https://anaconda.org/jbednar/plotting_pitfalls/notebook][Great python notebook on visualizing data with high dynamic range.]] Apparently, [[https://en.wikipedia.org/wiki/Histogram_equalization][histogram equalization]] (contrast enhancement) is a pretty good default. Here's the [[https://www.mathworks.com/help/images/ref/histeq.html][equivalent MATLAB function]].
 6. From the Climate Impact Lab, [[http://www.impactlab.org/map/][a great map of projected temperature increase]] around the world.
 7. Visualizing chemical reactions: [[http://www.beautifulchemistry.net/][Beautiful Chemistry,]] and the sequel [[https://www.envisioningchemistry.com/films][Envisioning Chemistry.]]
+8. [[https://www.youtube.com/watch?v=EQ7S0D1iucY][Brief history of CO_2 emissions]] - Interesting visualizations of the geography of CO_2 emissions. Related: [[https://www.youtube.com/watch?v=x1SgmFa0r04][A year in the life of Earth's CO_2]].
 **** Literature
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: links
