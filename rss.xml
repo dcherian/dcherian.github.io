@@ -14,9 +14,9 @@
   <link>http://www.cherian.net/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Fri, 23 Feb 2018 15:49:54 -0800</pubDate>
-  <lastBuildDate>Fri, 23 Feb 2018 15:49:54 -0800</lastBuildDate>
-  <generator>Emacs 27.0 Org-mode 9.1.6</generator>
+  <pubDate>Tue, 06 Mar 2018 22:41:54 -0800</pubDate>
+  <lastBuildDate>Tue, 06 Mar 2018 22:41:54 -0800</lastBuildDate>
+  <generator>Emacs 27.0 Org-mode 9.1.7</generator>
   <webMaster>deepak@darya (Deepak Cherian)</webMaster>
   <image>
     <url>https://orgmode.org/img/org-mode-unicorn-logo.png</url>
@@ -524,7 +524,12 @@
   <p>
   At the same time, the epiphanies, new ideas and novel observations that fundamentally drive the field forward frequently come not from big science, but from a cornucopia of much smaller exploratory efforts and the continued small-scale development of innovative observing technology and numerical techniques.  We must not lose the ability to be surprised.
   </p>
-  </blockquote></li>
+  </blockquote>
+
+  <p>
+  Also note the author order:
+  <img src="../static/cpt-authors.png" alt="cpt-authors.png" />
+  </p></li>
 
   <li><p>
   <a class='org-ref-reference' href="#Wunsch2016">Wunsch2016</a> cites the Bible
