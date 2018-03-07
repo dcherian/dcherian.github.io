@@ -43,6 +43,9 @@
   At the same time, the epiphanies, new ideas and novel observations that fundamentally drive the field forward frequently come not from big science, but from a cornucopia of much smaller exploratory efforts and the continued small-scale development of innovative observing technology and numerical techniques.  We must not lose the ability to be surprised.
   #+END_QUOTE
 
+  Also note the author order:
+  [[file:../static/cpt-authors.png]]
+
 + cite:Wunsch2016 cites the Bible
   #+BEGIN_QUOTE
   That which is far off, and exceeding deep, who can find it out?
