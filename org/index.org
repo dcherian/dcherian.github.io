@@ -43,6 +43,19 @@ Interesting signals include interannual & intraseasonal variability, a daily cyc
 
 An estimate of the vertical structure of diffusivity $K_T$ is available [[file:research/bay.org][here]].
 
+*** Shelf flows forced by mesoscale eddies
+:PROPERTIES:
+:HTML_CONTAINER_CLASS: research
+:HTML_CONTAINER: article
+:END:
+#+ATTR_HTML: :class coauthors
+Advisor: [[http://www.whoi.edu/page.do?pid=23355][Ken Brink (WHOI)]] | [[file:static/Cherian-Brink-2018-JPO.pdf][Read the paper!]] | [[file:research/eddyshelf.org][More]]
+
+One chapter of my thesis focused on the shelf flows forced by mesoscale eddies translating at the shelfbreak. The flow field is summarized below. What I found most interesting was the difference in vertical structure of the cross-shelfbreak flow. The shelf-water outflow is approximately vertically uniform  whereas the eddy- and slope-water inflow is strongly sheared. Our paper explains why this happens.
+
+#+ATTR_HTML: :style width:90%;
+[[file:static/shelf-flow-summary.png]]
+
 *** Cross-shelfbreak exchange by mesoscale eddies
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: research
@@ -64,19 +77,6 @@ Here's a video showing the evolution of a passive tracer. The southern boundary 
 #+HTML: <source src="static/ew-34-csdye.mp4" type="video/mp4">
 Your browser does not support the video tag.
 #+END_video
-
-*** Shelf flows forced by mesoscale eddies
-:PROPERTIES:
-:HTML_CONTAINER_CLASS: research
-:HTML_CONTAINER: article
-:END:
-#+ATTR_HTML: :class coauthors
-Advisor: [[http://www.whoi.edu/page.do?pid=23355][Ken Brink (WHOI)]] | [[file:research/eddyshelf.org][More]]
-
-One chapter of my thesis focused on the shelf flows forced by mesoscale eddies translating at the shelfbreak. The flow field is summarized below. What I found most interesting was the difference in vertical structure of the cross-shelfbreak flow. The shelf-water outflow is approximately vertically uniform  whereas the eddy- and slope-water inflow is strongly sheared. Our paper explains why this happens.
-
-#+ATTR_HTML: :style width:90%;
-[[file:static/shelf-flow-summary.png]]
 
 *** Inertial-gravity waves in the equatorial Pacific
 :PROPERTIES:
