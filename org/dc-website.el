@@ -37,7 +37,7 @@
 	 :html-head ,website-head
 	 :html-preamble website-header-icons
 	 :html-postamble nil
-	 :author "Deepak Cherian, oceanographer"
+	 :author "Deepak Cherian"
 	 :section-numbers nil
 	 :with-toc nil
 	 :html-doctype "html5"
@@ -78,7 +78,7 @@
 	 :html-preamble t
 	 ;; :html-preamble-format - how do I do this?
 	 :html-postamble website-footer
-	 :author "Deepak Cherian, oceanographer"
+	 :author "Deepak Cherian"
 	 :html-doctype "html5"
 	 :html-html5-fancy t
 	 :section-numbers nil
