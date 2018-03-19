@@ -1,5 +1,6 @@
 #+TITLE: Interesting quotes from papers
 #+DATE: Last updated: 15 Nov 2017
+#+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
 + John Lumley, quoted in cite:Leibovich2018
@@ -52,7 +53,7 @@
    — Ecclesiastes 7:24 (King James Version)
   #+END_QUOTE
 
-+ Enrico Fermi quotes John von Neumann to Freeman Dyson, critizing the latter's model (citep:Dyson2004):
++ Enrico Fermi quotes John von Neumann to Freeman Dyson, critizing the latter's model citep:Dyson2004:
   #+BEGIN_QUOTE
   "I remember my friend Johnny von Neumann used to say, with four parameters I can fit an elephant, and with five I can make him wiggle his trunk." — Enrico Fermi
   #+END_QUOTE
@@ -83,5 +84,4 @@
 # 6. Stommel's demon?
 
 #+HTML: </div>
-bibliographystyle:harvard
 bibliography:~/Papers/bibtexLibrary.bib
