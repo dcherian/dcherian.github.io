@@ -41,7 +41,7 @@ Multiple year-long moored turbulent mixing measurements collected using fast tem
 
 Interesting signals include interannual & intraseasonal variability, a daily cycle in turbulence, depressed turbulence in barrier layers, elevated mixing associated with the tropical cyclones and a quiet ocean below 50m.
 
-An estimate of the vertical structure of diffusivity $K_T$ is available [[file:research/bay.org][here]].
+An estimate of the vertical structure of diffusivity /K_T/ is available [[file:research/bay.org][here]].
 
 *** Shelf flows forced by mesoscale eddies
 :PROPERTIES:
