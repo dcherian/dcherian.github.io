@@ -105,10 +105,15 @@ Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculat
 :HTML_CONTAINER: article
 :END:
 (drafts available on request)
-
-- *Cherian D.A.*, Brink K.H.  Shelf flows forced by deep-ocean anticyclonic eddies at the shelfbreak. *in revision*. /Journal of Physical Oceanography/.
-
 - *Cherian D.A.*, Farrar J.T., Durland T.S. /in prep./ The upper-ocean vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific.
+
+*** 2018
+:PROPERTIES:
+:HTML_CONTAINER_CLASS: papers
+:HTML_CONTAINER: article
+:END:
+- *Cherian D.A.*, Brink K.H.  Shelf flows forced by deep-ocean anticyclonic eddies at the shelfbreak. *submitted after revision*. /Journal of Physical Oceanography/. [[file:static/Cherian-Brink-2018-JPO.pdf][PDF]].
+
 *** 2016
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: papers
