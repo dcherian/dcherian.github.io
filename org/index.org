@@ -112,7 +112,7 @@ Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculat
 :HTML_CONTAINER_CLASS: papers
 :HTML_CONTAINER: article
 :END:
-- *Cherian D.A.*, Brink K.H.  Shelf flows forced by deep-ocean anticyclonic eddies at the shelfbreak. *submitted after revision*. /Journal of Physical Oceanography/. [[file:static/Cherian-Brink-2018-JPO.pdf][PDF]].
+- *Cherian D.A.*, Brink K.H. (2018) Shelf flows forced by deep-ocean anticyclonic eddies at the shelfbreak. *accepted*. /Journal of Physical Oceanography/. [[file:static/Cherian-Brink-2018-JPO.pdf][PDF]].
 
 *** 2016
 :PROPERTIES:
