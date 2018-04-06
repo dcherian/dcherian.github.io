@@ -220,6 +220,16 @@ Office Address: Burt 434, OSU, Corvallis SSR, OR
 :HTML_CONTAINER: article
 :END:
 - [[https://cims.nyu.edu/~shafer/tools/index.html][Shafer Smith's QG model]]
+- [[https://dataverse.harvard.edu/dataverse/ECCO][ECCO dataverse]]
+**** Python tutorials
+:PROPERTIES:
+:HTML_CONTAINER_CLASS: links
+:HTML_CONTAINER: article
+:END:
+- [[https://nbviewer.jupyter.org/github/jklymak/Phy411/tree/master/lectures/][Jody Klymak has Jupyter notebooks on signal processing with Python.]]
+- [[https://github.com/pangeo-data/pangeo-tutorial-sea-2018][xarray + dask + Pangeo tutorial notebooks]]
+- [[https://rabernat.github.io/research_computing/][Ryan Abernathey's class on Research Computing in Earth Sciences]]
+
 * Acknowledgments
 :PROPERTIES:
 :CUSTOM_ID: ack
