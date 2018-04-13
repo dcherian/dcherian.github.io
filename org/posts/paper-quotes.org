@@ -3,13 +3,18 @@
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
++ cite:Polzin2014
+
+  #+ATTR_HTML: :style width:75%
+  [[file:../static/polzin-2014-schematic.png]]
+
 + John Lumley, quoted in cite:Leibovich2018
   #+BEGIN_QUOTE
   Turbulence is rent by factionalism. Traditional approaches in the field are under attack, and one hears intemperate statements against long time averaging, Reynolds decomposition, and so forth. Some of these are reminiscent of the Einstein-Heisenberg controversy over quantum mechanics, and smack of a mistrust of any statistical approach. Coherent structure people sound like /The Emperor’s New Clothes/ when they say that all turbulent flows consist primarily of coherent structures, in the face of visual evidence to the contrary. Dynamical systems theory people are sure that turbulence is chaos. Simulators have convinced many that we will be able to compute /anything/ within a decade. Modeling is thus attacked as unnecessary, or irrelevant because it starts with Reynolds stress averaging or ignores coherent structures. The card-carrying physicists dismiss everything that has been done on turbulence from Osborne Reynolds until the last decade. Cellular Automata were hailed on their appearance as the answer to a maiden’s prayer, so far as turbulence was concerned. It is no wonder that funding agencies are confused. (quoted in Cantwell 1990, p. 97)
   #+END_QUOTE
 
 + cite:Penland1995 throw down a challenge:
-  #+ATTR_HTML: :width 95%
+  #+ATTR_HTML: :style width:90%
   [[file:../static/penland-sardeshmukh.png]]
 
 + cite:Vallis1993 :
@@ -26,7 +31,7 @@
   _^{1} "Quantitative changes suddenly become qualitative changes" (Karl Marx)
   #+END_QUOTE
 
-+ cite:Holte2009 throw shade at under-performing Canadian Argo floats:
++ cite:Holte2009
   #+BEGIN_QUOTE
   Most floats sampled at regular pressure levels, though the Canadian Argo floats often sampled at irregular pressures and required substantial editing.
   #+END_QUOTE
@@ -45,6 +50,7 @@
   #+END_QUOTE
 
   Also note the author order:
+  #+ATTR_HTML: :style width:80%
   [[file:../static/cpt-authors.png]]
 
 + cite:Wunsch2016 cites the Bible
