@@ -1,8 +1,13 @@
 #+TITLE: Interesting quotes from papers
-#+DATE: Last updated: 15 Nov 2017
+#+DATE: Last updated: 15 Apr 2018
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
++ cite:Munk2007
+  #+BEGIN_QUOTE
+  The obliquity modulation of tidal mixing by a few percent and the associated  modulation in the meridional overturning circulation (MOC) may play a role comparable to the obliquity modulation of the incoming solar radiation (insolation), a cornerstone of the Milanković theory of ice ages. This speculation involves even more than the usual number of uncertainties found in climate speculations.
+  #+END_QUOTE
+
 + cite:Polzin2014
 
   #+ATTR_HTML: :style width:75%
