@@ -3,6 +3,11 @@
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
++ cite:Hughes2016
+
+  #+ATTR_HTML: :style width:90%
+  [[file:../static/hughes-2016.png]]
+
 + cite:Munk2007
   #+BEGIN_QUOTE
   The obliquity modulation of tidal mixing by a few percent and the associated  modulation in the meridional overturning circulation (MOC) may play a role comparable to the obliquity modulation of the incoming solar radiation (insolation), a cornerstone of the Milanković theory of ice ages. This speculation involves even more than the usual number of uncertainties found in climate speculations.
@@ -45,7 +50,7 @@
   #+ATTR_HTML: :style width:70%
   [[file:../static/sutyrin-flierl-fig2.png]]
 
-+ cite:MacKinnon2017 summarize
++ cite:MacKinnon2017a summarize
   #+BEGIN_QUOTE
   A frequently asked question related to this work is “Which mixing processes matter most for climate?”. As with many alluringly comprehensive sounding questions, the answer is “it depends”.
   #+END_QUOTE
