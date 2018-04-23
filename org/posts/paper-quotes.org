@@ -3,6 +3,11 @@
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
++ cite:Ferrari2008
+  #+BEGIN_QUOTE
+  V Canuto and M Dubovikov were included as coauthors during the review process, because they contributed to resolving some inconsistencies in the original expressions for the eddy-induced streamfunction and the residual fluxes.
+  #+END_QUOTE
+
 + cite:Hughes2016
 
   #+ATTR_HTML: :style width:90%
