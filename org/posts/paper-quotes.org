@@ -3,6 +3,11 @@
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
++ cite:Armi1983
+  #+BEGIN_QUOTE
+  We are in effect bragging about the results of a high-resolution yet wide-angle (10°) telescope in the sense of an astronomer looking at the sky. We have only used the new telescope four times in one portion of the ocean.
+  #+END_QUOTE
+
 + cite:Ferrari2008
   #+BEGIN_QUOTE
   V Canuto and M Dubovikov were included as coauthors during the review process, because they contributed to resolving some inconsistencies in the original expressions for the eddy-induced streamfunction and the residual fluxes.
@@ -55,7 +60,7 @@
   #+ATTR_HTML: :style width:70%
   [[file:../static/sutyrin-flierl-fig2.png]]
 
-+ cite:MacKinnon2017a summarize
++ cite:MacKinnon2017 summarize
   #+BEGIN_QUOTE
   A frequently asked question related to this work is “Which mixing processes matter most for climate?”. As with many alluringly comprehensive sounding questions, the answer is “it depends”.
   #+END_QUOTE
