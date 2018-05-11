@@ -1,8 +1,16 @@
 #+TITLE: Interesting quotes from papers
-#+DATE: Last updated: 15 Apr 2018
+#+DATE: Last updated: 11 May 2018
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
++ cite:Ferrari2009
+  #+BEGIN_QUOTE
+  That turbulent mixing processes in the ocean are extremely important in determining the oceanic general circulation, and are major limiting factors in the ability to calculate future climate states, is a cliche in oceanography and climate dynamics. Unlike some other hackneyed statements, this one does retain much of its validity.
+  #+END_QUOTE
+  And
+  #+BEGIN_QUOTE
+  We have gone from the situation described in Wunsch & Ferrari (2004) of being unable to account for the dissipation of geostrophic turbulence to the opposite case—there are now too many candidates.
+  #+END_QUOTE
 + cite:Armi1983
   #+BEGIN_QUOTE
   We are in effect bragging about the results of a high-resolution yet wide-angle (10°) telescope in the sense of an astronomer looking at the sky. We have only used the new telescope four times in one portion of the ocean.
