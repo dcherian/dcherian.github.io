@@ -38,7 +38,7 @@ body {
     max-width: 44em;
     margin: auto;
     /* background: #eff4e2; */
-    background: #fdf6e3;
+    background: #ffffff;
     text-rendering: optimizeLegibility;
 }
 
@@ -78,7 +78,7 @@ a::after {
     color: #dc322f;
 }
 a:hover {
-    background: #eee8d5;
+    background: #eeefff;
     transition-property: background;
     transition-duration: 0.1s;
     border-radius: 0.3em;
@@ -96,7 +96,7 @@ a:hover {
 
 /* --- Navigation Menu --- */
 .menu {
-    background-color: #fdf6e3;
+    background-color: #ffffff;
     /* color: #000; #cb4b16; */
     position: sticky;		/*fixed */
     top: 0em;
