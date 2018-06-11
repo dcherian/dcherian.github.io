@@ -1,8 +1,19 @@
 #+TITLE: Interesting quotes from papers
-#+DATE: Last updated: 11 May 2018
+#+DATE: Last updated: 11 Jun 2018
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
++ cite:Gargett1999
+
+  #+ATTR_HTML: :style width=70%
+  [[file:../static/gargett-1999-velcro.png]]
+
+  #+BEGIN_QUOTE
+  While a zipper makes a closure by the functioning of a single accurate mechanism, the same task can be accomplished by the closing of enough of the myriad tiny hooks and eyes that make up a strip of Velcro. Baker (1983) first used this analogy to suggest "the importance of many relatively cheap measurements that cover a broad area as opposed to expensive detailed measurements at a point." As an example, consider the merits of the plentiful satellite measurements of sea surface temperature (SST) compared with highly accurate but exceedingly sparse shipboard SST measurements. Satellite information on the spatial patterns of SST and the changes of these patterns in space and time have provided a revolutionary new view of the ocean—a view completely unattainable from SST measurements along ship tracks. In such "Velcro" techniques, the quantity of measurements allows a description of the spatial patterns associated with the underlying fluid flows, with detail impossible to obtain from sparse sampling. As has been the case with satellite SST, the quantitative accuracy of the remote sensing algorithm is determined and improved by comparison with "ground-truth" data from accurate but sparsely distributed sensors.
+
+  The above analogy is of direct relevance to present state-of-the-art measurement of ocean turbulence, a field in which the accurate "zippers" are microscale profilers. While such profilers have become somewhat more common during the last decade, they remain relatively rare; are expensive to maintain and run; and in operation are often restricted by adverse conditions of weather, surface waves, or oceanic velocity shears.
+  #+END_QUOTE
+
 + cite:Ferrari2009
   #+BEGIN_QUOTE
   That turbulent mixing processes in the ocean are extremely important in determining the oceanic general circulation, and are major limiting factors in the ability to calculate future climate states, is a cliche in oceanography and climate dynamics. Unlike some other hackneyed statements, this one does retain much of its validity.
