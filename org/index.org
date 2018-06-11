@@ -194,7 +194,7 @@ Office Address: Burt 434, OSU, Corvallis SSR, OR
 3. [[http://bhavana.org.in][Bhāvanā]] - a magazine at the intersection of math & history in India. Good stuff!
    - [[http://bhavana.org.in/roddam-narasimha/][Interview with Roddam Narasimha]]
    - [[http://bhavana.org.in/arithmetic-mean-ancient-india/][Weighted arithmetic mean in ancient India]]
-4. [[http://forecastpod.org][Forecast]]: Climate science podcast with Nature's editor for climate science, Michael White. Interviews with meteorologists, oceanographers, environmental economists and more! E.g. [[http://forecastpod.org/index.php/2017/04/20/jennifer-mackinnon-swirly-things/][Jen MacKinnon]]
+4. [[http://forecastpod.org][Forecast]]: Climate science podcast with Nature's editor for climate science, Michael White. Interviews with meteorologists, oceanographers, environmental economists and more! E.g. [[http://forecastpod.org/index.php/2017/04/20/jennifer-mackinnon-swirly-things/][Jen MacKinnon]], [[http://forecastpod.org/index.php/2018/05/30/carl-wunsch-and-the-rise-of-modern-oceanography/][Carl Wunsch]].
 5. [[https://fermatslibrary.com/s/assessing-dangerous-climate-change][Fermat's library featured an annotated climate science paper — Hansen et al. (2013)!]]
 6. [[https://eartharxiv.org/][EarthArXiv needs your preprints!]]
 7. [[http://www.sherpa.ac.uk/romeo/index.php][SHERPA/RoMEO:]] Simple summaries of journal copyright policies.
