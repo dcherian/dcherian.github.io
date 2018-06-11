@@ -3,6 +3,12 @@
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
++ cite:Hughes2010
+  [[file:../static/hughes-sea-level-color.png]]
+  #+BEGIN_QUOTE
+  the true relationship between spectrum and color turns out to be rather useful here. We are used to interpreting small differences from white light (“red” noise) as colors, so if the sea level spectrum was exactly “red” noise, a translation into a light spectrum would render it as a gray scale: low‐amplitude variability would be black, and high‐amplitude white, with grays at intermediate values.
+  #+END_QUOTE
+
 + cite:Gargett1999
 
   #+ATTR_HTML: :style width=70%
