@@ -3,6 +3,12 @@
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
+
++ cite:Richardson1948
+  #+BEGIN_QUOTE
+  In the sea we used floats of parsnip because it is easily visible, and because it is almost completely immersed so as not to catch the wind which, moreover, was slight. The floats were about 2cm in diameter.
+  #+END_QUOTE
+
 + cite:Hughes2010
   [[file:../static/hughes-sea-level-color.png]]
   #+BEGIN_QUOTE
