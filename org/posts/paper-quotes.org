@@ -4,6 +4,15 @@
 
 #+HTML: <div class="paper-quotes">
 
++ cite:Wunsch2009 on instrumented elephant seals
+  #+BEGIN_QUOTE
+  They are singled out here because they are almost our only data sets from under the Antarctic sea ice, and they perhaps represent the future, in which ever more species are used to obtain a truly global observation system^2.
+
+  ...
+
+  [2] Perhaps, one day, animals can be bred to grow their own temperature, salinity, and pressure sensors, and GPS transmitters! Whether the existing system is damaging to the animals, and the more general ethical questions concerning animal use, must be discussed elsewhere.
+  #+END_QUOTE
+
 + cite:Richardson1948
   #+BEGIN_QUOTE
   In the sea we used floats of parsnip because it is easily visible, and because it is almost completely immersed so as not to catch the wind which, moreover, was slight. The floats were about 2cm in diameter.
