@@ -4,6 +4,15 @@
 
 #+HTML: <div class="paper-quotes">
 
++ cite:Munk1981 introduces the term "spiciness":
+  #+BEGIN_QUOTE
+  They are here designated by π,for "spiciness" (hot and salty^{10})
+
+  ...
+
+  10 Garrett points out that a lot of laboratory experiments have been sweet-and-sour rather than spicy.
+  #+END_QUOTE
+
 + cite:Wunsch2009 on instrumented elephant seals
   #+BEGIN_QUOTE
   They are singled out here because they are almost our only data sets from under the Antarctic sea ice, and they perhaps represent the future, in which ever more species are used to obtain a truly global observation system^2.
