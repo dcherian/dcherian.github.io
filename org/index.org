@@ -183,8 +183,11 @@ Office Address: Burt 434, OSU, Corvallis SSR, OR
 6. From the Climate Impact Lab, [[http://www.impactlab.org/map/][a great map of projected temperature increase]] around the world.
 7. Visualizing chemical reactions: [[http://www.beautifulchemistry.net/][Beautiful Chemistry,]] and the sequel [[https://www.envisioningchemistry.com/films][Envisioning Chemistry.]]
 8. [[https://www.youtube.com/watch?v=EQ7S0D1iucY][Brief history of CO_2 emissions]] - Interesting visualizations of the geography of CO_2 emissions. Related: [[https://www.youtube.com/watch?v=x1SgmFa0r04][A year in the life of Earth's CO_2]].
-9. [[http://sciviscolor.org/][SciVisColor: Another great colormap resource]]. [[http://sciviscolor.org/enviro-cm-examples-starting-points/][Useful post on "colormap strategies".]]
-10. [[https://elliehighwood.com/2017/06/12/climatechangecrochet-the-global-warming-blanket/][Climate change crochet: The global warming blanket]].
+9. [[https://elliehighwood.com/2017/06/12/climatechangecrochet-the-global-warming-blanket/][Climate change crochet: The global warming blanket]].
+10. Colormaps:
+    1. [[http://sciviscolor.org/][SciVisColor: Another great colormap resource]]. [[http://sciviscolor.org/enviro-cm-examples-starting-points/][Useful post on "colormap strategies".]]
+    2. [[https://agilescientific.com/blog/2017/12/14/no-more-rainbows][Nice example of hillshading + contours + colormaps.]]
+    3. [[https://seaborn.pydata.org/tutorial/color_palettes.html][Seaborn's colormap tutorial.]]
 **** Literature
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: links
@@ -232,6 +235,7 @@ Office Address: Burt 434, OSU, Corvallis SSR, OR
 - [[https://github.com/pangeo-data/pangeo-tutorial-sea-2018][xarray + dask + Pangeo tutorial notebooks]]
 - [[https://rabernat.github.io/research_computing/][Ryan Abernathey's class on Research Computing in Earth Sciences]]
 - [[https://currents.soest.hawaii.edu/ocn_data_analysis/index.html][Univ. Hawaii: Data Analysis With Python]]
+- [[http://pyviz.org/][PyViz: Visualization in python: great tutorials!]]
 * Acknowledgments
 :PROPERTIES:
 :CUSTOM_ID: ack
