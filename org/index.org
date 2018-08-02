@@ -188,6 +188,7 @@ Office Address: Burt 434, OSU, Corvallis SSR, OR
     1. [[http://sciviscolor.org/][SciVisColor: Another great colormap resource]]. [[http://sciviscolor.org/enviro-cm-examples-starting-points/][Useful post on "colormap strategies".]]
     2. [[https://agilescientific.com/blog/2017/12/14/no-more-rainbows][Nice example of hillshading + contours + colormaps.]]
     3. [[https://seaborn.pydata.org/tutorial/color_palettes.html][Seaborn's colormap tutorial.]]
+    4. [[https://blog.datawrapper.de/colorguide/][Your Friendly Guide to Colors in Data Visualisation]] : Fantastic!
 **** Literature
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: links
