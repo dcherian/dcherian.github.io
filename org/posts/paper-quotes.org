@@ -4,13 +4,18 @@
 
 #+HTML: <div class="paper-quotes">
 
++ cite:Winters1994:
+  #+BEGIN_QUOTE
+  ... we generalize the term adiabatic to describe a process in which there is no heat or molecular mass transfer, and define a diabatic process as one that is not adiabatic.
+  #+END_QUOTE
+
 + cite:Munk1981 introduces the term "spiciness":
   #+BEGIN_QUOTE
   They are here designated by π,for "spiciness" (hot and salty^{10})
 
   ...
 
-  10 Garrett points out that a lot of laboratory experiments have been sweet-and-sour rather than spicy.
+  [10] Garrett points out that a lot of laboratory experiments have been sweet-and-sour rather than spicy.
   #+END_QUOTE
 
 + cite:Wunsch2009 on instrumented elephant seals
@@ -97,7 +102,7 @@
 
   ⋮
 
-  _^{1} "Quantitative changes suddenly become qualitative changes" (Karl Marx)
+  [1] "Quantitative changes suddenly become qualitative changes" (Karl Marx)
   #+END_QUOTE
 
 + cite:Holte2009
