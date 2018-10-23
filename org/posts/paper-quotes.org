@@ -4,6 +4,11 @@
 
 #+HTML: <div class="paper-quotes">
 
++ cite:Colosi2016
+  #+BEGIN_QUOTE
+    In 1979, Carl Wunsch famously asserted “Many sources for the internal wave field have been proposed; but it has not yet been possible to make the kind of statement that can be made about surface waves: namely, when the wind blows surface waves are generated and the larger the fetch and duration, the larger the waves.”
+  #+END_QUOTE
+
 + cite:Winters1994:
   #+BEGIN_QUOTE
   ... we generalize the term adiabatic to describe a process in which there is no heat or molecular mass transfer, and define a diabatic process as one that is not adiabatic.
