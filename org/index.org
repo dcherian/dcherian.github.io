@@ -221,6 +221,7 @@ Office Address: Burt 434, OSU, Corvallis SSR, OR
 5. [[http://primes.utm.edu/notes/faq/why.html][On why people search for large prime numbers.]]
 6. [[https://www.autodeskresearch.com/publications/samestats][The Datasaurus Dozen (Same Stats, Different Graphs)]].
 7. [[https://www.youtube.com/watch?v=PlN6qs55NNE][IPCC video on climate science outreach]].
+8. [[https://www.youtube.com/watch?v=qCAPwgQR13w][The incredible way the GOES-R imager scans the Earth, and space.]]
 **** Code / Data
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: links
