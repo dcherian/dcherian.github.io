@@ -1,8 +1,12 @@
 #+TITLE: Interesting quotes from papers
-#+DATE: Last updated: 11 Jun 2018
+#+DATE: Last updated: 29 Nov 2018
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
+
++ cite:Levine1999a on rescaling the Garrett-Munk spectrum
+  #+ATTR_HTML: :style width:50%
+  [[file:../static/levine-99-scaling-gm.png]]
 
 + cite:Colosi2016
   #+BEGIN_QUOTE
