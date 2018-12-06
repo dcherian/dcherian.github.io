@@ -190,6 +190,7 @@ Office Address: Burt 434, OSU, Corvallis SSR, OR
     3. [[https://seaborn.pydata.org/tutorial/color_palettes.html][Seaborn's colormap tutorial.]]
     4. [[https://blog.datawrapper.de/colorguide/][Your Friendly Guide to Colors in Data Visualisation]] : Fantastic!
 11. [[http://style.org/ku/][Great talk by Jonathan Corum, science graphics editor at the New York Times, on designing for an audience.]]
+12. [[https://e360.yale.edu/features/redrawing-the-map-how-the-worlds-climate-zones-are-shifting][How the world's climate zones are shifting.]]
 **** Literature
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: links
