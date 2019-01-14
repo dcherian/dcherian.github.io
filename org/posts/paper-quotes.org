@@ -1,8 +1,13 @@
 #+TITLE: Interesting quotes from papers
-#+DATE: Last updated: 29 Nov 2018
+#+DATE: Last updated: 13 Jan 2019
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
+
++ cite:Groeskamp2019
+  #+BEGIN_QUOTE
+   The following analogy illustrates the utility of buoyancy as a marker of water masses. Imagine a slightly tilted pile of Dutch pancakes sweetened with Canadian maple syrup. As the maple syrup is poured onto the top pancake, it readily spills over the sides but only slowly penetrates through to the interior. The disparate syrup transport arises because there is enhanced resistance to movement through a pancake but little resistance to movement along a pancake surface. We make use of this pancake analogy to conceptualize the stratification of ocean buoyancy and its influence on the associated transport of matter and heat.
+  #+END_QUOTE
 
 + cite:Levine1999a on rescaling the Garrett-Munk spectrum
   #+ATTR_HTML: :style width:50%
