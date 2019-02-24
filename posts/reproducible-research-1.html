@@ -68,25 +68,25 @@ The following MATLAB function <code>githash</code> will return the hash of the l
 </p>
 
 <div class="org-src-container">
-<pre class="src src-matlab">   <span style="color: #859900;">function</span> <span style="color: #268bd2;">[hash]</span> = <span style="color: #268bd2;">githash</span>(<span style="color: #268bd2;">fname</span>, <span style="color: #268bd2;">gitdir</span>)
+<pre class="src src-matlab">   <span style="color: #E1BEE7;">function</span> <span style="color: #80CBC4;">[hash]</span> = <span style="color: #64B5F6;">githash</span>(<span style="color: #80CBC4;">fname</span>, <span style="color: #80CBC4;">gitdir</span>)
 
-       <span style="color: #859900;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'fname'</span>, <span style="color: #2aa198;">'var'</span>)
-           fname = <span style="color: #2aa198;">'.'</span>;
-       <span style="color: #859900;">end</span>
+       <span style="color: #E1BEE7;">if</span> <span style="color: #FFCC80;">~</span>exist(<span style="color: #C5E1A5;">'fname', 'var'</span>)
+           fname = <span style="color: #C5E1A5;">'.'</span>;
+       <span style="color: #E1BEE7;">end</span>
 
-       <span style="color: #859900;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'gitdir'</span>, <span style="color: #2aa198;">'var'</span>)
-           gitdir = <span style="color: #2aa198;">''</span>;
-       <span style="color: #859900;">else</span>
-           gitdir = [<span style="color: #2aa198;">'--git-dir='</span> gitdir];
-       <span style="color: #859900;">end</span>
+       <span style="color: #E1BEE7;">if</span> <span style="color: #FFCC80;">~</span>exist(<span style="color: #C5E1A5;">'gitdir', 'var'</span>)
+           gitdir = <span style="color: #C5E1A5;">''</span>;
+       <span style="color: #E1BEE7;">else</span>
+           gitdir = [<span style="color: #C5E1A5;">'--git-dir='</span> gitdir];
+       <span style="color: #E1BEE7;">end</span>
 
-       [<span style="color: #b58900;">~</span>, hashout] = system([<span style="color: #2aa198;">'TERM=xterm git '</span> gitdir <span style="text-decoration: underline;">...</span>
-                           <span style="color: #2aa198;">' log -n 1 --no-color --pretty=format:''%H'' '''</span> <span style="text-decoration: underline;">...</span>
-                           fname <span style="color: #2aa198;">''' &lt; /dev/null'</span>]);
+       [<span style="color: #FFCC80;">~</span>, hashout] = system([<span style="color: #C5E1A5;">'TERM=xterm git '</span> gitdir <span style="text-decoration: underline;">...</span>
+                           <span style="color: #C5E1A5;">' log -n 1 --no-color --pretty=format:''%H'' '''</span> <span style="text-decoration: underline;">...</span>
+                           fname <span style="color: #C5E1A5;">''' &lt; /dev/null'</span>]);
 
-       <span style="color: #93a1a1;">% remove bash escape characters</span>
-       hash = hashout(9<span style="color: #b58900;">:</span>48)
-   <span style="color: #859900;">end</span>
+       <span style="color: #757575;">% remove bash escape characters</span>
+       hash = hashout(9<span style="color: #FFCC80;">:</span>48)
+   <span style="color: #E1BEE7;">end</span>
 </pre>
 </div>
 
@@ -94,7 +94,7 @@ The following MATLAB function <code>githash</code> will return the hash of the l
 Using it in a MATLAB script requires the incantation
 </p>
 <div class="org-src-container">
-<pre class="src src-matlab">  hash = githash([mfilename(<span style="color: #2aa198;">'fullpath'</span>) <span style="color: #2aa198;">'.m'</span>]);
+<pre class="src src-matlab">  hash = githash([mfilename(<span style="color: #C5E1A5;">'fullpath') '.m'</span>]);
 </pre>
 </div>
 <p>
@@ -142,8 +142,8 @@ Once you have a hash value, or any metadata in general, it needs to be saved whe
 In general, all you need is a line that looks like
 </p>
 <div class="org-src-container">
-<pre class="src src-matlab">  system([<span style="color: #2aa198;">'exiftool -overwrite_original -Producer='</span> <span style="text-decoration: underline;">...</span>
-          hash <span style="color: #2aa198;">' '</span> pdf_nam]);
+<pre class="src src-matlab">  system([<span style="color: #C5E1A5;">'exiftool -overwrite_original -Producer='</span> <span style="text-decoration: underline;">...</span>
+          hash <span style="color: #C5E1A5;">' '</span> pdf_nam]);
 </pre>
 </div>
 <p>
@@ -200,13 +200,13 @@ Searching for <code>hash</code> in my fork of <a href="https://github.com/dcheri
 To recover the recorded hash, it suffices to call <code>exiftool FILENAME</code> which will print all metadata stored in the image; not just the hash. <code>grep</code> can then find the recorded hash:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">  <span style="color: #93a1a1;">#</span><span style="color: #93a1a1;">!/bin/bash</span>
-  <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">displays saved git hash of a provided file using exiftool</span>
+<pre class="src src-bash">  <span style="color: #757575;">#</span><span style="color: #757575;">!/bin/bash</span>
+  <span style="color: #757575;"># </span><span style="color: #757575;">displays saved git hash of a provided file using exiftool</span>
 
-  <span style="color: #268bd2;">file</span>=$<span style="color: #268bd2;">1</span>
-  <span style="color: #268bd2;">hash</span>=$(<span style="color: #6c71c4; font-weight: bold;">exiftool</span> $<span style="color: #268bd2;">file</span> | grep -i <span style="color: #2aa198;">"hash:"</span>)
+  <span style="color: #80CBC4;">file</span>=$<span style="color: #80CBC4;">1</span>
+  <span style="color: #80CBC4;">hash</span>=$(<span style="color: #fa8072;">exiftool</span> $<span style="color: #80CBC4;">file</span> | grep -i <span style="color: #C5E1A5;">"hash:"</span>)
 
-  <span style="color: #b58900;">echo</span> $<span style="color: #268bd2;">hash</span>
+  <span style="color: #80DEEA;">echo</span> $<span style="color: #80CBC4;">hash</span>
 </pre>
 </div>
 </div>

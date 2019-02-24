@@ -14,9 +14,9 @@
   <link>http://www.cherian.net/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Thu, 05 Apr 2018 17:14:41 -0700</pubDate>
-  <lastBuildDate>Thu, 05 Apr 2018 17:14:41 -0700</lastBuildDate>
-  <generator>Emacs 27.0 Org-mode 9.1.9</generator>
+  <pubDate>Sun, 24 Feb 2019 07:44:41 +0530</pubDate>
+  <lastBuildDate>Sun, 24 Feb 2019 07:44:41 +0530</lastBuildDate>
+  <generator>Emacs 27.0 Org-mode 9.2.1</generator>
   <webMaster>deepak@darya (Deepak Cherian)</webMaster>
   <image>
     <url>https://orgmode.org/img/org-mode-unicorn-logo.png</url>
@@ -73,7 +73,7 @@
     <link>http://www.cherian.net/rss.html#orgb042aaa</link>
     <author>deepak@darya (Deepak Cherian)</author>
     <guid isPermaLink="false">http://www.cherian.net/rss.html#orgb042aaa</guid>
-    <pubDate>Sat, 04 Nov 2017 21:28:00 -0700</pubDate>
+    <pubDate>Sat, 04 Nov 2017 21:28:00 +0530</pubDate>
 
     <description><![CDATA[
     <div id="outline-container-org092634b" class="outline-3">
@@ -128,42 +128,42 @@
     I define a function <code>export_bokeh</code> to do the actual heavy lifting. This function could be moved to your ipython <code>startup.py</code> file so that it is defined for every ipython session.
     </p>
     <div class="org-src-container">
-    <pre class="src src-ipython" id="orgc646743"><span style="color: #859900;">def</span> <span style="color: #268bd2;">export_bokeh</span>(plot, outPNG, outJS, outHTML, bkjs=<span style="color: #2aa198;">'inline'</span>):
-    <span style="color: #859900;">from</span> bokeh.io <span style="color: #859900;">import</span> export_png
-    <span style="color: #859900;">from</span> bokeh.embed <span style="color: #859900;">import</span> autoload_static, file_html
-    <span style="color: #859900;">import</span> bokeh.resources
+    <pre class="src src-ipython" id="orgc646743"><span style="color: #E1BEE7;">def</span> <span style="color: #64B5F6;">export_bokeh</span>(plot, outPNG, outJS, outHTML, bkjs=<span style="color: #C5E1A5;">'inline'</span>):
+    <span style="color: #E1BEE7;">from</span> bokeh.io <span style="color: #E1BEE7;">import</span> export_png
+    <span style="color: #E1BEE7;">from</span> bokeh.embed <span style="color: #E1BEE7;">import</span> autoload_static, file_html
+    <span style="color: #E1BEE7;">import</span> bokeh.resources
 
-    <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'local'</span>:
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">use local installed bokeh scripts</span>
-    <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #2aa198;">'absolute'</span>)
+    <span style="color: #E1BEE7;">if</span> bkjs <span style="color: #E1BEE7;">is</span> <span style="color: #C5E1A5;">'local'</span>:
+    <span style="color: #757575;"># </span><span style="color: #757575;">use local installed bokeh scripts</span>
+    <span style="color: #80CBC4;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #C5E1A5;">'absolute'</span>)
 
-    <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'remote'</span> <span style="color: #859900;">or</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'CDN'</span>:
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">use CDN bokeh scripts</span>
-    <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.CDN
+    <span style="color: #E1BEE7;">if</span> bkjs <span style="color: #E1BEE7;">is</span> <span style="color: #C5E1A5;">'remote'</span> <span style="color: #E1BEE7;">or</span> bkjs <span style="color: #E1BEE7;">is</span> <span style="color: #C5E1A5;">'CDN'</span>:
+    <span style="color: #757575;"># </span><span style="color: #757575;">use CDN bokeh scripts</span>
+    <span style="color: #80CBC4;">wherebokeh</span> = bokeh.resources.CDN
 
-    <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'relative'</span>:
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">bkjs is a relative path to the locally installed bokeh files</span>
-    <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #2aa198;">'relative'</span>, root_dir=<span style="color: #2aa198;">'./'</span>)
+    <span style="color: #E1BEE7;">if</span> bkjs <span style="color: #E1BEE7;">is</span> <span style="color: #C5E1A5;">'relative'</span>:
+    <span style="color: #757575;"># </span><span style="color: #757575;">bkjs is a relative path to the locally installed bokeh files</span>
+    <span style="color: #80CBC4;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #C5E1A5;">'relative'</span>, root_dir=<span style="color: #C5E1A5;">'./'</span>)
 
-    <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'inline'</span>:
-    <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.INLINE
+    <span style="color: #E1BEE7;">if</span> bkjs <span style="color: #E1BEE7;">is</span> <span style="color: #C5E1A5;">'inline'</span>:
+    <span style="color: #80CBC4;">wherebokeh</span> = bokeh.resources.INLINE
 
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">save the png file</span>
+    <span style="color: #757575;"># </span><span style="color: #757575;">save the png file</span>
     export_png(plot, filename=outPNG)
 
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">save the html file</span>
-    <span style="color: #268bd2;">html</span> = file_html(plot, wherebokeh, <span style="color: #268bd2;">None</span>)
-    <span style="color: #859900;">with</span> <span style="color: #b58900;">open</span>(outHTML, <span style="color: #2aa198;">'w'</span>) <span style="color: #859900;">as</span> <span style="color: #b58900;">file</span>:
-    <span style="color: #b58900;">file</span>.write(html)
+    <span style="color: #757575;"># </span><span style="color: #757575;">save the html file</span>
+    <span style="color: #80CBC4;">html</span> = file_html(plot, wherebokeh, <span style="color: #C5CAE9;">None</span>)
+    <span style="color: #E1BEE7;">with</span> <span style="color: #80DEEA;">open</span>(outHTML, <span style="color: #C5E1A5;">'w'</span>) <span style="color: #E1BEE7;">as</span> <span style="color: #80DEEA;">file</span>:
+    <span style="color: #80DEEA;">file</span>.write(html)
 
-    <span style="color: #268bd2;">js</span>, <span style="color: #268bd2;">script</span> = autoload_static(plot, wherebokeh, outJS)
+    <span style="color: #80CBC4;">js</span>, <span style="color: #80CBC4;">script</span> = autoload_static(plot, wherebokeh, outJS)
 
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">save the .js file</span>
-    <span style="color: #859900;">with</span> <span style="color: #b58900;">open</span>(outJS, <span style="color: #2aa198;">"w"</span>) <span style="color: #859900;">as</span> writer:
+    <span style="color: #757575;"># </span><span style="color: #757575;">save the .js file</span>
+    <span style="color: #E1BEE7;">with</span> <span style="color: #80DEEA;">open</span>(outJS, <span style="color: #C5E1A5;">"w"</span>) <span style="color: #E1BEE7;">as</span> writer:
     writer.write(js)
 
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">embed in the org-exported HTML file</span>
-    <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''#+BEGIN_EXPORT html\n{script}\n#+END_EXPORT'''</span>.<span style="color: #b58900;">format</span>(script=script.lstrip()))
+    <span style="color: #757575;"># </span><span style="color: #757575;">embed in the org-exported HTML file</span>
+    <span style="color: #E1BEE7;">print</span>(<span style="color: #C5E1A5;">'''#+BEGIN_EXPORT html\n{script}\n#+END_EXPORT'''</span>.<span style="color: #80DEEA;">format</span>(script=script.lstrip()))
     </pre>
     </div>
 
@@ -189,61 +189,61 @@
     This will export a <a href="../static/my-image.png">png image</a>, an <a href="../static/html/my-image.html">HTML file</a> and a <a href="../static/js/my-image.js">Javascript file</a>. That way there are both static and dynamic versions that are easy to share as well as an emebeddable version.
     </p>
     <div class="org-src-container">
-    <pre class="src src-ipython"><span style="color: #859900;">from</span> bokeh.plotting <span style="color: #859900;">import</span> figure
-    <span style="color: #859900;">from</span> bokeh.layouts <span style="color: #859900;">import</span> gridplot
-    <span style="color: #859900;">from</span> bokeh.models <span style="color: #859900;">import</span> ColumnDataSource, HoverTool, WheelZoomTool
+    <pre class="src src-ipython"><span style="color: #E1BEE7;">from</span> bokeh.plotting <span style="color: #E1BEE7;">import</span> figure
+    <span style="color: #E1BEE7;">from</span> bokeh.layouts <span style="color: #E1BEE7;">import</span> gridplot
+    <span style="color: #E1BEE7;">from</span> bokeh.models <span style="color: #E1BEE7;">import</span> ColumnDataSource, HoverTool, WheelZoomTool
 
-    <span style="color: #268bd2;">tools</span>=<span style="color: #2aa198;">'box_select, reset'</span>
+    <span style="color: #80CBC4;">tools</span>=<span style="color: #C5E1A5;">'box_select, reset'</span>
 
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">create "subplots"</span>
-    <span style="color: #268bd2;">p1</span> = figure(tools=tools)
-    <span style="color: #268bd2;">p1.background_fill_alpha</span> = 0.0
-    <span style="color: #268bd2;">p1.border_fill_alpha</span> = 0.0
+    <span style="color: #757575;"># </span><span style="color: #757575;">create "subplots"</span>
+    <span style="color: #80CBC4;">p1</span> = figure(tools=tools)
+    <span style="color: #80CBC4;">p1.background_fill_alpha</span> = 0.0
+    <span style="color: #80CBC4;">p1.border_fill_alpha</span> = 0.0
 
-    <span style="color: #268bd2;">p2</span> = figure(tools=tools, x_range=p1.x_range, y_range=p1.y_range)
-    <span style="color: #268bd2;">p2.background_fill_alpha</span> = 0.0
-    <span style="color: #268bd2;">p2.border_fill_alpha</span> = 0.0
+    <span style="color: #80CBC4;">p2</span> = figure(tools=tools, x_range=p1.x_range, y_range=p1.y_range)
+    <span style="color: #80CBC4;">p2.background_fill_alpha</span> = 0.0
+    <span style="color: #80CBC4;">p2.border_fill_alpha</span> = 0.0
 
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">generate data</span>
-    <span style="color: #268bd2;">x</span> = np.random.randn(200)
-    <span style="color: #268bd2;">y0</span> = x**3 - 100
-    <span style="color: #268bd2;">y1</span> = x**2 - 100
+    <span style="color: #757575;"># </span><span style="color: #757575;">generate data</span>
+    <span style="color: #80CBC4;">x</span> = np.random.randn(200)
+    <span style="color: #80CBC4;">y0</span> = x**3 - 100
+    <span style="color: #80CBC4;">y1</span> = x**2 - 100
 
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">generate random letters</span>
-    <span style="color: #859900;">import</span> string
-    <span style="color: #859900;">import</span> random
-    <span style="color: #268bd2;">label</span> = [random.choice(string.ascii_letters) <span style="color: #859900;">for</span> aa <span style="color: #859900;">in</span> <span style="color: #b58900;">range</span>(200)]
+    <span style="color: #757575;"># </span><span style="color: #757575;">generate random letters</span>
+    <span style="color: #E1BEE7;">import</span> string
+    <span style="color: #E1BEE7;">import</span> random
+    <span style="color: #80CBC4;">label</span> = [random.choice(string.ascii_letters) <span style="color: #E1BEE7;">for</span> aa <span style="color: #E1BEE7;">in</span> <span style="color: #80DEEA;">range</span>(200)]
 
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">needed for linked selection</span>
-    <span style="color: #268bd2;">source</span> = ColumnDataSource(data={<span style="color: #2aa198;">'x'</span>: x, <span style="color: #2aa198;">'y0'</span>: y0, <span style="color: #2aa198;">'y1'</span>: y1,
-    <span style="color: #2aa198;">'label'</span>: label})
+    <span style="color: #757575;"># </span><span style="color: #757575;">needed for linked selection</span>
+    <span style="color: #80CBC4;">source</span> = ColumnDataSource(data={<span style="color: #C5E1A5;">'x'</span>: x, <span style="color: #C5E1A5;">'y0'</span>: y0, <span style="color: #C5E1A5;">'y1'</span>: y1,
+    <span style="color: #C5E1A5;">'label'</span>: label})
 
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">plot the data</span>
-    p1.circle(<span style="color: #2aa198;">'x'</span>, <span style="color: #2aa198;">'y0'</span>, source=source)
-    p2.scatter(<span style="color: #2aa198;">'x'</span>, <span style="color: #2aa198;">'y1'</span>, source=source)
+    <span style="color: #757575;"># </span><span style="color: #757575;">plot the data</span>
+    p1.circle(<span style="color: #C5E1A5;">'x'</span>, <span style="color: #C5E1A5;">'y0'</span>, source=source)
+    p2.scatter(<span style="color: #C5E1A5;">'x'</span>, <span style="color: #C5E1A5;">'y1'</span>, source=source)
 
-    <span style="color: #268bd2;">p1.title.text</span> = titlestr
+    <span style="color: #80CBC4;">p1.title.text</span> = titlestr
 
-    <span style="color: #268bd2;">wheel</span> = WheelZoomTool()
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">add some tooltips</span>
-    <span style="color: #268bd2;">hover</span> = HoverTool()
-    <span style="color: #268bd2;">hover.tooltips</span> = [
-    (<span style="color: #2aa198;">"(x,y)"</span>, <span style="color: #2aa198;">"($x, $y)"</span>),  <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">'$' for co-ordinates</span>
-    (<span style="color: #2aa198;">"label"</span>, <span style="color: #2aa198;">"@label"</span>)  <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">note '@' for column lookup</span>
+    <span style="color: #80CBC4;">wheel</span> = WheelZoomTool()
+    <span style="color: #757575;"># </span><span style="color: #757575;">add some tooltips</span>
+    <span style="color: #80CBC4;">hover</span> = HoverTool()
+    <span style="color: #80CBC4;">hover.tooltips</span> = [
+    (<span style="color: #C5E1A5;">"(x,y)"</span>, <span style="color: #C5E1A5;">"($x, $y)"</span>),  <span style="color: #757575;"># </span><span style="color: #757575;">'$' for co-ordinates</span>
+    (<span style="color: #C5E1A5;">"label"</span>, <span style="color: #C5E1A5;">"@label"</span>)  <span style="color: #757575;"># </span><span style="color: #757575;">note '@' for column lookup</span>
     ]
     p1.add_tools(hover, wheel)
     p2.add_tools(hover, wheel)
 
-    <span style="color: #268bd2;">p1.toolbar.active_scroll</span> = wheel
-    <span style="color: #268bd2;">p2.toolbar.active_scroll</span> = wheel
+    <span style="color: #80CBC4;">p1.toolbar.active_scroll</span> = wheel
+    <span style="color: #80CBC4;">p2.toolbar.active_scroll</span> = wheel
 
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">layout the subplots</span>
-    <span style="color: #268bd2;">pg</span> = gridplot([[p1, p2]], plot_width=400, plot_height=400)
+    <span style="color: #757575;"># </span><span style="color: #757575;">layout the subplots</span>
+    <span style="color: #80CBC4;">pg</span> = gridplot([[p1, p2]], plot_width=400, plot_height=400)
 
     export_bokeh(pg,
-    <span style="color: #2aa198;">'../static/'</span>+fname+<span style="color: #2aa198;">'.png'</span>,
-    <span style="color: #2aa198;">'../static/js/'</span>+fname+<span style="color: #2aa198;">'.js'</span>,
-    <span style="color: #2aa198;">'../static/html/'</span>+fname+<span style="color: #2aa198;">'.html'</span>)
+    <span style="color: #C5E1A5;">'../static/'</span>+fname+<span style="color: #C5E1A5;">'.png'</span>,
+    <span style="color: #C5E1A5;">'../static/js/'</span>+fname+<span style="color: #C5E1A5;">'.js'</span>,
+    <span style="color: #C5E1A5;">'../static/html/'</span>+fname+<span style="color: #C5E1A5;">'.html'</span>)
     </pre>
     </div>
     <script
@@ -318,10 +318,10 @@
     Add the following at the top of my org file to use locally downloaded versions of bokeh. Note that versions need to match/be compatible with what you have installed (<code>bokeh.__version__</code>).
     </p>
     <div class="org-src-container">
-    <pre class="src src-org"><span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-0.12.10.min.css" type="text/css" /&gt;</span>
-    <span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.css" type="text/css" /&gt;</span>
-    <span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-0.12.10.min.js"&gt;&lt;/script&gt;</span>
-    <span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.js"&gt;&lt;/script&gt;</span>
+    <pre class="src src-org">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-0.12.10.min.css" type="text/css" /&gt;
+    #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.css" type="text/css" /&gt;
+    #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-0.12.10.min.js"&gt;&lt;/script&gt;
+    #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.js"&gt;&lt;/script&gt;
     </pre>
     </div></li>
 
@@ -329,18 +329,18 @@
     </ol>
 
     <div class="org-src-container">
-    <pre class="src src-ipython"><span style="color: #859900;">def</span> <span style="color: #268bd2;">WriteToOrg</span>(p):
-    <span style="color: #268bd2;">script</span>, <span style="color: #268bd2;">div</span> = components(p)
+    <pre class="src src-ipython"><span style="color: #E1BEE7;">def</span> <span style="color: #64B5F6;">WriteToOrg</span>(p):
+    <span style="color: #80CBC4;">script</span>, <span style="color: #80CBC4;">div</span> = components(p)
 
-    <span style="color: #268bd2;">script</span> = <span style="color: #2aa198;">'\n'</span>.join([<span style="color: #2aa198;">'#+HTML_HEAD_EXTRA: '</span> + line <span style="color: #859900;">for</span> line <span style="color: #859900;">in</span> script.lstrip().split(<span style="color: #2aa198;">'\n'</span>)])
+    <span style="color: #80CBC4;">script</span> = <span style="color: #C5E1A5;">'\n'</span>.join([<span style="color: #C5E1A5;">'#+HTML_HEAD_EXTRA: '</span> + line <span style="color: #E1BEE7;">for</span> line <span style="color: #E1BEE7;">in</span> script.lstrip().split(<span style="color: #C5E1A5;">'\n'</span>)])
 
-    <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''{script}\n#+BEGIN_EXPORT html\n{div}\n#+END_EXPORT'''</span>.<span style="color: #b58900;">format</span>(script=script, div=div))
+    <span style="color: #E1BEE7;">print</span>(<span style="color: #C5E1A5;">'''{script}\n#+BEGIN_EXPORT html\n{div}\n#+END_EXPORT'''</span>.<span style="color: #80DEEA;">format</span>(script=script, div=div))
 
 
-    <span style="color: #859900;">from</span> bokeh.plotting <span style="color: #859900;">import</span> figure
-    <span style="color: #859900;">from</span> bokeh.embed <span style="color: #859900;">import</span> components
+    <span style="color: #E1BEE7;">from</span> bokeh.plotting <span style="color: #E1BEE7;">import</span> figure
+    <span style="color: #E1BEE7;">from</span> bokeh.embed <span style="color: #E1BEE7;">import</span> components
 
-    <span style="color: #268bd2;">p</span> = figure()
+    <span style="color: #80CBC4;">p</span> = figure()
     p.line(np.random.randn(200), np.random.randn(200))
     WriteToOrg(p)
     </pre>
@@ -403,14 +403,14 @@
     Either include a css file or add a style tag to <code>HTML_HEAD</code> at the top of your org file.
     </p>
     <div class="org-src-container">
-    <pre class="src src-org"><span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;style&gt; add-stuff-here &lt;/style&gt;</span>
+    <pre class="src src-org">   #+HTML_HEAD: &lt;style&gt; add-stuff-here &lt;/style&gt;
     </pre>
     </div></li>
     <li><p>
     Targeting the css class <code>bk-plot-layout</code> lets you center the image. <code>bk-grid-column</code> does it for <code>gridplot</code>
     </p>
     <div class="org-src-container">
-    <pre class="src src-css">   <span style="color: #268bd2;">.bk-plot-layout .bk-grid-column </span>{ <span style="color: #859900;">max-width</span>: 100%; <span style="color: #859900;">margin</span>: auto;}
+    <pre class="src src-css">   <span style="color: #64B5F6;">.bk-plot-layout .bk-grid-column </span>{ <span style="color: #E1BEE7;">max-width</span>: 100%; <span style="color: #E1BEE7;">margin</span>: auto;}
     </pre>
     </div></li>
     </ol>
@@ -432,7 +432,7 @@
   <link>http://www.cherian.net/rss.html#orgea7579a</link>
   <author>deepak@darya (Deepak Cherian)</author>
   <guid isPermaLink="false">http://www.cherian.net/rss.html#orgea7579a</guid>
-  <pubDate>Sun, 17 Sep 2017 12:36:00 -0700</pubDate>
+  <pubDate>Sun, 17 Sep 2017 12:36:00 +0530</pubDate>
 
   <description><![CDATA[<p>
   <a href="https://github.com/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb">IPython notebook here.</a>
@@ -444,12 +444,195 @@
   <link>http://www.cherian.net/rss.html#org0580920</link>
   <author>deepak@darya (Deepak Cherian)</author>
   <guid isPermaLink="false">http://www.cherian.net/rss.html#org0580920</guid>
-  <pubDate>Sun, 17 Sep 2017 12:34:00 -0700</pubDate>
+  <pubDate>Sun, 17 Sep 2017 12:34:00 +0530</pubDate>
 
   <description><![CDATA[<div class="paper-quotes">
+
   <ul class="org-ul">
   <li><p>
-  John Lumley, quoted in (<a href="#orgec4bc6d">Leibovich and Warhaft 2018</a>)
+  (<a href="#org37552c3">Hovmöller 1949</a>)
+  </p>
+
+
+  <div class="figure">
+  <p><img src="../static/hovmoeller.png" alt="hovmoeller.png" style="width:90%" />
+  </p>
+  </div></li>
+
+  <li><p>
+  (<a href="#orge3d3e28">Groeskamp et al. 2019</a>)
+  </p>
+  <blockquote>
+  <p>
+  The following analogy illustrates the utility of buoyancy as a marker of water masses. Imagine a slightly tilted pile of Dutch pancakes sweetened with Canadian maple syrup. As the maple syrup is poured onto the top pancake, it readily spills over the sides but only slowly penetrates through to the interior. The disparate syrup transport arises because there is enhanced resistance to movement through a pancake but little resistance to movement along a pancake surface. We make use of this pancake analogy to conceptualize the stratification of ocean buoyancy and its influence on the associated transport of matter and heat.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  (<a href="#org2037acc">Levine 1999</a>) on rescaling the Garrett-Munk spectrum
+  </p>
+
+  <div class="figure">
+  <p><img src="../static/levine-99-scaling-gm.png" alt="levine-99-scaling-gm.png" style="width:50%" />
+  </p>
+  </div></li>
+
+  <li><p>
+  (<a href="#org9cd4e5d">Colosi 2016</a>)
+  </p>
+  <blockquote>
+  <p>
+  In 1979, Carl Wunsch famously asserted “Many sources for the internal wave field have been proposed; but it has not yet been possible to make the kind of statement that can be made about surface waves: namely, when the wind blows surface waves are generated and the larger the fetch and duration, the larger the waves.”
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  (<a href="#orgb3d6e68">Winters and D’Asaro 1994</a>):
+  </p>
+  <blockquote>
+  <p>
+  ... we generalize the term adiabatic to describe a process in which there is no heat or molecular mass transfer, and define a diabatic process as one that is not adiabatic.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  (<a href="#orga0b1356">Munk 1981</a>) introduces the term "spiciness":
+  </p>
+  <blockquote>
+  <p>
+  They are here designated by π,for "spiciness" (hot and salty<sup>10</sup>)
+  </p>
+
+  <p>
+  ...
+  </p>
+
+  <p>
+  [10] Garrett points out that a lot of laboratory experiments have been sweet-and-sour rather than spicy.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  (<a href="#org1a47902">Wunsch et al. 2009</a>) on instrumented elephant seals
+  </p>
+  <blockquote>
+  <p>
+  They are singled out here because they are almost our only data sets from under the Antarctic sea ice, and they perhaps represent the future, in which ever more species are used to obtain a truly global observation system<sup>2</sup>.
+  </p>
+
+  <p>
+  ...
+  </p>
+
+  <p>
+  [2] Perhaps, one day, animals can be bred to grow their own temperature, salinity, and pressure sensors, and GPS transmitters! Whether the existing system is damaging to the animals, and the more general ethical questions concerning animal use, must be discussed elsewhere.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  (<a href="#orgda1d60f">Richardson and Stommel 1948</a>)
+  </p>
+  <blockquote>
+  <p>
+  In the sea we used floats of parsnip because it is easily visible, and because it is almost completely immersed so as not to catch the wind which, moreover, was slight. The floats were about 2cm in diameter.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  (<a href="#orgb9df43e">Hughes and Williams 2010</a>)
+  <img src="../static/hughes-sea-level-color.png" alt="hughes-sea-level-color.png" />
+  </p>
+  <blockquote>
+  <p>
+  the true relationship between spectrum and color turns out to be rather useful here. We are used to interpreting small differences from white light (“red” noise) as colors, so if the sea level spectrum was exactly “red” noise, a translation into a light spectrum would render it as a gray scale: low‐amplitude variability would be black, and high‐amplitude white, with grays at intermediate values.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  (<a href="#org8074ba7">Gargett 1999</a>)
+  </p>
+
+
+  <div class="figure">
+  <p><img src="../static/gargett-1999-velcro.png" alt="gargett-1999-velcro.png" style="width=70%" />
+  </p>
+  </div>
+
+  <blockquote>
+  <p>
+  While a zipper makes a closure by the functioning of a single accurate mechanism, the same task can be accomplished by the closing of enough of the myriad tiny hooks and eyes that make up a strip of Velcro. Baker (1983) first used this analogy to suggest "the importance of many relatively cheap measurements that cover a broad area as opposed to expensive detailed measurements at a point." As an example, consider the merits of the plentiful satellite measurements of sea surface temperature (SST) compared with highly accurate but exceedingly sparse shipboard SST measurements. Satellite information on the spatial patterns of SST and the changes of these patterns in space and time have provided a revolutionary new view of the ocean—a view completely unattainable from SST measurements along ship tracks. In such "Velcro" techniques, the quantity of measurements allows a description of the spatial patterns associated with the underlying fluid flows, with detail impossible to obtain from sparse sampling. As has been the case with satellite SST, the quantitative accuracy of the remote sensing algorithm is determined and improved by comparison with "ground-truth" data from accurate but sparsely distributed sensors.
+  </p>
+
+  <p>
+  The above analogy is of direct relevance to present state-of-the-art measurement of ocean turbulence, a field in which the accurate "zippers" are microscale profilers. While such profilers have become somewhat more common during the last decade, they remain relatively rare; are expensive to maintain and run; and in operation are often restricted by adverse conditions of weather, surface waves, or oceanic velocity shears.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  (<a href="#orgec4bc6d">Ferrari and Wunsch 2009</a>)
+  </p>
+  <blockquote>
+  <p>
+  That turbulent mixing processes in the ocean are extremely important in determining the oceanic general circulation, and are major limiting factors in the ability to calculate future climate states, is a cliche in oceanography and climate dynamics. Unlike some other hackneyed statements, this one does retain much of its validity.
+  </p>
+  </blockquote>
+  <p>
+  And
+  </p>
+  <blockquote>
+  <p>
+  We have gone from the situation described in Wunsch &amp; Ferrari (2004) of being unable to account for the dissipation of geostrophic turbulence to the opposite case—there are now too many candidates.
+  </p>
+  </blockquote></li>
+  <li><p>
+  (<a href="#org775282d">Armi and Stommel 1983</a>)
+  </p>
+  <blockquote>
+  <p>
+  We are in effect bragging about the results of a high-resolution yet wide-angle (10°) telescope in the sense of an astronomer looking at the sky. We have only used the new telescope four times in one portion of the ocean.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  (<a href="#orgd0934ca">Ferrari et al. 2008</a>)
+  </p>
+  <blockquote>
+  <p>
+  V Canuto and M Dubovikov were included as coauthors during the review process, because they contributed to resolving some inconsistencies in the original expressions for the eddy-induced streamfunction and the residual fluxes.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  (<a href="#orgec2db27">Hughes et al. 2016</a>)
+  </p>
+
+
+  <div class="figure">
+  <p><img src="../static/hughes-2016.png" alt="hughes-2016.png" style="width:90%" />
+  </p>
+  </div></li>
+
+  <li><p>
+  (<a href="#org6919188">Munk and Bills 2007</a>)
+  </p>
+  <blockquote>
+  <p>
+  The obliquity modulation of tidal mixing by a few percent and the associated  modulation in the meridional overturning circulation (MOC) may play a role comparable to the obliquity modulation of the incoming solar radiation (insolation), a cornerstone of the Milanković theory of ice ages. This speculation involves even more than the usual number of uncertainties found in climate speculations.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  (<a href="#orgd8abf8e">Polzin et al. 2014</a>)
+  </p>
+
+
+  <div class="figure">
+  <p><img src="../static/polzin-2014-schematic.png" alt="polzin-2014-schematic.png" style="width:75%" />
+  </p>
+  </div></li>
+
+  <li><p>
+  John Lumley, quoted in (<a href="#orge602496">Leibovich and Warhaft 2018</a>)
   </p>
   <blockquote>
   <p>
@@ -458,16 +641,16 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#orge3d3e28">Penland and Sardeshmukh 1995</a>) throw down a challenge:
+  (<a href="#org3e23e76">Penland and Sardeshmukh 1995</a>) throw down a challenge:
   </p>
 
   <div class="figure">
-  <p><img src="../static/penland-sardeshmukh.png" alt="penland-sardeshmukh.png" width="95%" />
+  <p><img src="../static/penland-sardeshmukh.png" alt="penland-sardeshmukh.png" style="width:90%" />
   </p>
   </div></li>
 
   <li><p>
-  (<a href="#org37552c3">Vallis and Maltrud 1993</a>) :
+  (<a href="#org15d2b24">Vallis and Maltrud 1993</a>) :
   </p>
   <blockquote>
   <p>
@@ -476,7 +659,7 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#org9cd4e5d">Flierl 1978</a>) quotes Karl Marx:
+  (<a href="#orgf67fa94">Flierl 1978</a>) quotes Karl Marx:
   </p>
   <blockquote>
   <p>
@@ -488,12 +671,12 @@
   </p>
 
   <p>
-  _<sup>1</sup> "Quantitative changes suddenly become qualitative changes" (Karl Marx)
+  [1] "Quantitative changes suddenly become qualitative changes" (Karl Marx)
   </p>
   </blockquote></li>
 
   <li><p>
-  (<a href="#orgd705f06">Holte and Talley 2009</a>) throw shade at under-performing Canadian Argo floats:
+  (<a href="#org34e32aa">Holte and Talley 2009</a>)
   </p>
   <blockquote>
   <p>
@@ -502,7 +685,7 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#org34e32aa">Sutyrin and Flierl 1994</a>) note insufficient printer resolution in their Figure 2.
+  (<a href="#orgbac7c9f">Sutyrin and Flierl 1994</a>) note insufficient printer resolution in their Figure 2.
   </p>
 
   <div class="figure">
@@ -511,7 +694,7 @@
   </div></li>
 
   <li><p>
-  (<a href="#orgf67fa94">MacKinnon et al. 2017</a>) summarize
+  (<a href="#org704cc29">MacKinnon et al. 2017</a>) summarize
   </p>
   <blockquote>
   <p>
@@ -529,11 +712,15 @@
 
   <p>
   Also note the author order:
-  <img src="../static/cpt-authors.png" alt="cpt-authors.png" />
-  </p></li>
+  </p>
+
+  <div class="figure">
+  <p><img src="../static/cpt-authors.png" alt="cpt-authors.png" style="width:80%" />
+  </p>
+  </div></li>
 
   <li><p>
-  (<a href="#orgb9df43e">Wunsch 2016</a>) cites the Bible
+  (<a href="#org51d2bcd">Wunsch 2016</a>) cites the Bible
   </p>
   <blockquote>
   <p>
@@ -543,7 +730,7 @@
   </blockquote></li>
 
   <li><p>
-  Enrico Fermi quotes John von Neumann to Freeman Dyson, critizing the latter's model (<a href="#org775282d">Dyson 2004</a>):
+  Enrico Fermi quotes John von Neumann to Freeman Dyson, critizing the latter's model (<a href="#orgd705f06">Dyson 2004</a>):
   </p>
   <blockquote>
   <p>
@@ -558,7 +745,7 @@
   </div>
 
   <p>
-  (<a href="#org8074ba7">Mayer, Khairy, and Howard 2010</a>) take on the challenge yielding:
+  (<a href="#org5ee6314">Mayer, Khairy, and Howard 2010</a>) take on the challenge yielding:
   </p>
   <blockquote>
   <p>
@@ -583,7 +770,7 @@
   </div></li>
 
   <li><p>
-  (<a href="#orgd0934ca">Lindzen and Hou 1988</a>)
+  (<a href="#orgff48af0">Lindzen and Hou 1988</a>)
   </p>
   <blockquote>
   <p>
@@ -602,7 +789,7 @@
   <link>http://www.cherian.net/rss.html#orga586cbc</link>
   <author>deepak@darya (Deepak Cherian)</author>
   <guid isPermaLink="false">http://www.cherian.net/rss.html#orga586cbc</guid>
-  <pubDate>Sun, 17 Sep 2017 12:36:00 -0700</pubDate>
+  <pubDate>Sun, 17 Sep 2017 12:36:00 +0530</pubDate>
 
   <description><![CDATA[<p>
   From <a href="http://kottke.org/17/01/ernest-hemingways-cocktail-recipe-for-bad-times">Kottke</a> who got it from <a href="https://qz.com/889794/trump-inauguration-ernest-hemingway-has-a-cocktail-recipe-for-days-when-youve-had-just-enough-of-the-world/">Quartz</a>, a cocktail recipe created by Ernest Hemingway in 1937.
@@ -631,7 +818,7 @@
   <link>http://www.cherian.net/rss.html#org6b48d4c</link>
   <author>deepak@darya (Deepak Cherian)</author>
   <guid isPermaLink="false">http://www.cherian.net/rss.html#org6b48d4c</guid>
-  <pubDate>Sun, 17 Sep 2017 12:34:00 -0700</pubDate>
+  <pubDate>Sun, 17 Sep 2017 12:34:00 +0530</pubDate>
 
   <description><![CDATA[
   <div id="outline-container-org935c4e7" class="outline-3">
@@ -684,25 +871,25 @@
   </p>
 
   <div class="org-src-container">
-  <pre class="src src-matlab">   <span style="color: #859900;">function</span> <span style="color: #268bd2;">[hash]</span> = <span style="color: #268bd2;">githash</span>(<span style="color: #268bd2;">fname</span>, <span style="color: #268bd2;">gitdir</span>)
+  <pre class="src src-matlab">   <span style="color: #E1BEE7;">function</span> <span style="color: #80CBC4;">[hash]</span> = <span style="color: #64B5F6;">githash</span>(<span style="color: #80CBC4;">fname</span>, <span style="color: #80CBC4;">gitdir</span>)
 
-  <span style="color: #859900;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'fname'</span>, <span style="color: #2aa198;">'var'</span>)
-  fname = <span style="color: #2aa198;">'.'</span>;
-  <span style="color: #859900;">end</span>
+  <span style="color: #E1BEE7;">if</span> <span style="color: #FFCC80;">~</span>exist(<span style="color: #C5E1A5;">'fname', 'var'</span>)
+  fname = <span style="color: #C5E1A5;">'.'</span>;
+  <span style="color: #E1BEE7;">end</span>
 
-  <span style="color: #859900;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'gitdir'</span>, <span style="color: #2aa198;">'var'</span>)
-  gitdir = <span style="color: #2aa198;">''</span>;
-  <span style="color: #859900;">else</span>
-  gitdir = [<span style="color: #2aa198;">'--git-dir='</span> gitdir];
-  <span style="color: #859900;">end</span>
+  <span style="color: #E1BEE7;">if</span> <span style="color: #FFCC80;">~</span>exist(<span style="color: #C5E1A5;">'gitdir', 'var'</span>)
+  gitdir = <span style="color: #C5E1A5;">''</span>;
+  <span style="color: #E1BEE7;">else</span>
+  gitdir = [<span style="color: #C5E1A5;">'--git-dir='</span> gitdir];
+  <span style="color: #E1BEE7;">end</span>
 
-  [<span style="color: #b58900;">~</span>, hashout] = system([<span style="color: #2aa198;">'TERM=xterm git '</span> gitdir <span style="text-decoration: underline;">...</span>
-  <span style="color: #2aa198;">' log -n 1 --no-color --pretty=format:''%H'' '''</span> <span style="text-decoration: underline;">...</span>
-  fname <span style="color: #2aa198;">''' &lt; /dev/null'</span>]);
+  [<span style="color: #FFCC80;">~</span>, hashout] = system([<span style="color: #C5E1A5;">'TERM=xterm git '</span> gitdir <span style="text-decoration: underline;">...</span>
+  <span style="color: #C5E1A5;">' log -n 1 --no-color --pretty=format:''%H'' '''</span> <span style="text-decoration: underline;">...</span>
+  fname <span style="color: #C5E1A5;">''' &lt; /dev/null'</span>]);
 
-  <span style="color: #93a1a1;">% remove bash escape characters</span>
-  hash = hashout(9<span style="color: #b58900;">:</span>48)
-  <span style="color: #859900;">end</span>
+  <span style="color: #757575;">% remove bash escape characters</span>
+  hash = hashout(9<span style="color: #FFCC80;">:</span>48)
+  <span style="color: #E1BEE7;">end</span>
   </pre>
   </div>
 
@@ -710,7 +897,7 @@
   Using it in a MATLAB script requires the incantation
   </p>
   <div class="org-src-container">
-  <pre class="src src-matlab">  hash = githash([mfilename(<span style="color: #2aa198;">'fullpath'</span>) <span style="color: #2aa198;">'.m'</span>]);
+  <pre class="src src-matlab">  hash = githash([mfilename(<span style="color: #C5E1A5;">'fullpath') '.m'</span>]);
   </pre>
   </div>
   <p>
@@ -758,8 +945,8 @@
   In general, all you need is a line that looks like
   </p>
   <div class="org-src-container">
-  <pre class="src src-matlab">  system([<span style="color: #2aa198;">'exiftool -overwrite_original -Producer='</span> <span style="text-decoration: underline;">...</span>
-  hash <span style="color: #2aa198;">' '</span> pdf_nam]);
+  <pre class="src src-matlab">  system([<span style="color: #C5E1A5;">'exiftool -overwrite_original -Producer='</span> <span style="text-decoration: underline;">...</span>
+  hash <span style="color: #C5E1A5;">' '</span> pdf_nam]);
   </pre>
   </div>
   <p>
@@ -816,13 +1003,13 @@
   To recover the recorded hash, it suffices to call <code>exiftool FILENAME</code> which will print all metadata stored in the image; not just the hash. <code>grep</code> can then find the recorded hash:
   </p>
   <div class="org-src-container">
-  <pre class="src src-bash">  <span style="color: #93a1a1;">#</span><span style="color: #93a1a1;">!/bin/bash</span>
-  <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">displays saved git hash of a provided file using exiftool</span>
+  <pre class="src src-bash">  <span style="color: #757575;">#</span><span style="color: #757575;">!/bin/bash</span>
+  <span style="color: #757575;"># </span><span style="color: #757575;">displays saved git hash of a provided file using exiftool</span>
 
-  <span style="color: #268bd2;">file</span>=$<span style="color: #268bd2;">1</span>
-  <span style="color: #268bd2;">hash</span>=$(<span style="color: #6c71c4; font-weight: bold;">exiftool</span> $<span style="color: #268bd2;">file</span> | grep -i <span style="color: #2aa198;">"hash:"</span>)
+  <span style="color: #80CBC4;">file</span>=$<span style="color: #80CBC4;">1</span>
+  <span style="color: #80CBC4;">hash</span>=$(<span style="color: #fa8072;">exiftool</span> $<span style="color: #80CBC4;">file</span> | grep -i <span style="color: #C5E1A5;">"hash:"</span>)
 
-  <span style="color: #b58900;">echo</span> $<span style="color: #268bd2;">hash</span>
+  <span style="color: #80DEEA;">echo</span> $<span style="color: #80CBC4;">hash</span>
   </pre>
   </div>
   </div>

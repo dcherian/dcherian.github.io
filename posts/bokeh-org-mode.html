@@ -132,42 +132,42 @@ I am using
 I define a function <code>export_bokeh</code> to do the actual heavy lifting. This function could be moved to your ipython <code>startup.py</code> file so that it is defined for every ipython session.
 </p>
 <div class="org-src-container">
-<pre class="src src-ipython" id="org2338297"><span style="color: #859900;">def</span> <span style="color: #268bd2;">export_bokeh</span>(plot, outPNG, outJS, outHTML, bkjs=<span style="color: #2aa198;">'inline'</span>):
-    <span style="color: #859900;">from</span> bokeh.io <span style="color: #859900;">import</span> export_png
-    <span style="color: #859900;">from</span> bokeh.embed <span style="color: #859900;">import</span> autoload_static, file_html
-    <span style="color: #859900;">import</span> bokeh.resources
+<pre class="src src-ipython" id="org2338297"><span style="color: #E1BEE7;">def</span> <span style="color: #64B5F6;">export_bokeh</span>(plot, outPNG, outJS, outHTML, bkjs=<span style="color: #C5E1A5;">'inline'</span>):
+    <span style="color: #E1BEE7;">from</span> bokeh.io <span style="color: #E1BEE7;">import</span> export_png
+    <span style="color: #E1BEE7;">from</span> bokeh.embed <span style="color: #E1BEE7;">import</span> autoload_static, file_html
+    <span style="color: #E1BEE7;">import</span> bokeh.resources
 
-    <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'local'</span>:
-        <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">use local installed bokeh scripts</span>
-        <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #2aa198;">'absolute'</span>)
+    <span style="color: #E1BEE7;">if</span> bkjs <span style="color: #E1BEE7;">is</span> <span style="color: #C5E1A5;">'local'</span>:
+        <span style="color: #757575;"># </span><span style="color: #757575;">use local installed bokeh scripts</span>
+        <span style="color: #80CBC4;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #C5E1A5;">'absolute'</span>)
 
-    <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'remote'</span> <span style="color: #859900;">or</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'CDN'</span>:
-        <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">use CDN bokeh scripts</span>
-        <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.CDN
+    <span style="color: #E1BEE7;">if</span> bkjs <span style="color: #E1BEE7;">is</span> <span style="color: #C5E1A5;">'remote'</span> <span style="color: #E1BEE7;">or</span> bkjs <span style="color: #E1BEE7;">is</span> <span style="color: #C5E1A5;">'CDN'</span>:
+        <span style="color: #757575;"># </span><span style="color: #757575;">use CDN bokeh scripts</span>
+        <span style="color: #80CBC4;">wherebokeh</span> = bokeh.resources.CDN
 
-    <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'relative'</span>:
-        <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">bkjs is a relative path to the locally installed bokeh files</span>
-        <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #2aa198;">'relative'</span>, root_dir=<span style="color: #2aa198;">'./'</span>)
+    <span style="color: #E1BEE7;">if</span> bkjs <span style="color: #E1BEE7;">is</span> <span style="color: #C5E1A5;">'relative'</span>:
+        <span style="color: #757575;"># </span><span style="color: #757575;">bkjs is a relative path to the locally installed bokeh files</span>
+        <span style="color: #80CBC4;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #C5E1A5;">'relative'</span>, root_dir=<span style="color: #C5E1A5;">'./'</span>)
 
-    <span style="color: #859900;">if</span> bkjs <span style="color: #859900;">is</span> <span style="color: #2aa198;">'inline'</span>:
-        <span style="color: #268bd2;">wherebokeh</span> = bokeh.resources.INLINE
+    <span style="color: #E1BEE7;">if</span> bkjs <span style="color: #E1BEE7;">is</span> <span style="color: #C5E1A5;">'inline'</span>:
+        <span style="color: #80CBC4;">wherebokeh</span> = bokeh.resources.INLINE
 
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">save the png file</span>
+    <span style="color: #757575;"># </span><span style="color: #757575;">save the png file</span>
     export_png(plot, filename=outPNG)
 
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">save the html file</span>
-    <span style="color: #268bd2;">html</span> = file_html(plot, wherebokeh, <span style="color: #268bd2;">None</span>)
-    <span style="color: #859900;">with</span> <span style="color: #b58900;">open</span>(outHTML, <span style="color: #2aa198;">'w'</span>) <span style="color: #859900;">as</span> <span style="color: #b58900;">file</span>:
-        <span style="color: #b58900;">file</span>.write(html)
+    <span style="color: #757575;"># </span><span style="color: #757575;">save the html file</span>
+    <span style="color: #80CBC4;">html</span> = file_html(plot, wherebokeh, <span style="color: #C5CAE9;">None</span>)
+    <span style="color: #E1BEE7;">with</span> <span style="color: #80DEEA;">open</span>(outHTML, <span style="color: #C5E1A5;">'w'</span>) <span style="color: #E1BEE7;">as</span> <span style="color: #80DEEA;">file</span>:
+        <span style="color: #80DEEA;">file</span>.write(html)
 
-    <span style="color: #268bd2;">js</span>, <span style="color: #268bd2;">script</span> = autoload_static(plot, wherebokeh, outJS)
+    <span style="color: #80CBC4;">js</span>, <span style="color: #80CBC4;">script</span> = autoload_static(plot, wherebokeh, outJS)
 
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">save the .js file</span>
-    <span style="color: #859900;">with</span> <span style="color: #b58900;">open</span>(outJS, <span style="color: #2aa198;">"w"</span>) <span style="color: #859900;">as</span> writer:
+    <span style="color: #757575;"># </span><span style="color: #757575;">save the .js file</span>
+    <span style="color: #E1BEE7;">with</span> <span style="color: #80DEEA;">open</span>(outJS, <span style="color: #C5E1A5;">"w"</span>) <span style="color: #E1BEE7;">as</span> writer:
         writer.write(js)
 
-    <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">embed in the org-exported HTML file</span>
-    <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''#+BEGIN_EXPORT html\n{script}\n#+END_EXPORT'''</span>.<span style="color: #b58900;">format</span>(script=script.lstrip()))
+    <span style="color: #757575;"># </span><span style="color: #757575;">embed in the org-exported HTML file</span>
+    <span style="color: #E1BEE7;">print</span>(<span style="color: #C5E1A5;">'''#+BEGIN_EXPORT html\n{script}\n#+END_EXPORT'''</span>.<span style="color: #80DEEA;">format</span>(script=script.lstrip()))
 </pre>
 </div>
 
@@ -193,61 +193,61 @@ I use this header line:
 This will export a <a href="../static/my-image.png">png image</a>, an <a href="../static/html/my-image.html">HTML file</a> and a <a href="../static/js/my-image.js">Javascript file</a>. That way there are both static and dynamic versions that are easy to share as well as an emebeddable version.
 </p>
 <div class="org-src-container">
-<pre class="src src-ipython"><span style="color: #859900;">from</span> bokeh.plotting <span style="color: #859900;">import</span> figure
-<span style="color: #859900;">from</span> bokeh.layouts <span style="color: #859900;">import</span> gridplot
-<span style="color: #859900;">from</span> bokeh.models <span style="color: #859900;">import</span> ColumnDataSource, HoverTool, WheelZoomTool
+<pre class="src src-ipython"><span style="color: #E1BEE7;">from</span> bokeh.plotting <span style="color: #E1BEE7;">import</span> figure
+<span style="color: #E1BEE7;">from</span> bokeh.layouts <span style="color: #E1BEE7;">import</span> gridplot
+<span style="color: #E1BEE7;">from</span> bokeh.models <span style="color: #E1BEE7;">import</span> ColumnDataSource, HoverTool, WheelZoomTool
 
-<span style="color: #268bd2;">tools</span>=<span style="color: #2aa198;">'box_select, reset'</span>
+<span style="color: #80CBC4;">tools</span>=<span style="color: #C5E1A5;">'box_select, reset'</span>
 
-<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">create "subplots"</span>
-<span style="color: #268bd2;">p1</span> = figure(tools=tools)
-<span style="color: #268bd2;">p1.background_fill_alpha</span> = 0.0
-<span style="color: #268bd2;">p1.border_fill_alpha</span> = 0.0
+<span style="color: #757575;"># </span><span style="color: #757575;">create "subplots"</span>
+<span style="color: #80CBC4;">p1</span> = figure(tools=tools)
+<span style="color: #80CBC4;">p1.background_fill_alpha</span> = 0.0
+<span style="color: #80CBC4;">p1.border_fill_alpha</span> = 0.0
 
-<span style="color: #268bd2;">p2</span> = figure(tools=tools, x_range=p1.x_range, y_range=p1.y_range)
-<span style="color: #268bd2;">p2.background_fill_alpha</span> = 0.0
-<span style="color: #268bd2;">p2.border_fill_alpha</span> = 0.0
+<span style="color: #80CBC4;">p2</span> = figure(tools=tools, x_range=p1.x_range, y_range=p1.y_range)
+<span style="color: #80CBC4;">p2.background_fill_alpha</span> = 0.0
+<span style="color: #80CBC4;">p2.border_fill_alpha</span> = 0.0
 
-<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">generate data</span>
-<span style="color: #268bd2;">x</span> = np.random.randn(200)
-<span style="color: #268bd2;">y0</span> = x**3 - 100
-<span style="color: #268bd2;">y1</span> = x**2 - 100
+<span style="color: #757575;"># </span><span style="color: #757575;">generate data</span>
+<span style="color: #80CBC4;">x</span> = np.random.randn(200)
+<span style="color: #80CBC4;">y0</span> = x**3 - 100
+<span style="color: #80CBC4;">y1</span> = x**2 - 100
 
-<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">generate random letters</span>
-<span style="color: #859900;">import</span> string
-<span style="color: #859900;">import</span> random
-<span style="color: #268bd2;">label</span> = [random.choice(string.ascii_letters) <span style="color: #859900;">for</span> aa <span style="color: #859900;">in</span> <span style="color: #b58900;">range</span>(200)]
+<span style="color: #757575;"># </span><span style="color: #757575;">generate random letters</span>
+<span style="color: #E1BEE7;">import</span> string
+<span style="color: #E1BEE7;">import</span> random
+<span style="color: #80CBC4;">label</span> = [random.choice(string.ascii_letters) <span style="color: #E1BEE7;">for</span> aa <span style="color: #E1BEE7;">in</span> <span style="color: #80DEEA;">range</span>(200)]
 
-<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">needed for linked selection</span>
-<span style="color: #268bd2;">source</span> = ColumnDataSource(data={<span style="color: #2aa198;">'x'</span>: x, <span style="color: #2aa198;">'y0'</span>: y0, <span style="color: #2aa198;">'y1'</span>: y1,
-                                <span style="color: #2aa198;">'label'</span>: label})
+<span style="color: #757575;"># </span><span style="color: #757575;">needed for linked selection</span>
+<span style="color: #80CBC4;">source</span> = ColumnDataSource(data={<span style="color: #C5E1A5;">'x'</span>: x, <span style="color: #C5E1A5;">'y0'</span>: y0, <span style="color: #C5E1A5;">'y1'</span>: y1,
+                                <span style="color: #C5E1A5;">'label'</span>: label})
 
-<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">plot the data</span>
-p1.circle(<span style="color: #2aa198;">'x'</span>, <span style="color: #2aa198;">'y0'</span>, source=source)
-p2.scatter(<span style="color: #2aa198;">'x'</span>, <span style="color: #2aa198;">'y1'</span>, source=source)
+<span style="color: #757575;"># </span><span style="color: #757575;">plot the data</span>
+p1.circle(<span style="color: #C5E1A5;">'x'</span>, <span style="color: #C5E1A5;">'y0'</span>, source=source)
+p2.scatter(<span style="color: #C5E1A5;">'x'</span>, <span style="color: #C5E1A5;">'y1'</span>, source=source)
 
-<span style="color: #268bd2;">p1.title.text</span> = titlestr
+<span style="color: #80CBC4;">p1.title.text</span> = titlestr
 
-<span style="color: #268bd2;">wheel</span> = WheelZoomTool()
-<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">add some tooltips</span>
-<span style="color: #268bd2;">hover</span> = HoverTool()
-<span style="color: #268bd2;">hover.tooltips</span> = [
-    (<span style="color: #2aa198;">"(x,y)"</span>, <span style="color: #2aa198;">"($x, $y)"</span>),  <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">'$' for co-ordinates</span>
-    (<span style="color: #2aa198;">"label"</span>, <span style="color: #2aa198;">"@label"</span>)  <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">note '@' for column lookup</span>
+<span style="color: #80CBC4;">wheel</span> = WheelZoomTool()
+<span style="color: #757575;"># </span><span style="color: #757575;">add some tooltips</span>
+<span style="color: #80CBC4;">hover</span> = HoverTool()
+<span style="color: #80CBC4;">hover.tooltips</span> = [
+    (<span style="color: #C5E1A5;">"(x,y)"</span>, <span style="color: #C5E1A5;">"($x, $y)"</span>),  <span style="color: #757575;"># </span><span style="color: #757575;">'$' for co-ordinates</span>
+    (<span style="color: #C5E1A5;">"label"</span>, <span style="color: #C5E1A5;">"@label"</span>)  <span style="color: #757575;"># </span><span style="color: #757575;">note '@' for column lookup</span>
 ]
 p1.add_tools(hover, wheel)
 p2.add_tools(hover, wheel)
 
-<span style="color: #268bd2;">p1.toolbar.active_scroll</span> = wheel
-<span style="color: #268bd2;">p2.toolbar.active_scroll</span> = wheel
+<span style="color: #80CBC4;">p1.toolbar.active_scroll</span> = wheel
+<span style="color: #80CBC4;">p2.toolbar.active_scroll</span> = wheel
 
-<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">layout the subplots</span>
-<span style="color: #268bd2;">pg</span> = gridplot([[p1, p2]], plot_width=400, plot_height=400)
+<span style="color: #757575;"># </span><span style="color: #757575;">layout the subplots</span>
+<span style="color: #80CBC4;">pg</span> = gridplot([[p1, p2]], plot_width=400, plot_height=400)
 
 export_bokeh(pg,
-             <span style="color: #2aa198;">'../static/'</span>+fname+<span style="color: #2aa198;">'.png'</span>,
-             <span style="color: #2aa198;">'../static/js/'</span>+fname+<span style="color: #2aa198;">'.js'</span>,
-             <span style="color: #2aa198;">'../static/html/'</span>+fname+<span style="color: #2aa198;">'.html'</span>)
+             <span style="color: #C5E1A5;">'../static/'</span>+fname+<span style="color: #C5E1A5;">'.png'</span>,
+             <span style="color: #C5E1A5;">'../static/js/'</span>+fname+<span style="color: #C5E1A5;">'.js'</span>,
+             <span style="color: #C5E1A5;">'../static/html/'</span>+fname+<span style="color: #C5E1A5;">'.html'</span>)
 </pre>
 </div>
 <script
@@ -322,10 +322,10 @@ I made some slight modifications to <a href="http://kitchingroup.cheme.cmu.edu/b
 Add the following at the top of my org file to use locally downloaded versions of bokeh. Note that versions need to match/be compatible with what you have installed (<code>bokeh.__version__</code>).
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-0.12.10.min.css" type="text/css" /&gt;</span>
-<span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.css" type="text/css" /&gt;</span>
-<span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-0.12.10.min.js"&gt;&lt;/script&gt;</span>
-<span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.js"&gt;&lt;/script&gt;</span>
+<pre class="src src-org">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-0.12.10.min.css" type="text/css" /&gt;
+   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.css" type="text/css" /&gt;
+   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-0.12.10.min.js"&gt;&lt;/script&gt;
+   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.js"&gt;&lt;/script&gt;
 </pre>
 </div></li>
 
@@ -333,18 +333,18 @@ Add the following at the top of my org file to use locally downloaded versions o
 </ol>
 
 <div class="org-src-container">
-<pre class="src src-ipython"><span style="color: #859900;">def</span> <span style="color: #268bd2;">WriteToOrg</span>(p):
-    <span style="color: #268bd2;">script</span>, <span style="color: #268bd2;">div</span> = components(p)
+<pre class="src src-ipython"><span style="color: #E1BEE7;">def</span> <span style="color: #64B5F6;">WriteToOrg</span>(p):
+    <span style="color: #80CBC4;">script</span>, <span style="color: #80CBC4;">div</span> = components(p)
 
-    <span style="color: #268bd2;">script</span> = <span style="color: #2aa198;">'\n'</span>.join([<span style="color: #2aa198;">'#+HTML_HEAD_EXTRA: '</span> + line <span style="color: #859900;">for</span> line <span style="color: #859900;">in</span> script.lstrip().split(<span style="color: #2aa198;">'\n'</span>)])
+    <span style="color: #80CBC4;">script</span> = <span style="color: #C5E1A5;">'\n'</span>.join([<span style="color: #C5E1A5;">'#+HTML_HEAD_EXTRA: '</span> + line <span style="color: #E1BEE7;">for</span> line <span style="color: #E1BEE7;">in</span> script.lstrip().split(<span style="color: #C5E1A5;">'\n'</span>)])
 
-    <span style="color: #859900;">print</span>(<span style="color: #2aa198;">'''{script}\n#+BEGIN_EXPORT html\n{div}\n#+END_EXPORT'''</span>.<span style="color: #b58900;">format</span>(script=script, div=div))
+    <span style="color: #E1BEE7;">print</span>(<span style="color: #C5E1A5;">'''{script}\n#+BEGIN_EXPORT html\n{div}\n#+END_EXPORT'''</span>.<span style="color: #80DEEA;">format</span>(script=script, div=div))
 
 
-<span style="color: #859900;">from</span> bokeh.plotting <span style="color: #859900;">import</span> figure
-<span style="color: #859900;">from</span> bokeh.embed <span style="color: #859900;">import</span> components
+<span style="color: #E1BEE7;">from</span> bokeh.plotting <span style="color: #E1BEE7;">import</span> figure
+<span style="color: #E1BEE7;">from</span> bokeh.embed <span style="color: #E1BEE7;">import</span> components
 
-<span style="color: #268bd2;">p</span> = figure()
+<span style="color: #80CBC4;">p</span> = figure()
 p.line(np.random.randn(200), np.random.randn(200))
 WriteToOrg(p)
 </pre>
@@ -407,14 +407,14 @@ conda install phantomjs selenium
 Either include a css file or add a style tag to <code>HTML_HEAD</code> at the top of your org file.
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #93a1a1; font-size: 85%; font-style: italic;">   #+HTML_HEAD: &lt;style&gt; add-stuff-here &lt;/style&gt;</span>
+<pre class="src src-org">   #+HTML_HEAD: &lt;style&gt; add-stuff-here &lt;/style&gt;
 </pre>
 </div></li>
 <li><p>
 Targeting the css class <code>bk-plot-layout</code> lets you center the image. <code>bk-grid-column</code> does it for <code>gridplot</code>
 </p>
 <div class="org-src-container">
-<pre class="src src-css">   <span style="color: #268bd2;">.bk-plot-layout .bk-grid-column </span>{ <span style="color: #859900;">max-width</span>: 100%; <span style="color: #859900;">margin</span>: auto;}
+<pre class="src src-css">   <span style="color: #64B5F6;">.bk-plot-layout .bk-grid-column </span>{ <span style="color: #E1BEE7;">max-width</span>: 100%; <span style="color: #E1BEE7;">margin</span>: auto;}
 </pre>
 </div></li>
 </ol>
