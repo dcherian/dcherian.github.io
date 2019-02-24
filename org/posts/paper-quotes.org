@@ -1,8 +1,13 @@
 #+TITLE: Interesting quotes from papers
-#+DATE: Last updated: 13 Jan 2019
+#+DATE: Last updated: 22 Feb 2019
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
+
++ cite:Hovmoller1949
+
+  #+ATTR_HTML: :style width:90%
+  [[file:../static/hovmoeller.png]]
 
 + cite:Groeskamp2019
   #+BEGIN_QUOTE

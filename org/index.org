@@ -104,8 +104,9 @@ Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculat
 :HTML_CONTAINER_CLASS: papers
 :HTML_CONTAINER: article
 :END:
-(drafts available on request)
-- *Cherian D.A.*, Farrar J.T., Durland T.S. /in prep./ The upper-ocean vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific.
+- *Cherian D.A.*, Shroyer E.L., Moum J.N. /in prep./ Observations of the seasonal cycle of mixing in the Bay of Bengal.
+
+- *Cherian D.A.*, Farrar J.T., Durland T.S. /in prep./ The upper-ocean vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific. (draft available on request)
 
 *** 2018
 :PROPERTIES:
@@ -170,6 +171,19 @@ Office Address: Burt 434, OSU, Corvallis SSR, OR
 :PROPERTIES:
 :CUSTOM_ID: links
 :END:
+**** Historical documentaries
+:PROPERTIES:
+:HTML_CONTAINER_CLASS: links
+:HTML_CONTAINER: article
+:END:
+
+1. [[https://www.youtube.com/watch?v=_sPGYaEUTF0][The Turbulent Ocean (MODE)]]
+2. [[https://www.youtube.com/watch?v=MX5cKoOm6Pk][Waves Across the Pacific]]
+3. [[https://www.youtube.com/watch?v=je3QvqNdHl0][One Man's Noise: Stories of an Adventuresome Oceanographer]]
+4. [[https://www.youtube.com/watch?v=JUgvRYTp7n4][The Monsoon Experiment (MONEX)]]
+5. [[https://www.youtube.com/watch?v=EkCxl2BwH4w][Remembering Dev Raj Sikka (Monsoon Man)]]
+6. [[https://igppweb.ucsd.edu/~esg006/gpstudents/bagigpp2016.html][Bag IGPP]] (not quite the same as the rest)
+
 **** Visualization
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: links

@@ -1,5 +1,0 @@
-#+TITLE: Movies relevant to the physical oceanographer
-
-1. The turbulent ocean: https://www.youtube.com/watch?v=_sPGYaEUTF0
-2. Waves across the Pacific: https://www.youtube.com/watch?v=MX5cKoOm6Pk
-3. [[https://igppweb.ucsd.edu/~esg006/gpstudents/bagigpp2016.html][Bag IGPP]] (not quite the same as the above two)
