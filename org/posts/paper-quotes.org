@@ -4,6 +4,11 @@
 
 #+HTML: <div class="paper-quotes">
 
++cite:Pollard1972
+  #+BEGIN_QUOTE
+   GFD models like this one often suffer from lack of relevance. A sign of this is that an investigator cannot find observations quite ideal enough to test his theory. Our guilt would be established, therefore, if we required a resting ocean with uniform stratification and a step-function wind to make any use of observations. Luckily this is not our position, for account can be taken of arbitrary stratification, pre-existing currents, and a stress that varies in time
+  #+END_QUOTE
+
 + cite:Hovmoller1949
 
   #+ATTR_HTML: :style width:90%
