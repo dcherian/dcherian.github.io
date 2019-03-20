@@ -31,7 +31,7 @@
 body {
     color: #000; /* #073642; #094b5c; #657b83; */
     font-family: 'Fira Sans', sans-serif;
-    font-size: 16.5pt;
+    font-size: 14pt;
     font-weight: 300;
     line-height: 1.5em;
     padding: 1em;
@@ -172,17 +172,17 @@ h1, h3 {
     /* clear: both; */
     font-weight: 400;
 }
-h1 { font-size: 1.5em; padding-top: 2.5em;}
+h1 { font-size: 1.5rem; padding-top: 2.5em;}
 h3, h4 { font-weight: 400; font-size: 1.3em;}
 h5, h6 {
-    font-size: 1.15em;
+    font-size: 1.15rem;
     font-weight:normal;
     margin-top:-0.15em;
     margin-bottom:-0.4em;
 }
 
 h2 { font-weight: 400;
-     font-size: 1.4em;
+     font-size: 1.4rem;
      color: #cb4b16;
    }
 
@@ -199,7 +199,7 @@ h2::before {
 .links h5::before, h4::before {
     content: "§";
     padding-right: 1.2%;
-    font-size: 1.5em;
+    font-size: 1.5rem;
     font-weight: 300;
     vertical-align: middle;
     color: #cb4b16;
