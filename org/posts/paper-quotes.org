@@ -3,8 +3,17 @@
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
++ cite:Pierrehumbert2010 (found on [[https://twitter.com/henrifdrake/status/1113853950858604544][Henri Drake's twitter]])
+ #+BEGIN_QUOTE
+  Lest there be any misunderstanding, we must emphasize at this point that "less sensitive" does not mean "insensitive". If CO_2 were a gray gas, then doubling its concentration, as we are poised to do within the century, would be unquestionably lethal. Because CO_2 is not in fact a gray gas, the results may be merely catastrophic.
+ #+END_QUOTE
 
-+cite:Pollard1972
++ cite:Gregg2012
+  #+BEGIN_QUOTE
+  ... most dissipation estimates were classified as noise and represented in the final data as zeros because we could not justify any other value.
+  #+END_QUOTE
+
++ cite:Pollard1972
   #+BEGIN_QUOTE
    GFD models like this one often suffer from lack of relevance. A sign of this is that an investigator cannot find observations quite ideal enough to test his theory. Our guilt would be established, therefore, if we required a resting ocean with uniform stratification and a step-function wind to make any use of observations. Luckily this is not our position, for account can be taken of arbitrary stratification, pre-existing currents, and a stress that varies in time
   #+END_QUOTE
