@@ -23,8 +23,24 @@
 :PROPERTIES:
 :CUSTOM_ID: research
 :END:
-Themes include small-scale turbulence & mixing, large scale air-sea interaction (intraseasonal oscillations and such), mesoscale oceanic eddies, baroclinic instabilities, continental shelf flow and equatorial dynamics. My toolkit includes observational records from moored and satellite platforms as well as high resolution idealized process-study models.
+Themes include small-scale turbulence & mixing, mesoscale oceanic eddies, baroclinic instabilities, continental shelf flow and equatorial dynamics. My toolkit includes observational records from moored and satellite platforms as well as high resolution realistic and idealized process-study models.
 
+*** Linking microstructure measurements to the mesoscale
+:PROPERTIES:
+:HTML_CONTAINER_CLASS: research
+:HTML_CONTAINER: article
+:END:
+
+#+ATTR_HTML: :class coauthors
+With [[http://people.oregonstate.edu/~shroyere/Welcome.html][Emily Shroyer (OSU)]], [[https://makani.coas.oregonstate.edu/nash/About_Me.html][Jonathan Nash (OSU)]]
+
+I am funded by NASA as lead-PI on a proposal to estimate lateral (mesoscale) diffusivity coefficients from two classes of microstructure measurements:
+a) moored measurements from the *χpod* of Moum & Nash (2009), and
+b) basin-wide GO-SHIP transects from the *CTD-χpod* (Pickering & Nash, unpublished).
+We will interpret the χpod measurements using the triple decomposition framework of Garrett (2001). Below [left] is a preliminary estimate for the P06 section at 24°S in the Pacific Ocean. For comparison, we show an estimate based on Argo finestructure (Cole et. al., 2015) as well as an estimate using passive tracers advected by altimetric velocities  (Abernathey & Marshall, 2013). Density bins used for the computation are visualized on a T-S plot [right].
+
+#+ATTR_HTML: :style width:100%
+[[file:static/p06-Ke.png]]
 *** The equatorial Pacific cold tongue
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: research
@@ -37,7 +53,7 @@ With [[https://danielwhitt.github.io/][Dan Whitt (NCAR)]], [[https://staff.ucar.
 #+ATTR_HTML: :style width:100%;float:right; padding:5px
 [[file:static/eq-pac-sst.png]]
 
-With other collaborators at UW and NOAA/PMEL, we are working to understand the heat budget of the equatorial cold tongue using a series of high resolution nested simulations of the eastern equatorial Pacific (above: SST from a MITgcm simulation courtesy Scott Bachman). This work is funded by NOAA's PUMP project.
+With other collaborators at UW and NOAA/PMEL, we are working to understand the heat budget of the equatorial cold tongue using a series of high resolution nested simulations of the eastern equatorial Pacific [above: SST from a MITgcm simulation courtesy Scott Bachman]. This work is funded by NOAA's PUMP project.
 
 *** Mixing measurements in the Bay of Bengal
 :PROPERTIES:
@@ -274,7 +290,7 @@ Phone: +1 303-497-1713
 :PROPERTIES:
 :CUSTOM_ID: ack
 :END:
-My work has been funded by the US National Science Foundation and the Office of Naval Research.
+My work has been funded by the US National Science Foundation (NSF), National Oceanic and Atmospheric Administration (NOAA), National Aeronautics and Space Administration (NASA) and the Office of Naval Research (ONR).
 
 Styling gratefully borrowed from [[http://ethanschoonover.com/solarized][Ethan Schoonover]], [[http://www.labri.fr/perso/nrougier/from-python-to-numpy/%20][Nicolas P. Rougier]] and [[http://practicaltypography.com/][Matthew Butterick]].
 
