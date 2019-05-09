@@ -34,13 +34,14 @@ Themes include small-scale turbulence & mixing, mesoscale oceanic eddies, barocl
 #+ATTR_HTML: :class coauthors
 With [[http://people.oregonstate.edu/~shroyere/Welcome.html][Emily Shroyer (OSU)]], [[https://makani.coas.oregonstate.edu/nash/About_Me.html][Jonathan Nash (OSU)]]
 
+#+ATTR_HTML: :style width:100%
+[[file:static/p06-Ke.png]]
+
 I am funded by NASA as lead-PI on a proposal to estimate lateral (mesoscale) diffusivity coefficients from two classes of microstructure measurements:
 a) moored measurements from the *χpod* of Moum & Nash (2009), and
 b) basin-wide GO-SHIP transects from the *CTD-χpod* (Pickering & Nash, unpublished).
-We will interpret the χpod measurements using the triple decomposition framework of Garrett (2001). Below [left] is a preliminary estimate for the P06 section at 24°S in the Pacific Ocean. For comparison, we show an estimate based on Argo finestructure (Cole et. al., 2015) as well as an estimate using passive tracers advected by altimetric velocities  (Abernathey & Marshall, 2013). Density bins used for the computation are visualized on a T-S plot [right].
+We will interpret the χpod measurements using the triple decomposition framework of [[http://www.soest.hawaii.edu/PubServices/2001pdfs/Garrett.pdf][Garrett (2001)]]. Above [left] is a preliminary estimate for the P06 section at 24°S in the Pacific Ocean. For comparison, we show an estimate based on Argo finestructure (Cole et. al., 2015) as well as an estimate using passive tracers advected by altimetric velocities  (Abernathey & Marshall, 2013). [right] Density bins used for the computation are marked on a T-S plot.
 
-#+ATTR_HTML: :style width:100%
-[[file:static/p06-Ke.png]]
 *** The equatorial Pacific cold tongue
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: research
@@ -50,10 +51,10 @@ We will interpret the χpod measurements using the triple decomposition framewor
 #+ATTR_HTML: :class coauthors
 With [[https://danielwhitt.github.io/][Dan Whitt (NCAR)]], [[https://staff.ucar.edu/users/bachman][Scott Bachman (NCAR)]], [[https://staff.ucar.edu/users/bryan][Frank Bryan (NCAR)]], [[https://rmholmes.github.io/][Ryan Holmes (UNSW)]]
 
-#+ATTR_HTML: :style width:100%;float:right; padding:5px
+#+ATTR_HTML: :style width:100%
 [[file:static/eq-pac-sst.png]]
 
-With other collaborators at UW and NOAA/PMEL, we are working to understand the heat budget of the equatorial cold tongue using a series of high resolution nested simulations of the eastern equatorial Pacific [above: SST from a MITgcm simulation courtesy Scott Bachman]. This work is funded by NOAA's PUMP project.
+With other collaborators at UW and NOAA/PMEL, we are working to understand the heat budget of the equatorial cold tongue using a series of high resolution nested simulations of the eastern equatorial Pacific [above: SST from a MITgcm simulation courtesy Scott Bachman]. This work is funded by [[https://cpo.noaa.gov/Meet-the-Divisions/Earth-System-Science-and-Modeling/CVP][NOAA's Climate Variability and Predictability (CVP)]] program.
 
 *** Mixing measurements in the Bay of Bengal
 :PROPERTIES:
@@ -134,31 +135,24 @@ Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculat
 :HTML_CONTAINER_CLASS: papers
 :HTML_CONTAINER: article
 :END:
-- *Cherian D.A.*, Shroyer E.L., Moum J.N. /in prep./ Observations of the seasonal cycle of mixing in the Bay of Bengal.
-
 - *Cherian D.A.*, Farrar J.T., Durland T.S. /in prep./ The upper-ocean vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific. (draft available on request)
 
-*** 2018
+*** submitted & published
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: papers
 :HTML_CONTAINER: article
 :END:
-- *Cherian D.A.*, Brink K.H. (2018) Shelf flows forced by deep-ocean anticyclonic eddies at the shelfbreak. *accepted*. /Journal of Physical Oceanography/. [[https://doi.org/10.1175/JPO-D-17-0237.1][DOI]] [[file:static/Cherian-Brink-2018-JPO.pdf][PDF]].
 
-*** 2016
-:PROPERTIES:
-:HTML_CONTAINER_CLASS: papers
-:HTML_CONTAINER: article
-:END:
-- *Cherian D.A.*, Brink K.H. (2016) Offshore Transport of Shelf Water by Deep-Ocean Eddies. /Journal of Physical Oceanography/. 46 3599–3621. [[http://dx.doi.org/10.1175/JPO-D-16-0085.1][DOI]] [[file:static/Cherian-Brink-2016.pdf][PDF]]
-*** 2013
-:PROPERTIES:
-:HTML_CONTAINER_CLASS: papers
-:HTML_CONTAINER: article
-:END:
+- *Cherian, D.A.*, Shroyer, E.L., Wijesekera, H.W., Moum, J.N. (submitted) The seasonal cycle of upper-ocean mixing in the Bay of Bengal. /Journal of Physical Oceanography/.
+
+- *Cherian, D.A.*, Brink, K.H. (2018) Shelf flows forced by deep-ocean anticyclonic eddies at the shelfbreak. /Journal of Physical Oceanography/. 48, 1117–1138. [[https://doi.org/10.1175/JPO-D-17-0237.1][DOI]] [[file:static/Cherian-Brink-2018-JPO.pdf][PDF]].
+
+- *Cherian, D.A.*, Brink, K.H. (2016) Offshore Transport of Shelf Water by Deep-Ocean Eddies. /Journal of Physical Oceanography/. 46 3599–3621. [[http://dx.doi.org/10.1175/JPO-D-16-0085.1][DOI]] [[file:static/Cherian-Brink-2016.pdf][PDF]]
+
 - Haine T.W.N., *Cherian D.A.* (2013) Analogies of Ocean/Atmosphere Rotating Fluid Dynamics with Gyroscopes: Teaching Opportunities. /Bull. Amer. Meteor. Soc./. 94:684. [[http://dx.doi.org/10.1175/BAMS-D-12-00023.1][DOI]] [[file:static/Haine-Cherian-2013.pdf][PDF]] [[file:static/Haine-Cherian-2013-supplement.pdf][Supplement]]
 
 - Brink K.H., *Cherian D.A.* (2013) Instability of an idealized tidal mixing front: Symmetric instabilities and frictional effects. /Journal of Marine Research/. 71(6):26. [[http://dx.doi.org/10.1357/002224013812587582][DOI]] [[file:static/Brink-Cherian-2013.pdf][PDF]]
+
 *** Thesis
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: papers
@@ -184,7 +178,7 @@ Latex source is also available on request.
 :END:
 #+HTML: Email: <a class="email" href="mailto:deepak@cherian.net">deepak@cherian.net</a>
 
-Office Address: 1800 Table Mesa Drive, Mesa Lab 400, Boulder, CO
+Office Address: 1850 Table Mesa Drive, Mesa Lab 400, Boulder, CO
 
 Phone: +1 303-497-1713
 
