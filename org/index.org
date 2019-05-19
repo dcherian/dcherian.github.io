@@ -37,7 +37,7 @@ With [[http://people.oregonstate.edu/~shroyere/Welcome.html][Emily Shroyer (OSU)
 #+ATTR_HTML: :style width:100%
 [[file:static/p06-Ke.png]]
 
-I am funded by NASA as lead-PI on a proposal to estimate lateral (mesoscale) diffusivity coefficients from two classes of microstructure measurements:
+We are working to estimate lateral (mesoscale) diffusivity coefficients from two classes of microstructure measurements:
 a) moored measurements from the *χpod* of Moum & Nash (2009), and
 b) basin-wide GO-SHIP transects from the *CTD-χpod* (Pickering & Nash, unpublished).
 We will interpret the χpod measurements using the triple decomposition framework of [[http://www.soest.hawaii.edu/PubServices/2001pdfs/Garrett.pdf][Garrett (2001)]]. Above [left] is a preliminary estimate for the P06 section at 24°S in the Pacific Ocean. For comparison, we show an estimate based on Argo finestructure (Cole et. al., 2015) as well as an estimate using passive tracers advected by altimetric velocities  (Abernathey & Marshall, 2013). [right] Density bins used for the computation are marked on a T-S plot.
