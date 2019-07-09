@@ -3,6 +3,16 @@
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
++ cite:Gregg1986:
+   #+begin_quote
+AMP observations were taken while the ship drifted "in the trough" near the buoy (a procedure that is better for collecting data than keeping the crew happy). (Following a moderately rough transit to the site, our sampling method prompted the chief engineer to call us "a fistful of weirdos".)
+   #+end_quote
+
++ cite:Stommel1966 (seen in cite:Jain2017)
+   #+begin_quote
+    When I emphasise the imperfection of observing techniques, perhaps I should say that I wrote this chapter during a succession of midnight-todawn watches during an attempt to survey the Somali Current near Socotra in the heart of the southwest monsoon. It is rather quixotic to try to get the measure of so large a phenomenon armed only with a 12-knot vessel and some reversing thermometers. Clearly some important phenomena slip through the observational net, and nothing makes one more convinced of the inadequacy of present-day observing techniques than the tedious experience of garnering a slender harvest of thermometer readings and water samples from a rather unpleasant little ship at sea. A few good and determined engineers could revolutionise this backwards field.
+   #+end_quote
+
 + cite:Pierrehumbert2010 (found on [[https://twitter.com/henrifdrake/status/1113853950858604544][Henri Drake's twitter]])
  #+BEGIN_QUOTE
   Lest there be any misunderstanding, we must emphasize at this point that "less sensitive" does not mean "insensitive". If CO_2 were a gray gas, then doubling its concentration, as we are poised to do within the century, would be unquestionably lethal. Because CO_2 is not in fact a gray gas, the results may be merely catastrophic.
