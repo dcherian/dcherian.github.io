@@ -59,29 +59,29 @@ else document.addEventListener("DOMContentLoaded", fn);
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org6239aaa">1. Introduction</a></li>
-<li><a href="#orgfee9637">2. Using <code>autoload_static</code> (preferred)</a>
+<li><a href="#orga948d49">1. Introduction</a></li>
+<li><a href="#org5381ae3">2. Using <code>autoload_static</code> (preferred)</a>
 <ul>
-<li><a href="#org9adb955">2.1. Prerequisites</a></li>
-<li><a href="#org555eca0">2.2. Example</a></li>
-<li><a href="#org0e9174f">2.3. Improvements</a></li>
+<li><a href="#orgdf8492f">2.1. Prerequisites</a></li>
+<li><a href="#orgbf4e1e8">2.2. Example</a></li>
+<li><a href="#orga09bdc7">2.3. Improvements</a></li>
 </ul>
 </li>
-<li><a href="#org6fd0dca">3. Using components (not-recommended)</a></li>
-<li><a href="#org2c43197">4. Appendix</a>
+<li><a href="#org557a8fd">3. Using components (not-recommended)</a></li>
+<li><a href="#org31c052f">4. Appendix</a>
 <ul>
-<li><a href="#org43ba318">4.1. yasnippet</a></li>
-<li><a href="#orgb312d3e">4.2. Dependencies</a></li>
-<li><a href="#orgbf814c7">4.3. Styling</a></li>
-<li><a href="#org28ba4f3">4.4. Source</a></li>
+<li><a href="#org1a14439">4.1. yasnippet</a></li>
+<li><a href="#orgb4c8139">4.2. Dependencies</a></li>
+<li><a href="#orgecb6bac">4.3. Styling</a></li>
+<li><a href="#org725723e">4.4. Source</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </nav>
 
-<section id="outline-container-org6239aaa" class="outline-2">
-<h2 id="org6239aaa"><span class="section-number-2">1</span> Introduction</h2>
+<section id="outline-container-orga948d49" class="outline-2">
+<h2 id="orga948d49"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 I've been wanting to play around with interactive Javascript plots for a while; for example: <a href="https://demo.bokehplots.com/apps/selection_histogram">https://demo.bokehplots.com/apps/selection_histogram</a>. The selection functionality is really cool!
@@ -93,8 +93,8 @@ This post is an experiment in embedding <a href="http://bokeh.pydata.org">bokeh<
 </div>
 </section>
 
-<section id="outline-container-orgfee9637" class="outline-2">
-<h2 id="orgfee9637"><span class="section-number-2">2</span> Using <code>autoload_static</code> (preferred)</h2>
+<section id="outline-container-org5381ae3" class="outline-2">
+<h2 id="org5381ae3"><span class="section-number-2">2</span> Using <code>autoload_static</code> (preferred)</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Based on <a href="https://necromuralist.github.io/data_science/posts/bokeh-test/">https://necromuralist.github.io/data_science/posts/bokeh-test/</a>
@@ -114,8 +114,8 @@ Some notes:
 </ol>
 </div>
 
-<div id="outline-container-org9adb955" class="outline-3">
-<h3 id="org9adb955"><span class="section-number-3">2.1</span> Prerequisites</h3>
+<div id="outline-container-orgdf8492f" class="outline-3">
+<h3 id="orgdf8492f"><span class="section-number-3">2.1</span> Prerequisites</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 I am using
@@ -132,7 +132,7 @@ I am using
 I define a function <code>export_bokeh</code> to do the actual heavy lifting. This function could be moved to your ipython <code>startup.py</code> file so that it is defined for every ipython session.
 </p>
 <div class="org-src-container">
-<pre class="src src-ipython" id="orga27bf81">def export_bokeh(plot, outPNG, outJS, outHTML, bkjs='inline'):
+<pre class="src src-ipython" id="org2338297">def export_bokeh(plot, outPNG, outJS, outHTML, bkjs='inline'):
     from bokeh.io import export_png
     from bokeh.embed import autoload_static, file_html
     import bokeh.resources
@@ -186,8 +186,8 @@ I use this header line:
 </pre>
 </div>
 </div>
-<div id="outline-container-org555eca0" class="outline-3">
-<h3 id="org555eca0"><span class="section-number-3">2.2</span> Example</h3>
+<div id="outline-container-orgbf4e1e8" class="outline-3">
+<h3 id="orgbf4e1e8"><span class="section-number-3">2.2</span> Example</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 This will export a <a href="../static/my-image.png">png image</a>, an <a href="../static/html/my-image.html">HTML file</a> and a <a href="../static/js/my-image.js">Javascript file</a>. That way there are both static and dynamic versions that are easy to share as well as an emebeddable version.
@@ -275,8 +275,8 @@ The above figure is a rendering of the <code>RESULTS</code> block:
 </pre>
 </div>
 </div>
-<div id="outline-container-org0e9174f" class="outline-3">
-<h3 id="org0e9174f"><span class="section-number-3">2.3</span> Improvements</h3>
+<div id="outline-container-orga09bdc7" class="outline-3">
+<h3 id="orga09bdc7"><span class="section-number-3">2.3</span> Improvements</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 Things I would like:
@@ -310,8 +310,8 @@ Things I would like:
 </div>
 </div>
 </section>
-<section id="outline-container-org6fd0dca" class="outline-2">
-<h2 id="org6fd0dca"><span class="section-number-2">3</span> Using components (not-recommended)</h2>
+<section id="outline-container-org557a8fd" class="outline-2">
+<h2 id="org557a8fd"><span class="section-number-2">3</span> Using components (not-recommended)</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 I made some slight modifications to <a href="http://kitchingroup.cheme.cmu.edu/blog/2016/02/07/Interactive-Bokeh-plots-in-HTML/">http://kitchingroup.cheme.cmu.edu/blog/2016/02/07/Interactive-Bokeh-plots-in-HTML/</a> though I didn't need to embed anything in a frame. The principal drawback here is that all the data is returned in <code>stdout</code> and written to the org file. This would get unwieldy for big plots.
@@ -356,12 +356,12 @@ WriteToOrg(p)
 </div>
 </div>
 </section>
-<section id="outline-container-org2c43197" class="outline-2">
-<h2 id="org2c43197"><span class="section-number-2">4</span> Appendix</h2>
+<section id="outline-container-org31c052f" class="outline-2">
+<h2 id="org31c052f"><span class="section-number-2">4</span> Appendix</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-org43ba318" class="outline-3">
-<h3 id="org43ba318"><span class="section-number-3">4.1</span> yasnippet</h3>
+<div id="outline-container-org1a14439" class="outline-3">
+<h3 id="org1a14439"><span class="section-number-3">4.1</span> yasnippet</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 A simplified version of the one on <code>ob-ipython</code>. This autogenerates a random filename.
@@ -388,8 +388,8 @@ export_bokeh(hf, 'images/'+fname+'.png', 'images/js/'+fname+'.js', bkjs='inline'
 </div>
 </div>
 
-<div id="outline-container-orgb312d3e" class="outline-3">
-<h3 id="orgb312d3e"><span class="section-number-3">4.2</span> Dependencies</h3>
+<div id="outline-container-orgb4c8139" class="outline-3">
+<h3 id="orgb4c8139"><span class="section-number-3">4.2</span> Dependencies</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Looks like exporting to PNG requires
@@ -399,8 +399,8 @@ conda install phantomjs selenium
 </pre>
 </div>
 </div>
-<div id="outline-container-orgbf814c7" class="outline-3">
-<h3 id="orgbf814c7"><span class="section-number-3">4.3</span> Styling</h3>
+<div id="outline-container-orgecb6bac" class="outline-3">
+<h3 id="orgecb6bac"><span class="section-number-3">4.3</span> Styling</h3>
 <div class="outline-text-3" id="text-4-3">
 <ol class="org-ol">
 <li><p>
@@ -420,8 +420,8 @@ Targeting the css class <code>bk-plot-layout</code> lets you center the image. <
 </ol>
 </div>
 </div>
-<div id="outline-container-org28ba4f3" class="outline-3">
-<h3 id="org28ba4f3"><span class="section-number-3">4.4</span> Source</h3>
+<div id="outline-container-org725723e" class="outline-3">
+<h3 id="org725723e"><span class="section-number-3">4.4</span> Source</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 Here is <a href="https://raw.githubusercontent.com/dcherian/dcherian.github.io/sources/org/posts/bokeh-org-mode.org">org-mode source</a> for this page.

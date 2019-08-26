@@ -3,26 +3,51 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sitemap for project posts</title>
+<title>Debugging tips for python</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="Deepak Cherian">
+<meta name="keywords" content="python, debugging, ipdb">
 <link rel="stylesheet" href="../research-posts.css" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500" rel="stylesheet">
 </head>
 <body>
 <div id="preamble" class="status">
-<p class="post-subtitle"><a class="animate-link back" href="../index.html"> ← Back</a> |  Deepak Cherian | </p>
+<p class="post-subtitle"><a class="animate-link back" href="../index.html"> ← Back</a> |  Deepak Cherian | 26 Aug 2019</p>
 </div>
 <div id="content">
 <header>
-<h1 class="title">Sitemap for project posts</h1>
-</header><ul class="org-ul">
-<li><a href="reproducible-research-1.html">A setup for reproducible research</a></li>
-<li><a href="hemingway-cocktail.html">Death in the Gulf Stream</a></li>
-<li><a href="python-debugging.html">Debugging tips for python</a></li>
-<li><a href="paper-quotes.html">Interesting quotes from papers</a></li>
-<li><a href="bokeh-org-mode.html">bokeh and Emacs org-mode</a></li>
-</ul>
+<h1 class="title">Debugging tips for python</h1>
+</header><p>
+Here are some useful debugging tips I have learned. Please email me if any of the text can be clarified or if you know of other (or better) methods.
+</p>
+
+<section id="outline-container-org32b28aa" class="outline-2">
+<h2 id="org32b28aa">Entering and using a debugger prompt</h2>
+<div class="outline-text-2" id="text-org32b28aa">
+<ol class="org-ol">
+<li>Entering a debugger:
+<ol class="org-ol">
+<li><b>Python script:</b> <code>import IPython; IPython.core.debugger.set_trace()</code> is the IPython equivalent of MATLAB's <code>keyboard</code>. You can add this line in a python script and the script's execution will be paused at that line giving you an <code>ipdb</code> prompt.</li>
+<li><b>Python script:</b>  <code>import pdb; pdb.set_trace()</code> is the <code>pdb</code> equivalent of the above.</li>
+<li><b>Jupyter notebook:</b> The above commands can be used within functions defined in a Jupyter notebook and will also work when calling external functions from a notebook. If you want to debug an error raised in a Jupyter notebook, use the <code>%debug</code> magic in a new cell to drop into an debugger prompt that will let you inspect the program's state.</li>
+<li><b>pytest:</b> <code>pytest --pdb test.py</code> will drop you into a <code>pdb</code> prompt when a test fails.</li>
+</ol></li>
+<li>Many commands to inspect your programs state are available at a debugger prompt . You can use <code>up</code> , <code>down</code> and other commands to navigate the stack. Type <code>h</code> or <code>help</code> to see all available commands. Usually, I end up type <code>up</code> or <code>u</code> to navigate up the stack to a function call I recognize, inspect the arguments of that function call (see below) and then move <code>down</code> (or <code>d</code>) if needed.</li>
+<li>If you have variables with the same names as the debugging commands (e.g. <code>args</code>), you will need to use <code>locals()['args']</code> to inspect the value of variable <code>args</code> (since <code>locals()</code> is a <code>dict</code> containing a mapping of local variable names to their respective objects, <a href="https://docs.python.org/3/library/functions.html?highlight=locals#locals">see docs</a>).</li>
+<li>You can make interactive matplotlib plots at a debugging prompt but no drawing will actually happen unless you also call <code>plt.pause(1)</code>. <code>import matplotlib.pyplot as plt</code> is required prior to running <code>plt.pause</code>. See <a href="https://github.com/spyder-ide/spyder/issues/620#issuecomment-412501200">this Github comment</a> for details.</li>
+</ol>
+</div>
+</section>
+
+<section id="outline-container-org1de00ee" class="outline-2">
+<h2 id="org1de00ee">Useful links</h2>
+<div class="outline-text-2" id="text-org1de00ee">
+<ol class="org-ol">
+<li><a href="https://stackoverflow.com/questions/16867347/step-by-step-debugging-with-ipython">https://stackoverflow.com/questions/16867347/step-by-step-debugging-with-ipython</a></li>
+<li><a href="https://www.blog.pythonlibrary.org/2018/10/17/jupyter-notebook-debugging/">https://www.blog.pythonlibrary.org/2018/10/17/jupyter-notebook-debugging/</a></li>
+</ol>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
