@@ -1,0 +1,19 @@
+#+TITLE: Debugging tips for python
+#+DATE: 26 Aug 2019
+#+KEYWORDS: python, debugging, ipdb
+
+Here are some useful debugging tips I have learned. Please email me if any of the text can be clarified or if you know of other (or better) methods.
+
+** Entering and using a debugger prompt
+1. Entering a debugger:
+   1. *Python script:* ~import IPython; IPython.core.debugger.set_trace()~ is the IPython equivalent of MATLAB's ~keyboard~. You can add this line in a python script and the script's execution will be paused at that line giving you an ~ipdb~ prompt.
+   2. *Python script:*  ~import pdb; pdb.set_trace()~ is the ~pdb~ equivalent of the above.
+   3. *Jupyter notebook:* The above commands can be used within functions defined in a Jupyter notebook and will also work when calling external functions from a notebook. If you want to debug an error raised in a Jupyter notebook, use the ~%debug~ magic in a new cell to drop into an debugger prompt that will let you inspect the program's state.
+   4. *pytest:* ~pytest --pdb test.py~ will drop you into a ~pdb~ prompt when a test fails.
+2. Many commands to inspect your programs state are available at a debugger prompt . You can use ~up~ , ~down~ and other commands to navigate the stack. Type ~h~ or ~help~ to see all available commands. Usually, I end up type ~up~ or ~u~ to navigate up the stack to a function call I recognize, inspect the arguments of that function call (see below) and then move ~down~ (or ~d~) if needed.
+3. If you have variables with the same names as the debugging commands (e.g. ~args~), you will need to use ~locals()['args']~ to inspect the value of variable ~args~ (since ~locals()~ is a ~dict~ containing a mapping of local variable names to their respective objects, [[https://docs.python.org/3/library/functions.html?highlight=locals#locals][see docs]]).
+4. You can make interactive matplotlib plots at a debugging prompt but no drawing will actually happen unless you also call ~plt.pause(1)~. ~import matplotlib.pyplot as plt~ is required prior to running ~plt.pause~. See [[https://github.com/spyder-ide/spyder/issues/620#issuecomment-412501200][this Github comment]] for details.
+
+** Useful links
+1. https://stackoverflow.com/questions/16867347/step-by-step-debugging-with-ipython
+2. https://www.blog.pythonlibrary.org/2018/10/17/jupyter-notebook-debugging/
