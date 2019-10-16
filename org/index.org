@@ -130,20 +130,10 @@ Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculat
 :PROPERTIES:
 :CUSTOM_ID: publications
 :END:
-*** nearly done
-:PROPERTIES:
-:HTML_CONTAINER_CLASS: papers
-:HTML_CONTAINER: article
-:END:
-- *Cherian D.A.*, Farrar J.T., Durland T.S. /in prep./ The upper-ocean vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific. (draft available on request)
 
-*** submitted & published
-:PROPERTIES:
-:HTML_CONTAINER_CLASS: papers
-:HTML_CONTAINER: article
-:END:
+- Rypina I.I., Pratt L.J.; Entner S.; Anderson A.; *Cherian D.A.* /submitted./ The Influence of an Eddy in the Success Rates and Distributions of Passively Advected or Actively Swimming Biological Organisms Crossing the Continental Slope. /Journal of Physical Oceanography/
 
-- *Cherian, D.A.*, Shroyer, E.L., Wijesekera, H.W., Moum, J.N. (submitted) The seasonal cycle of upper-ocean mixing in the Bay of Bengal. /Journal of Physical Oceanography/.
+- *Cherian, D.A.*, Shroyer, E.L., Wijesekera, H.W., Moum, J.N. (in revision) The seasonal cycle of upper-ocean mixing in the Bay of Bengal. /Journal of Physical Oceanography/.
 
 - *Cherian, D.A.*, Brink, K.H. (2018) Shelf flows forced by deep-ocean anticyclonic eddies at the shelfbreak. /Journal of Physical Oceanography/. 48, 1117–1138. [[https://doi.org/10.1175/JPO-D-17-0237.1][DOI]] [[file:static/Cherian-Brink-2018-JPO.pdf][PDF]].
 
@@ -153,12 +143,15 @@ Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculat
 
 - Brink K.H., *Cherian D.A.* (2013) Instability of an idealized tidal mixing front: Symmetric instabilities and frictional effects. /Journal of Marine Research/. 71(6):26. [[http://dx.doi.org/10.1357/002224013812587582][DOI]] [[file:static/Brink-Cherian-2013.pdf][PDF]]
 
-*** Thesis
+- Thesis: *Cherian D.A.* (2016) When an eddy encounters shelf-slope topography. [[file:static/Cherian-2016-When_an_eddy_encounters_shelf-slope_topography.pdf][PDF]]
+*** nearly done                                                  :noexport:
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: papers
 :HTML_CONTAINER: article
 :END:
-- *Cherian D.A.* (2016) When an eddy encounters shelf-slope topography. [[file:static/Cherian-2016-When_an_eddy_encounters_shelf-slope_topography.pdf][PDF]]
+- *Cherian D.A.*, Farrar J.T., Durland T.S. /in prep./ The upper-ocean vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific. (draft available on request)
+
+
 * Teaching
 :PROPERTIES:
 :CUSTOM_ID: teaching
