@@ -3,6 +3,19 @@
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
+
++ cite:Appen2015:
+  #+begin_quote
+The geometry of the iron in the vicinity of the compass can be decomposed into a symmetric and an asymmetric part (National GeospatialIntelligence Agency 2004)².
+...
+²This handbook (National Geospatial-Intelligence Agency 2004) provides useful background and details about compass corrections, as they are standard on ships.
+  #+end_quote
+
++ cite:Ruddick1983
+   #+begin_quote
+Oceanographers are increasingly accepting that one of the processes that can affect oceanic fine structure is double-diffusive convection, such as salt fingering.
+   #+end_quote
+
 + cite:Gregg1986:
    #+begin_quote
 AMP observations were taken while the ship drifted "in the trough" near the buoy (a procedure that is better for collecting data than keeping the crew happy). (Following a moderately rough transit to the site, our sampling method prompted the chief engineer to call us "a fistful of weirdos".)
