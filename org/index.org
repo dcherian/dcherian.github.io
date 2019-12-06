@@ -133,7 +133,7 @@ Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculat
 
 - Rypina I.I., Pratt L.J.; Entner S.; Anderson A.; *Cherian D.A.* /submitted./ The Influence of an Eddy in the Success Rates and Distributions of Passively Advected or Actively Swimming Biological Organisms Crossing the Continental Slope. /Journal of Physical Oceanography/
 
-- *Cherian, D.A.*, Shroyer, E.L., Wijesekera, H.W., Moum, J.N. (in revision) The seasonal cycle of upper-ocean mixing in the Bay of Bengal. /Journal of Physical Oceanography/.
+- *Cherian, D.A.*, Shroyer, E.L., Wijesekera, H.W., Moum, J.N. (2019; in press) The seasonal cycle of upper-ocean mixing at 8°N in the Bay of Bengal. /Journal of Physical Oceanography/. [[https://journals.ametsoc.org/doi/abs/10.1175/JPO-D-19-0114.1][DOI]] [[file:static/Cherian-et-al-2019-nrl-chipods.pdf][PDF]].
 
 - *Cherian, D.A.*, Brink, K.H. (2018) Shelf flows forced by deep-ocean anticyclonic eddies at the shelfbreak. /Journal of Physical Oceanography/. 48, 1117–1138. [[https://doi.org/10.1175/JPO-D-17-0237.1][DOI]] [[file:static/Cherian-Brink-2018-JPO.pdf][PDF]].
 
