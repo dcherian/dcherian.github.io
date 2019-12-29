@@ -65,8 +65,8 @@ With other collaborators at UW and NOAA/PMEL, we are working to understand the h
 #+ATTR_HTML: :class coauthors
 With [[http://people.oregonstate.edu/~shroyere/Welcome.html][Emily Shroyer (OSU)]], [[http://mixing.coas.oregonstate.edu/people/jmoum/][Jim Moum (OSU)]] & the [[http://mixing.coas.oregonstate.edu/][OSU Ocean Mixing Group]] | [[file:research/bay.org][More]]
 
-#+ATTR_HTML: :style float:left; width:60%
-[[file:static/bob-chipods-2.png]]
+#+ATTR_HTML: :style width:100%
+[[file:static/bay-turbulence-summary.png]]
 
 Multiple year-long moored turbulent mixing measurements collected using fast temperature sensors ([[http://mixing.coas.oregonstate.edu/papers/mixing_measurements.pdf][χ-pods]]) as part of the [[http://journals.ametsoc.org/doi/10.1175/BAMS-D-14-00197.1][ASIRI]]/EBoB/[[https://www.pmel.noaa.gov/gtmba/pmel-theme/indian-ocean-rama][RAMA]] programmes paint a picture of mixing across the Bay of Bengal that spans multiple time scales: interannual to diurnal and shorter.
 
