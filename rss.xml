@@ -14,9 +14,9 @@
   <link>http://www.cherian.net/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Sun, 24 Feb 2019 07:44:41 +0530</pubDate>
-  <lastBuildDate>Sun, 24 Feb 2019 07:44:41 +0530</lastBuildDate>
-  <generator>Emacs 27.0 Org-mode 9.2.1</generator>
+  <pubDate>Sat, 28 Dec 2019 19:54:56 -0700</pubDate>
+  <lastBuildDate>Sat, 28 Dec 2019 19:54:56 -0700</lastBuildDate>
+  <generator>Emacs 27.0 Org-mode 9.3.1</generator>
   <webMaster>deepak@darya (Deepak Cherian)</webMaster>
   <image>
     <url>https://orgmode.org/img/org-mode-unicorn-logo.png</url>
@@ -51,17 +51,16 @@
 	</li>
 	<li><a href="#orgea7579a">2. xkcd-style schematics using matplotlib.</a></li>
 	<li><a href="#org0580920">3. Interesting quotes from the scientific literature</a></li>
-	<li><a href="#org22dfb75">4. Bibliography</a></li>
-	<li><a href="#orga586cbc">5. "Death in the Gulf Stream" - A Hemingway cocktail</a></li>
-	<li><a href="#org6b48d4c">6. A setup for reproducible research</a>
+	<li><a href="#orga586cbc">4. "Death in the Gulf Stream" - A Hemingway cocktail</a></li>
+	<li><a href="#org6b48d4c">5. A setup for reproducible research</a>
 	<ul>
-	  <li><a href="#org935c4e7">6.1. Update</a></li>
-	  <li><a href="#org09690da">6.2. Software</a></li>
-	  <li><a href="#org54b1741">6.3. Strategy</a></li>
-	  <li><a href="#orgd9b29ec">6.4. Getting the current hash in MATLAB</a></li>
-	  <li><a href="#orgb0454fb">6.5. Using the hash</a></li>
-	  <li><a href="#org8fb251f">6.6. Saving the hash in an image file</a></li>
-	  <li><a href="#org8667966">6.7. Extracting commit hash from image metadata</a></li>
+	  <li><a href="#org935c4e7">5.1. Update</a></li>
+	  <li><a href="#org09690da">5.2. Software</a></li>
+	  <li><a href="#org54b1741">5.3. Strategy</a></li>
+	  <li><a href="#orgd9b29ec">5.4. Getting the current hash in MATLAB</a></li>
+	  <li><a href="#orgb0454fb">5.5. Using the hash</a></li>
+	  <li><a href="#org8fb251f">5.6. Saving the hash in an image file</a></li>
+	  <li><a href="#org8667966">5.7. Extracting commit hash from image metadata</a></li>
 	</ul>
 	</li>
       </ul>
@@ -73,7 +72,7 @@
     <link>http://www.cherian.net/rss.html#orgb042aaa</link>
     <author>deepak@darya (Deepak Cherian)</author>
     <guid isPermaLink="false">http://www.cherian.net/rss.html#orgb042aaa</guid>
-    <pubDate>Sat, 04 Nov 2017 21:28:00 +0530</pubDate>
+    <pubDate>Sat, 04 Nov 2017 21:28:00 -0600</pubDate>
 
     <description><![CDATA[
     <div id="outline-container-org092634b" class="outline-3">
@@ -128,42 +127,42 @@
     I define a function <code>export_bokeh</code> to do the actual heavy lifting. This function could be moved to your ipython <code>startup.py</code> file so that it is defined for every ipython session.
     </p>
     <div class="org-src-container">
-    <pre class="src src-ipython" id="orgc646743"><span style="color: #E1BEE7;">def</span> <span style="color: #64B5F6;">export_bokeh</span>(plot, outPNG, outJS, outHTML, bkjs=<span style="color: #C5E1A5;">'inline'</span>):
-    <span style="color: #E1BEE7;">from</span> bokeh.io <span style="color: #E1BEE7;">import</span> export_png
-    <span style="color: #E1BEE7;">from</span> bokeh.embed <span style="color: #E1BEE7;">import</span> autoload_static, file_html
-    <span style="color: #E1BEE7;">import</span> bokeh.resources
+    <pre class="src src-ipython" id="orgc646743">def export_bokeh(plot, outPNG, outJS, outHTML, bkjs='inline'):
+    from bokeh.io import export_png
+    from bokeh.embed import autoload_static, file_html
+    import bokeh.resources
 
-    <span style="color: #E1BEE7;">if</span> bkjs <span style="color: #E1BEE7;">is</span> <span style="color: #C5E1A5;">'local'</span>:
-    <span style="color: #757575;"># </span><span style="color: #757575;">use local installed bokeh scripts</span>
-    <span style="color: #80CBC4;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #C5E1A5;">'absolute'</span>)
+    if bkjs is 'local':
+    # use local installed bokeh scripts
+    wherebokeh = bokeh.resources.Resources(mode='absolute')
 
-    <span style="color: #E1BEE7;">if</span> bkjs <span style="color: #E1BEE7;">is</span> <span style="color: #C5E1A5;">'remote'</span> <span style="color: #E1BEE7;">or</span> bkjs <span style="color: #E1BEE7;">is</span> <span style="color: #C5E1A5;">'CDN'</span>:
-    <span style="color: #757575;"># </span><span style="color: #757575;">use CDN bokeh scripts</span>
-    <span style="color: #80CBC4;">wherebokeh</span> = bokeh.resources.CDN
+    if bkjs is 'remote' or bkjs is 'CDN':
+    # use CDN bokeh scripts
+    wherebokeh = bokeh.resources.CDN
 
-    <span style="color: #E1BEE7;">if</span> bkjs <span style="color: #E1BEE7;">is</span> <span style="color: #C5E1A5;">'relative'</span>:
-    <span style="color: #757575;"># </span><span style="color: #757575;">bkjs is a relative path to the locally installed bokeh files</span>
-    <span style="color: #80CBC4;">wherebokeh</span> = bokeh.resources.Resources(mode=<span style="color: #C5E1A5;">'relative'</span>, root_dir=<span style="color: #C5E1A5;">'./'</span>)
+    if bkjs is 'relative':
+    # bkjs is a relative path to the locally installed bokeh files
+    wherebokeh = bokeh.resources.Resources(mode='relative', root_dir='./')
 
-    <span style="color: #E1BEE7;">if</span> bkjs <span style="color: #E1BEE7;">is</span> <span style="color: #C5E1A5;">'inline'</span>:
-    <span style="color: #80CBC4;">wherebokeh</span> = bokeh.resources.INLINE
+    if bkjs is 'inline':
+    wherebokeh = bokeh.resources.INLINE
 
-    <span style="color: #757575;"># </span><span style="color: #757575;">save the png file</span>
+    # save the png file
     export_png(plot, filename=outPNG)
 
-    <span style="color: #757575;"># </span><span style="color: #757575;">save the html file</span>
-    <span style="color: #80CBC4;">html</span> = file_html(plot, wherebokeh, <span style="color: #C5CAE9;">None</span>)
-    <span style="color: #E1BEE7;">with</span> <span style="color: #80DEEA;">open</span>(outHTML, <span style="color: #C5E1A5;">'w'</span>) <span style="color: #E1BEE7;">as</span> <span style="color: #80DEEA;">file</span>:
-    <span style="color: #80DEEA;">file</span>.write(html)
+    # save the html file
+    html = file_html(plot, wherebokeh, None)
+    with open(outHTML, 'w') as file:
+    file.write(html)
 
-    <span style="color: #80CBC4;">js</span>, <span style="color: #80CBC4;">script</span> = autoload_static(plot, wherebokeh, outJS)
+    js, script = autoload_static(plot, wherebokeh, outJS)
 
-    <span style="color: #757575;"># </span><span style="color: #757575;">save the .js file</span>
-    <span style="color: #E1BEE7;">with</span> <span style="color: #80DEEA;">open</span>(outJS, <span style="color: #C5E1A5;">"w"</span>) <span style="color: #E1BEE7;">as</span> writer:
+    # save the .js file
+    with open(outJS, "w") as writer:
     writer.write(js)
 
-    <span style="color: #757575;"># </span><span style="color: #757575;">embed in the org-exported HTML file</span>
-    <span style="color: #E1BEE7;">print</span>(<span style="color: #C5E1A5;">'''#+BEGIN_EXPORT html\n{script}\n#+END_EXPORT'''</span>.<span style="color: #80DEEA;">format</span>(script=script.lstrip()))
+    # embed in the org-exported HTML file
+    print('''#+BEGIN_EXPORT html\n{script}\n#+END_EXPORT'''.format(script=script.lstrip()))
     </pre>
     </div>
 
@@ -189,61 +188,61 @@
     This will export a <a href="../static/my-image.png">png image</a>, an <a href="../static/html/my-image.html">HTML file</a> and a <a href="../static/js/my-image.js">Javascript file</a>. That way there are both static and dynamic versions that are easy to share as well as an emebeddable version.
     </p>
     <div class="org-src-container">
-    <pre class="src src-ipython"><span style="color: #E1BEE7;">from</span> bokeh.plotting <span style="color: #E1BEE7;">import</span> figure
-    <span style="color: #E1BEE7;">from</span> bokeh.layouts <span style="color: #E1BEE7;">import</span> gridplot
-    <span style="color: #E1BEE7;">from</span> bokeh.models <span style="color: #E1BEE7;">import</span> ColumnDataSource, HoverTool, WheelZoomTool
+    <pre class="src src-ipython">from bokeh.plotting import figure
+    from bokeh.layouts import gridplot
+    from bokeh.models import ColumnDataSource, HoverTool, WheelZoomTool
 
-    <span style="color: #80CBC4;">tools</span>=<span style="color: #C5E1A5;">'box_select, reset'</span>
+    tools='box_select, reset'
 
-    <span style="color: #757575;"># </span><span style="color: #757575;">create "subplots"</span>
-    <span style="color: #80CBC4;">p1</span> = figure(tools=tools)
-    <span style="color: #80CBC4;">p1.background_fill_alpha</span> = 0.0
-    <span style="color: #80CBC4;">p1.border_fill_alpha</span> = 0.0
+    # create "subplots"
+    p1 = figure(tools=tools)
+    p1.background_fill_alpha = 0.0
+    p1.border_fill_alpha = 0.0
 
-    <span style="color: #80CBC4;">p2</span> = figure(tools=tools, x_range=p1.x_range, y_range=p1.y_range)
-    <span style="color: #80CBC4;">p2.background_fill_alpha</span> = 0.0
-    <span style="color: #80CBC4;">p2.border_fill_alpha</span> = 0.0
+    p2 = figure(tools=tools, x_range=p1.x_range, y_range=p1.y_range)
+    p2.background_fill_alpha = 0.0
+    p2.border_fill_alpha = 0.0
 
-    <span style="color: #757575;"># </span><span style="color: #757575;">generate data</span>
-    <span style="color: #80CBC4;">x</span> = np.random.randn(200)
-    <span style="color: #80CBC4;">y0</span> = x**3 - 100
-    <span style="color: #80CBC4;">y1</span> = x**2 - 100
+    # generate data
+    x = np.random.randn(200)
+    y0 = x**3 - 100
+    y1 = x**2 - 100
 
-    <span style="color: #757575;"># </span><span style="color: #757575;">generate random letters</span>
-    <span style="color: #E1BEE7;">import</span> string
-    <span style="color: #E1BEE7;">import</span> random
-    <span style="color: #80CBC4;">label</span> = [random.choice(string.ascii_letters) <span style="color: #E1BEE7;">for</span> aa <span style="color: #E1BEE7;">in</span> <span style="color: #80DEEA;">range</span>(200)]
+    # generate random letters
+    import string
+    import random
+    label = [random.choice(string.ascii_letters) for aa in range(200)]
 
-    <span style="color: #757575;"># </span><span style="color: #757575;">needed for linked selection</span>
-    <span style="color: #80CBC4;">source</span> = ColumnDataSource(data={<span style="color: #C5E1A5;">'x'</span>: x, <span style="color: #C5E1A5;">'y0'</span>: y0, <span style="color: #C5E1A5;">'y1'</span>: y1,
-    <span style="color: #C5E1A5;">'label'</span>: label})
+    # needed for linked selection
+    source = ColumnDataSource(data={'x': x, 'y0': y0, 'y1': y1,
+    'label': label})
 
-    <span style="color: #757575;"># </span><span style="color: #757575;">plot the data</span>
-    p1.circle(<span style="color: #C5E1A5;">'x'</span>, <span style="color: #C5E1A5;">'y0'</span>, source=source)
-    p2.scatter(<span style="color: #C5E1A5;">'x'</span>, <span style="color: #C5E1A5;">'y1'</span>, source=source)
+    # plot the data
+    p1.circle('x', 'y0', source=source)
+    p2.scatter('x', 'y1', source=source)
 
-    <span style="color: #80CBC4;">p1.title.text</span> = titlestr
+    p1.title.text = titlestr
 
-    <span style="color: #80CBC4;">wheel</span> = WheelZoomTool()
-    <span style="color: #757575;"># </span><span style="color: #757575;">add some tooltips</span>
-    <span style="color: #80CBC4;">hover</span> = HoverTool()
-    <span style="color: #80CBC4;">hover.tooltips</span> = [
-    (<span style="color: #C5E1A5;">"(x,y)"</span>, <span style="color: #C5E1A5;">"($x, $y)"</span>),  <span style="color: #757575;"># </span><span style="color: #757575;">'$' for co-ordinates</span>
-    (<span style="color: #C5E1A5;">"label"</span>, <span style="color: #C5E1A5;">"@label"</span>)  <span style="color: #757575;"># </span><span style="color: #757575;">note '@' for column lookup</span>
+    wheel = WheelZoomTool()
+    # add some tooltips
+    hover = HoverTool()
+    hover.tooltips = [
+    ("(x,y)", "($x, $y)"),  # '$' for co-ordinates
+    ("label", "@label")  # note '@' for column lookup
     ]
     p1.add_tools(hover, wheel)
     p2.add_tools(hover, wheel)
 
-    <span style="color: #80CBC4;">p1.toolbar.active_scroll</span> = wheel
-    <span style="color: #80CBC4;">p2.toolbar.active_scroll</span> = wheel
+    p1.toolbar.active_scroll = wheel
+    p2.toolbar.active_scroll = wheel
 
-    <span style="color: #757575;"># </span><span style="color: #757575;">layout the subplots</span>
-    <span style="color: #80CBC4;">pg</span> = gridplot([[p1, p2]], plot_width=400, plot_height=400)
+    # layout the subplots
+    pg = gridplot([[p1, p2]], plot_width=400, plot_height=400)
 
     export_bokeh(pg,
-    <span style="color: #C5E1A5;">'../static/'</span>+fname+<span style="color: #C5E1A5;">'.png'</span>,
-    <span style="color: #C5E1A5;">'../static/js/'</span>+fname+<span style="color: #C5E1A5;">'.js'</span>,
-    <span style="color: #C5E1A5;">'../static/html/'</span>+fname+<span style="color: #C5E1A5;">'.html'</span>)
+    '../static/'+fname+'.png',
+    '../static/js/'+fname+'.js',
+    '../static/html/'+fname+'.html')
     </pre>
     </div>
     <script
@@ -318,10 +317,10 @@
     Add the following at the top of my org file to use locally downloaded versions of bokeh. Note that versions need to match/be compatible with what you have installed (<code>bokeh.__version__</code>).
     </p>
     <div class="org-src-container">
-    <pre class="src src-org">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-0.12.10.min.css" type="text/css" /&gt;
-    #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.css" type="text/css" /&gt;
-    #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-0.12.10.min.js"&gt;&lt;/script&gt;
-    #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.js"&gt;&lt;/script&gt;
+    <pre class="src src-org"><span style="color: #586e75; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-0.12.10.min.css" type="text/css" /&gt;</span>
+    <span style="color: #586e75; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.css" type="text/css" /&gt;</span>
+    <span style="color: #586e75; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-0.12.10.min.js"&gt;&lt;/script&gt;</span>
+    <span style="color: #586e75; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.js"&gt;&lt;/script&gt;</span>
     </pre>
     </div></li>
 
@@ -329,18 +328,18 @@
     </ol>
 
     <div class="org-src-container">
-    <pre class="src src-ipython"><span style="color: #E1BEE7;">def</span> <span style="color: #64B5F6;">WriteToOrg</span>(p):
-    <span style="color: #80CBC4;">script</span>, <span style="color: #80CBC4;">div</span> = components(p)
+    <pre class="src src-ipython">def WriteToOrg(p):
+    script, div = components(p)
 
-    <span style="color: #80CBC4;">script</span> = <span style="color: #C5E1A5;">'\n'</span>.join([<span style="color: #C5E1A5;">'#+HTML_HEAD_EXTRA: '</span> + line <span style="color: #E1BEE7;">for</span> line <span style="color: #E1BEE7;">in</span> script.lstrip().split(<span style="color: #C5E1A5;">'\n'</span>)])
+    script = '\n'.join(['#+HTML_HEAD_EXTRA: ' + line for line in script.lstrip().split('\n')])
 
-    <span style="color: #E1BEE7;">print</span>(<span style="color: #C5E1A5;">'''{script}\n#+BEGIN_EXPORT html\n{div}\n#+END_EXPORT'''</span>.<span style="color: #80DEEA;">format</span>(script=script, div=div))
+    print('''{script}\n#+BEGIN_EXPORT html\n{div}\n#+END_EXPORT'''.format(script=script, div=div))
 
 
-    <span style="color: #E1BEE7;">from</span> bokeh.plotting <span style="color: #E1BEE7;">import</span> figure
-    <span style="color: #E1BEE7;">from</span> bokeh.embed <span style="color: #E1BEE7;">import</span> components
+    from bokeh.plotting import figure
+    from bokeh.embed import components
 
-    <span style="color: #80CBC4;">p</span> = figure()
+    p = figure()
     p.line(np.random.randn(200), np.random.randn(200))
     WriteToOrg(p)
     </pre>
@@ -403,14 +402,14 @@
     Either include a css file or add a style tag to <code>HTML_HEAD</code> at the top of your org file.
     </p>
     <div class="org-src-container">
-    <pre class="src src-org">   #+HTML_HEAD: &lt;style&gt; add-stuff-here &lt;/style&gt;
+    <pre class="src src-org"><span style="color: #586e75; font-style: italic;">   #+HTML_HEAD: &lt;style&gt; add-stuff-here &lt;/style&gt;</span>
     </pre>
     </div></li>
     <li><p>
     Targeting the css class <code>bk-plot-layout</code> lets you center the image. <code>bk-grid-column</code> does it for <code>gridplot</code>
     </p>
     <div class="org-src-container">
-    <pre class="src src-css">   <span style="color: #64B5F6;">.bk-plot-layout .bk-grid-column </span>{ <span style="color: #E1BEE7;">max-width</span>: 100%; <span style="color: #E1BEE7;">margin</span>: auto;}
+    <pre class="src src-css">   <span style="color: #268bd2;">.bk-plot-layout .bk-grid-column </span>{ <span style="color: #859900;">max-width</span>: 100%; <span style="color: #859900;">margin</span>: auto;}
     </pre>
     </div></li>
     </ol>
@@ -432,7 +431,7 @@
   <link>http://www.cherian.net/rss.html#orgea7579a</link>
   <author>deepak@darya (Deepak Cherian)</author>
   <guid isPermaLink="false">http://www.cherian.net/rss.html#orgea7579a</guid>
-  <pubDate>Sun, 17 Sep 2017 12:36:00 +0530</pubDate>
+  <pubDate>Sun, 17 Sep 2017 12:36:00 -0600</pubDate>
 
   <description><![CDATA[<p>
   <a href="https://github.com/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb">IPython notebook here.</a>
@@ -444,13 +443,78 @@
   <link>http://www.cherian.net/rss.html#org0580920</link>
   <author>deepak@darya (Deepak Cherian)</author>
   <guid isPermaLink="false">http://www.cherian.net/rss.html#org0580920</guid>
-  <pubDate>Sun, 17 Sep 2017 12:34:00 +0530</pubDate>
+  <pubDate>Sun, 17 Sep 2017 12:34:00 -0600</pubDate>
 
   <description><![CDATA[<div class="paper-quotes">
 
   <ul class="org-ul">
   <li><p>
-  (<a href="#org37552c3">Hovmöller 1949</a>)
+  <a class='org-ref-reference' href="#Appen2015">Appen2015</a>:
+  </p>
+  <blockquote>
+  <p>
+  The geometry of the iron in the vicinity of the compass can be decomposed into a symmetric and an asymmetric part (National GeospatialIntelligence Agency 2004)².
+  ...
+  ²This handbook (National Geospatial-Intelligence Agency 2004) provides useful background and details about compass corrections, as they are standard on ships.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  <a class='org-ref-reference' href="#Ruddick1983">Ruddick1983</a>
+  </p>
+  <blockquote>
+  <p>
+  Oceanographers are increasingly accepting that one of the processes that can affect oceanic fine structure is double-diffusive convection, such as salt fingering.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  <a class='org-ref-reference' href="#Gregg1986">Gregg1986</a>:
+  </p>
+  <blockquote>
+  <p>
+  AMP observations were taken while the ship drifted "in the trough" near the buoy (a procedure that is better for collecting data than keeping the crew happy). (Following a moderately rough transit to the site, our sampling method prompted the chief engineer to call us "a fistful of weirdos".)
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  <a class='org-ref-reference' href="#Stommel1966">Stommel1966</a> (seen in <a class='org-ref-reference' href="#Jain2017">Jain2017</a>)
+  </p>
+  <blockquote>
+  <p>
+  When I emphasise the imperfection of observing techniques, perhaps I should say that I wrote this chapter during a succession of midnight-todawn watches during an attempt to survey the Somali Current near Socotra in the heart of the southwest monsoon. It is rather quixotic to try to get the measure of so large a phenomenon armed only with a 12-knot vessel and some reversing thermometers. Clearly some important phenomena slip through the observational net, and nothing makes one more convinced of the inadequacy of present-day observing techniques than the tedious experience of garnering a slender harvest of thermometer readings and water samples from a rather unpleasant little ship at sea. A few good and determined engineers could revolutionise this backwards field.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  <a class='org-ref-reference' href="#Pierrehumbert2010">Pierrehumbert2010</a> (found on <a href="https://twitter.com/henrifdrake/status/1113853950858604544">Henri Drake's twitter</a>)
+  </p>
+  <blockquote>
+  <p>
+  Lest there be any misunderstanding, we must emphasize at this point that "less sensitive" does not mean "insensitive". If CO<sub>2</sub> were a gray gas, then doubling its concentration, as we are poised to do within the century, would be unquestionably lethal. Because CO<sub>2</sub> is not in fact a gray gas, the results may be merely catastrophic.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  <a class='org-ref-reference' href="#Gregg2012">Gregg2012</a>
+  </p>
+  <blockquote>
+  <p>
+  ... most dissipation estimates were classified as noise and represented in the final data as zeros because we could not justify any other value.
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  <a class='org-ref-reference' href="#Pollard1972">Pollard1972</a>
+  </p>
+  <blockquote>
+  <p>
+  GFD models like this one often suffer from lack of relevance. A sign of this is that an investigator cannot find observations quite ideal enough to test his theory. Our guilt would be established, therefore, if we required a resting ocean with uniform stratification and a step-function wind to make any use of observations. Luckily this is not our position, for account can be taken of arbitrary stratification, pre-existing currents, and a stress that varies in time
+  </p>
+  </blockquote></li>
+
+  <li><p>
+  <a class='org-ref-reference' href="#Hovmoller1949">Hovmoller1949</a>
   </p>
 
 
@@ -460,7 +524,7 @@
   </div></li>
 
   <li><p>
-  (<a href="#orge3d3e28">Groeskamp et al. 2019</a>)
+  <a class='org-ref-reference' href="#Groeskamp2019">Groeskamp2019</a>
   </p>
   <blockquote>
   <p>
@@ -469,7 +533,7 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#org2037acc">Levine 1999</a>) on rescaling the Garrett-Munk spectrum
+  <a class='org-ref-reference' href="#Levine1999a">Levine1999a</a> on rescaling the Garrett-Munk spectrum
   </p>
 
   <div class="figure">
@@ -478,7 +542,7 @@
   </div></li>
 
   <li><p>
-  (<a href="#org9cd4e5d">Colosi 2016</a>)
+  <a class='org-ref-reference' href="#Colosi2016">Colosi2016</a>
   </p>
   <blockquote>
   <p>
@@ -487,7 +551,7 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#orgb3d6e68">Winters and D’Asaro 1994</a>):
+  <a class='org-ref-reference' href="#Winters1994">Winters1994</a>:
   </p>
   <blockquote>
   <p>
@@ -496,7 +560,7 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#orga0b1356">Munk 1981</a>) introduces the term "spiciness":
+  <a class='org-ref-reference' href="#Munk1981">Munk1981</a> introduces the term "spiciness":
   </p>
   <blockquote>
   <p>
@@ -513,7 +577,7 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#org1a47902">Wunsch et al. 2009</a>) on instrumented elephant seals
+  <a class='org-ref-reference' href="#Wunsch2009">Wunsch2009</a> on instrumented elephant seals
   </p>
   <blockquote>
   <p>
@@ -530,7 +594,7 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#orgda1d60f">Richardson and Stommel 1948</a>)
+  <a class='org-ref-reference' href="#Richardson1948">Richardson1948</a>
   </p>
   <blockquote>
   <p>
@@ -539,7 +603,7 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#orgb9df43e">Hughes and Williams 2010</a>)
+  <a class='org-ref-reference' href="#Hughes2010">Hughes2010</a>
   <img src="../static/hughes-sea-level-color.png" alt="hughes-sea-level-color.png" />
   </p>
   <blockquote>
@@ -549,7 +613,7 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#org8074ba7">Gargett 1999</a>)
+  <a class='org-ref-reference' href="#Gargett1999">Gargett1999</a>
   </p>
 
 
@@ -569,7 +633,7 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#orgec4bc6d">Ferrari and Wunsch 2009</a>)
+  <a class='org-ref-reference' href="#Ferrari2009">Ferrari2009</a>
   </p>
   <blockquote>
   <p>
@@ -585,7 +649,7 @@
   </p>
   </blockquote></li>
   <li><p>
-  (<a href="#org775282d">Armi and Stommel 1983</a>)
+  <a class='org-ref-reference' href="#Armi1983">Armi1983</a>
   </p>
   <blockquote>
   <p>
@@ -594,7 +658,7 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#orgd0934ca">Ferrari et al. 2008</a>)
+  <a class='org-ref-reference' href="#Ferrari2008">Ferrari2008</a>
   </p>
   <blockquote>
   <p>
@@ -603,7 +667,7 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#orgec2db27">Hughes et al. 2016</a>)
+  <a class='org-ref-reference' href="#Hughes2016">Hughes2016</a>
   </p>
 
 
@@ -613,7 +677,7 @@
   </div></li>
 
   <li><p>
-  (<a href="#org6919188">Munk and Bills 2007</a>)
+  <a class='org-ref-reference' href="#Munk2007">Munk2007</a>
   </p>
   <blockquote>
   <p>
@@ -622,7 +686,7 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#orgd8abf8e">Polzin et al. 2014</a>)
+  <a class='org-ref-reference' href="#Polzin2014">Polzin2014</a>
   </p>
 
 
@@ -632,7 +696,7 @@
   </div></li>
 
   <li><p>
-  John Lumley, quoted in (<a href="#orge602496">Leibovich and Warhaft 2018</a>)
+  John Lumley, quoted in <a class='org-ref-reference' href="#Leibovich2018">Leibovich2018</a>
   </p>
   <blockquote>
   <p>
@@ -641,7 +705,7 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#org3e23e76">Penland and Sardeshmukh 1995</a>) throw down a challenge:
+  <a class='org-ref-reference' href="#Penland1995">Penland1995</a> throw down a challenge:
   </p>
 
   <div class="figure">
@@ -650,7 +714,7 @@
   </div></li>
 
   <li><p>
-  (<a href="#org15d2b24">Vallis and Maltrud 1993</a>) :
+  <a class='org-ref-reference' href="#Vallis1993">Vallis1993</a> :
   </p>
   <blockquote>
   <p>
@@ -659,7 +723,7 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#orgf67fa94">Flierl 1978</a>) quotes Karl Marx:
+  <a class='org-ref-reference' href="#Flierl1978">Flierl1978</a> quotes Karl Marx:
   </p>
   <blockquote>
   <p>
@@ -676,7 +740,7 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#org34e32aa">Holte and Talley 2009</a>)
+  <a class='org-ref-reference' href="#Holte2009">Holte2009</a>
   </p>
   <blockquote>
   <p>
@@ -685,7 +749,7 @@
   </blockquote></li>
 
   <li><p>
-  (<a href="#orgbac7c9f">Sutyrin and Flierl 1994</a>) note insufficient printer resolution in their Figure 2.
+  <a class='org-ref-reference' href="#Sutyrin1994">Sutyrin1994</a> note insufficient printer resolution in their Figure 2.
   </p>
 
   <div class="figure">
@@ -694,7 +758,7 @@
   </div></li>
 
   <li><p>
-  (<a href="#org704cc29">MacKinnon et al. 2017</a>) summarize
+  <a class='org-ref-reference' href="#MacKinnon2017">MacKinnon2017</a> summarize
   </p>
   <blockquote>
   <p>
@@ -720,7 +784,7 @@
   </div></li>
 
   <li><p>
-  (<a href="#org51d2bcd">Wunsch 2016</a>) cites the Bible
+  <a class='org-ref-reference' href="#Wunsch2016">Wunsch2016</a> cites the Bible
   </p>
   <blockquote>
   <p>
@@ -730,7 +794,7 @@
   </blockquote></li>
 
   <li><p>
-  Enrico Fermi quotes John von Neumann to Freeman Dyson, critizing the latter's model (<a href="#orgd705f06">Dyson 2004</a>):
+  Enrico Fermi quotes John von Neumann to Freeman Dyson, critizing the latter's model <a class='org-ref-reference' href="#Dyson2004">Dyson2004</a>:
   </p>
   <blockquote>
   <p>
@@ -745,7 +809,7 @@
   </div>
 
   <p>
-  (<a href="#org5ee6314">Mayer, Khairy, and Howard 2010</a>) take on the challenge yielding:
+  <a class='org-ref-reference' href="#Mayer2010">Mayer2010</a> take on the challenge yielding:
   </p>
   <blockquote>
   <p>
@@ -770,7 +834,7 @@
   </div></li>
 
   <li><p>
-  (<a href="#orgff48af0">Lindzen and Hou 1988</a>)
+  <a class='org-ref-reference' href="#Lindzen1988">Lindzen1988</a>
   </p>
   <blockquote>
   <p>
@@ -780,16 +844,69 @@
   </ul>
 
   </div>
+  <p>
+  <h1 class='org-ref-bib-h1'>Bibliography</h1>
+  <ul class='org-ref-bib'><li><a id="Appen2015">[Appen2015]</a> <a name="Appen2015"></a>von Appen, Correction of ADCP Compass Errors Resulting from Iron in the Instrument’s Vicinity*, <i>J. Atmospheric Ocean. Technol.</i>, <b>32(3)</b>, 591-602 (2015). <a href="http://dx.doi.org/10/f654w8">doi</a>.</li>
+  <li><a id="Ruddick1983">[Ruddick1983]</a> <a name="Ruddick1983"></a>Ruddick, A Practical Indicator of the Stability of the Water Column to Double-Diffusive Activity, <i>Deep Sea Res. Part Oceanogr. Res. Pap.</i>, <b>30(10)</b>, 1105-1107 (1983). <a href="http://dx.doi.org/10/bmp3xm">doi</a>.</li>
+  <li><a id="Gregg1986">[Gregg1986]</a> <a name="Gregg1986"></a>Gregg, D'Asaro, Shay & Larson, Observations of Persistent Mixing and Near-Inertial Internal Waves, <i>J. Phys. Oceanogr.</i>, <b>16(5)</b>, 856-885 (1986). <a href="http://dx.doi.org/10.1175/1520-0485(1986)016<0856:OOPMAN>2.0.CO;2">doi</a>.</li>
+  <li><a id="Stommel1966">[Stommel1966]</a> <a name="Stommel1966"></a>@incollectionStommel1966,
+  address = Cambridge,
+  title = The Large-Scale Oceanic Circulation,
+  booktitle = Advances in Earth Science,
+  publisher = MIT Press,
+  author = Stommel, H.M.,
+  year = 1966,
+  pages = 175-184
+  </li>
+  <li><a id="Jain2017">[Jain2017]</a> <a name="Jain2017"></a>Jain, Shankar, Vinayachandran, Kankonkar, Chatterjee, Amol, Almeida, Michael, Mukherjee, Chatterjee, Fernandes, Luis, Kamble, Hegde, Chatterjee, Das & Neema, Evidence for the Existence of Persian Gulf Water and Red Sea Water in the Bay of Bengal, <i>Clim. Dyn.</i>, <b>48(9-10)</b>, 3207-3226 (2017). <a href="http://dx.doi.org/10.1007/s00382-016-3259-4">doi</a>.</li>
+  <li><a id="Pierrehumbert2010">[Pierrehumbert2010]</a> <a name="Pierrehumbert2010"></a>Pierrehumbert, Principles of Planetary Climate, Cambridge University Press (2010).</li>
+  <li><a id="Gregg2012">[Gregg2012]</a> <a name="Gregg2012"></a>Gregg, Alford, Kontoyiannis, Zervakis & Winkel, Mixing over the Steep Side of the Cycladic Plateau in the Aegean Sea, <i>J. Mar. Syst.</i>, <b>89(1)</b>, 30-47 (2012). <a href="http://dx.doi.org/10/chjrbk">doi</a>.</li>
+  <li><a id="Pollard1972">[Pollard1972]</a> <a name="Pollard1972"></a>Pollard, Rhines & Thompson, The Deepening of the Wind-Mixed Layer, <i>Geophys. Fluid Dyn.</i>, <b>4(1)</b>, 381-404 (1972). <a href="http://dx.doi.org/10.1080/03091927208236105">doi</a>.</li>
+  <li><a id="Hovmoller1949">[Hovmoller1949]</a> <a name="Hovmoller1949"></a>Hovmöller, The Trough-and-Ridge Diagram, <i>Tellus</i>, <b>1(2)</b>, 62-66 (1949). <a href="http://dx.doi.org/10.1111/j.2153-3490.1949.tb01260.x">doi</a>.</li>
+  <li><a id="Groeskamp2019">[Groeskamp2019]</a> <a name="Groeskamp2019"></a>Groeskamp, Griffies, Iudicone, Marsh, Nurser & Zika, The Water Mass Transformation Framework for Ocean Physics and Biogeochemistry, <i>Annu. Rev. Mar. Sci.</i>, <b>11(1)</b>, 271-305 (2019). <a href="http://dx.doi.org/10/gfs9nw">doi</a>.</li>
+  <li><a id="Levine1999a">[Levine1999a]</a> <a name="Levine1999a"></a>Levine, Internal Waves on the Continental Shelf, in in: Proc. ’Aha Huliko’a Hawaiian Winter Workshop, edited by (1999)</li>
+  <li><a id="Colosi2016">[Colosi2016]</a> <a name="Colosi2016"></a>Colosi, The Enigma of the Ocean Internal Wave Spectrum: Can Acoustics Help Solve the Enigma?, <i>J. Acoust. Soc. Am.</i>, <b>140(4)</b>, 2976-2976 (2016). <a href="http://dx.doi.org/10.1121/1.4969213">doi</a>.</li>
+  <li><a id="Winters1994">[Winters1994]</a> <a name="Winters1994"></a>Winters & D’Asaro, Three-Dimensional Wave Instability near a Critical Level, <i>J. Fluid Mech.</i>, <b>272(-1)</b>, 255 (1994). <a href="http://dx.doi.org/10.1017/S0022112094004465">doi</a>.</li>
+  <li><a id="Munk1981">[Munk1981]</a> <a name="Munk1981"></a>@incollectionMunk1981,
+  title = Internal Waves and Small-Scale Processes,
+  booktitle = Evolution of Physical Oceanography,
+  publisher = MIT Press,
+  author = Munk, W.,
+  year = 1981,
+  file = /home/deepak/Papers/Munk-1981-Internal_Waves_and_Small-Scale_Processes.pdf
+  </li>
+  <li><a id="Wunsch2009">[Wunsch2009]</a> <a name="Wunsch2009"></a>Wunsch, Heimbach, Ponte & Fukumori, The Global General Circulation of the Ocean Estimated by the ECCO-Consortium, <i>Oceanography</i>, <b>22(2)</b>, 88-103 (2009). <a href="http://dx.doi.org/10.5670/oceanog.2009.41">doi</a>.</li>
+  <li><a id="Richardson1948">[Richardson1948]</a> <a name="Richardson1948"></a>Richardson & Stommel, Note on Eddy Diffusion in the Sea, <i>J. Meteorol.</i>, <b>5(5)</b>, 238-240 (1948). <a href="http://dx.doi.org/10.1175/1520-0469(1948)005<0238:NOEDIT>2.0.CO;2">doi</a>.</li>
+  <li><a id="Hughes2010">[Hughes2010]</a> <a name="Hughes2010"></a>Hughes & Williams, The Color of Sea Level: Importance of Spatial Variations in Spectral Shape for Assessing the Significance of Trends, <i>J. Geophys. Res.</i>, <b>115(C10)</b>, (2010). <a href="http://dx.doi.org/10.1029/2010JC006102">doi</a>.</li>
+  <li><a id="Gargett1999">[Gargett1999]</a> <a name="Gargett1999"></a>Gargett, Velcro Measurement of Turbulence Kinetic Energy Dissipation Rate ε, <i>J. Atmospheric Ocean. Technol.</i>, <b>16(12)</b>, 1973-1993 (1999). <a href="http://dx.doi.org/10.1175/1520-0426(1999)016<1973:VMOTKE>2.0.CO;2">doi</a>.</li>
+  <li><a id="Ferrari2009">[Ferrari2009]</a> <a name="Ferrari2009"></a>Ferrari & Wunsch, Ocean Circulation Kinetic Energy: Reservoirs, Sources, and Sinks, <i>Annu. Rev. Fluid Mech.</i>, <b>41(1)</b>, 253-282 (2009). <a href="http://dx.doi.org/10.1146/annurev.fluid.40.111406.102139">doi</a>.</li>
+  <li><a id="Armi1983">[Armi1983]</a> <a name="Armi1983"></a>Armi & Stommel, Four Views of a Portion of the North Atlantic Subtropical Gyre, <i>J. Phys. Oceanogr.</i>, <b>13(5)</b>, 828-857 (1983). <a href="http://dx.doi.org/10.1175/1520-0485(1983)013<0828:FVOAPO>2.0.CO;2">doi</a>.</li>
+  <li><a id="Ferrari2008">[Ferrari2008]</a> <a name="Ferrari2008"></a>Ferrari, McWilliams, Canuto & Dubovikov, Parameterization of Eddy Fluxes near Oceanic Boundaries, <i>J. Clim.</i>, <b>21(12)</b>, 2770-2789 (2008). <a href="http://dx.doi.org/10.1175/2007JCLI1510.1">doi</a>.</li>
+  <li><a id="Hughes2016">[Hughes2016]</a> <a name="Hughes2016"></a>Hughes, Williams, Hibbert, Boening & Oram, A Rossby Whistle: A Resonant Basin Mode Observed in the Caribbean Sea, <i>Geophys. Res. Lett.</i>, <b>43(13)</b>, 7036-7043 (2016). <a href="http://dx.doi.org/10.1002/2016GL069573">doi</a>.</li>
+  <li><a id="Munk2007">[Munk2007]</a> <a name="Munk2007"></a>Munk & Bills, Tides and the Climate: Some Speculations, <i>J. Phys. Oceanogr.</i>, <b>37(2)</b>, 135-147 (2007). <a href="http://dx.doi.org/10.1175/JPO3002.1">doi</a>.</li>
+  <li><a id="Polzin2014">[Polzin2014]</a> <a name="Polzin2014"></a>Polzin, Naveira Garabato, Huussen, Sloyan & Waterman, Finescale Parameterizations of Turbulent Dissipation, <i>J. Geophys. Res. Oceans</i>, <b>119(2)</b>, 1383-1419 (2014). <a href="http://dx.doi.org/10.1002/2013JC008979">doi</a>.</li>
+  <li><a id="Leibovich2018">[Leibovich2018]</a> <a name="Leibovich2018"></a>Leibovich & Warhaft, John Leask Lumley: Whither Turbulence?, <i>Annu. Rev. Fluid Mech.</i>, <b>50(1)</b>, 1-23 (2018). <a href="http://dx.doi.org/10.1146/annurev-fluid-122316-044524">doi</a>.</li>
+  <li><a id="Penland1995">[Penland1995]</a> <a name="Penland1995"></a>Penland & Sardeshmukh, The Optimal Growth of Tropical Sea Surface Temperature Anomalies, <i>J. Clim.</i>, <b>8(8)</b>, 1999-2024 (1995). <a href="http://dx.doi.org/10.1175/1520-0442(1995)008<1999:TOGOTS>2.0.CO;2">doi</a>.</li>
+  <li><a id="Vallis1993">[Vallis1993]</a> <a name="Vallis1993"></a>Vallis & Maltrud, Generation of Mean Flows and Jets on a Beta Plane and over Topography, <i>J. Phys. Oceanogr.</i>, <b>23(7)</b>, 1346-1362 (1993). <a href="http://dx.doi.org/10.1175/1520-0485(1993)023<1346:GOMFAJ>2.0.CO;2">doi</a>.</li>
+  <li><a id="Flierl1978">[Flierl1978]</a> <a name="Flierl1978"></a>Flierl, Models of Vertical Structure and the Calibration of Two-Layer Models, <i>Dyn. Atmospheres Oceans</i>, <b>2(4)</b>, 341-381 (1978). <a href="http://dx.doi.org/10.1016/0377-0265(78)90002-7">doi</a>.</li>
+  <li><a id="Holte2009">[Holte2009]</a> <a name="Holte2009"></a>Holte & Talley, A New Algorithm for Finding Mixed Layer Depths with Applications to Argo Data and Subantarctic Mode Water Formation*, <i>J. Atmospheric Ocean. Technol.</i>, <b>26(9)</b>, 1920-1939 (2009). <a href="http://dx.doi.org/10.1175/2009JTECHO543.1">doi</a>.</li>
+  <li><a id="Sutyrin1994">[Sutyrin1994]</a> <a name="Sutyrin1994"></a>Sutyrin & Flierl, Intense Vortex Motion on the Beta Plane: Development of the Beta Gyres, <i>J. Atmospheric Sci.</i>, <b>51(5)</b>, 773-790 (1994). <a href="http://dx.doi.org/10.1175/1520-0469(1994)051<0773:IVMOTB>2.0.CO;2">doi</a>.</li>
+  <li><a id="MacKinnon2017">[MacKinnon2017]</a> <a name="MacKinnon2017"></a>MacKinnon, Zhao, Whalen, Waterhouse, Trossman, Sun, Laurent, Simmons, Polzin, Pinkel, Pickering, Norton, Nash, Musgrave, Merchant, Melet, Mater, Legg, Large, Kunze, Klymak, Jochum, Jayne, Hallberg, Griffies, Diggs, Danabasoglu, Chassignet, Buijsman, Bryan, Briegleb, Barna, Arbic, Ansong & Alford, Climate Process Team on Internal Wave-Driven Ocean Mixing, <i>Bull. Am. Meteorol. Soc.</i>, <b>98(11)</b>, 2429-2454 (2017). <a href="http://dx.doi.org/10.1175/BAMS-D-16-0030.1">doi</a>.</li>
+  <li><a id="Wunsch2016">[Wunsch2016]</a> <a name="Wunsch2016"></a>Wunsch, Global Ocean Integrals and Means, with Trend Implications, <i>Annu. Rev. Mar. Sci.</i>, <b>8(1)</b>, 1-33 (2016). <a href="http://dx.doi.org/10.1146/annurev-marine-122414-034040">doi</a>.</li>
+  <li><a id="Dyson2004">[Dyson2004]</a> <a name="Dyson2004"></a>Dyson, A Meeting with Enrico Fermi, <i>Nature</i>, <b>427(6972)</b>, 297-297 (2004). <a href="http://dx.doi.org/10.1038/427297a">doi</a>.</li>
+  <li><a id="Mayer2010">[Mayer2010]</a> <a name="Mayer2010"></a>Mayer, Khairy & Howard, Drawing an Elephant with Four Complex Parameters, <i>Am. J. Phys.</i>, <b>78(6)</b>, 648 (2010). <a href="http://dx.doi.org/10.1119/1.3254017">doi</a>.</li>
+  <li><a id="Lindzen1988">[Lindzen1988]</a> <a name="Lindzen1988"></a>Lindzen & Hou, Hadley Circulations for Zonally Averaged Heating Centered off the Equator, <i>J. Atmospheric Sci.</i>, <b>45(17)</b>, 2416-2427 (1988). <a href="http://dx.doi.org/10.1175/1520-0469(1988)045<2416:HCFZAH>2.0.CO;2">doi</a>.</li>
+  </ul>
+  </p>
   ]]></description>
 </item>
-
 
 <item>
   <title>"Death in the Gulf Stream" - A Hemingway cocktail</title>
   <link>http://www.cherian.net/rss.html#orga586cbc</link>
   <author>deepak@darya (Deepak Cherian)</author>
   <guid isPermaLink="false">http://www.cherian.net/rss.html#orga586cbc</guid>
-  <pubDate>Sun, 17 Sep 2017 12:36:00 +0530</pubDate>
+  <pubDate>Sun, 17 Sep 2017 12:36:00 -0600</pubDate>
 
   <description><![CDATA[<p>
   From <a href="http://kottke.org/17/01/ernest-hemingways-cocktail-recipe-for-bad-times">Kottke</a> who got it from <a href="https://qz.com/889794/trump-inauguration-ernest-hemingway-has-a-cocktail-recipe-for-days-when-youve-had-just-enough-of-the-world/">Quartz</a>, a cocktail recipe created by Ernest Hemingway in 1937.
@@ -818,20 +935,20 @@
   <link>http://www.cherian.net/rss.html#org6b48d4c</link>
   <author>deepak@darya (Deepak Cherian)</author>
   <guid isPermaLink="false">http://www.cherian.net/rss.html#org6b48d4c</guid>
-  <pubDate>Sun, 17 Sep 2017 12:34:00 +0530</pubDate>
+  <pubDate>Sun, 17 Sep 2017 12:34:00 -0600</pubDate>
 
   <description><![CDATA[
   <div id="outline-container-org935c4e7" class="outline-3">
-  <h3 id="org935c4e7"><span class="section-number-3">6.1</span> Update</h3>
-  <div class="outline-text-3" id="text-6-1">
+  <h3 id="org935c4e7"><span class="section-number-3">5.1</span> Update</h3>
+  <div class="outline-text-3" id="text-5-1">
   <p>
   <a href="https://www.researchgate.net/profile/Andre_Paloczy">André Palóczy</a> has implemented some of <a href="https://github.com/apaloczy/reproducibility">these ideas in Python</a>.
   </p>
   </div>
   </div>
   <div id="outline-container-org09690da" class="outline-3">
-  <h3 id="org09690da"><span class="section-number-3">6.2</span> Software</h3>
-  <div class="outline-text-3" id="text-6-2">
+  <h3 id="org09690da"><span class="section-number-3">5.2</span> Software</h3>
+  <div class="outline-text-3" id="text-5-2">
   <ul class="org-ul">
   <li>Version control system to track content. I use <a href="http://www.git-scm.org"><code>git</code></a>.</li>
   <li><a href="http://www.sno.phy.queensu.ca/~phil/exiftool/"><code>exiftool</code></a> to read and write metadata to images</li>
@@ -840,8 +957,8 @@
   </div>
   </div>
   <div id="outline-container-org54b1741" class="outline-3">
-  <h3 id="org54b1741"><span class="section-number-3">6.3</span> Strategy</h3>
-  <div class="outline-text-3" id="text-6-3">
+  <h3 id="org54b1741"><span class="section-number-3">5.3</span> Strategy</h3>
+  <div class="outline-text-3" id="text-5-3">
   <p>
   The approach is simple: use <code>git</code> to track files that generate output.
   </p>
@@ -864,32 +981,32 @@
   </div>
   </div>
   <div id="outline-container-orgd9b29ec" class="outline-3">
-  <h3 id="orgd9b29ec"><span class="section-number-3">6.4</span> Getting the current hash in MATLAB</h3>
-  <div class="outline-text-3" id="text-6-4">
+  <h3 id="orgd9b29ec"><span class="section-number-3">5.4</span> Getting the current hash in MATLAB</h3>
+  <div class="outline-text-3" id="text-5-4">
   <p>
   The following MATLAB function <code>githash</code> will return the hash of the last commit that modified the file in <code>fname</code>. If not provided with <code>fname</code> it returns the hash of the last commit in the repository.
   </p>
 
   <div class="org-src-container">
-  <pre class="src src-matlab">   <span style="color: #E1BEE7;">function</span> <span style="color: #80CBC4;">[hash]</span> = <span style="color: #64B5F6;">githash</span>(<span style="color: #80CBC4;">fname</span>, <span style="color: #80CBC4;">gitdir</span>)
+  <pre class="src src-matlab">   <span style="color: #859900;">function</span> <span style="color: #268bd2;">[hash]</span> = <span style="color: #268bd2;">githash</span>(<span style="color: #268bd2;">fname</span>, <span style="color: #268bd2;">gitdir</span>)
 
-  <span style="color: #E1BEE7;">if</span> <span style="color: #FFCC80;">~</span>exist(<span style="color: #C5E1A5;">'fname', 'var'</span>)
-  fname = <span style="color: #C5E1A5;">'.'</span>;
-  <span style="color: #E1BEE7;">end</span>
+  <span style="color: #859900;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'fname'</span>, <span style="color: #2aa198;">'var'</span>)
+  fname = <span style="color: #2aa198;">'.'</span>;
+  <span style="color: #859900;">end</span>
 
-  <span style="color: #E1BEE7;">if</span> <span style="color: #FFCC80;">~</span>exist(<span style="color: #C5E1A5;">'gitdir', 'var'</span>)
-  gitdir = <span style="color: #C5E1A5;">''</span>;
-  <span style="color: #E1BEE7;">else</span>
-  gitdir = [<span style="color: #C5E1A5;">'--git-dir='</span> gitdir];
-  <span style="color: #E1BEE7;">end</span>
+  <span style="color: #859900;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'gitdir'</span>, <span style="color: #2aa198;">'var'</span>)
+  gitdir = <span style="color: #2aa198;">''</span>;
+  <span style="color: #859900;">else</span>
+  gitdir = [<span style="color: #2aa198;">'--git-dir='</span> gitdir];
+  <span style="color: #859900;">end</span>
 
-  [<span style="color: #FFCC80;">~</span>, hashout] = system([<span style="color: #C5E1A5;">'TERM=xterm git '</span> gitdir <span style="text-decoration: underline;">...</span>
-  <span style="color: #C5E1A5;">' log -n 1 --no-color --pretty=format:''%H'' '''</span> <span style="text-decoration: underline;">...</span>
-  fname <span style="color: #C5E1A5;">''' &lt; /dev/null'</span>]);
+  [<span style="color: #b58900;">~</span>, hashout] = system([<span style="color: #2aa198;">'TERM=xterm git '</span> gitdir ...
+  <span style="color: #2aa198;">' log -n 1 --no-color --pretty=format:''%H'' '''</span> ...
+  fname <span style="color: #2aa198;">''' &lt; /dev/null'</span>]);
 
-  <span style="color: #757575;">% remove bash escape characters</span>
-  hash = hashout(9<span style="color: #FFCC80;">:</span>48)
-  <span style="color: #E1BEE7;">end</span>
+  <span style="color: #586e75;">% remove bash escape characters</span>
+  hash = hashout(9<span style="color: #b58900;">:</span>48)
+  <span style="color: #859900;">end</span>
   </pre>
   </div>
 
@@ -897,7 +1014,7 @@
   Using it in a MATLAB script requires the incantation
   </p>
   <div class="org-src-container">
-  <pre class="src src-matlab">  hash = githash([mfilename(<span style="color: #C5E1A5;">'fullpath') '.m'</span>]);
+  <pre class="src src-matlab">  hash = githash([mfilename(<span style="color: #2aa198;">'fullpath'</span>) <span style="color: #2aa198;">'.m'</span>]);
   </pre>
   </div>
   <p>
@@ -911,8 +1028,8 @@
   </div>
 
   <div id="outline-container-orgb0454fb" class="outline-3">
-  <h3 id="orgb0454fb"><span class="section-number-3">6.5</span> Using the hash</h3>
-  <div class="outline-text-3" id="text-6-5">
+  <h3 id="orgb0454fb"><span class="section-number-3">5.5</span> Using the hash</h3>
+  <div class="outline-text-3" id="text-5-5">
   <p>
   MATLAB's FileExchange has a couple of useful scripts <a href="https://www.mathworks.com/matlabcentral/fileexchange/43179-insert-annotation-in-figure-s-metadata"><code>insertAnnotation</code> &amp; <code>getAnnotation</code></a> that insert and recover metadata in MATLAB figure windows.
   </p>
@@ -935,8 +1052,8 @@
   </div>
 
   <div id="outline-container-org8fb251f" class="outline-3">
-  <h3 id="org8fb251f"><span class="section-number-3">6.6</span> Saving the hash in an image file</h3>
-  <div class="outline-text-3" id="text-6-6">
+  <h3 id="org8fb251f"><span class="section-number-3">5.6</span> Saving the hash in an image file</h3>
+  <div class="outline-text-3" id="text-5-6">
   <p>
   Once you have a hash value, or any metadata in general, it needs to be saved when the image is saved. I have modified <code>export_fig</code> (<a href="https://github.com/altmany/export_fig">original</a>, <a href="https://github.com/dcherian/export_fig">my fork</a>) to do this for me.
   </p>
@@ -945,8 +1062,8 @@
   In general, all you need is a line that looks like
   </p>
   <div class="org-src-container">
-  <pre class="src src-matlab">  system([<span style="color: #C5E1A5;">'exiftool -overwrite_original -Producer='</span> <span style="text-decoration: underline;">...</span>
-  hash <span style="color: #C5E1A5;">' '</span> pdf_nam]);
+  <pre class="src src-matlab">  system([<span style="color: #2aa198;">'exiftool -overwrite_original -Producer='</span> ...
+  hash <span style="color: #2aa198;">' '</span> pdf_nam]);
   </pre>
   </div>
   <p>
@@ -997,19 +1114,19 @@
   </div>
 
   <div id="outline-container-org8667966" class="outline-3">
-  <h3 id="org8667966"><span class="section-number-3">6.7</span> Extracting commit hash from image metadata</h3>
-  <div class="outline-text-3" id="text-6-7">
+  <h3 id="org8667966"><span class="section-number-3">5.7</span> Extracting commit hash from image metadata</h3>
+  <div class="outline-text-3" id="text-5-7">
   <p>
   To recover the recorded hash, it suffices to call <code>exiftool FILENAME</code> which will print all metadata stored in the image; not just the hash. <code>grep</code> can then find the recorded hash:
   </p>
   <div class="org-src-container">
-  <pre class="src src-bash">  <span style="color: #757575;">#</span><span style="color: #757575;">!/bin/bash</span>
-  <span style="color: #757575;"># </span><span style="color: #757575;">displays saved git hash of a provided file using exiftool</span>
+  <pre class="src src-bash">  <span style="color: #586e75;">#</span><span style="color: #586e75;">!/bin/bash</span>
+  <span style="color: #586e75;"># </span><span style="color: #586e75;">displays saved git hash of a provided file using exiftool</span>
 
-  <span style="color: #80CBC4;">file</span>=$<span style="color: #80CBC4;">1</span>
-  <span style="color: #80CBC4;">hash</span>=$(<span style="color: #fa8072;">exiftool</span> $<span style="color: #80CBC4;">file</span> | grep -i <span style="color: #C5E1A5;">"hash:"</span>)
+  <span style="color: #268bd2;">file</span>=$<span style="color: #268bd2;">1</span>
+  <span style="color: #268bd2;">hash</span>=$(<span style="color: #6c71c4; font-weight: bold;">exiftool</span> $<span style="color: #268bd2;">file</span> | grep -i <span style="color: #2aa198;">"hash:"</span>)
 
-  <span style="color: #80DEEA;">echo</span> $<span style="color: #80CBC4;">hash</span>
+  <span style="color: #b58900;">echo</span> $<span style="color: #268bd2;">hash</span>
   </pre>
   </div>
   </div>

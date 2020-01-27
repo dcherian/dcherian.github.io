@@ -40,10 +40,16 @@
 <div id="preamble" class="status">
 <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
+    <symbol id="icon-pdf" viewBox="0 0 384 512">
+      <title>pdf</title>
+      <path d="M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-21.9-12.7-9.6-24.9-23.4-34.5-40.8zM86.1 428.1c0 .8 13.2-5.4 34.9-40.2-6.7 6.3-29.1 24.5-34.9 40.2zM248 160h136v328c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V24C0 10.7 10.7 0 24 0h200v136c0 13.2 10.8 24 24 24zm-8 171.8c-20-12.2-33.3-29-42.7-53.8 4.5-18.5 11.6-46.6 6.2-64.2-4.7-29.4-42.4-26.5-47.8-6.8-5 18.3-.4 44.1 8.1 77-11.6 27.6-28.7 64.6-40.8 85.8-.1 0-.1.1-.2.1-27.1 13.9-73.6 44.5-54.5 68 5.6 6.9 16 10 21.5 10 17.9 0 35.7-18 61.1-61.8 25.8-8.5 54.1-19.1 79-23.2 21.7 11.8 47.1 19.5 64 19.5 29.2 0 31.2-32 19.7-43.4-13.9-13.6-54.3-9.7-73.6-7.2zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-74.1 255.3c4.1-2.7-2.5-11.9-42.8-9 37.1 15.8 42.8 9 42.8 9z"/>
+    </symbol>
+
     <symbol id="icon-envelope" viewBox="0 0 32 32">
       <title>envelope</title>
       <path d="M32 12.679v14.179c0 1.571-1.286 2.857-2.857 2.857h-26.286c-1.571 0-2.857-1.286-2.857-2.857v-14.179c0.536 0.589 1.143 1.107 1.804 1.554 2.964 2.018 5.964 4.036 8.875 6.161 1.5 1.107 3.357 2.464 5.304 2.464h0.036c1.946 0 3.804-1.357 5.304-2.464 2.911-2.107 5.911-4.143 8.893-6.161 0.643-0.446 1.25-0.964 1.786-1.554zM32 7.429c0 2-1.482 3.804-3.054 4.893-2.786 1.929-5.589 3.857-8.357 5.804-1.161 0.804-3.125 2.446-4.571 2.446h-0.036c-1.446 0-3.411-1.643-4.571-2.446-2.768-1.946-5.571-3.875-8.339-5.804-1.268-0.857-3.071-2.875-3.071-4.5 0-1.75 0.946-3.25 2.857-3.25h26.286c1.554 0 2.857 1.286 2.857 2.857z"></path>
     </symbol>
+
     <symbol id="icon-rss-square" viewBox="0 0 27 32">
       <title>rss-square</title>
       <path d="M9.143 22.857c0-1.268-1.018-2.286-2.286-2.286s-2.286 1.018-2.286 2.286 1.018 2.286 2.286 2.286 2.286-1.018 2.286-2.286zM15.411 24.536c-0.304-5.536-4.696-9.929-10.232-10.232-0.161-0.018-0.321 0.054-0.429 0.161s-0.179 0.25-0.179 0.411v2.286c0 0.304 0.232 0.554 0.536 0.571 3.661 0.268 6.607 3.214 6.875 6.875 0.018 0.304 0.268 0.536 0.571 0.536h2.286c0.161 0 0.304-0.071 0.411-0.179s0.179-0.268 0.161-0.429zM22.268 24.554c-0.304-9.286-7.821-16.804-17.107-17.107-0.179-0.018-0.304 0.036-0.411 0.161-0.107 0.107-0.179 0.25-0.179 0.411v2.286c0 0.304 0.25 0.554 0.554 0.571 7.411 0.268 13.446 6.304 13.714 13.714 0.018 0.304 0.268 0.554 0.571 0.554h2.286c0.161 0 0.304-0.071 0.411-0.179 0.125-0.107 0.179-0.25 0.161-0.411zM27.429 7.429v17.143c0 2.839-2.304 5.143-5.143 5.143h-17.143c-2.839 0-5.143-2.304-5.143-5.143v-17.143c0-2.839 2.304-5.143 5.143-5.143h17.143c2.839 0 5.143 2.304 5.143 5.143z"></path>
@@ -70,7 +76,7 @@
 <div id="content">
 <header>
 <h1 class="title">Deepak Cherian</h1>
-<p class="subtitle">physical oceanographer, postdoctoral fellow I<br /> National Center for Atmospheric Research <br /> <a class="email" href="mailto:dcherian@ucar.edu"> dcherian@ucar.edu</a> | +1 303-497-1713 | Mesa Lab 400 <br /><a class="logo" href="rss.xml"><svg class="logo feed-logo"><title>RSS feed</title><use xlink:href="#icon-rss-square"></use></svg></a> <a class="logo" href="https://github.com/dcherian"><svg class="logo"><title>Github profile</title><use xlink:href="#icon-github"></use></svg></a><a class="logo" href="https://orcid.org/0000-0002-6861-8734" rel="noopener noreferrer"><svg class="logo"><title>ORCID profile</title><use xlink:href="#icon-Orcid"></use></svg></a><a class="logo" href="https://scholar.google.com/citations?user=8FbYoygAAAAJ"><svg class="logo"><title>Google Scholar profile</title><use xlink:href="#icon-GoogleScholar"></use></svg></a></p>
+<p class="subtitle">physical oceanographer; project scientist I<br /> National Center for Atmospheric Research <br /> <a class="email" href="mailto:dcherian@ucar.edu"> dcherian@ucar.edu</a> | +1 303-497-1713 | Mesa Lab 400 <br /><a class="logo" href="rss.xml"><svg class="logo feed-logo"><title>RSS feed</title><use xlink:href="#icon-rss-square"></use></svg></a> <a class="logo" href="https://github.com/dcherian"><svg class="logo"><title>Github profile</title><use xlink:href="#icon-github"></use></svg></a><a class="logo" href="https://orcid.org/0000-0002-6861-8734" rel="noopener noreferrer"><svg class="logo"><title>ORCID profile</title><use xlink:href="#icon-Orcid"></use></svg></a><a class="logo" href="https://scholar.google.com/citations?user=8FbYoygAAAAJ"><svg class="logo"><title>Google Scholar profile</title><use xlink:href="#icon-GoogleScholar"></use></svg></a></p>
 </header><nav class="menu">
 <ul>
 <li><a href="static/Deepak-Cherian-CV.pdf">CV</a></li>
@@ -87,7 +93,7 @@
 <h2 id="research">Research</h2>
 <div class="outline-text-2" id="text-research">
 <p>
-Themes include small-scale turbulence &amp; mixing, mesoscale oceanic eddies, baroclinic instabilities, continental shelf flow and equatorial dynamics. My toolkit includes observational records from moored and satellite platforms as well as high resolution realistic and idealized process-study models.
+Small-scale turbulence &amp; mixing, mesoscale oceanic eddies, baroclinic instabilities, continental shelf flow and equatorial dynamics. My toolkit includes observational records from moored and satellite platforms as well as high resolution realistic and idealized process-study models.
 </p>
 </div>
 
@@ -140,7 +146,7 @@ With other collaborators at UW and NOAA/PMEL, we are working to understand the h
 <h4 id="org098cfd4">Mixing measurements in the Bay of Bengal</h4>
 <div class="outline-text-4" id="text-org098cfd4">
 <p class="coauthors">
-With <a href="http://people.oregonstate.edu/~shroyere/Welcome.html" class="coauthors">Emily Shroyer (OSU)</a>, <a href="http://mixing.coas.oregonstate.edu/people/jmoum/">Jim Moum (OSU)</a> &amp; the <a href="http://mixing.coas.oregonstate.edu/">OSU Ocean Mixing Group</a> | <a href="research/bay.html">More</a>
+With <a href="http://people.oregonstate.edu/~shroyere/Welcome.html" class="coauthors">Emily Shroyer (OSU)</a>, <a href="http://mixing.coas.oregonstate.edu/people/jmoum/">Jim Moum (OSU)</a> and the <a href="http://mixing.coas.oregonstate.edu/">OSU Ocean Mixing Group</a> | <a href="static/Cherian-et-al-2019-nrl-chipods.pdf">Read the paper!</a>  | <a href="research/bay.html">More</a>
 </p>
 
 
