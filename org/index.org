@@ -1,5 +1,5 @@
 #+TITLE: Deepak Cherian
-#+SUBTITLE: physical oceanographer, postdoctoral fellow I@@html:<br />@@ National Center for Atmospheric Research @@html:<br /> <a class="email" href="mailto:dcherian@ucar.edu"> dcherian@ucar.edu</a> | +1 303-497-1713 | Mesa Lab 400 <br /><a class="logo" href="rss.xml"><svg class="logo feed-logo"><title>RSS feed</title><use xlink:href="#icon-rss-square"></use></svg></a> <a class="logo" href="https://github.com/dcherian"><svg class="logo"><title>Github profile</title><use xlink:href="#icon-github"></use></svg></a><a class="logo" href="https://orcid.org/0000-0002-6861-8734" rel="noopener noreferrer"><svg class="logo"><title>ORCID profile</title><use xlink:href="#icon-Orcid"></use></svg></a><a class="logo" href="https://scholar.google.com/citations?user=8FbYoygAAAAJ"><svg class="logo"><title>Google Scholar profile</title><use xlink:href="#icon-GoogleScholar"></use></svg></a>@@
+#+SUBTITLE: physical oceanographer; project scientist I@@html:<br />@@ National Center for Atmospheric Research @@html:<br /> <a class="email" href="mailto:dcherian@ucar.edu"> dcherian@ucar.edu</a> | +1 303-497-1713 | Mesa Lab 400 <br /><a class="logo" href="rss.xml"><svg class="logo feed-logo"><title>RSS feed</title><use xlink:href="#icon-rss-square"></use></svg></a> <a class="logo" href="https://github.com/dcherian"><svg class="logo"><title>Github profile</title><use xlink:href="#icon-github"></use></svg></a><a class="logo" href="https://orcid.org/0000-0002-6861-8734" rel="noopener noreferrer"><svg class="logo"><title>ORCID profile</title><use xlink:href="#icon-Orcid"></use></svg></a><a class="logo" href="https://scholar.google.com/citations?user=8FbYoygAAAAJ"><svg class="logo"><title>Google Scholar profile</title><use xlink:href="#icon-GoogleScholar"></use></svg></a>@@
 #+EMAIL: deepak@cherian.net
 #+KEYWORDS: physical oceanography, eddies, science, ocean
 #+OPTIONS: h:6
@@ -19,11 +19,17 @@
 </nav>
 #+END_EXPORT
 
+#+BEGIN_COMMENT
+#+BEGIN_EXPORT html
+<a class="logo" href="https://scholar.google.com/citations?user=8FbYoygAAAAJ"><svg class="logo"><title>Google Scholar profile</title><use xlink:href="#icon-pdf"></use></svg></a>
+#+END_EXPORT
+#+END_COMMENT
+
 * Research
 :PROPERTIES:
 :CUSTOM_ID: research
 :END:
-Themes include small-scale turbulence & mixing, mesoscale oceanic eddies, baroclinic instabilities, continental shelf flow and equatorial dynamics. My toolkit includes observational records from moored and satellite platforms as well as high resolution realistic and idealized process-study models.
+Small-scale turbulence & mixing, mesoscale oceanic eddies, baroclinic instabilities, continental shelf flow and equatorial dynamics. My toolkit includes observational records from moored and satellite platforms as well as high resolution realistic and idealized process-study models.
 
 *** Linking microstructure measurements to the mesoscale
 :PROPERTIES:
@@ -63,7 +69,7 @@ With other collaborators at UW and NOAA/PMEL, we are working to understand the h
 :END:
 
 #+ATTR_HTML: :class coauthors
-With [[http://people.oregonstate.edu/~shroyere/Welcome.html][Emily Shroyer (OSU)]], [[http://mixing.coas.oregonstate.edu/people/jmoum/][Jim Moum (OSU)]] & the [[http://mixing.coas.oregonstate.edu/][OSU Ocean Mixing Group]] | [[file:research/bay.org][More]]
+With [[http://people.oregonstate.edu/~shroyere/Welcome.html][Emily Shroyer (OSU)]], [[http://mixing.coas.oregonstate.edu/people/jmoum/][Jim Moum (OSU)]] and the [[http://mixing.coas.oregonstate.edu/][OSU Ocean Mixing Group]] | [[file:static/Cherian-et-al-2019-nrl-chipods.pdf][Read the paper!]]  | [[file:research/bay.org][More]]
 
 #+ATTR_HTML: :style width:100%
 [[file:static/bay-turbulence-summary.png]]
@@ -133,7 +139,7 @@ Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculat
 
 - Rypina I.I., Pratt L.J.; Entner S.; Anderson A.; *Cherian D.A.* /submitted./ The Influence of an Eddy in the Success Rates and Distributions of Passively Advected or Actively Swimming Biological Organisms Crossing the Continental Slope. /Journal of Physical Oceanography/
 
-- *Cherian, D.A.*, Shroyer, E.L., Wijesekera, H.W., Moum, J.N. (2019; in press) The seasonal cycle of upper-ocean mixing at 8°N in the Bay of Bengal. /Journal of Physical Oceanography/. [[https://journals.ametsoc.org/doi/abs/10.1175/JPO-D-19-0114.1][DOI]] [[file:static/Cherian-et-al-2019-nrl-chipods.pdf][PDF]].
+- *Cherian, D.A.*, Shroyer, E.L., Wijesekera, H.W., Moum, J.N. (2020) The seasonal cycle of upper-ocean mixing at 8°N in the Bay of Bengal. /Journal of Physical Oceanography/. 50, 323-342 [[https://journals.ametsoc.org/doi/abs/10.1175/JPO-D-19-0114.1][DOI]] [[file:static/Cherian-et-al-2019-nrl-chipods.pdf][PDF]].
 
 - *Cherian, D.A.*, Brink, K.H. (2018) Shelf flows forced by deep-ocean anticyclonic eddies at the shelfbreak. /Journal of Physical Oceanography/. 48, 1117–1138. [[https://doi.org/10.1175/JPO-D-17-0237.1][DOI]] [[file:static/Cherian-Brink-2018-JPO.pdf][PDF]].
 
