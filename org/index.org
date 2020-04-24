@@ -11,9 +11,9 @@
 <li><a href="static/Deepak-Cherian-CV.pdf">CV</a></li>
 <li><a href="#research">Research</a></li>
 <li><a href="#publications">Publications</a></li>
+<li><a href="#posts">Posts</a></li>
 <li><a href="#teaching">Teaching</a></li>
 <li><a href="#contact">Contact</a></li>
-<li><a href="#posts">Posts</a></li>
 <li><a href="#links">Links</a></li>
 </ul>
 </nav>
@@ -158,6 +158,19 @@ Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculat
 - *Cherian D.A.*, Farrar J.T., Durland T.S. /in prep./ The upper-ocean vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific. (draft available on request)
 
 
+* Posts
+:PROPERTIES:
+:CUSTOM_ID: posts
+:END:
+1. [[file:posts/podaac-l2p.org][Using podaacpy to subset Level-2P satellite swath data]]
+2. [[file:posts/python-debugging.org][Debugging in python]]
+3. [[file:posts/bokeh-org-mode.org][bokeh and Emacs org-mode]]
+4. An IPython notebook demonstrating xkcd-style schematics using matplotlib: [[https://github.com/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb][Github]] | [[https://nbviewer.jupyter.org/github/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb][nbviewer]]
+5. [[file:posts/paper-quotes.org][Interesting quotes from the scientific literature]] (frequently updated)
+6. [[file:posts/reproducible-research-1.org][A setup for reproducible research]]
+7. [[file:static/living-with-roms.pdf][Living with ROMS]] - Some notes on ROMS
+8. [[file:posts/hemingway-cocktail.org]["Death in the Gulf Stream" - A Hemingway cocktail]]
+# 4. [[file:posts/po-movies.org][Some movies relevant to physical oceanographers]]
 * Teaching
 :PROPERTIES:
 :CUSTOM_ID: teaching
@@ -181,19 +194,6 @@ Office Address: 1850 Table Mesa Drive, Mesa Lab 400, Boulder, CO
 
 Phone: +1 303-497-1713
 
-* Posts
-:PROPERTIES:
-:CUSTOM_ID: posts
-:END:
-1. [[file:posts/reproducible-research-1.org][A setup for reproducible research]]
-2. [[file:posts/hemingway-cocktail.org]["Death in the Gulf Stream" - A Hemingway cocktail]]
-3. [[file:static/living-with-roms.pdf][Living with ROMS]] - Some notes on ROMS
-4. [[file:posts/paper-quotes.org][Interesting quotes from the scientific literature]] (frequently updated)
-5. An IPython notebook demonstrating xkcd-style schematics using matplotlib: [[https://github.com/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb][Github]] | [[https://nbviewer.jupyter.org/github/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb][nbviewer]]
-6. [[file:posts/bokeh-org-mode.org][bokeh and Emacs org-mode]]
-7. [[file:posts/python-debugging.org][Debugging in python]]
-8. [[file:posts/podaacpy-l2p.org][Using podaacpy to subset Level-2P satellite swath data]]
-# 4. [[file:posts/po-movies.org][Some movies relevant to physical oceanographers]]
 * Links
 :PROPERTIES:
 :CUSTOM_ID: links
