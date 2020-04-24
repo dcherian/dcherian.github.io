@@ -2,6 +2,7 @@
 #+DATE: 24 Apr 2020
 #+OPTIONS: toc:nil num:2
 #+PROPERTY: header-args :eval never-export :exports code
+#+KEYWORDS: podaac, podaacpy, l2p, subset, swath, modis, aqua
 
 This post will quickly demonstrate how to use the awesome ~podaacpy~ python package to access Level-2 satellite data on PO.DAAC. Only a few datasets have been updated to include the information necessary to subset. There is a list somewhere but I cannot find it anymore.
 
