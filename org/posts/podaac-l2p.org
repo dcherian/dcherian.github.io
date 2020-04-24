@@ -1,0 +1,152 @@
+#+TITLE:  Using podaacpy to subset Level-2P satellite swath data
+#+DATE: 24 Apr 2020
+#+OPTIONS: toc:nil num:2
+#+PROPERTY: header-args :eval never-export :exports code
+
+This post will quickly demonstrate how to use the awesome ~podaacpy~ python package to access Level-2 satellite data on PO.DAAC. Only a few datasets have been updated to include the information necessary to subset. There is a list somewhere but I cannot find it anymore.
+
+~podaacpy~ does have a [[https://podaacpy.readthedocs.io/en/latest/l2ss.html][Level-2 Subsetting Service (L2SS) API]] but I had trouble getting this to work in an efficient manner.
+
+Instead the approach here is:
+1. Query the server for all files in a dataset within a given bounding box;
+2. Parse the server response for URLs;
+3. Save those URLs to a file.
+4. Use ~xargs~ and ~wget~ to download the files in parallel
+
+* Preliminaries
+
+First the required imports and initialize a ~Drive~ instance. You will need PO.DAAC credentials for this. These credentials can be specified either in ~podaac.ini~ or passed explicitly as done here.
+Docs here: https://podaacpy.readthedocs.io/en/latest/drive.html#drive.Drive
+
+#+BEGIN_SRC python :exports code
+import pdb
+import podaac as po
+import podaac.podaac as podaac
+import podaac.podaac_utils as utils
+from podaac import drive as drive
+import tqdm
+import warnings
+
+from xml.dom import minidom
+
+
+d = drive.Drive(None, username=YOUR_USERNAME, password=YOUR_PASSWORD)
+p = podaac.Podaac()
+u = utils.PodaacUtils()
+#+END_SRC
+
+* Asking the server for results
+
+Now we tell ~podaacpy~ the dataset and bounding box for the subset we want. The ~dataset_id~ can be found by looking for "Persistent ID" at the bottom of the PO.DAAC description page for the dataset. For example, see https://podaac.jpl.nasa.gov/dataset/MODIS_A-JPL-L2P-v2019.0
+
+This dictionary specifies the dataset and the space/time bounds for the subset we want.
+#+BEGIN_SRC python
+# dataset_id is "Peristent ID" at bottom of PODAAC page
+# if bbox is specified, need the T...Z in start_time, end_time
+kwargs = dict(
+    dataset_id="PODAAC-GHMDA-2PJ19",  # Aqua v2019
+    start_time="2018-09-20T00:00:00Z",
+    end_time="2018-10-01T00:00:00Z",
+    bbox="-125.5,40,-123.5,50",
+    items_per_page="400",  # 400 seems to be max
+)
+#+END_SRC
+
+~p.granule_search~ asks PO.DAAC to search for all files matching the request.
+
+#+BEGIN_SRC python
+result = p.granule_search(**kwargs, start_index="1")
+
+try:
+    doc = minidom.parseString(result)
+
+    num_granules = int(
+        doc.getElementsByTagName("opensearch:totalResults")[0].firstChild.nodeValue
+    )
+except:
+    raise ValueError("Decoding response failed. Printing response below...")
+    print(result)
+
+print(f"Found {num_granules} granules.")
+#+END_SRC
+
+If all goes well this should print the total number of granules (or files) the request found.
+
+The response from the server is in XML which can be painful to deal with (if you don't know what you're doing, like me) and looks like this: https://podaac.jpl.nasa.gov/ws/search/granule/?datasetId=PODAAC-GHMDA-2PJ19. For each file, the response contains an OPeNDAP URL which is what we want.
+
+* Parse the xml response to find OPeNDAP URLs
+
+ Luckily ~podaacpy~ has two very useful functions to deal with the xml response
+1. [[https://podaacpy.readthedocs.io/en/latest/utilities.html#podaac_utils.PodaacUtils.mine_granules_from_granule_search][~mine_granules_from_granule_search~]]
+2. [[https://podaacpy.readthedocs.io/en/latest/utilities.html#podaac_utils.PodaacUtils.mine_opendap_urls_from_granule_search][~mine_opendap_urls_from_granule_search~]]
+
+Other helpful utility functions can be found here: https://podaacpy.readthedocs.io/en/latest/utilities.html
+
+Now we loop through, and parse the response page by page. This is because the server will only respond with one page of results at a time (https://podaac.jpl.nasa.gov/forum/viewtopic.php?f=53&t=568). So we call ~granule_search~ in a loop and pass it a different ~start_index~ each time. We then generate file names and get OPeNDAP URLs. I found this page to also be useful: https://podaac.jpl.nasa.gov/forum/viewtopic.php?f=5&t=964
+
+I am only interested in nighttime passes so I added a simple function ~filter_night~ to pull these out based on the file name.
+
+#+BEGIN_SRC python
+def filter_night(string):
+    return "MODIS_A-N-" in string
+
+
+nitems = int(kwargs["items_per_page"])
+name_list = []
+url_list = []
+for start in range(1, num_granules + 1, nitems):
+    for attempt in range(1, 11):
+        print(f"{start}, {attempt}")
+        result = p.granule_search(**kwargs, start_index=str(start))
+
+        names = u.mine_granules_from_granule_search(result)
+        urls = u.mine_opendap_urls_from_granule_search(result)
+
+        if start + len(names) != num_granules:
+            try:
+                assert len(names) == nitems
+                assert len(urls) == nitems
+            except AssertionError:
+                print(
+                    f"\n{len(names)} < {nitems} items returned. retrying attempt {attempt}..."
+                )
+            else:
+                break
+        else:
+            break
+    else:
+        warnings.warn("Invalid data returned. even after 10 attempts.", UserWarning)
+        pdb.set_trace()
+
+    names = list(filter(filter_night, names))
+    urls = list(filter(filter_night, urls))
+
+    name_list += names
+    url_list += urls
+#+END_SRC
+
+
+Now we have a list of file names ~name_list~ and a list of URLs ~url_list~. We build a download command from these two and write that to a text file. Note that we can subset the file to keep the variables we want at this point. I found it useful to actually open one of the OPeNDAP URLs in a browser and click around to figure out what variables are available.
+
+#+BEGIN_SRC python
+def make_wget_str(url, name):
+    """ chooses netCDF4 and subsets to needed variables."""
+    return (
+        f"{url[:-5]}.nc4?lat,lon,time,sea_surface_temperature,quality_level,l2p_flags"
+        f" -O 'modis/{name}'"
+    )
+
+
+with open("url-list.txt", "w") as f:
+    f.write("\n".join(map(make_wget_str, sorted(url_list), sorted(name_list))))
+#+END_SRC
+
+* Download!
+
+Finally we can download the URLs in this file in parallel using this ~xargs~ command. ~-P 4~ specified 4 parallel processes.
+
+#+BEGIN_SRC
+xargs -P 4 --replace --verbose --arg-file=url-list.txt /bin/sh -c "wget {}"
+#+END_SRC
+
+Each line is read and inserted at the location of ~{}~ so there is one ~wget~ command per line in ~url-list.txt~.

@@ -192,6 +192,7 @@ Phone: +1 303-497-1713
 5. An IPython notebook demonstrating xkcd-style schematics using matplotlib: [[https://github.com/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb][Github]] | [[https://nbviewer.jupyter.org/github/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb][nbviewer]]
 6. [[file:posts/bokeh-org-mode.org][bokeh and Emacs org-mode]]
 7. [[file:posts/python-debugging.org][Debugging in python]]
+8. [[file:posts/podaacpy-l2p.org][Using podaacpy to subset Level-2P satellite swath data]]
 # 4. [[file:posts/po-movies.org][Some movies relevant to physical oceanographers]]
 * Links
 :PROPERTIES:
