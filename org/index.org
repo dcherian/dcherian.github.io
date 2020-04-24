@@ -48,21 +48,29 @@ a) moored measurements from the *χpod* of Moum & Nash (2009), and
 b) basin-wide GO-SHIP transects from the *CTD-χpod* (Pickering & Nash, unpublished).
 We will interpret the χpod measurements using the triple decomposition framework of [[http://www.soest.hawaii.edu/PubServices/2001pdfs/Garrett.pdf][Garrett (2001)]]. Above [left] is a preliminary estimate for the P06 section at 24°S in the Pacific Ocean. For comparison, we show an estimate based on Argo finestructure (Cole et. al., 2015) as well as an estimate using passive tracers advected by altimetric velocities  (Abernathey & Marshall, 2013). [right] Density bins used for the computation are marked on a T-S plot.
 
-*** The equatorial Pacific cold tongue
+*** Turbulence in the equatorial Pacific cold tongue
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: research
 :HTML_CONTAINER: article
 :END:
 
 #+ATTR_HTML: :class coauthors
-With [[https://danielwhitt.github.io/][Dan Whitt (NCAR)]], [[https://staff.ucar.edu/users/bachman][Scott Bachman (NCAR)]], [[https://staff.ucar.edu/users/bryan][Frank Bryan (NCAR)]], [[https://rmholmes.github.io/][Ryan Holmes (UNSW)]]
+With [[https://danielwhitt.github.io/][Dan Whitt (NCAR)]], [[https://staff.ucar.edu/users/bachman][Scott Bachman (NCAR)]], [[https://rmholmes.github.io/][Ryan Holmes (UNSW)]], [[https://staff.ucar.edu/users/wily][Bill Large (NCAR)]], [[http://www.apl.uw.edu/people/profile.php?last_name=Lien&first_name=Ren-Chieh][R-C. Lien (UW APL)]]
 
 #+ATTR_HTML: :style width:100%
 [[file:static/eq-pac-sst.png]]
 
-With other collaborators at UW and NOAA/PMEL, we are working to understand the heat budget of the equatorial cold tongue using a series of high resolution nested simulations of the eastern equatorial Pacific [above: SST from a MITgcm simulation courtesy Scott Bachman]. This work is funded by [[https://cpo.noaa.gov/Meet-the-Divisions/Earth-System-Science-and-Modeling/CVP][NOAA's Climate Variability and Predictability (CVP)]] program.
+We are studying turbulence in the equatorial cold tongue using a series of high resolution nested simulations of the eastern equatorial Pacific. This work is funded by [[https://cpo.noaa.gov/Meet-the-Divisions/Earth-System-Science-and-Modeling/CVP][NOAA's Climate Variability and Predictability (CVP)]] program.
 
-*** Mixing measurements in the Bay of Bengal
+One cool result so far is the presence of deep cycle turbulence off the equator in the cold cusp of Tropical Instability Waves (TIWs). This video demonstrates this using an animation of 4-hourly SST (top) and average turbulence heat flux in the top 150m (bottom; parameterized using KPP). Initially the mixed layer is included and there is a pronounced daily cycle throughout the domain. About 20 seconds in, the mixed layer is removed and a daily cycle of mixing persists in the TIW cold cusp both on and off the equator. TIWs have been observed to modulate the equatorial deep cycle at 140W (Moum et al, 2009; Inoue et al 2012; Inoue et al 2019) but no observations of an off-equatorial deep cycle exist to date.
+
+#+ATTR_HTML: :controls controls
+#+BEGIN_video
+#+HTML: <source src="static/eq-pac-tiw-dcl.mp4" type="video/mp4">
+Your browser does not support the video tag.
+#+END_video
+
+*** Turbulence and lack of turbulence in the Bay of Bengal
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: research
 :HTML_CONTAINER: article
@@ -76,10 +84,7 @@ With [[http://people.oregonstate.edu/~shroyere/Welcome.html][Emily Shroyer (OSU)
 
 Multiple year-long moored turbulent mixing measurements collected using fast temperature sensors ([[http://mixing.coas.oregonstate.edu/papers/mixing_measurements.pdf][χ-pods]]) as part of the [[http://journals.ametsoc.org/doi/10.1175/BAMS-D-14-00197.1][ASIRI]]/EBoB/[[https://www.pmel.noaa.gov/gtmba/pmel-theme/indian-ocean-rama][RAMA]] programmes paint a picture of mixing across the Bay of Bengal that spans multiple time scales: interannual to diurnal and shorter.
 
-Interesting signals include interannual & intraseasonal variability, a daily cycle in turbulence, depressed turbulence in barrier layers, elevated mixing associated with the tropical cyclones and a quiet ocean below 50m.
-
-An estimate of the vertical structure of diffusivity /K_T/ is available [[file:research/bay.org][here]].
-
+Interesting signals include interannual & intraseasonal variability, a daily cycle in turbulence, depressed turbulence in barrier layers, elevated mixing associated with the tropical cyclones and a quiet ocean below 50m. To me, the coolest result is the absence of turbulence in April at 100m i.e. inferred diffusivity values are near-molecular!
 *** Shelf flows forced by mesoscale eddies
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: research
