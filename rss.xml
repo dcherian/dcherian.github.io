@@ -14,9 +14,9 @@
   <link>http://www.cherian.net/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Sat, 28 Dec 2019 19:54:56 -0700</pubDate>
-  <lastBuildDate>Sat, 28 Dec 2019 19:54:56 -0700</lastBuildDate>
-  <generator>Emacs 27.0 Org-mode 9.3.1</generator>
+  <pubDate>Fri, 24 Apr 2020 09:48:26 -0600</pubDate>
+  <lastBuildDate>Fri, 24 Apr 2020 09:48:26 -0600</lastBuildDate>
+  <generator>Emacs 27.0 Org-mode 9.3.6</generator>
   <webMaster>deepak@darya (Deepak Cherian)</webMaster>
   <image>
     <url>https://orgmode.org/img/org-mode-unicorn-logo.png</url>
@@ -317,10 +317,10 @@
     Add the following at the top of my org file to use locally downloaded versions of bokeh. Note that versions need to match/be compatible with what you have installed (<code>bokeh.__version__</code>).
     </p>
     <div class="org-src-container">
-    <pre class="src src-org"><span style="color: #586e75; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-0.12.10.min.css" type="text/css" /&gt;</span>
-    <span style="color: #586e75; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.css" type="text/css" /&gt;</span>
-    <span style="color: #586e75; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-0.12.10.min.js"&gt;&lt;/script&gt;</span>
-    <span style="color: #586e75; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.js"&gt;&lt;/script&gt;</span>
+    <pre class="src src-org"><span style="color: #93a1a1; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-0.12.10.min.css" type="text/css" /&gt;</span>
+    <span style="color: #93a1a1; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.css" type="text/css" /&gt;</span>
+    <span style="color: #93a1a1; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-0.12.10.min.js"&gt;&lt;/script&gt;</span>
+    <span style="color: #93a1a1; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.js"&gt;&lt;/script&gt;</span>
     </pre>
     </div></li>
 
@@ -402,14 +402,14 @@
     Either include a css file or add a style tag to <code>HTML_HEAD</code> at the top of your org file.
     </p>
     <div class="org-src-container">
-    <pre class="src src-org"><span style="color: #586e75; font-style: italic;">   #+HTML_HEAD: &lt;style&gt; add-stuff-here &lt;/style&gt;</span>
+    <pre class="src src-org"><span style="color: #93a1a1; font-style: italic;">   #+HTML_HEAD: &lt;style&gt; add-stuff-here &lt;/style&gt;</span>
     </pre>
     </div></li>
     <li><p>
     Targeting the css class <code>bk-plot-layout</code> lets you center the image. <code>bk-grid-column</code> does it for <code>gridplot</code>
     </p>
     <div class="org-src-container">
-    <pre class="src src-css">   <span style="color: #268bd2;">.bk-plot-layout .bk-grid-column </span>{ <span style="color: #859900;">max-width</span>: 100%; <span style="color: #859900;">margin</span>: auto;}
+    <pre class="src src-css">   <span style="color: #268bd2;">.bk-plot-layout .bk-grid-column </span>{ <span style="color: #859900; font-weight: bold;">max-width</span>: 100%; <span style="color: #859900; font-weight: bold;">margin</span>: auto;}
     </pre>
     </div></li>
     </ol>
@@ -850,13 +850,13 @@
   <li><a id="Ruddick1983">[Ruddick1983]</a> <a name="Ruddick1983"></a>Ruddick, A Practical Indicator of the Stability of the Water Column to Double-Diffusive Activity, <i>Deep Sea Res. Part Oceanogr. Res. Pap.</i>, <b>30(10)</b>, 1105-1107 (1983). <a href="http://dx.doi.org/10/bmp3xm">doi</a>.</li>
   <li><a id="Gregg1986">[Gregg1986]</a> <a name="Gregg1986"></a>Gregg, D'Asaro, Shay & Larson, Observations of Persistent Mixing and Near-Inertial Internal Waves, <i>J. Phys. Oceanogr.</i>, <b>16(5)</b>, 856-885 (1986). <a href="http://dx.doi.org/10.1175/1520-0485(1986)016<0856:OOPMAN>2.0.CO;2">doi</a>.</li>
   <li><a id="Stommel1966">[Stommel1966]</a> <a name="Stommel1966"></a>@incollectionStommel1966,
-  address = Cambridge,
   title = The Large-Scale Oceanic Circulation,
   booktitle = Advances in Earth Science,
-  publisher = MIT Press,
   author = Stommel, H.M.,
   year = 1966,
-  pages = 175-184
+  pages = 175-184,
+  publisher = MIT Press,
+  address = Cambridge
   </li>
   <li><a id="Jain2017">[Jain2017]</a> <a name="Jain2017"></a>Jain, Shankar, Vinayachandran, Kankonkar, Chatterjee, Amol, Almeida, Michael, Mukherjee, Chatterjee, Fernandes, Luis, Kamble, Hegde, Chatterjee, Das & Neema, Evidence for the Existence of Persian Gulf Water and Red Sea Water in the Bay of Bengal, <i>Clim. Dyn.</i>, <b>48(9-10)</b>, 3207-3226 (2017). <a href="http://dx.doi.org/10.1007/s00382-016-3259-4">doi</a>.</li>
   <li><a id="Pierrehumbert2010">[Pierrehumbert2010]</a> <a name="Pierrehumbert2010"></a>Pierrehumbert, Principles of Planetary Climate, Cambridge University Press (2010).</li>
@@ -870,9 +870,9 @@
   <li><a id="Munk1981">[Munk1981]</a> <a name="Munk1981"></a>@incollectionMunk1981,
   title = Internal Waves and Small-Scale Processes,
   booktitle = Evolution of Physical Oceanography,
-  publisher = MIT Press,
   author = Munk, W.,
   year = 1981,
+  publisher = MIT Press,
   file = /home/deepak/Papers/Munk-1981-Internal_Waves_and_Small-Scale_Processes.pdf
   </li>
   <li><a id="Wunsch2009">[Wunsch2009]</a> <a name="Wunsch2009"></a>Wunsch, Heimbach, Ponte & Fukumori, The Global General Circulation of the Ocean Estimated by the ECCO-Consortium, <i>Oceanography</i>, <b>22(2)</b>, 88-103 (2009). <a href="http://dx.doi.org/10.5670/oceanog.2009.41">doi</a>.</li>
@@ -988,25 +988,25 @@
   </p>
 
   <div class="org-src-container">
-  <pre class="src src-matlab">   <span style="color: #859900;">function</span> <span style="color: #268bd2;">[hash]</span> = <span style="color: #268bd2;">githash</span>(<span style="color: #268bd2;">fname</span>, <span style="color: #268bd2;">gitdir</span>)
+  <pre class="src src-matlab">   <span style="color: #859900; font-weight: bold;">function</span> <span style="color: #268bd2;">[hash]</span> = <span style="color: #268bd2;">githash</span>(<span style="color: #268bd2;">fname</span>, <span style="color: #268bd2;">gitdir</span>)
 
-  <span style="color: #859900;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'fname'</span>, <span style="color: #2aa198;">'var'</span>)
+  <span style="color: #859900; font-weight: bold;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'fname'</span>, <span style="color: #2aa198;">'var'</span>)
   fname = <span style="color: #2aa198;">'.'</span>;
-  <span style="color: #859900;">end</span>
+  <span style="color: #859900; font-weight: bold;">end</span>
 
-  <span style="color: #859900;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'gitdir'</span>, <span style="color: #2aa198;">'var'</span>)
+  <span style="color: #859900; font-weight: bold;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'gitdir'</span>, <span style="color: #2aa198;">'var'</span>)
   gitdir = <span style="color: #2aa198;">''</span>;
-  <span style="color: #859900;">else</span>
+  <span style="color: #859900; font-weight: bold;">else</span>
   gitdir = [<span style="color: #2aa198;">'--git-dir='</span> gitdir];
-  <span style="color: #859900;">end</span>
+  <span style="color: #859900; font-weight: bold;">end</span>
 
   [<span style="color: #b58900;">~</span>, hashout] = system([<span style="color: #2aa198;">'TERM=xterm git '</span> gitdir ...
   <span style="color: #2aa198;">' log -n 1 --no-color --pretty=format:''%H'' '''</span> ...
   fname <span style="color: #2aa198;">''' &lt; /dev/null'</span>]);
 
-  <span style="color: #586e75;">% remove bash escape characters</span>
+  <span style="color: #93a1a1;">% remove bash escape characters</span>
   hash = hashout(9<span style="color: #b58900;">:</span>48)
-  <span style="color: #859900;">end</span>
+  <span style="color: #859900; font-weight: bold;">end</span>
   </pre>
   </div>
 
@@ -1120,13 +1120,13 @@
   To recover the recorded hash, it suffices to call <code>exiftool FILENAME</code> which will print all metadata stored in the image; not just the hash. <code>grep</code> can then find the recorded hash:
   </p>
   <div class="org-src-container">
-  <pre class="src src-bash">  <span style="color: #586e75;">#</span><span style="color: #586e75;">!/bin/bash</span>
-  <span style="color: #586e75;"># </span><span style="color: #586e75;">displays saved git hash of a provided file using exiftool</span>
+  <pre class="src src-bash">  <span style="color: #93a1a1;">#</span><span style="color: #93a1a1;">!/bin/bash</span>
+  <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">displays saved git hash of a provided file using exiftool</span>
 
   <span style="color: #268bd2;">file</span>=$<span style="color: #268bd2;">1</span>
   <span style="color: #268bd2;">hash</span>=$(<span style="color: #6c71c4; font-weight: bold;">exiftool</span> $<span style="color: #268bd2;">file</span> | grep -i <span style="color: #2aa198;">"hash:"</span>)
 
-  <span style="color: #b58900;">echo</span> $<span style="color: #268bd2;">hash</span>
+  <span style="color: #657b83; font-weight: bold;">echo</span> $<span style="color: #268bd2;">hash</span>
   </pre>
   </div>
   </div>

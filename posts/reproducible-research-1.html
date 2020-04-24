@@ -68,17 +68,17 @@ The following MATLAB function <code>githash</code> will return the hash of the l
 </p>
 
 <div class="org-src-container">
-<pre class="src src-matlab">   <span style="color: #859900;">function</span> <span style="color: #268bd2;">[hash]</span> = <span style="color: #268bd2;">githash</span>(<span style="color: #268bd2;">fname</span>, <span style="color: #268bd2;">gitdir</span>)
+<pre class="src src-matlab">   <span style="color: #859900; font-weight: bold;">function</span> <span style="color: #268bd2;">[hash]</span> = <span style="color: #268bd2;">githash</span>(<span style="color: #268bd2;">fname</span>, <span style="color: #268bd2;">gitdir</span>)
 
-       <span style="color: #859900;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'fname'</span>, <span style="color: #2aa198;">'var'</span>)
+       <span style="color: #859900; font-weight: bold;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'fname'</span>, <span style="color: #2aa198;">'var'</span>)
            fname = <span style="color: #2aa198;">'.'</span>;
-       <span style="color: #859900;">end</span>
+       <span style="color: #859900; font-weight: bold;">end</span>
 
-       <span style="color: #859900;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'gitdir'</span>, <span style="color: #2aa198;">'var'</span>)
+       <span style="color: #859900; font-weight: bold;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'gitdir'</span>, <span style="color: #2aa198;">'var'</span>)
            gitdir = <span style="color: #2aa198;">''</span>;
-       <span style="color: #859900;">else</span>
+       <span style="color: #859900; font-weight: bold;">else</span>
            gitdir = [<span style="color: #2aa198;">'--git-dir='</span> gitdir];
-       <span style="color: #859900;">end</span>
+       <span style="color: #859900; font-weight: bold;">end</span>
 
        [<span style="color: #b58900;">~</span>, hashout] = system([<span style="color: #2aa198;">'TERM=xterm git '</span> gitdir ...
                            <span style="color: #2aa198;">' log -n 1 --no-color --pretty=format:''%H'' '''</span> ...
@@ -86,7 +86,7 @@ The following MATLAB function <code>githash</code> will return the hash of the l
 
        <span style="color: #93a1a1;">% remove bash escape characters</span>
        hash = hashout(9<span style="color: #b58900;">:</span>48)
-   <span style="color: #859900;">end</span>
+   <span style="color: #859900; font-weight: bold;">end</span>
 </pre>
 </div>
 
@@ -206,7 +206,7 @@ To recover the recorded hash, it suffices to call <code>exiftool FILENAME</code>
   <span style="color: #268bd2;">file</span>=$<span style="color: #268bd2;">1</span>
   <span style="color: #268bd2;">hash</span>=$(<span style="color: #6c71c4; font-weight: bold;">exiftool</span> $<span style="color: #268bd2;">file</span> | grep -i <span style="color: #2aa198;">"hash:"</span>)
 
-  <span style="color: #b58900;">echo</span> $<span style="color: #268bd2;">hash</span>
+  <span style="color: #657b83; font-weight: bold;">echo</span> $<span style="color: #268bd2;">hash</span>
 </pre>
 </div>
 </div>
