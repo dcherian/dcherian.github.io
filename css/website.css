@@ -411,6 +411,19 @@ h1.org-ref-bib-h1 {
     margin: 0 0 0.8em 0;
 }
 
+aside {
+    width: 30%;
+    padding-left: .5rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    float: right;
+    box-shadow: inset 4px 0 5px -5px #268bd2;
+}
+
+aside > p {
+    margin: .5rem;
+}
+
 /*--- Responsive --------------------------------------*/
 
 @media screen and (max-width : 800px){

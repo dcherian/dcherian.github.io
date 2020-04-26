@@ -6,9 +6,10 @@
 
 This post will quickly demonstrate how to use the awesome ~podaacpy~ python package to access Level-2 satellite data on PO.DAAC. Only a few datasets have been updated to include the information necessary to subset. There is a list somewhere but I cannot find it anymore.
 
+#+HTML: <aside>
 ~podaacpy~ does have a [[https://podaacpy.readthedocs.io/en/latest/l2ss.html][Level-2 Subsetting Service (L2SS) API]] but I had trouble getting this to work in an efficient manner.
-
-Instead the approach here is:
+#+HTML: </aside>
+The approach here is:
 1. Query the server for all files in a dataset within a given bounding box;
 2. Parse the server response for URLs;
 3. Save those URLs to a file.
@@ -77,13 +78,17 @@ The response from the server is in XML which can be painful to deal with (if you
 
 * Parse the xml response to find OPeNDAP URLs
 
- Luckily ~podaacpy~ has two very useful functions to deal with the xml response
+#+HTML: <aside>
+Other helpful utility functions can be found [[https://podaacpy.readthedocs.io/en/latest/utilities.html][here]].
+#+HTML: </aside>
+Luckily ~podaacpy~ has two very useful functions to deal with the xml response
 1. [[https://podaacpy.readthedocs.io/en/latest/utilities.html#podaac_utils.PodaacUtils.mine_granules_from_granule_search][~mine_granules_from_granule_search~]]
 2. [[https://podaacpy.readthedocs.io/en/latest/utilities.html#podaac_utils.PodaacUtils.mine_opendap_urls_from_granule_search][~mine_opendap_urls_from_granule_search~]]
 
-Other helpful utility functions can be found here: https://podaacpy.readthedocs.io/en/latest/utilities.html
-
-Now we loop through, and parse the response page by page. This is because the server will only respond with one page of results at a time (https://podaac.jpl.nasa.gov/forum/viewtopic.php?f=53&t=568). So we call ~granule_search~ in a loop and pass it a different ~start_index~ each time. We then generate file names and get OPeNDAP URLs. I found this page to also be useful: https://podaac.jpl.nasa.gov/forum/viewtopic.php?f=5&t=964
+#+HTML: <aside>
+I found [[https://podaac.jpl.nasa.gov/forum/viewtopic.php?f=5&t=964][this page]] to also be useful.
+#+HTML: </aside>
+Now we loop through, and parse the response page by page. This is because the server will only respond with [[https://podaac.jpl.nasa.gov/forum/viewtopic.php?f=53&t=568][one page of results at a time]]. So we call ~granule_search~ in a loop and pass it a different ~start_index~ each time. We then generate file names and get OPeNDAP URLs.
 
 I am only interested in nighttime passes so I added a simple function ~filter_night~ to pull these out based on the file name.
 
