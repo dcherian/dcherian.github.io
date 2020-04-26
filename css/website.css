@@ -95,39 +95,51 @@ a:hover {
 }
 
 /* --- Navigation Menu --- */
-.menu {
-    background-color: #ffffff;
-    /* color: #000; #cb4b16; */
-    position: sticky;		/*fixed */
-    top: 0em;
-    left: 0;
-    width: 100%;
-    line-height: 0.5;
-    z-index: 999;
-    font-size: 1.1em;
-    margin: auto;
-    border-top: 1.0px solid #bbb;
-    border-bottom: 1.0px solid #bbb;
-}
+/* .menu { */
+/*     background-color: #ffffff; */
+/*     /\* color: #000; #cb4b16; *\/ */
+/*     position: sticky;		/\*fixed *\/ */
+/*     top: 0em; */
+/*     left: 0; */
+/*     width: 100%; */
+/*     line-height: 0.5; */
+/*     z-index: 999; */
+/*     font-size: 1.1em; */
+/*     margin: auto; */
+/*     border-top: 1.0px solid #bbb; */
+/*     border-bottom: 1.0px solid #bbb; */
+/* } */
 
 .menu ul {
     padding: 0 0;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    max-width: 42em;
-    margin: 1em auto;
+    display: block;
+    /* max-width: 42em; */
+    /* margin: 1em auto; */
 }
 
-.menu ul:after{
-    margin-bottom: 40px;
-}
+/* .menu ul:after{ */
+/*     margin-bottom: 40px; */
+/* } */
 
 .menu li {
     display: inline;
     padding: 0 0.5%;
     flex-grow: 1;
     text-align: center;
+}
+
+/* Fixed sidenav, full height */
+.sidenav {
+  width: 10%;
+  position: fixed;
+  z-index: 1;
+  /* top: 20px; */
+  left: 10px;
+  background: #eeee;
+  overflow-x: hidden;
+  padding: 3px 0;
+  margin-top: 2rem;
+  color: #dc322f;
 }
 
 a.animate-link, .menu a {
@@ -267,7 +279,7 @@ video {
     line-height: 1em;
     font-weight: 300;
     text-align: right;
-    margin-top: -1em;
+    margin-top: -2em;
 }
 .title::before {
     content: url('static/me.png');
@@ -424,6 +436,7 @@ aside > p {
     margin: .5rem;
 }
 
+
 /*--- Responsive --------------------------------------*/
 
 @media screen and (max-width : 800px){
@@ -455,14 +468,21 @@ aside > p {
 
 @media screen and (max-width : 780px){
 
-    .menu {
+    .menu,.sidenav {
 	position: unset;
 	width: 100vw;
-	margin-top: 1em;
+	/* margin-top: 1em; */
+    }
+
+    .menu li {
+	display: block;
+	padding: 0 0.5%;
+	flex-grow: 1;
+	text-align: center;
     }
 
     .menu ul {
-	flex-direction: column;
+	/* flex-direction: column; */
 	line-height: 1.5;
     }
 
@@ -526,6 +546,10 @@ aside > p {
         width: 95%;
         padding: unset;
         margin: unset;
+    }
+
+    .menu,.sidenav {
+	position: unset;
     }
 }
 
