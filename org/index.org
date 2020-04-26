@@ -41,8 +41,6 @@ c. continental shelf flows
 d. equatorial flows.
 using observational records from moored, shipboard and satellite platforms; as well as high resolution realistic and idealized numerical models ([[Research][see below]])
 
-I occasionally write [[Posts][blog posts]] on things I find interesting or those that I have had a hard time discovering. And I [[Links][post links to some other cool things on the Internet]].
-
 #+HTML: <div style="display:flex">
 
 #+HTML: <div style="width:140%">
@@ -53,7 +51,9 @@ I occasionally write [[Posts][blog posts]] on things I find interesting or those
 #+HTML: </div>
 
 #+HTML: <div>
-I like software tools that enable easy, intuitive, convenient and scalable analysis of datasets, both big and small. So I help with building and maintaining [[http://xarray.pydata.org][xarray]]; and contribute to the wider [[http://pangeo.io][Pangeo]] ecosystem of software tools (such as [[http://xgcm.readthedocs.io][xgcm]]). [[http://discourse.pangeo.io][Come join us]]!
+I like software tools that enable easy, intuitive, convenient and scalable analysis of datasets, both big and small. So I help with building and maintaining [[http://xarray.pydata.org][xarray]]; and contribute to the wider [[http://pangeo.io][Pangeo]] ecosystem of software tools (such as [[http://xgcm.readthedocs.io][xgcm]]).
+
+[[http://discourse.pangeo.io][Come join us]]!
 #+HTML: </div>
 
 #+HTML: </div>
