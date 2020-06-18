@@ -174,7 +174,7 @@ Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculat
 :CUSTOM_ID: publications
 :END:
 
-- Rypina I.I., Pratt L.J.; Entner S.; Anderson A.; *Cherian D.A.* /submitted./ The Influence of an Eddy in the Success Rates and Distributions of Passively Advected or Actively Swimming Biological Organisms Crossing the Continental Slope. /Journal of Physical Oceanography/
+- Rypina I.I., Pratt L.J.; Entner S.; Anderson A.; *Cherian D.A.* /accepted./  (2020) The Influence of an Eddy in the Success Rates and Distributions of Passively Advected or Actively Swimming Biological Organisms Crossing the Continental Slope. /Journal of Physical Oceanography/
 
 - *Cherian, D.A.*, Shroyer, E.L., Wijesekera, H.W., Moum, J.N. (2020) The seasonal cycle of upper-ocean mixing at 8°N in the Bay of Bengal. /Journal of Physical Oceanography/. 50, 323-342 [[https://journals.ametsoc.org/doi/abs/10.1175/JPO-D-19-0114.1][DOI]] [[file:static/Cherian-et-al-2019-nrl-chipods.pdf][PDF]].
 
@@ -328,6 +328,11 @@ Styling gratefully borrowed from [[http://ethanschoonover.com/solarized][Ethan S
 Icons from [[http://fontawesome.io/][FontAwesome]] and [[https://jpswalsh.github.io/academicons/][Academicons]].
 
 Website built using [[http://orgmode.org][Emacs Org-mode]] ([[https://github.com/dcherian/dcherian.github.io/tree/sources][source code]])
+
+#+begin_export html
+<script data-goatcounter="https://cherian.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+#+end_export
 
 * icons :noexport:
 ** Instructions
