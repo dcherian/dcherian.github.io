@@ -6,7 +6,6 @@
 
 # navigation menu
 #+BEGIN_EXPORT html
-<div id="mySidenav" class="sidenav">
 <nav class="menu">
 <ul>
 <li><a href="static/Deepak-Cherian-CV.pdf">CV</a></li>
@@ -18,7 +17,6 @@
 <li><a href="#links">Links</a></li>
 </ul>
 </nav>
-</div>
 #+END_EXPORT
 
 #+BEGIN_COMMENT

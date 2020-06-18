@@ -1,8 +1,23 @@
 #+TITLE: Interesting quotes from papers
-#+DATE: Last updated: 22 Feb 2019
+#+DATE: Last updated: 06 May 2020
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
+
++ cite:Lien1995
+#+begin_quote
+The conclusions reached in the house of cards constructed above are that the wind strengthens the heat flux, the Kelvin wave's crest weakens it, and tropical instability waves do not have a dominant effect. We advance this argument as a working hypothesis for future study, not as a strongly supported conclusion.
+#+end_quote
+
++ cite:Peters1994
+#+begin_quote
+Before and during a second cruise of April 1987, we were most curious whether we would find the deep diurnal cycle again. Our hopes were severely dimmed when we decided to surrender to the numerous sharks attacking our small advanced microstructure profiler(AMP) and to operate only the more imposing autonomous multiscaleprofiler(MSP). This meant reducing the profiling rate from4 per hour to 6 per day! To our surprise, the time series of the dissipation rate showed an unmistakable diurnal variation despite the coarse time resolution, and the signal reached well belowthe mixed layer depth as depicted in Figure lb.
+#+end_quote
+
++ cite:Moum1985
+  #+begin_quote
+  Every spectrum was inspected for spurious effects; these consisted mostly of spiking caused by the interception of plankton by the sensors (and two shark attacks).
+  #+end_quote
 
 + cite:Appen2015:
   #+begin_quote
