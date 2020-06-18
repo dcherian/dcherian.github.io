@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2020-06-18 Thu 10:22 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Finding ADCP data</title>
@@ -40,9 +41,9 @@
 <h1 class="title">Finding ADCP data</h1>
 </header>
 
-<section id="outline-container-org8e84e51" class="outline-2">
-<h2 id="org8e84e51">NCEI</h2>
-<div class="outline-text-2" id="text-org8e84e51">
+<section id="outline-container-orgea82cac" class="outline-2">
+<h2 id="orgea82cac">NCEI</h2>
+<div class="outline-text-2" id="text-orgea82cac">
 <p>
 <a href="https://www.nodc.noaa.gov/gocd/jasadcp/index.html">https://www.nodc.noaa.gov/gocd/jasadcp/index.html</a>
 Full inventory with high-resolution (<sub>short.nc</sub>, _long.nc) and hourly/10m averaged data (v3.nc): <a href="https://www.nodc.noaa.gov/gocd/jasadcp/hr_access.html">https://www.nodc.noaa.gov/gocd/jasadcp/hr_access.html</a>
@@ -54,16 +55,16 @@ This document is extremely useful at understanding the different file types avai
 </div>
 </section>
 
-<section id="outline-container-org4096fcf" class="outline-2">
-<h2 id="org4096fcf">U. Hawaii</h2>
-<div class="outline-text-2" id="text-org4096fcf">
+<section id="outline-container-orgb779728" class="outline-2">
+<h2 id="orgb779728">U. Hawaii</h2>
+<div class="outline-text-2" id="text-orgb779728">
 <p>
 <a href="https://currents.soest.hawaii.edu/home/data/">https://currents.soest.hawaii.edu/home/data/</a>
 </p>
 </div>
-<div id="outline-container-org9ebeb09" class="outline-3">
-<h3 id="org9ebeb09">decimated subset JASADCP data:</h3>
-<div class="outline-text-3" id="text-org9ebeb09">
+<div id="outline-container-org029cb56" class="outline-3">
+<h3 id="org029cb56">decimated subset JASADCP data:</h3>
+<div class="outline-text-3" id="text-org029cb56">
 <p>
 <a href="ftp://ftp.soest.hawaii.edu/caldwell/adcp/DATABASE/">ftp://ftp.soest.hawaii.edu/caldwell/adcp/DATABASE/</a>
 </p>
@@ -72,8 +73,8 @@ This document is extremely useful at understanding the different file types avai
 <li><code>v3.nc</code> instead of <code>.html</code></li>
 <li>Use this emacs regexp to insert directories so that the links work:
 #+begin<sub>src</sub> emacs-lisp
-(while (re-search-forward "\\([0-9]+\\)v3" nil t)
-(replace-match "\\1/\\1" nil nil nil 1))
+(while (re-search-forward &ldquo;\\([0-9]+\\)v3&rdquo; nil t)
+(replace-match &ldquo;\\1/\\1&rdquo; nil nil nil 1))
 #+end<sub>src</sub> emacs-lisp</li>
 </ol>
 </div>
@@ -81,6 +82,9 @@ This document is extremely useful at understanding the different file types avai
 </section>
 </div>
 <div id="postamble" class="status">
+<script data-goatcounter="https://cherian.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
 <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>
 

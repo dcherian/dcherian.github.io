@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2020-06-18 Thu 10:22 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Using podaacpy to subset Level-2P satellite swath data</title>
@@ -36,8 +37,8 @@ The approach here is:
 <li>Use <code>xargs</code> and <code>wget</code> to download the files in parallel</li>
 </ol>
 
-<section id="outline-container-org6d4135e" class="outline-2">
-<h2 id="org6d4135e"><span class="section-number-2">1</span> Preliminaries</h2>
+<section id="outline-container-orge5b4d3a" class="outline-2">
+<h2 id="orge5b4d3a"><span class="section-number-2">1</span> Preliminaries</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 First the required imports and initialize a <code>Drive</code> instance. You will need PO.DAAC credentials for this. These credentials can be specified either in <code>podaac.ini</code> or passed explicitly as done here.
@@ -45,44 +46,44 @@ Docs here: <a href="https://podaacpy.readthedocs.io/en/latest/drive.html#drive.D
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900;">import</span> pdb
-<span style="color: #859900;">import</span> podaac <span style="color: #859900;">as</span> po
-<span style="color: #859900;">import</span> podaac.podaac <span style="color: #859900;">as</span> podaac
-<span style="color: #859900;">import</span> podaac.podaac_utils <span style="color: #859900;">as</span> utils
-<span style="color: #859900;">from</span> podaac <span style="color: #859900;">import</span> drive <span style="color: #859900;">as</span> drive
-<span style="color: #859900;">import</span> tqdm
-<span style="color: #859900;">import</span> warnings
+<pre class="src src-python"><span style="color: #81A1C1;">import</span> pdb
+<span style="color: #81A1C1;">import</span> podaac <span style="color: #81A1C1;">as</span> po
+<span style="color: #81A1C1;">import</span> podaac.podaac <span style="color: #81A1C1;">as</span> podaac
+<span style="color: #81A1C1;">import</span> podaac.podaac_utils <span style="color: #81A1C1;">as</span> utils
+<span style="color: #81A1C1;">from</span> podaac <span style="color: #81A1C1;">import</span> drive <span style="color: #81A1C1;">as</span> drive
+<span style="color: #81A1C1;">import</span> tqdm
+<span style="color: #81A1C1;">import</span> warnings
 
-<span style="color: #859900;">from</span> xml.dom <span style="color: #859900;">import</span> minidom
+<span style="color: #81A1C1;">from</span> xml.dom <span style="color: #81A1C1;">import</span> minidom
 
 
-<span style="color: #268bd2;">d</span> = drive.Drive(<span style="color: #268bd2;">None</span>, username=YOUR_USERNAME, password=YOUR_PASSWORD)
-<span style="color: #268bd2;">p</span> = podaac.Podaac()
-<span style="color: #268bd2;">u</span> = utils.PodaacUtils()
+<span style="color: #D8DEE9;">d</span> = drive.Drive(<span style="color: #81A1C1;">None</span>, username=YOUR_USERNAME, password=YOUR_PASSWORD)
+<span style="color: #D8DEE9;">p</span> = podaac.Podaac()
+<span style="color: #D8DEE9;">u</span> = utils.PodaacUtils()
 </pre>
 </div>
 </div>
 </section>
 
-<section id="outline-container-org190a251" class="outline-2">
-<h2 id="org190a251"><span class="section-number-2">2</span> Asking the server for results</h2>
+<section id="outline-container-org1aa589d" class="outline-2">
+<h2 id="org1aa589d"><span class="section-number-2">2</span> Asking the server for results</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-Now we tell <code>podaacpy</code> the dataset and bounding box for the subset we want. The <code>dataset_id</code> can be found by looking for "Persistent ID" at the bottom of the PO.DAAC description page for the dataset. For example, see <a href="https://podaac.jpl.nasa.gov/dataset/MODIS_A-JPL-L2P-v2019.0">https://podaac.jpl.nasa.gov/dataset/MODIS_A-JPL-L2P-v2019.0</a>
+Now we tell <code>podaacpy</code> the dataset and bounding box for the subset we want. The <code>dataset_id</code> can be found by looking for &ldquo;Persistent ID&rdquo; at the bottom of the PO.DAAC description page for the dataset. For example, see <a href="https://podaac.jpl.nasa.gov/dataset/MODIS_A-JPL-L2P-v2019.0">https://podaac.jpl.nasa.gov/dataset/MODIS_A-JPL-L2P-v2019.0</a>
 </p>
 
 <p>
 This dictionary specifies the dataset and the space/time bounds for the subset we want.
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">dataset_id is "Peristent ID" at bottom of PODAAC page</span>
-<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">if bbox is specified, need the T...Z in start_time, end_time</span>
-<span style="color: #268bd2;">kwargs</span> = <span style="color: #b58900;">dict</span>(
-    dataset_id=<span style="color: #2aa198;">"PODAAC-GHMDA-2PJ19"</span>,  <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">Aqua v2019</span>
-    start_time=<span style="color: #2aa198;">"2018-09-20T00:00:00Z"</span>,
-    end_time=<span style="color: #2aa198;">"2018-10-01T00:00:00Z"</span>,
-    bbox=<span style="color: #2aa198;">"-125.5,40,-123.5,50"</span>,
-    items_per_page=<span style="color: #2aa198;">"400"</span>,  <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">400 seems to be max</span>
+<pre class="src src-python"><span style="color: #6f7787;"># </span><span style="color: #6f7787;">dataset_id is "Peristent ID" at bottom of PODAAC page</span>
+<span style="color: #6f7787;"># </span><span style="color: #6f7787;">if bbox is specified, need the T...Z in start_time, end_time</span>
+<span style="color: #D8DEE9;">kwargs</span> = <span style="color: #81A1C1;">dict</span>(
+    dataset_id=<span style="color: #A3BE8C;">"PODAAC-GHMDA-2PJ19"</span>,  <span style="color: #6f7787;"># </span><span style="color: #6f7787;">Aqua v2019</span>
+    start_time=<span style="color: #A3BE8C;">"2018-09-20T00:00:00Z"</span>,
+    end_time=<span style="color: #A3BE8C;">"2018-10-01T00:00:00Z"</span>,
+    bbox=<span style="color: #A3BE8C;">"-125.5,40,-123.5,50"</span>,
+    items_per_page=<span style="color: #A3BE8C;">"400"</span>,  <span style="color: #6f7787;"># </span><span style="color: #6f7787;">400 seems to be max</span>
 )
 </pre>
 </div>
@@ -92,19 +93,19 @@ This dictionary specifies the dataset and the space/time bounds for the subset w
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #268bd2;">result</span> = p.granule_search(**kwargs, start_index=<span style="color: #2aa198;">"1"</span>)
+<pre class="src src-python"><span style="color: #D8DEE9;">result</span> = p.granule_search(**kwargs, start_index=<span style="color: #A3BE8C;">"1"</span>)
 
-<span style="color: #859900;">try</span>:
-    <span style="color: #268bd2;">doc</span> = minidom.parseString(result)
+<span style="color: #81A1C1;">try</span>:
+    <span style="color: #D8DEE9;">doc</span> = minidom.parseString(result)
 
-    <span style="color: #268bd2;">num_granules</span> = <span style="color: #b58900;">int</span>(
-        doc.getElementsByTagName(<span style="color: #2aa198;">"opensearch:totalResults"</span>)[0].firstChild.nodeValue
+    <span style="color: #D8DEE9;">num_granules</span> = <span style="color: #81A1C1;">int</span>(
+        doc.getElementsByTagName(<span style="color: #A3BE8C;">"opensearch:totalResults"</span>)[<span style="color: #B48EAD; font-weight: bold;">0</span>].firstChild.nodeValue
     )
-<span style="color: #859900;">except</span>:
-    <span style="color: #859900;">raise</span> <span style="color: #b58900;">ValueError</span>(<span style="color: #2aa198;">"Decoding response failed. Printing response below..."</span>)
-    <span style="color: #859900;">print</span>(result)
+<span style="color: #81A1C1;">except</span>:
+    <span style="color: #81A1C1;">raise</span> <span style="color: #8FBCBB;">ValueError</span>(<span style="color: #A3BE8C;">"Decoding response failed. Printing response below..."</span>)
+    <span style="color: #81A1C1;">print</span>(result)
 
-<span style="color: #859900;">print</span>(f<span style="color: #2aa198;">"Found {num_granules} granules."</span>)
+<span style="color: #81A1C1;">print</span>(f<span style="color: #A3BE8C;">"Found {num_granules} granules."</span>)
 </pre>
 </div>
 
@@ -113,13 +114,13 @@ If all goes well this should print the total number of granules (or files) the r
 </p>
 
 <p>
-The response from the server is in XML which can be painful to deal with (if you don't know what you're doing, like me) and looks like this: <a href="https://podaac.jpl.nasa.gov/ws/search/granule/?datasetId=PODAAC-GHMDA-2PJ19">https://podaac.jpl.nasa.gov/ws/search/granule/?datasetId=PODAAC-GHMDA-2PJ19</a>. For each file, the response contains an OPeNDAP URL which is what we want.
+The response from the server is in XML which can be painful to deal with (if you don&rsquo;t know what you&rsquo;re doing, like me) and looks like this: <a href="https://podaac.jpl.nasa.gov/ws/search/granule/?datasetId=PODAAC-GHMDA-2PJ19">https://podaac.jpl.nasa.gov/ws/search/granule/?datasetId=PODAAC-GHMDA-2PJ19</a>. For each file, the response contains an OPeNDAP URL which is what we want.
 </p>
 </div>
 </section>
 
-<section id="outline-container-org7f1d10f" class="outline-2">
-<h2 id="org7f1d10f"><span class="section-number-2">3</span> Parse the xml response to find OPeNDAP URLs</h2>
+<section id="outline-container-org67fe578" class="outline-2">
+<h2 id="org67fe578"><span class="section-number-2">3</span> Parse the xml response to find OPeNDAP URLs</h2>
 <div class="outline-text-2" id="text-3">
 <aside>
 <p>
@@ -148,42 +149,42 @@ I am only interested in nighttime passes so I added a simple function <code>filt
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900;">def</span> <span style="color: #268bd2;">filter_night</span>(string):
-    <span style="color: #859900;">return</span> <span style="color: #2aa198;">"MODIS_A-N-"</span> <span style="color: #859900;">in</span> string
+<pre class="src src-python"><span style="color: #81A1C1;">def</span> <span style="color: #8FBCBB;">filter_night</span>(string):
+    <span style="color: #81A1C1;">return</span> <span style="color: #A3BE8C;">"MODIS_A-N-"</span> <span style="color: #81A1C1;">in</span> string
 
 
-<span style="color: #268bd2;">nitems</span> = <span style="color: #b58900;">int</span>(kwargs[<span style="color: #2aa198;">"items_per_page"</span>])
-<span style="color: #268bd2;">name_list</span> = []
-<span style="color: #268bd2;">url_list</span> = []
-<span style="color: #859900;">for</span> start <span style="color: #859900;">in</span> <span style="color: #b58900;">range</span>(1, num_granules + 1, nitems):
-    <span style="color: #859900;">for</span> attempt <span style="color: #859900;">in</span> <span style="color: #b58900;">range</span>(1, 11):
-        <span style="color: #859900;">print</span>(f<span style="color: #2aa198;">"{start}, {attempt}"</span>)
-        <span style="color: #268bd2;">result</span> = p.granule_search(**kwargs, start_index=<span style="color: #b58900;">str</span>(start))
+<span style="color: #D8DEE9;">nitems</span> = <span style="color: #81A1C1;">int</span>(kwargs[<span style="color: #A3BE8C;">"items_per_page"</span>])
+<span style="color: #D8DEE9;">name_list</span> = []
+<span style="color: #D8DEE9;">url_list</span> = []
+<span style="color: #81A1C1;">for</span> start <span style="color: #81A1C1;">in</span> <span style="color: #81A1C1;">range</span>(<span style="color: #B48EAD; font-weight: bold;">1</span>, num_granules + <span style="color: #B48EAD; font-weight: bold;">1</span>, nitems):
+    <span style="color: #81A1C1;">for</span> attempt <span style="color: #81A1C1;">in</span> <span style="color: #81A1C1;">range</span>(<span style="color: #B48EAD; font-weight: bold;">1</span>, <span style="color: #B48EAD; font-weight: bold;">11</span>):
+        <span style="color: #81A1C1;">print</span>(f<span style="color: #A3BE8C;">"{start}, {attempt}"</span>)
+        <span style="color: #D8DEE9;">result</span> = p.granule_search(**kwargs, start_index=<span style="color: #81A1C1;">str</span>(start))
 
-        <span style="color: #268bd2;">names</span> = u.mine_granules_from_granule_search(result)
-        <span style="color: #268bd2;">urls</span> = u.mine_opendap_urls_from_granule_search(result)
+        <span style="color: #D8DEE9;">names</span> = u.mine_granules_from_granule_search(result)
+        <span style="color: #D8DEE9;">urls</span> = u.mine_opendap_urls_from_granule_search(result)
 
-        <span style="color: #859900;">if</span> start + <span style="color: #b58900;">len</span>(names) != num_granules:
-            <span style="color: #859900;">try</span>:
-                <span style="color: #859900;">assert</span> <span style="color: #b58900;">len</span>(names) == nitems
-                <span style="color: #859900;">assert</span> <span style="color: #b58900;">len</span>(urls) == nitems
-            <span style="color: #859900;">except</span> <span style="color: #b58900;">AssertionError</span>:
-                <span style="color: #859900;">print</span>(
-                    f<span style="color: #2aa198;">"\n{len(names)} &lt; {nitems} items returned. retrying attempt {attempt}..."</span>
+        <span style="color: #81A1C1;">if</span> start + <span style="color: #81A1C1;">len</span>(names) != num_granules:
+            <span style="color: #81A1C1;">try</span>:
+                <span style="color: #81A1C1;">assert</span> <span style="color: #81A1C1;">len</span>(names) == nitems
+                <span style="color: #81A1C1;">assert</span> <span style="color: #81A1C1;">len</span>(urls) == nitems
+            <span style="color: #81A1C1;">except</span> <span style="color: #8FBCBB;">AssertionError</span>:
+                <span style="color: #81A1C1;">print</span>(
+                    f<span style="color: #A3BE8C;">"\n{len(names)} &lt; {nitems} items returned. retrying attempt {attempt}..."</span>
                 )
-            <span style="color: #859900;">else</span>:
-                <span style="color: #859900;">break</span>
-        <span style="color: #859900;">else</span>:
-            <span style="color: #859900;">break</span>
-    <span style="color: #859900;">else</span>:
-        warnings.warn(<span style="color: #2aa198;">"Invalid data returned. even after 10 attempts."</span>, <span style="color: #b58900;">UserWarning</span>)
+            <span style="color: #81A1C1;">else</span>:
+                <span style="color: #81A1C1;">break</span>
+        <span style="color: #81A1C1;">else</span>:
+            <span style="color: #81A1C1;">break</span>
+    <span style="color: #81A1C1;">else</span>:
+        warnings.warn(<span style="color: #A3BE8C;">"Invalid data returned. even after 10 attempts."</span>, <span style="color: #8FBCBB;">UserWarning</span>)
         pdb.set_trace()
 
-    <span style="color: #268bd2;">names</span> = <span style="color: #b58900;">list</span>(<span style="color: #b58900;">filter</span>(filter_night, names))
-    <span style="color: #268bd2;">urls</span> = <span style="color: #b58900;">list</span>(<span style="color: #b58900;">filter</span>(filter_night, urls))
+    <span style="color: #D8DEE9;">names</span> = <span style="color: #81A1C1;">list</span>(<span style="color: #81A1C1;">filter</span>(filter_night, names))
+    <span style="color: #D8DEE9;">urls</span> = <span style="color: #81A1C1;">list</span>(<span style="color: #81A1C1;">filter</span>(filter_night, urls))
 
-    <span style="color: #268bd2;">name_list</span> += names
-    <span style="color: #268bd2;">url_list</span> += urls
+    <span style="color: #D8DEE9;">name_list</span> += names
+    <span style="color: #D8DEE9;">url_list</span> += urls
 </pre>
 </div>
 
@@ -193,23 +194,23 @@ Now we have a list of file names <code>name_list</code> and a list of URLs <code
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900;">def</span> <span style="color: #268bd2;">make_wget_str</span>(url, name):
-    <span style="color: #2aa198;">""" chooses netCDF4 and subsets to needed variables."""</span>
-    <span style="color: #859900;">return</span> (
-        f<span style="color: #2aa198;">"{url[:-5]}.nc4?lat,lon,time,sea_surface_temperature,quality_level,l2p_flags"</span>
-        f<span style="color: #2aa198;">" -O 'modis/{name}'"</span>
+<pre class="src src-python"><span style="color: #81A1C1;">def</span> <span style="color: #8FBCBB;">make_wget_str</span>(url, name):
+    <span style="color: #78808f;">""" chooses netCDF4 and subsets to needed variables."""</span>
+    <span style="color: #81A1C1;">return</span> (
+        f<span style="color: #A3BE8C;">"{url[:-5]}.nc4?lat,lon,time,sea_surface_temperature,quality_level,l2p_flags"</span>
+        f<span style="color: #A3BE8C;">" -O 'modis/{name}'"</span>
     )
 
 
-<span style="color: #859900;">with</span> <span style="color: #b58900;">open</span>(<span style="color: #2aa198;">"url-list.txt"</span>, <span style="color: #2aa198;">"w"</span>) <span style="color: #859900;">as</span> f:
-    f.write(<span style="color: #2aa198;">"\n"</span>.join(<span style="color: #b58900;">map</span>(make_wget_str, <span style="color: #b58900;">sorted</span>(url_list), <span style="color: #b58900;">sorted</span>(name_list))))
+<span style="color: #81A1C1;">with</span> <span style="color: #81A1C1;">open</span>(<span style="color: #A3BE8C;">"url-list.txt"</span>, <span style="color: #A3BE8C;">"w"</span>) <span style="color: #81A1C1;">as</span> f:
+    f.write(<span style="color: #A3BE8C;">"\n"</span>.join(<span style="color: #81A1C1;">map</span>(make_wget_str, <span style="color: #81A1C1;">sorted</span>(url_list), <span style="color: #81A1C1;">sorted</span>(name_list))))
 </pre>
 </div>
 </div>
 </section>
 
-<section id="outline-container-org47ff24f" class="outline-2">
-<h2 id="org47ff24f"><span class="section-number-2">4</span> Download!</h2>
+<section id="outline-container-org6ff065d" class="outline-2">
+<h2 id="org6ff065d"><span class="section-number-2">4</span> Download!</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Finally we can download the URLs in this file in parallel using this <code>xargs</code> command. <code>-P 4</code> specified 4 parallel processes.
@@ -226,6 +227,9 @@ Each line is read and inserted at the location of <code>{}</code> so there is on
 </section>
 </div>
 <div id="postamble" class="status">
+<script data-goatcounter="https://cherian.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
 <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>
 

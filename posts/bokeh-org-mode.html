@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2020-06-18 Thu 10:22 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>bokeh and Emacs org-mode</title>
@@ -22,8 +23,10 @@ Bokeh.safely(function() {
 function embed_document(root) {
 var docs_json = {"ab74654d-d1b1-45c2-abb3-6b774dbf7a7d":{"roots":{"references":[{"attributes":{},"id":"4ab9f9f2-f38e-4b3b-ac50-cd8a16af7324","type":"BasicTicker"},{"attributes":{},"id":"31cf222e-ae0a-4251-a9eb-8f2d3c225c5e","type":"LinearScale"},{"attributes":{},"id":"773a7e3a-3459-499c-8f32-f31e89925128","type":"BasicTickFormatter"},{"attributes":{},"id":"9862cdc7-1e76-4e2f-ad34-c26d137c0e76","type":"BasicTickFormatter"},{"attributes":{"line_alpha":{"value":0.1},"line_color":{"value":"#1f77b4"},"x":{"field":"x"},"y":{"field":"y"}},"id":"4089f2e2-48ce-4d8b-9bfb-dd17920df103","type":"Line"},{"attributes":{"dimension":1,"plot":{"id":"5ad32e3c-4562-4ffb-bc23-c12c3828909f","subtype":"Figure","type":"Plot"},"ticker":{"id":"54321f35-a60f-46d1-adba-d608d8c3487b","type":"BasicTicker"}},"id":"6494d576-57bf-4e53-8d55-433ee30bc577","type":"Grid"},{"attributes":{"callback":null},"id":"4935631c-e917-4e0f-86fd-d39ed0d22516","type":"DataRange1d"},{"attributes":{},"id":"54321f35-a60f-46d1-adba-d608d8c3487b","type":"BasicTicker"},{"attributes":{},"id":"0a809f5c-a67a-43fb-9d16-f0d74c1b66bc","type":"LinearScale"},{"attributes":{},"id":"09512859-5090-4fbe-b725-d73ecdbf8730","type":"PanTool"},{"attributes":{"callback":null},"id":"c8887d8d-c83a-47a6-8a2f-5afc26dfd8c6","type":"DataRange1d"},{"attributes":{"bottom_units":"screen","fill_alpha":{"value":0.5},"fill_color":{"value":"lightgrey"},"left_units":"screen","level":"overlay","line_alpha":{"value":1.0},"line_color":{"value":"black"},"line_dash":[4,4],"line_width":{"value":2},"plot":null,"render_mode":"css","right_units":"screen","top_units":"screen"},"id":"c9ffa814-3caa-48da-8133-adaa8d0b54a4","type":"BoxAnnotation"},{"attributes":{"below":[{"id":"f98a4541-5a12-4215-94a6-0cb2e8b3e245","type":"LinearAxis"}],"left":[{"id":"8878d2b3-b40c-4d19-9f96-b4505f3447bf","type":"LinearAxis"}],"renderers":[{"id":"f98a4541-5a12-4215-94a6-0cb2e8b3e245","type":"LinearAxis"},{"id":"595a8577-4f47-49a1-befa-7de5238c86da","type":"Grid"},{"id":"8878d2b3-b40c-4d19-9f96-b4505f3447bf","type":"LinearAxis"},{"id":"6494d576-57bf-4e53-8d55-433ee30bc577","type":"Grid"},{"id":"c9ffa814-3caa-48da-8133-adaa8d0b54a4","type":"BoxAnnotation"},{"id":"0210ede7-abd3-40c7-8797-00f737f7f381","type":"GlyphRenderer"}],"title":{"id":"31becec0-956d-44ec-be37-fb1edef75350","type":"Title"},"toolbar":{"id":"618f0da1-0645-480c-8602-5ed7dead01d1","type":"Toolbar"},"x_range":{"id":"4935631c-e917-4e0f-86fd-d39ed0d22516","type":"DataRange1d"},"x_scale":{"id":"0a809f5c-a67a-43fb-9d16-f0d74c1b66bc","type":"LinearScale"},"y_range":{"id":"c8887d8d-c83a-47a6-8a2f-5afc26dfd8c6","type":"DataRange1d"},"y_scale":{"id":"31cf222e-ae0a-4251-a9eb-8f2d3c225c5e","type":"LinearScale"}},"id":"5ad32e3c-4562-4ffb-bc23-c12c3828909f","subtype":"Figure","type":"Plot"},{"attributes":{"data_source":{"id":"f317a7a2-e7a2-4823-a975-1619e8b4afa4","type":"ColumnDataSource"},"glyph":{"id":"6f07ca7a-6af1-4417-af27-fa6fd267bcd3","type":"Line"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"4089f2e2-48ce-4d8b-9bfb-dd17920df103","type":"Line"},"selection_glyph":null,"view":{"id":"cd6d7f5b-8746-4ffe-829a-1d16e0d29e1b","type":"CDSView"}},"id":"0210ede7-abd3-40c7-8797-00f737f7f381","type":"GlyphRenderer"},{"attributes":{"line_color":{"value":"#1f77b4"},"x":{"field":"x"},"y":{"field":"y"}},"id":"6f07ca7a-6af1-4417-af27-fa6fd267bcd3","type":"Line"},{"attributes":{"plot":null,"text":""},"id":"31becec0-956d-44ec-be37-fb1edef75350","type":"Title"},{"attributes":{},"id":"46bf0f22-57d2-422e-a4d6-d775f750d0f6","type":"ResetTool"},{"attributes":{},"id":"e89dc72f-e878-46ee-9aaa-d35115e57567","type":"HelpTool"},{"attributes":{},"id":"09a7678c-bd6b-4dcd-ac82-93289aba789a","type":"SaveTool"},{"attributes":{"formatter":{"id":"9862cdc7-1e76-4e2f-ad34-c26d137c0e76","type":"BasicTickFormatter"},"plot":{"id":"5ad32e3c-4562-4ffb-bc23-c12c3828909f","subtype":"Figure","type":"Plot"},"ticker":{"id":"4ab9f9f2-f38e-4b3b-ac50-cd8a16af7324","type":"BasicTicker"}},"id":"f98a4541-5a12-4215-94a6-0cb2e8b3e245","type":"LinearAxis"},{"attributes":{"overlay":{"id":"c9ffa814-3caa-48da-8133-adaa8d0b54a4","type":"BoxAnnotation"}},"id":"db1db6e4-2f3e-411d-9cc8-500080c22a74","type":"BoxZoomTool"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_scroll":"auto","active_tap":"auto","tools":[{"id":"09512859-5090-4fbe-b725-d73ecdbf8730","type":"PanTool"},{"id":"f059ddd5-2a8c-45b0-929c-05353a49acd9","type":"WheelZoomTool"},{"id":"db1db6e4-2f3e-411d-9cc8-500080c22a74","type":"BoxZoomTool"},{"id":"09a7678c-bd6b-4dcd-ac82-93289aba789a","type":"SaveTool"},{"id":"46bf0f22-57d2-422e-a4d6-d775f750d0f6","type":"ResetTool"},{"id":"e89dc72f-e878-46ee-9aaa-d35115e57567","type":"HelpTool"}]},"id":"618f0da1-0645-480c-8602-5ed7dead01d1","type":"Toolbar"},{"attributes":{},"id":"f059ddd5-2a8c-45b0-929c-05353a49acd9","type":"WheelZoomTool"},{"attributes":{"source":{"id":"f317a7a2-e7a2-4823-a975-1619e8b4afa4","type":"ColumnDataSource"}},"id":"cd6d7f5b-8746-4ffe-829a-1d16e0d29e1b","type":"CDSView"},{"attributes":{"formatter":{"id":"773a7e3a-3459-499c-8f32-f31e89925128","type":"BasicTickFormatter"},"plot":{"id":"5ad32e3c-4562-4ffb-bc23-c12c3828909f","subtype":"Figure","type":"Plot"},"ticker":{"id":"54321f35-a60f-46d1-adba-d608d8c3487b","type":"BasicTicker"}},"id":"8878d2b3-b40c-4d19-9f96-b4505f3447bf","type":"LinearAxis"},{"attributes":{"callback":null,"column_names":["x","y"],"data":{"x":{"__ndarray__":"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","dtype":"float64","shape":[200]},"y":{"__ndarray__":"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","dtype":"float64","shape":[200]}}},"id":"f317a7a2-e7a2-4823-a975-1619e8b4afa4","type":"ColumnDataSource"},{"attributes":{"plot":{"id":"5ad32e3c-4562-4ffb-bc23-c12c3828909f","subtype":"Figure","type":"Plot"},"ticker":{"id":"4ab9f9f2-f38e-4b3b-ac50-cd8a16af7324","type":"BasicTicker"}},"id":"595a8577-4f47-49a1-befa-7de5238c86da","type":"Grid"}],"root_ids":["5ad32e3c-4562-4ffb-bc23-c12c3828909f"]},"title":"Bokeh Application","version":"0.12.10"}};
 var render_items = [{"docid":"ab74654d-d1b1-45c2-abb3-6b774dbf7a7d","elementid":"2752c053-1ddb-4dad-9a62-afb09a61cc38","modelid":"5ad32e3c-4562-4ffb-bc23-c12c3828909f"}];
+
 root.Bokeh.embed.embed_items(docs_json, render_items);
 }
+
 if (root.Bokeh !== undefined) {
 embed_document(root);
 } else {
@@ -46,6 +49,7 @@ clearInterval(timer);
 if (document.readyState != "loading") fn();
 else document.addEventListener("DOMContentLoaded", fn);
 })();
+
 </script>
 </head>
 <body>
@@ -59,32 +63,32 @@ else document.addEventListener("DOMContentLoaded", fn);
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orga948d49">1. Introduction</a></li>
-<li><a href="#org5381ae3">2. Using <code>autoload_static</code> (preferred)</a>
+<li><a href="#orgf3ea1da">1. Introduction</a></li>
+<li><a href="#org2c8eff0">2. Using <code>autoload_static</code> (preferred)</a>
 <ul>
-<li><a href="#orgdf8492f">2.1. Prerequisites</a></li>
-<li><a href="#orgbf4e1e8">2.2. Example</a></li>
-<li><a href="#orga09bdc7">2.3. Improvements</a></li>
+<li><a href="#org961b62f">2.1. Prerequisites</a></li>
+<li><a href="#org111424d">2.2. Example</a></li>
+<li><a href="#org7d62079">2.3. Improvements</a></li>
 </ul>
 </li>
-<li><a href="#org557a8fd">3. Using components (not-recommended)</a></li>
-<li><a href="#org31c052f">4. Appendix</a>
+<li><a href="#orga8a2759">3. Using components (not-recommended)</a></li>
+<li><a href="#orga3e1ab0">4. Appendix</a>
 <ul>
-<li><a href="#org1a14439">4.1. yasnippet</a></li>
-<li><a href="#orgb4c8139">4.2. Dependencies</a></li>
-<li><a href="#orgecb6bac">4.3. Styling</a></li>
-<li><a href="#org725723e">4.4. Source</a></li>
+<li><a href="#org966cd12">4.1. yasnippet</a></li>
+<li><a href="#orga37a5c2">4.2. Dependencies</a></li>
+<li><a href="#org6032230">4.3. Styling</a></li>
+<li><a href="#orgbb45889">4.4. Source</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </nav>
 
-<section id="outline-container-orga948d49" class="outline-2">
-<h2 id="orga948d49"><span class="section-number-2">1</span> Introduction</h2>
+<section id="outline-container-orgf3ea1da" class="outline-2">
+<h2 id="orgf3ea1da"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-I've been wanting to play around with interactive Javascript plots for a while; for example: <a href="https://demo.bokehplots.com/apps/selection_histogram">https://demo.bokehplots.com/apps/selection_histogram</a>. The selection functionality is really cool!
+I&rsquo;ve been wanting to play around with interactive Javascript plots for a while; for example: <a href="https://demo.bokehplots.com/apps/selection_histogram">https://demo.bokehplots.com/apps/selection_histogram</a>. The selection functionality is really cool!
 </p>
 
 <p>
@@ -93,8 +97,8 @@ This post is an experiment in embedding <a href="http://bokeh.pydata.org">bokeh<
 </div>
 </section>
 
-<section id="outline-container-org5381ae3" class="outline-2">
-<h2 id="org5381ae3"><span class="section-number-2">2</span> Using <code>autoload_static</code> (preferred)</h2>
+<section id="outline-container-org2c8eff0" class="outline-2">
+<h2 id="org2c8eff0"><span class="section-number-2">2</span> Using <code>autoload_static</code> (preferred)</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Based on <a href="https://necromuralist.github.io/data_science/posts/bokeh-test/">https://necromuralist.github.io/data_science/posts/bokeh-test/</a>
@@ -108,14 +112,14 @@ Some notes:
 <li>Figuring where to get the bokeh css and js files can be tricky (<a href="https://bokeh.pydata.org/en/latest/docs/reference/resources.html">docs</a>):
 <ol class="org-ol">
 <li>You can use the CDN:  <code>from bokeh.resources import CDN</code> to load the bokeh js file over the internet. Not good for future-proofing.</li>
-<li>Using <code>bokeh.resources.Resources(mode='absolute')</code> or <code>'mode=relative'</code> loads bokeh from your local python installation; so that's good for <i>local</i> notebooks but your figures/notebooks might break when bokeh updates.</li>
-<li>The <code>inline</code> option inlines the necessary js and css in the exported <code>.js</code> file but then with multiple images; you end up with multiple copies so that's wasteful, but seems like the only future-proof option. Also, you can have two figures made with different bokeh versions embedded in the same document, so that's a plus.</li>
+<li>Using <code>bokeh.resources.Resources(mode='absolute')</code> or <code>'mode=relative'</code> loads bokeh from your local python installation; so that&rsquo;s good for <i>local</i> notebooks but your figures/notebooks might break when bokeh updates.</li>
+<li>The <code>inline</code> option inlines the necessary js and css in the exported <code>.js</code> file but then with multiple images; you end up with multiple copies so that&rsquo;s wasteful, but seems like the only future-proof option. Also, you can have two figures made with different bokeh versions embedded in the same document, so that&rsquo;s a plus.</li>
 </ol></li>
 </ol>
 </div>
 
-<div id="outline-container-orgdf8492f" class="outline-3">
-<h3 id="orgdf8492f"><span class="section-number-3">2.1</span> Prerequisites</h3>
+<div id="outline-container-org961b62f" class="outline-3">
+<h3 id="org961b62f"><span class="section-number-3">2.1</span> Prerequisites</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 I am using
@@ -132,7 +136,7 @@ I am using
 I define a function <code>export_bokeh</code> to do the actual heavy lifting. This function could be moved to your ipython <code>startup.py</code> file so that it is defined for every ipython session.
 </p>
 <div class="org-src-container">
-<pre class="src src-ipython" id="org2338297">def export_bokeh(plot, outPNG, outJS, outHTML, bkjs='inline'):
+<pre class="src src-ipython" id="orgbbb2202">def export_bokeh(plot, outPNG, outJS, outHTML, bkjs='inline'):
     from bokeh.io import export_png
     from bokeh.embed import autoload_static, file_html
     import bokeh.resources
@@ -175,7 +179,7 @@ I define a function <code>export_bokeh</code> to do the actual heavy lifting. Th
 Embedding the figure is then quite easy once you
 </p>
 <ol class="org-ol">
-<li>tell ob-ipython to capture stdout and put it in a drawer so that it's replaced everytime to rerun the source block.</li>
+<li>tell ob-ipython to capture stdout and put it in a drawer so that it&rsquo;s replaced everytime to rerun the source block.</li>
 <li>provide a custom filename for export (<code>fname</code> below).</li>
 </ol>
 <p>
@@ -186,8 +190,8 @@ I use this header line:
 </pre>
 </div>
 </div>
-<div id="outline-container-orgbf4e1e8" class="outline-3">
-<h3 id="orgbf4e1e8"><span class="section-number-3">2.2</span> Example</h3>
+<div id="outline-container-org111424d" class="outline-3">
+<h3 id="org111424d"><span class="section-number-3">2.2</span> Example</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 This will export a <a href="../static/my-image.png">png image</a>, an <a href="../static/html/my-image.html">HTML file</a> and a <a href="../static/js/my-image.js">Javascript file</a>. That way there are both static and dynamic versions that are easy to share as well as an emebeddable version.
@@ -275,8 +279,8 @@ The above figure is a rendering of the <code>RESULTS</code> block:
 </pre>
 </div>
 </div>
-<div id="outline-container-orga09bdc7" class="outline-3">
-<h3 id="orga09bdc7"><span class="section-number-3">2.3</span> Improvements</h3>
+<div id="outline-container-org7d62079" class="outline-3">
+<h3 id="org7d62079"><span class="section-number-3">2.3</span> Improvements</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 Things I would like:
@@ -310,11 +314,11 @@ Things I would like:
 </div>
 </div>
 </section>
-<section id="outline-container-org557a8fd" class="outline-2">
-<h2 id="org557a8fd"><span class="section-number-2">3</span> Using components (not-recommended)</h2>
+<section id="outline-container-orga8a2759" class="outline-2">
+<h2 id="orga8a2759"><span class="section-number-2">3</span> Using components (not-recommended)</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-I made some slight modifications to <a href="http://kitchingroup.cheme.cmu.edu/blog/2016/02/07/Interactive-Bokeh-plots-in-HTML/">http://kitchingroup.cheme.cmu.edu/blog/2016/02/07/Interactive-Bokeh-plots-in-HTML/</a> though I didn't need to embed anything in a frame. The principal drawback here is that all the data is returned in <code>stdout</code> and written to the org file. This would get unwieldy for big plots.
+I made some slight modifications to <a href="http://kitchingroup.cheme.cmu.edu/blog/2016/02/07/Interactive-Bokeh-plots-in-HTML/">http://kitchingroup.cheme.cmu.edu/blog/2016/02/07/Interactive-Bokeh-plots-in-HTML/</a> though I didn&rsquo;t need to embed anything in a frame. The principal drawback here is that all the data is returned in <code>stdout</code> and written to the org file. This would get unwieldy for big plots.
 </p>
 
 <ol class="org-ol">
@@ -322,10 +326,10 @@ I made some slight modifications to <a href="http://kitchingroup.cheme.cmu.edu/b
 Add the following at the top of my org file to use locally downloaded versions of bokeh. Note that versions need to match/be compatible with what you have installed (<code>bokeh.__version__</code>).
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #93a1a1; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-0.12.10.min.css" type="text/css" /&gt;</span>
-<span style="color: #93a1a1; font-style: italic;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.css" type="text/css" /&gt;</span>
-<span style="color: #93a1a1; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-0.12.10.min.js"&gt;&lt;/script&gt;</span>
-<span style="color: #93a1a1; font-style: italic;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.js"&gt;&lt;/script&gt;</span>
+<pre class="src src-org"><span style="color: #78808f;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-0.12.10.min.css" type="text/css" /&gt;</span>
+<span style="color: #78808f;">   #+HTML_HEAD: &lt;link rel="stylesheet" href="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.css" type="text/css" /&gt;</span>
+<span style="color: #78808f;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-0.12.10.min.js"&gt;&lt;/script&gt;</span>
+<span style="color: #78808f;">   #+HTML_HEAD: &lt;script type="text/javascript" src="/home/deepak/tools/bokeh/bokeh-widgets-0.12.10.min.js"&gt;&lt;/script&gt;</span>
 </pre>
 </div></li>
 
@@ -356,12 +360,12 @@ WriteToOrg(p)
 </div>
 </div>
 </section>
-<section id="outline-container-org31c052f" class="outline-2">
-<h2 id="org31c052f"><span class="section-number-2">4</span> Appendix</h2>
+<section id="outline-container-orga3e1ab0" class="outline-2">
+<h2 id="orga3e1ab0"><span class="section-number-2">4</span> Appendix</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-org1a14439" class="outline-3">
-<h3 id="org1a14439"><span class="section-number-3">4.1</span> yasnippet</h3>
+<div id="outline-container-org966cd12" class="outline-3">
+<h3 id="org966cd12"><span class="section-number-3">4.1</span> yasnippet</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 A simplified version of the one on <code>ob-ipython</code>. This autogenerates a random filename.
@@ -388,8 +392,8 @@ export_bokeh(hf, 'images/'+fname+'.png', 'images/js/'+fname+'.js', bkjs='inline'
 </div>
 </div>
 
-<div id="outline-container-orgb4c8139" class="outline-3">
-<h3 id="orgb4c8139"><span class="section-number-3">4.2</span> Dependencies</h3>
+<div id="outline-container-orga37a5c2" class="outline-3">
+<h3 id="orga37a5c2"><span class="section-number-3">4.2</span> Dependencies</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Looks like exporting to PNG requires
@@ -399,29 +403,29 @@ conda install phantomjs selenium
 </pre>
 </div>
 </div>
-<div id="outline-container-orgecb6bac" class="outline-3">
-<h3 id="orgecb6bac"><span class="section-number-3">4.3</span> Styling</h3>
+<div id="outline-container-org6032230" class="outline-3">
+<h3 id="org6032230"><span class="section-number-3">4.3</span> Styling</h3>
 <div class="outline-text-3" id="text-4-3">
 <ol class="org-ol">
 <li><p>
 Either include a css file or add a style tag to <code>HTML_HEAD</code> at the top of your org file.
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #93a1a1; font-style: italic;">   #+HTML_HEAD: &lt;style&gt; add-stuff-here &lt;/style&gt;</span>
+<pre class="src src-org"><span style="color: #78808f;">   #+HTML_HEAD: &lt;style&gt; add-stuff-here &lt;/style&gt;</span>
 </pre>
 </div></li>
 <li><p>
 Targeting the css class <code>bk-plot-layout</code> lets you center the image. <code>bk-grid-column</code> does it for <code>gridplot</code>
 </p>
 <div class="org-src-container">
-<pre class="src src-css">   <span style="color: #268bd2;">.bk-plot-layout .bk-grid-column </span>{ <span style="color: #859900; font-weight: bold;">max-width</span>: 100%; <span style="color: #859900; font-weight: bold;">margin</span>: auto;}
+<pre class="src src-css">   <span style="color: #81A1C1;">.bk-plot-layout .bk-grid-column </span>{ <span style="color: #A3BE8C;">max-width</span>: <span style="color: #B48EAD; font-weight: bold;">100</span>%; <span style="color: #A3BE8C;">margin</span>: auto;}
 </pre>
 </div></li>
 </ol>
 </div>
 </div>
-<div id="outline-container-org725723e" class="outline-3">
-<h3 id="org725723e"><span class="section-number-3">4.4</span> Source</h3>
+<div id="outline-container-orgbb45889" class="outline-3">
+<h3 id="orgbb45889"><span class="section-number-3">4.4</span> Source</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 Here is <a href="https://raw.githubusercontent.com/dcherian/dcherian.github.io/sources/org/posts/bokeh-org-mode.org">org-mode source</a> for this page.
@@ -431,6 +435,9 @@ Here is <a href="https://raw.githubusercontent.com/dcherian/dcherian.github.io/s
 </section>
 </div>
 <div id="postamble" class="status">
+<script data-goatcounter="https://cherian.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
 <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>
 

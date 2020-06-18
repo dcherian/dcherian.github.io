@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2020-06-18 Thu 10:22 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Debugging tips for python</title>
@@ -21,15 +22,15 @@
 Here are some useful debugging tips I have learned. Please email me if any of the text can be clarified or if you know of other (or better) methods.
 </p>
 
-<section id="outline-container-org32b28aa" class="outline-2">
-<h2 id="org32b28aa">Entering and using a debugger prompt</h2>
-<div class="outline-text-2" id="text-org32b28aa">
+<section id="outline-container-org34a2493" class="outline-2">
+<h2 id="org34a2493">Entering and using a debugger prompt</h2>
+<div class="outline-text-2" id="text-org34a2493">
 <ol class="org-ol">
 <li>Entering a debugger:
 <ol class="org-ol">
-<li><b>Python script:</b> <code>import IPython; IPython.core.debugger.set_trace()</code> is the IPython equivalent of MATLAB's <code>keyboard</code>. You can add this line in a python script and the script's execution will be paused at that line giving you an <code>ipdb</code> prompt.</li>
+<li><b>Python script:</b> <code>import IPython; IPython.core.debugger.set_trace()</code> is the IPython equivalent of MATLAB&rsquo;s <code>keyboard</code>. You can add this line in a python script and the script&rsquo;s execution will be paused at that line giving you an <code>ipdb</code> prompt.</li>
 <li><b>Python script:</b>  <code>import pdb; pdb.set_trace()</code> is the <code>pdb</code> equivalent of the above.</li>
-<li><b>Jupyter notebook:</b> The above commands can be used within functions defined in a Jupyter notebook and will also work when calling external functions from a notebook. If you want to debug an error raised in a Jupyter notebook, use the <code>%debug</code> magic in a new cell to drop into an debugger prompt that will let you inspect the program's state.</li>
+<li><b>Jupyter notebook:</b> The above commands can be used within functions defined in a Jupyter notebook and will also work when calling external functions from a notebook. If you want to debug an error raised in a Jupyter notebook, use the <code>%debug</code> magic in a new cell to drop into an debugger prompt that will let you inspect the program&rsquo;s state.</li>
 <li><b>pytest:</b> <code>pytest --pdb test.py</code> will drop you into a <code>pdb</code> prompt when a test fails.</li>
 </ol></li>
 <li>Many commands to inspect your programs state are available at a debugger prompt . You can use <code>up</code> , <code>down</code> and other commands to navigate the stack. Type <code>h</code> or <code>help</code> to see all available commands. Usually, I end up type <code>up</code> or <code>u</code> to navigate up the stack to a function call I recognize, inspect the arguments of that function call (see below) and then move <code>down</code> (or <code>d</code>) if needed.</li>
@@ -39,9 +40,9 @@ Here are some useful debugging tips I have learned. Please email me if any of th
 </div>
 </section>
 
-<section id="outline-container-org1de00ee" class="outline-2">
-<h2 id="org1de00ee">Useful links</h2>
-<div class="outline-text-2" id="text-org1de00ee">
+<section id="outline-container-org53ea345" class="outline-2">
+<h2 id="org53ea345">Useful links</h2>
+<div class="outline-text-2" id="text-org53ea345">
 <ol class="org-ol">
 <li><a href="https://stackoverflow.com/questions/16867347/step-by-step-debugging-with-ipython">https://stackoverflow.com/questions/16867347/step-by-step-debugging-with-ipython</a></li>
 <li><a href="https://www.blog.pythonlibrary.org/2018/10/17/jupyter-notebook-debugging/">https://www.blog.pythonlibrary.org/2018/10/17/jupyter-notebook-debugging/</a></li>
@@ -50,6 +51,9 @@ Here are some useful debugging tips I have learned. Please email me if any of th
 </section>
 </div>
 <div id="postamble" class="status">
+<script data-goatcounter="https://cherian.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
 <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>
 

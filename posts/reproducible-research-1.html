@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2020-06-18 Thu 10:22 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A setup for reproducible research</title>
@@ -18,17 +19,17 @@
 <header>
 <h1 class="title">A setup for reproducible research</h1>
 </header>
-<section id="outline-container-orgbcad169" class="outline-2">
-<h2 id="orgbcad169">Update</h2>
-<div class="outline-text-2" id="text-orgbcad169">
+<section id="outline-container-orge2554eb" class="outline-2">
+<h2 id="orge2554eb">Update</h2>
+<div class="outline-text-2" id="text-orge2554eb">
 <p>
 <a href="https://www.researchgate.net/profile/Andre_Paloczy">André Palóczy</a> has implemented some of <a href="https://github.com/apaloczy/reproducibility">these ideas in Python</a>.
 </p>
 </div>
 </section>
-<section id="outline-container-orgc8c95ec" class="outline-2">
-<h2 id="orgc8c95ec">Software</h2>
-<div class="outline-text-2" id="text-orgc8c95ec">
+<section id="outline-container-orgabb6f46" class="outline-2">
+<h2 id="orgabb6f46">Software</h2>
+<div class="outline-text-2" id="text-orgabb6f46">
 <ul class="org-ul">
 <li>Version control system to track content. I use <a href="http://www.git-scm.org"><code>git</code></a>.</li>
 <li><a href="http://www.sno.phy.queensu.ca/~phil/exiftool/"><code>exiftool</code></a> to read and write metadata to images</li>
@@ -36,15 +37,15 @@
 </ul>
 </div>
 </section>
-<section id="outline-container-org451bf76" class="outline-2">
-<h2 id="org451bf76">Strategy</h2>
-<div class="outline-text-2" id="text-org451bf76">
+<section id="outline-container-orge25897c" class="outline-2">
+<h2 id="orge25897c">Strategy</h2>
+<div class="outline-text-2" id="text-orge25897c">
 <p>
 The approach is simple: use <code>git</code> to track files that generate output.
 </p>
 
 <p>
-<code>git</code> automatically assigns a unique 40 character alphanumeric string (a "hash") that identifies the state of a repository.
+<code>git</code> automatically assigns a unique 40 character alphanumeric string (a &ldquo;hash&rdquo;) that identifies the state of a repository.
 </p>
 
 <p>
@@ -60,33 +61,33 @@ With figures, I use the metadata fields to save the hash value.
 </p>
 </div>
 </section>
-<section id="outline-container-org53d314a" class="outline-2">
-<h2 id="org53d314a">Getting the current hash in MATLAB</h2>
-<div class="outline-text-2" id="text-org53d314a">
+<section id="outline-container-org76d1350" class="outline-2">
+<h2 id="org76d1350">Getting the current hash in MATLAB</h2>
+<div class="outline-text-2" id="text-org76d1350">
 <p>
 The following MATLAB function <code>githash</code> will return the hash of the last commit that modified the file in <code>fname</code>. If not provided with <code>fname</code> it returns the hash of the last commit in the repository.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-matlab">   <span style="color: #859900; font-weight: bold;">function</span> <span style="color: #268bd2;">[hash]</span> = <span style="color: #268bd2;">githash</span>(<span style="color: #268bd2;">fname</span>, <span style="color: #268bd2;">gitdir</span>)
+<pre class="src src-matlab">   function [hash] = githash(fname, gitdir)
 
-       <span style="color: #859900; font-weight: bold;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'fname'</span>, <span style="color: #2aa198;">'var'</span>)
-           fname = <span style="color: #2aa198;">'.'</span>;
-       <span style="color: #859900; font-weight: bold;">end</span>
+       if ~exist('fname', 'var')
+           fname = '.';
+       end
 
-       <span style="color: #859900; font-weight: bold;">if</span> <span style="color: #b58900;">~</span>exist(<span style="color: #2aa198;">'gitdir'</span>, <span style="color: #2aa198;">'var'</span>)
-           gitdir = <span style="color: #2aa198;">''</span>;
-       <span style="color: #859900; font-weight: bold;">else</span>
-           gitdir = [<span style="color: #2aa198;">'--git-dir='</span> gitdir];
-       <span style="color: #859900; font-weight: bold;">end</span>
+       if ~exist('gitdir', 'var')
+           gitdir = '';
+       else
+           gitdir = ['--git-dir=' gitdir];
+       end
 
-       [<span style="color: #b58900;">~</span>, hashout] = system([<span style="color: #2aa198;">'TERM=xterm git '</span> gitdir ...
-                           <span style="color: #2aa198;">' log -n 1 --no-color --pretty=format:''%H'' '''</span> ...
-                           fname <span style="color: #2aa198;">''' &lt; /dev/null'</span>]);
+       [~, hashout] = system(['TERM=xterm git ' gitdir ...
+                           ' log -n 1 --no-color --pretty=format:''%H'' ''' ...
+                           fname ''' &lt; /dev/null']);
 
-       <span style="color: #93a1a1;">% remove bash escape characters</span>
-       hash = hashout(9<span style="color: #b58900;">:</span>48)
-   <span style="color: #859900; font-weight: bold;">end</span>
+       % remove bash escape characters
+       hash = hashout(9:48)
+   end
 </pre>
 </div>
 
@@ -94,7 +95,7 @@ The following MATLAB function <code>githash</code> will return the hash of the l
 Using it in a MATLAB script requires the incantation
 </p>
 <div class="org-src-container">
-<pre class="src src-matlab">  hash = githash([mfilename(<span style="color: #2aa198;">'fullpath'</span>) <span style="color: #2aa198;">'.m'</span>]);
+<pre class="src src-matlab">  hash = githash([mfilename('fullpath') '.m']);
 </pre>
 </div>
 <p>
@@ -107,11 +108,11 @@ Quite frequently, I calculate diagnostics that take a while which means that rer
 </div>
 </section>
 
-<section id="outline-container-orgc0f8ee2" class="outline-2">
-<h2 id="orgc0f8ee2">Using the hash</h2>
-<div class="outline-text-2" id="text-orgc0f8ee2">
+<section id="outline-container-org8ef4d92" class="outline-2">
+<h2 id="org8ef4d92">Using the hash</h2>
+<div class="outline-text-2" id="text-org8ef4d92">
 <p>
-MATLAB's FileExchange has a couple of useful scripts <a href="https://www.mathworks.com/matlabcentral/fileexchange/43179-insert-annotation-in-figure-s-metadata"><code>insertAnnotation</code> &amp; <code>getAnnotation</code></a> that insert and recover metadata in MATLAB figure windows.
+MATLAB&rsquo;s FileExchange has a couple of useful scripts <a href="https://www.mathworks.com/matlabcentral/fileexchange/43179-insert-annotation-in-figure-s-metadata"><code>insertAnnotation</code> &amp; <code>getAnnotation</code></a> that insert and recover metadata in MATLAB figure windows.
 </p>
 
 <p>
@@ -131,9 +132,9 @@ both of which are saved in the metadata of the figure <i>itself</i>.
 </div>
 </section>
 
-<section id="outline-container-org5713797" class="outline-2">
-<h2 id="org5713797">Saving the hash in an image file</h2>
-<div class="outline-text-2" id="text-org5713797">
+<section id="outline-container-orgd1bf0b8" class="outline-2">
+<h2 id="orgd1bf0b8">Saving the hash in an image file</h2>
+<div class="outline-text-2" id="text-orgd1bf0b8">
 <p>
 Once you have a hash value, or any metadata in general, it needs to be saved when the image is saved. I have modified <code>export_fig</code> (<a href="https://github.com/altmany/export_fig">original</a>, <a href="https://github.com/dcherian/export_fig">my fork</a>) to do this for me.
 </p>
@@ -142,8 +143,8 @@ Once you have a hash value, or any metadata in general, it needs to be saved whe
 In general, all you need is a line that looks like
 </p>
 <div class="org-src-container">
-<pre class="src src-matlab">  system([<span style="color: #2aa198;">'exiftool -overwrite_original -Producer='</span> ...
-          hash <span style="color: #2aa198;">' '</span> pdf_nam]);
+<pre class="src src-matlab">  system(['exiftool -overwrite_original -Producer=' ...
+          hash ' ' pdf_nam]);
 </pre>
 </div>
 <p>
@@ -184,7 +185,7 @@ The above tells exiftool to save the contents of variable <code>hash</code> in t
 </table>
 
 <p>
-<code>exiftool</code> is only required to modify the metadata fields of PDF and EPS files. MATLAB's <code>imwrite</code> can write metadata to bitmap files (e.g. PNG).
+<code>exiftool</code> is only required to modify the metadata fields of PDF and EPS files. MATLAB&rsquo;s <code>imwrite</code> can write metadata to bitmap files (e.g. PNG).
 </p>
 
 <p>
@@ -193,26 +194,29 @@ Searching for <code>hash</code> in my fork of <a href="https://github.com/dcheri
 </div>
 </section>
 
-<section id="outline-container-org54c0314" class="outline-2">
-<h2 id="org54c0314">Extracting commit hash from image metadata</h2>
-<div class="outline-text-2" id="text-org54c0314">
+<section id="outline-container-org1148f52" class="outline-2">
+<h2 id="org1148f52">Extracting commit hash from image metadata</h2>
+<div class="outline-text-2" id="text-org1148f52">
 <p>
 To recover the recorded hash, it suffices to call <code>exiftool FILENAME</code> which will print all metadata stored in the image; not just the hash. <code>grep</code> can then find the recorded hash:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">  <span style="color: #93a1a1;">#</span><span style="color: #93a1a1;">!/bin/bash</span>
-  <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">displays saved git hash of a provided file using exiftool</span>
+<pre class="src src-bash">  <span style="color: #6f7787;">#</span><span style="color: #6f7787;">!/bin/bash</span>
+  <span style="color: #6f7787;"># </span><span style="color: #6f7787;">displays saved </span><span style="color: #6f7787;">git</span><span style="color: #6f7787;"> hash of a provided file using exiftool</span>
 
-  <span style="color: #268bd2;">file</span>=$<span style="color: #268bd2;">1</span>
-  <span style="color: #268bd2;">hash</span>=$(<span style="color: #6c71c4; font-weight: bold;">exiftool</span> $<span style="color: #268bd2;">file</span> | grep -i <span style="color: #2aa198;">"hash:"</span>)
+  <span style="color: #D8DEE9;">file</span>=$<span style="color: #B48EAD; font-weight: bold;">1</span>
+  <span style="color: #D8DEE9;">hash</span>=$<span style="color: #81A1C1;">(</span><span style="color: #81A1C1; font-weight: bold;">exiftool</span> $<span style="color: #D8DEE9;">file</span> | <span style="color: #8FBCBB;">grep</span> -i <span style="color: #A3BE8C;">"hash:"</span><span style="color: #81A1C1;">)</span>
 
-  <span style="color: #657b83; font-weight: bold;">echo</span> $<span style="color: #268bd2;">hash</span>
+  <span style="color: #8FBCBB;">echo</span> $<span style="color: #D8DEE9;">hash</span>
 </pre>
 </div>
 </div>
 </section>
 </div>
 <div id="postamble" class="status">
+<script data-goatcounter="https://cherian.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
 <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>
 
