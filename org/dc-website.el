@@ -36,7 +36,7 @@
 	 :description "Describing my ocean sciences research"
 	 :html-head ,website-head
 	 :html-preamble website-header-icons
-	 :html-postamble nil
+	 :html-postamble website-footer
 	 :author "Deepak Cherian"
 	 :section-numbers nil
 	 :with-toc nil

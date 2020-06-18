@@ -327,11 +327,6 @@ Icons from [[http://fontawesome.io/][FontAwesome]] and [[https://jpswalsh.github
 
 Website built using [[http://orgmode.org][Emacs Org-mode]] ([[https://github.com/dcherian/dcherian.github.io/tree/sources][source code]])
 
-#+begin_export html
-<script data-goatcounter="https://cherian.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-#+end_export
-
 * icons :noexport:
 ** Instructions
 - go to icomoon.io
