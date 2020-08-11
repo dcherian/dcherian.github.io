@@ -4,6 +4,11 @@
 
 #+HTML: <div class="paper-quotes">
 
++ cite:Griffies2014:
+  #+begin_quote
+Some readers may be disappointed with our reticence to penetrate deeper into such mechanisms. We too are disappointed. However, we are limited in how much we can answer such questions based on available diagnostic output from the simulations. Nonetheless, this excuse, which is in fact ubiquitous in such comparison papers utilizing CORE or CMIP (Coupled Model Intercomparison Project) simulations, is unsatisfying.
+  #+end_quote
+
 + cite:Lien1995
 #+begin_quote
 The conclusions reached in the house of cards constructed above are that the wind strengthens the heat flux, the Kelvin wave's crest weakens it, and tropical instability waves do not have a dominant effect. We advance this argument as a working hypothesis for future study, not as a strongly supported conclusion.
