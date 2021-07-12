@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Using podaacpy to subset Level-2P satellite swath data</title>
-<meta name="generator" content="Org mode">
-<meta name="author" content="Deepak Cherian">
-<meta name="keywords" content="podaac, podaacpy, l2p, subset, swath, modis, aqua">
+<meta name="author" content="Deepak Cherian" />
+<meta name="keywords" content="podaac, podaacpy, l2p, subset, swath, modis, aqua" />
+<meta name="generator" content="Org Mode" />
 <link rel="stylesheet" href="../research-posts.css" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500" rel="stylesheet">
 </head>
@@ -36,8 +36,8 @@ The approach here is:
 <li>Use <code>xargs</code> and <code>wget</code> to download the files in parallel</li>
 </ol>
 
-<section id="outline-container-orge5b4d3a" class="outline-2">
-<h2 id="orge5b4d3a"><span class="section-number-2">1</span> Preliminaries</h2>
+<section id="outline-container-orgf08a66a" class="outline-2">
+<h2 id="orgf08a66a"><span class="section-number-2">1</span> Preliminaries</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 First the required imports and initialize a <code>Drive</code> instance. You will need PO.DAAC credentials for this. These credentials can be specified either in <code>podaac.ini</code> or passed explicitly as done here.
@@ -57,15 +57,15 @@ Docs here: <a href="https://podaacpy.readthedocs.io/en/latest/drive.html#drive.D
 
 
 <span style="color: #D8DEE9;">d</span> = drive.Drive(<span style="color: #81A1C1;">None</span>, username=YOUR_USERNAME, password=YOUR_PASSWORD)
-<span style="color: #D8DEE9;">p</span> = podaac.Podaac()
-<span style="color: #D8DEE9;">u</span> = utils.PodaacUtils()
+p = podaac.Podaac()
+u = utils.PodaacUtils()
 </pre>
 </div>
 </div>
 </section>
 
-<section id="outline-container-org1aa589d" class="outline-2">
-<h2 id="org1aa589d"><span class="section-number-2">2</span> Asking the server for results</h2>
+<section id="outline-container-org4b7bd90" class="outline-2">
+<h2 id="org4b7bd90"><span class="section-number-2">2</span> Asking the server for results</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Now we tell <code>podaacpy</code> the dataset and bounding box for the subset we want. The <code>dataset_id</code> can be found by looking for &ldquo;Persistent ID&rdquo; at the bottom of the PO.DAAC description page for the dataset. For example, see <a href="https://podaac.jpl.nasa.gov/dataset/MODIS_A-JPL-L2P-v2019.0">https://podaac.jpl.nasa.gov/dataset/MODIS_A-JPL-L2P-v2019.0</a>
@@ -95,16 +95,16 @@ This dictionary specifies the dataset and the space/time bounds for the subset w
 <pre class="src src-python"><span style="color: #D8DEE9;">result</span> = p.granule_search(**kwargs, start_index=<span style="color: #A3BE8C;">"1"</span>)
 
 <span style="color: #81A1C1;">try</span>:
-    <span style="color: #D8DEE9;">doc</span> = minidom.parseString(result)
+    doc = minidom.parseString(result)
 
-    <span style="color: #D8DEE9;">num_granules</span> = <span style="color: #81A1C1;">int</span>(
+    num_granules = <span style="color: #81A1C1;">int</span>(
         doc.getElementsByTagName(<span style="color: #A3BE8C;">"opensearch:totalResults"</span>)[<span style="color: #B48EAD; font-weight: bold;">0</span>].firstChild.nodeValue
     )
 <span style="color: #81A1C1;">except</span>:
     <span style="color: #81A1C1;">raise</span> <span style="color: #8FBCBB;">ValueError</span>(<span style="color: #A3BE8C;">"Decoding response failed. Printing response below..."</span>)
     <span style="color: #81A1C1;">print</span>(result)
 
-<span style="color: #81A1C1;">print</span>(f<span style="color: #A3BE8C;">"Found {num_granules} granules."</span>)
+<span style="color: #81A1C1;">print</span>(f<span style="color: #A3BE8C;">"Found </span>{num_granules}<span style="color: #A3BE8C;"> granules."</span>)
 </pre>
 </div>
 
@@ -118,8 +118,8 @@ The response from the server is in XML which can be painful to deal with (if you
 </div>
 </section>
 
-<section id="outline-container-org67fe578" class="outline-2">
-<h2 id="org67fe578"><span class="section-number-2">3</span> Parse the xml response to find OPeNDAP URLs</h2>
+<section id="outline-container-orgf6cffd4" class="outline-2">
+<h2 id="orgf6cffd4"><span class="section-number-2">3</span> Parse the xml response to find OPeNDAP URLs</h2>
 <div class="outline-text-2" id="text-3">
 <aside>
 <p>
@@ -148,7 +148,7 @@ I am only interested in nighttime passes so I added a simple function <code>filt
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #81A1C1;">def</span> <span style="color: #8FBCBB;">filter_night</span>(string):
+<pre class="src src-python"><span style="color: #81A1C1;">def</span> <span style="color: #88C0D0;">filter_night</span>(string):
     <span style="color: #81A1C1;">return</span> <span style="color: #A3BE8C;">"MODIS_A-N-"</span> <span style="color: #81A1C1;">in</span> string
 
 
@@ -157,11 +157,11 @@ I am only interested in nighttime passes so I added a simple function <code>filt
 <span style="color: #D8DEE9;">url_list</span> = []
 <span style="color: #81A1C1;">for</span> start <span style="color: #81A1C1;">in</span> <span style="color: #81A1C1;">range</span>(<span style="color: #B48EAD; font-weight: bold;">1</span>, num_granules + <span style="color: #B48EAD; font-weight: bold;">1</span>, nitems):
     <span style="color: #81A1C1;">for</span> attempt <span style="color: #81A1C1;">in</span> <span style="color: #81A1C1;">range</span>(<span style="color: #B48EAD; font-weight: bold;">1</span>, <span style="color: #B48EAD; font-weight: bold;">11</span>):
-        <span style="color: #81A1C1;">print</span>(f<span style="color: #A3BE8C;">"{start}, {attempt}"</span>)
+        <span style="color: #81A1C1;">print</span>(f<span style="color: #A3BE8C;">"</span>{start}<span style="color: #A3BE8C;">, </span>{attempt}<span style="color: #A3BE8C;">"</span>)
         <span style="color: #D8DEE9;">result</span> = p.granule_search(**kwargs, start_index=<span style="color: #81A1C1;">str</span>(start))
 
-        <span style="color: #D8DEE9;">names</span> = u.mine_granules_from_granule_search(result)
-        <span style="color: #D8DEE9;">urls</span> = u.mine_opendap_urls_from_granule_search(result)
+        names = u.mine_granules_from_granule_search(result)
+        urls = u.mine_opendap_urls_from_granule_search(result)
 
         <span style="color: #81A1C1;">if</span> start + <span style="color: #81A1C1;">len</span>(names) != num_granules:
             <span style="color: #81A1C1;">try</span>:
@@ -169,7 +169,7 @@ I am only interested in nighttime passes so I added a simple function <code>filt
                 <span style="color: #81A1C1;">assert</span> <span style="color: #81A1C1;">len</span>(urls) == nitems
             <span style="color: #81A1C1;">except</span> <span style="color: #8FBCBB;">AssertionError</span>:
                 <span style="color: #81A1C1;">print</span>(
-                    f<span style="color: #A3BE8C;">"\n{len(names)} &lt; {nitems} items returned. retrying attempt {attempt}..."</span>
+                    f<span style="color: #A3BE8C;">"\n</span>{<span style="color: #81A1C1;">len</span>(names)}<span style="color: #A3BE8C;"> &lt; </span>{nitems}<span style="color: #A3BE8C;"> items returned. retrying attempt </span>{attempt}<span style="color: #A3BE8C;">..."</span>
                 )
             <span style="color: #81A1C1;">else</span>:
                 <span style="color: #81A1C1;">break</span>
@@ -179,11 +179,11 @@ I am only interested in nighttime passes so I added a simple function <code>filt
         warnings.warn(<span style="color: #A3BE8C;">"Invalid data returned. even after 10 attempts."</span>, <span style="color: #8FBCBB;">UserWarning</span>)
         pdb.set_trace()
 
-    <span style="color: #D8DEE9;">names</span> = <span style="color: #81A1C1;">list</span>(<span style="color: #81A1C1;">filter</span>(filter_night, names))
-    <span style="color: #D8DEE9;">urls</span> = <span style="color: #81A1C1;">list</span>(<span style="color: #81A1C1;">filter</span>(filter_night, urls))
+    names = <span style="color: #81A1C1;">list</span>(<span style="color: #81A1C1;">filter</span>(filter_night, names))
+    urls = <span style="color: #81A1C1;">list</span>(<span style="color: #81A1C1;">filter</span>(filter_night, urls))
 
-    <span style="color: #D8DEE9;">name_list</span> += names
-    <span style="color: #D8DEE9;">url_list</span> += urls
+    name_list += names
+    url_list += urls
 </pre>
 </div>
 
@@ -193,11 +193,11 @@ Now we have a list of file names <code>name_list</code> and a list of URLs <code
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #81A1C1;">def</span> <span style="color: #8FBCBB;">make_wget_str</span>(url, name):
+<pre class="src src-python"><span style="color: #81A1C1;">def</span> <span style="color: #88C0D0;">make_wget_str</span>(url, name):
     <span style="color: #78808f;">""" chooses netCDF4 and subsets to needed variables."""</span>
     <span style="color: #81A1C1;">return</span> (
-        f<span style="color: #A3BE8C;">"{url[:-5]}.nc4?lat,lon,time,sea_surface_temperature,quality_level,l2p_flags"</span>
-        f<span style="color: #A3BE8C;">" -O 'modis/{name}'"</span>
+        f<span style="color: #A3BE8C;">"</span>{url[:-5]}<span style="color: #A3BE8C;">.nc4?lat,lon,time,sea_surface_temperature,quality_level,l2p_flags"</span>
+        f<span style="color: #A3BE8C;">" -O 'modis/</span>{name}<span style="color: #A3BE8C;">'"</span>
     )
 
 
@@ -208,8 +208,8 @@ Now we have a list of file names <code>name_list</code> and a list of URLs <code
 </div>
 </section>
 
-<section id="outline-container-org6ff065d" class="outline-2">
-<h2 id="org6ff065d"><span class="section-number-2">4</span> Download!</h2>
+<section id="outline-container-org14cb354" class="outline-2">
+<h2 id="org14cb354"><span class="section-number-2">4</span> Download!</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Finally we can download the URLs in this file in parallel using this <code>xargs</code> command. <code>-P 4</code> specified 4 parallel processes.

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>A setup for reproducible research</title>
-<meta name="generator" content="Org mode">
-<meta name="author" content="Deepak Cherian">
-<meta name="keywords" content="reproducible; research; physical oceanography, eddies, science, ocean,">
+<meta name="author" content="Deepak Cherian" />
+<meta name="keywords" content="reproducible; research; physical oceanography, eddies, science, ocean," />
+<meta name="generator" content="Org Mode" />
 <link rel="stylesheet" href="../research-posts.css" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500" rel="stylesheet">
 </head>
@@ -18,17 +18,17 @@
 <header>
 <h1 class="title">A setup for reproducible research</h1>
 </header>
-<section id="outline-container-orge2554eb" class="outline-2">
-<h2 id="orge2554eb">Update</h2>
-<div class="outline-text-2" id="text-orge2554eb">
+<section id="outline-container-org0f30ef1" class="outline-2">
+<h2 id="org0f30ef1">Update</h2>
+<div class="outline-text-2" id="text-org0f30ef1">
 <p>
 <a href="https://www.researchgate.net/profile/Andre_Paloczy">André Palóczy</a> has implemented some of <a href="https://github.com/apaloczy/reproducibility">these ideas in Python</a>.
 </p>
 </div>
 </section>
-<section id="outline-container-orgabb6f46" class="outline-2">
-<h2 id="orgabb6f46">Software</h2>
-<div class="outline-text-2" id="text-orgabb6f46">
+<section id="outline-container-org92d1aae" class="outline-2">
+<h2 id="org92d1aae">Software</h2>
+<div class="outline-text-2" id="text-org92d1aae">
 <ul class="org-ul">
 <li>Version control system to track content. I use <a href="http://www.git-scm.org"><code>git</code></a>.</li>
 <li><a href="http://www.sno.phy.queensu.ca/~phil/exiftool/"><code>exiftool</code></a> to read and write metadata to images</li>
@@ -36,9 +36,9 @@
 </ul>
 </div>
 </section>
-<section id="outline-container-orge25897c" class="outline-2">
-<h2 id="orge25897c">Strategy</h2>
-<div class="outline-text-2" id="text-orge25897c">
+<section id="outline-container-orgb8e8c57" class="outline-2">
+<h2 id="orgb8e8c57">Strategy</h2>
+<div class="outline-text-2" id="text-orgb8e8c57">
 <p>
 The approach is simple: use <code>git</code> to track files that generate output.
 </p>
@@ -60,9 +60,9 @@ With figures, I use the metadata fields to save the hash value.
 </p>
 </div>
 </section>
-<section id="outline-container-org76d1350" class="outline-2">
-<h2 id="org76d1350">Getting the current hash in MATLAB</h2>
-<div class="outline-text-2" id="text-org76d1350">
+<section id="outline-container-org1234284" class="outline-2">
+<h2 id="org1234284">Getting the current hash in MATLAB</h2>
+<div class="outline-text-2" id="text-org1234284">
 <p>
 The following MATLAB function <code>githash</code> will return the hash of the last commit that modified the file in <code>fname</code>. If not provided with <code>fname</code> it returns the hash of the last commit in the repository.
 </p>
@@ -107,9 +107,9 @@ Quite frequently, I calculate diagnostics that take a while which means that rer
 </div>
 </section>
 
-<section id="outline-container-org8ef4d92" class="outline-2">
-<h2 id="org8ef4d92">Using the hash</h2>
-<div class="outline-text-2" id="text-org8ef4d92">
+<section id="outline-container-orgcec0793" class="outline-2">
+<h2 id="orgcec0793">Using the hash</h2>
+<div class="outline-text-2" id="text-orgcec0793">
 <p>
 MATLAB&rsquo;s FileExchange has a couple of useful scripts <a href="https://www.mathworks.com/matlabcentral/fileexchange/43179-insert-annotation-in-figure-s-metadata"><code>insertAnnotation</code> &amp; <code>getAnnotation</code></a> that insert and recover metadata in MATLAB figure windows.
 </p>
@@ -131,9 +131,9 @@ both of which are saved in the metadata of the figure <i>itself</i>.
 </div>
 </section>
 
-<section id="outline-container-orgd1bf0b8" class="outline-2">
-<h2 id="orgd1bf0b8">Saving the hash in an image file</h2>
-<div class="outline-text-2" id="text-orgd1bf0b8">
+<section id="outline-container-org2270ebe" class="outline-2">
+<h2 id="org2270ebe">Saving the hash in an image file</h2>
+<div class="outline-text-2" id="text-org2270ebe">
 <p>
 Once you have a hash value, or any metadata in general, it needs to be saved when the image is saved. I have modified <code>export_fig</code> (<a href="https://github.com/altmany/export_fig">original</a>, <a href="https://github.com/dcherian/export_fig">my fork</a>) to do this for me.
 </p>
@@ -193,9 +193,9 @@ Searching for <code>hash</code> in my fork of <a href="https://github.com/dcheri
 </div>
 </section>
 
-<section id="outline-container-org1148f52" class="outline-2">
-<h2 id="org1148f52">Extracting commit hash from image metadata</h2>
-<div class="outline-text-2" id="text-org1148f52">
+<section id="outline-container-orgc072236" class="outline-2">
+<h2 id="orgc072236">Extracting commit hash from image metadata</h2>
+<div class="outline-text-2" id="text-orgc072236">
 <p>
 To recover the recorded hash, it suffices to call <code>exiftool FILENAME</code> which will print all metadata stored in the image; not just the hash. <code>grep</code> can then find the recorded hash:
 </p>
@@ -204,7 +204,7 @@ To recover the recorded hash, it suffices to call <code>exiftool FILENAME</code>
   <span style="color: #6f7787;"># </span><span style="color: #6f7787;">displays saved </span><span style="color: #6f7787;">git</span><span style="color: #6f7787;"> hash of a provided file using exiftool</span>
 
   <span style="color: #D8DEE9;">file</span>=$<span style="color: #B48EAD; font-weight: bold;">1</span>
-  <span style="color: #D8DEE9;">hash</span>=$<span style="color: #81A1C1;">(</span><span style="color: #81A1C1; font-weight: bold;">exiftool</span> $<span style="color: #D8DEE9;">file</span> | <span style="color: #8FBCBB;">grep</span> -i <span style="color: #A3BE8C;">"hash:"</span><span style="color: #81A1C1;">)</span>
+  <span style="color: #D8DEE9;">hash</span>=$<span style="color: #81A1C1;">(</span><span style="color: #81A1C1; font-weight: bold;">exiftool $file | grep -i "hash:"</span><span style="color: #81A1C1;">)</span>
 
   <span style="color: #8FBCBB;">echo</span> $<span style="color: #D8DEE9;">hash</span>
 </pre>
