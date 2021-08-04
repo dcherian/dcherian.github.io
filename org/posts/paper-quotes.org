@@ -1,8 +1,32 @@
 #+TITLE: Interesting quotes from papers
-#+DATE: Last updated: 06 May 2020
+#+DATE: Last updated: 07 July 2021
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
+
++ cite:Clarke2019
+  #+begin_quote
+  In the equatorial literature the balance (1.4) has often been referred to as “Sverdrup balance.” This is an unfortunate choice of words because, from (1.5), it implies that $V=0$. But $V$ is often referred to as “Sverdrup transport,” so we have a situation in which the Sverdrup transport is zero when the Sverdrup balance is satisfied!
+  #+end_quote
+
++ [[https://www.tos.org/oceanography/assets/docs/6-3_letter.pdf][F. Millero, Letter to the editor, Oceanography (1993)]]
+  #+begin_quote
+  After receiving the latest issue of Oceanography, I was irritated by the Sea-Bird advertisement on the inside cover. It shows a TS diagram that is labeled with the term PSU.
+
+  ...
+
+  If the field of oceanography is to become a recognized science, it must adopt the units that are basic to the fields of chemistry and physics. It also should not adopt new units for variables that are unitless.
+  #+end_quote
+
++ cite:MacGilchrist2021:
+  #+begin_quote
+   In describing a mechanism for the selective nature of ventilation over the seasonal cycle, Henry Stommel imagined a Demon sitting at the base of the surface boundary layer, granting access only to parcels of water that meet certain characteristics (namely their speed of “escape”). Thus, “Stommel’s Demon” was born. Here, we investigate this same process as it operates in more northerly regions and on longer timescales. In so doing we give birth to a new “interannual Demon,” and describe its characteristics.
+  #+end_quote
+
++ cite:Gregg1993a:
+  #+begin_quote
+  we are indebted to the reviewer of an earlier version of the paper whose comment “Statistical bafflegab is no substitute for physics. . . garbage in, garbage out as they say” strengthened our resolve to improve the statistical training of oceanographers.
+  #+end_quote
 
 + cite:Griffies2014:
   #+begin_quote
