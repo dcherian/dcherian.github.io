@@ -32,11 +32,11 @@ I am a physical oceanographer.
 #+ATTR_HTML: :style width:35%; float:right
 [[file:static/ncar.png]]
 
-I am part of the Ocean Section of the [[https://cgd.ucar.edu][Climate and Global Dynamics Lab]] at the [[http://ncar.ucar.edu][National Center for Atmospheric Research]] in Boulder, Colorado. Currently, I study problems that involve
+I am part of the Ocean Section of the [[https://www.cgd.ucar.edu][Climate and Global Dynamics Lab]] at the [[http://ncar.ucar.edu][National Center for Atmospheric Research]] in Boulder, Colorado. Currently, I study problems that involve
 a. small-scale turbulence & mixing,
-b. baroclinic instabilities and mesoscale oceanic eddies,
-c. continental shelf flows
-d. equatorial flows.
+b. equatorial flows.
+c. baroclinic instabilities and mesoscale oceanic eddies,
+d. continental shelf flows
 using observational records from moored, shipboard and satellite platforms; as well as high resolution realistic and idealized numerical models ([[Research][see below]])
 
 #+HTML: <div>
@@ -48,7 +48,7 @@ using observational records from moored, shipboard and satellite platforms; as w
 #+HTML: </div>
 
 #+HTML: <div>
-I like software tools that enable easy, intuitive, convenient and scalable analysis of datasets, both big and small. So I help with building and maintaining [[http://xarray.pydata.org][xarray]]; and contribute to the wider [[http://pangeo.io][Pangeo]] ecosystem of software tools (such as [[http://xgcm.readthedocs.io][xgcm]]). [[http://discourse.pangeo.io][Come join us]]!
+I like software tools that enable easy, intuitive, convenient and scalable analysis of datasets, both big and small. So I help with building and maintaining [[http://xarray.pydata.org][xarray]]; and contribute to the wider [[http://pangeo.io][Pangeo]] ecosystem of software tools (such as [[http://xgcm.readthedocs.io][xgcm]] and [[https://cf-xarray.readthedocs.io][cf_xarray]]). [[http://discourse.pangeo.io][Come join us]]!
 #+HTML: </div>
 
 #+HTML: </div>
@@ -82,7 +82,7 @@ We will interpret the χpod measurements using the triple decomposition framewor
 :END:
 
 #+ATTR_HTML: :class coauthors
-With [[https://danielwhitt.github.io/][Dan Whitt (NCAR)]], [[https://staff.ucar.edu/users/bachman][Scott Bachman (NCAR)]], [[https://rmholmes.github.io/][Ryan Holmes (UNSW)]], [[https://staff.ucar.edu/users/wily][Bill Large (NCAR)]], [[http://www.apl.uw.edu/people/profile.php?last_name=Lien&first_name=Ren-Chieh][R-C. Lien (UW APL)]]
+With [[https://danielwhitt.github.io/][Dan Whitt (NCAR)]], [[https://staff.ucar.edu/users/bachman][Scott Bachman (NCAR)]], [[https://rmholmes.github.io/][Ryan Holmes (UNSW)]], [[https://staff.ucar.edu/users/wily][Bill Large (NCAR)]], [[http://www.apl.uw.edu/people/profile.php?last_name=Lien&first_name=Ren-Chieh][R-C. Lien (UW APL)]] | [[file:static/Cherian-et-al-2020-Off-equatorial-deep-cycle-turbulence.pdf][Read the paper!]]
 
 #+ATTR_HTML: :style width:100%
 [[file:static/eq-pac-sst.png]]
@@ -169,7 +169,9 @@ Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculat
 :CUSTOM_ID: publications
 :END:
 
-- Rypina I.I., Pratt L.J.; Entner S.; Anderson A.; *Cherian D.A.* /accepted./  (2020) The Influence of an Eddy in the Success Rates and Distributions of Passively Advected or Actively Swimming Biological Organisms Crossing the Continental Slope. /Journal of Physical Oceanography/
+- *Cherian, D.*, Whitt, D.B., Holmes, R.M., Lien, R.-C., Bachman, S.D., Large, W.L. (/in review/). Off-equatorial deep cycle turbulence forced by Tropical Instability Waves in the equatorial Pacific. /Journal of Physical Oceanography/ [[file:static/Cherian-et-al-2020-Off-equatorial-deep-cycle-turbulence.pdf][PDF]]
+
+- Rypina, I.I., Pratt, L.J., Entner, S., Anderson, A., *Cherian, D.*, 2020. The Influence of an Eddy in the Success Rates and Distributions of Passively Advected or Actively Swimming Biological Organisms Crossing the Continental Slope. /Journal of Physical Oceanography/ 50, 1839–1852. [[https://doi.org/10/gg55wz][DOI]]
 
 - *Cherian, D.A.*, Shroyer, E.L., Wijesekera, H.W., Moum, J.N. (2020) The seasonal cycle of upper-ocean mixing at 8°N in the Bay of Bengal. /Journal of Physical Oceanography/. 50, 323-342 [[https://journals.ametsoc.org/doi/abs/10.1175/JPO-D-19-0114.1][DOI]] [[file:static/Cherian-et-al-2019-nrl-chipods.pdf][PDF]].
 
@@ -318,11 +320,7 @@ Phone: +1 303-497-1713
 :END:
 My work has been funded by the US National Science Foundation (NSF), National Oceanic and Atmospheric Administration (NOAA), National Aeronautics and Space Administration (NASA) and the Office of Naval Research (ONR).
 
-Styling gratefully borrowed from [[http://ethanschoonover.com/solarized][Ethan Schoonover]], [[http://www.labri.fr/perso/nrougier/from-python-to-numpy/%20][Nicolas P. Rougier]] and [[http://practicaltypography.com/][Matthew Butterick]].
-
-Icons from [[http://fontawesome.io/][FontAwesome]] and [[https://jpswalsh.github.io/academicons/][Academicons]].
-
-Website built using [[http://orgmode.org][Emacs Org-mode]] ([[https://github.com/dcherian/dcherian.github.io/tree/sources][source code]])
+Styling gratefully borrowed from [[http://ethanschoonover.com/solarized][Ethan Schoonover]], [[http://www.labri.fr/perso/nrougier/from-python-to-numpy/%20][Nicolas P. Rougier]] and [[http://practicaltypography.com/][Matthew Butterick]]. Icons from [[http://fontawesome.io/][FontAwesome]] and [[https://jpswalsh.github.io/academicons/][Academicons]]. Website built using [[http://orgmode.org][Emacs Org-mode]] ([[https://github.com/dcherian/dcherian.github.io/tree/sources][source code]])
 
 * icons :noexport:
 ** Instructions
