@@ -1,8 +1,13 @@
 #+TITLE: Interesting quotes from papers
-#+DATE: Last updated: 07 July 2021
+#+DATE: Last updated: 07 March 2022
 #+CSL_STYLE: /home/deepak/website/org/american-meteorological-society.csl
 
 #+HTML: <div class="paper-quotes">
+
++ cite:Munk1973:
+   #+begin_quote
+   The authors think that the internal wave energy in the ocean extends to quite high modes, up to 20 (say); but once having said this, we disclaim all belief in the existence (discreteness) of the higher modes under the messy oceanic conditions as they actually exist; iblur the mode spectrum into an equivalent continuum, corresponding not to (3) but to the /Tijuana boundary condition/: topless and bottomless.
+  #+end_quote
 
 + cite:Clarke2019
   #+begin_quote
