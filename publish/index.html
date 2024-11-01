@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Deepak Cherian</title>
+<meta name="author" content="Deepak Cherian" />
+<meta name="description" content="Describing my ocean sciences research" />
+<meta name="keywords" content="physical oceanography, science, ocean, data, pangeo, oceanography, xarray" />
+<meta name="generator" content="Org Mode" />
+<!-- HTML Meta Tags -->
+<title>Deepak Cherian, oceanographer</title>
+<meta name="description" content="My research and posts">
+
+<!-- Google / Search Engine Tags -->
+<meta itemprop="name" content="Deepak Cherian, oceanographer">
+<meta itemprop="description" content="My research and posts">
+<meta itemprop="image" content="http://cherian.net/static/eddyshelf-3d-small.png">
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="http://cherian.net">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Deepak Cherian, oceanographer">
+<meta property="og:description" content="My research and posts">
+<meta property="og:image" content="http://cherian.net/static/eddyshelf-3d-small.png">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Deepak Cherian, oceanographer">
+<meta name="twitter:description" content="My research and posts">
+<meta name="twitter:image" content="http://cherian.net/static/eddyshelf-3d-small.png">
+
+<!-- Meta Tags Generated via http://heymeta.com -->
+
+<link rel="stylesheet" href="./website.css" type="text/css">
+<!-- <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500" rel="stylesheet"> -->
+</head>
+<body>
+<div id="preamble" class="status">
+<svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="icon-pdf" viewBox="0 0 384 512">
+      <title>pdf</title>
+      <path d="M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-21.9-12.7-9.6-24.9-23.4-34.5-40.8zM86.1 428.1c0 .8 13.2-5.4 34.9-40.2-6.7 6.3-29.1 24.5-34.9 40.2zM248 160h136v328c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V24C0 10.7 10.7 0 24 0h200v136c0 13.2 10.8 24 24 24zm-8 171.8c-20-12.2-33.3-29-42.7-53.8 4.5-18.5 11.6-46.6 6.2-64.2-4.7-29.4-42.4-26.5-47.8-6.8-5 18.3-.4 44.1 8.1 77-11.6 27.6-28.7 64.6-40.8 85.8-.1 0-.1.1-.2.1-27.1 13.9-73.6 44.5-54.5 68 5.6 6.9 16 10 21.5 10 17.9 0 35.7-18 61.1-61.8 25.8-8.5 54.1-19.1 79-23.2 21.7 11.8 47.1 19.5 64 19.5 29.2 0 31.2-32 19.7-43.4-13.9-13.6-54.3-9.7-73.6-7.2zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-74.1 255.3c4.1-2.7-2.5-11.9-42.8-9 37.1 15.8 42.8 9 42.8 9z"/>
+    </symbol>
+
+    <symbol id="icon-envelope" viewBox="0 0 32 32">
+      <title>envelope</title>
+      <path d="M32 12.679v14.179c0 1.571-1.286 2.857-2.857 2.857h-26.286c-1.571 0-2.857-1.286-2.857-2.857v-14.179c0.536 0.589 1.143 1.107 1.804 1.554 2.964 2.018 5.964 4.036 8.875 6.161 1.5 1.107 3.357 2.464 5.304 2.464h0.036c1.946 0 3.804-1.357 5.304-2.464 2.911-2.107 5.911-4.143 8.893-6.161 0.643-0.446 1.25-0.964 1.786-1.554zM32 7.429c0 2-1.482 3.804-3.054 4.893-2.786 1.929-5.589 3.857-8.357 5.804-1.161 0.804-3.125 2.446-4.571 2.446h-0.036c-1.446 0-3.411-1.643-4.571-2.446-2.768-1.946-5.571-3.875-8.339-5.804-1.268-0.857-3.071-2.875-3.071-4.5 0-1.75 0.946-3.25 2.857-3.25h26.286c1.554 0 2.857 1.286 2.857 2.857z"></path>
+    </symbol>
+
+    <symbol id="icon-rss-square" viewBox="0 0 27 32">
+      <title>rss-square</title>
+      <path d="M9.143 22.857c0-1.268-1.018-2.286-2.286-2.286s-2.286 1.018-2.286 2.286 1.018 2.286 2.286 2.286 2.286-1.018 2.286-2.286zM15.411 24.536c-0.304-5.536-4.696-9.929-10.232-10.232-0.161-0.018-0.321 0.054-0.429 0.161s-0.179 0.25-0.179 0.411v2.286c0 0.304 0.232 0.554 0.536 0.571 3.661 0.268 6.607 3.214 6.875 6.875 0.018 0.304 0.268 0.536 0.571 0.536h2.286c0.161 0 0.304-0.071 0.411-0.179s0.179-0.268 0.161-0.429zM22.268 24.554c-0.304-9.286-7.821-16.804-17.107-17.107-0.179-0.018-0.304 0.036-0.411 0.161-0.107 0.107-0.179 0.25-0.179 0.411v2.286c0 0.304 0.25 0.554 0.554 0.571 7.411 0.268 13.446 6.304 13.714 13.714 0.018 0.304 0.268 0.554 0.571 0.554h2.286c0.161 0 0.304-0.071 0.411-0.179 0.125-0.107 0.179-0.25 0.161-0.411zM27.429 7.429v17.143c0 2.839-2.304 5.143-5.143 5.143h-17.143c-2.839 0-5.143-2.304-5.143-5.143v-17.143c0-2.839 2.304-5.143 5.143-5.143h17.143c2.839 0 5.143 2.304 5.143 5.143z"></path>
+    </symbol>
+
+    <symbol id="icon-GoogleScholar" viewBox="0 0 32 32">
+      <title>Google Scholar profile</title>
+      <desc>Google Scholar profile</desc>
+      <path d="M25.39 5.329v-1.946l1.412-1.103h-15.285l-9.23 8.023h6.121c-0.011 0.152-0.016 0.289-0.016 0.445 0 1.49 0.516 2.722 1.549 3.706 1.033 0.986 2.305 1.476 3.811 1.476 0.352 0 0.697-0.026 1.032-0.073-0.208 0.465-0.313 0.895-0.313 1.296 0 0.706 0.322 1.46 0.962 2.261-2.804 0.191-4.864 0.696-6.177 1.512-0.753 0.464-1.358 1.051-1.814 1.753-0.457 0.707-0.684 1.466-0.684 2.284 0 0.689 0.147 1.31 0.444 1.863s0.684 1.006 1.166 1.357c0.48 0.355 1.034 0.65 1.659 0.891 0.624 0.239 1.244 0.409 1.862 0.505 0.617 0.096 1.229 0.143 1.837 0.143 0.963 0 1.926-0.124 2.898-0.371 0.969-0.249 1.878-0.618 2.728-1.107 0.848-0.486 1.538-1.15 2.067-1.981 0.528-0.835 0.793-1.773 0.793-2.811 0-0.787-0.161-1.503-0.482-2.154-0.319-0.648-0.71-1.182-1.176-1.597-0.465-0.415-0.929-0.797-1.395-1.141-0.465-0.346-0.858-0.697-1.177-1.059-0.32-0.361-0.481-0.718-0.481-1.071s0.124-0.691 0.373-1.019c0.247-0.329 0.548-0.647 0.901-0.951s0.706-0.641 1.057-1.010c0.352-0.368 0.653-0.845 0.901-1.43 0.249-0.585 0.372-1.247 0.372-1.984 0-0.961-0.182-1.748-0.539-2.381-0.042-0.073-0.087-0.129-0.134-0.216l4.067-3.335v1.223c-0.528 0.066-0.473 0.382-0.473 0.76v9.195c0 0.426 0.348 0.774 0.774 0.774h0.285c0.426 0 0.774-0.348 0.774-0.774v-9.195c0-0.377 0.056-0.692-0.469-0.76zM17.717 21.228c0.082 0.054 0.265 0.199 0.552 0.432 0.289 0.232 0.486 0.407 0.591 0.53 0.103 0.119 0.256 0.298 0.456 0.539 0.201 0.241 0.337 0.451 0.409 0.624 0.071 0.177 0.144 0.39 0.218 0.639 0.070 0.246 0.106 0.499 0.106 0.755 0 1.218-0.469 2.121-1.405 2.706-0.938 0.585-2.056 0.877-3.354 0.877-0.657 0-1.301-0.078-1.934-0.228-0.632-0.151-1.237-0.381-1.814-0.686s-1.042-0.729-1.394-1.272c-0.353-0.546-0.529-1.173-0.529-1.876 0-0.738 0.2-1.379 0.602-1.923 0.4-0.545 0.925-0.957 1.575-1.237 0.648-0.282 1.304-0.482 1.97-0.6 0.665-0.122 1.343-0.183 2.032-0.183 0.319 0 0.567 0.018 0.744 0.050 0.032 0.016 0.217 0.148 0.553 0.398 0.336 0.247 0.545 0.4 0.625 0.456zM17.477 14.040c-0.529 0.633-1.267 0.95-2.212 0.95-0.848 0-1.593-0.341-2.234-1.023-0.643-0.681-1.102-1.453-1.382-2.318-0.281-0.865-0.422-1.714-0.422-2.548 0-0.979 0.257-1.812 0.77-2.499 0.514-0.69 1.251-1.035 2.211-1.035 0.849 0 1.599 0.36 2.247 1.083 0.65 0.721 1.116 1.53 1.395 2.427 0.28 0.896 0.42 1.753 0.42 2.572 0 0.961-0.265 1.759-0.792 2.391z"></path>
+    </symbol>
+
+    <symbol id="icon-Orcid" viewBox="0 0 27 32">
+      <title>ORCID ID</title>
+      <path d="M17.375 12.929c-0.6-0.311-1.414-0.463-2.45-0.463h-2.551v7.563h2.397c0.676 0 1.129-0.016 1.369-0.055 0.237-0.038 0.501-0.116 0.787-0.228 0.487-0.182 0.915-0.453 1.285-0.818 0.359-0.35 0.639-0.758 0.834-1.222 0.194-0.461 0.296-0.944 0.296-1.451 0-0.709-0.181-1.363-0.536-1.96-0.353-0.604-0.829-1.057-1.429-1.366zM17.413 18.251c-0.166 0.168-0.35 0.306-0.551 0.42-0.2 0.116-0.451 0.208-0.75 0.282s-0.72 0.111-1.262 0.111h-1.388v-5.634h1.355c0.524 0 0.896 0.021 1.131 0.059 0.236 0.039 0.485 0.122 0.75 0.245 0.26 0.123 0.492 0.279 0.694 0.47 0.55 0.516 0.822 1.179 0.822 1.992 0 0.829-0.266 1.509-0.8 2.055zM9.6 20.040h1.083v-7.574h-1.083v7.574zM25.933 3.789c-1.006-1.007-2.218-1.509-3.636-1.509h-17.151c-1.418 0-2.629 0.502-3.636 1.509-1.007 1.005-1.509 2.218-1.509 3.636v17.151c0 1.418 0.502 2.631 1.509 3.638 1.007 1.003 2.221 1.507 3.636 1.507h17.151c1.418 0 2.63-0.504 3.636-1.509 1.007-1.007 1.51-2.217 1.51-3.636v-17.151c0-1.418-0.503-2.631-1.51-3.636zM13.721 25.148c-5.052 0-9.147-4.097-9.147-9.147s4.096-9.147 9.147-9.147 9.147 4.097 9.147 9.147-4.096 9.147-9.147 9.147zM10.137 10.187c-0.408 0-0.741 0.334-0.741 0.742 0 0.414 0.333 0.743 0.741 0.743 0.414 0 0.75-0.329 0.75-0.743 0-0.408-0.335-0.742-0.75-0.742z"></path>
+    </symbol>
+
+    <symbol id="icon-github" viewBox="0 0 27 32">
+      <title>Github</title>
+      <path d="M13.714 2.286c7.571 0 13.714 6.143 13.714 13.714 0 6.054-3.929 11.196-9.375 13.018-0.696 0.125-0.946-0.304-0.946-0.661 0-0.446 0.018-1.929 0.018-3.768 0-1.286-0.429-2.107-0.929-2.536 3.054-0.339 6.268-1.5 6.268-6.768 0-1.5-0.536-2.714-1.411-3.679 0.143-0.357 0.607-1.75-0.143-3.643-1.143-0.357-3.768 1.411-3.768 1.411-1.089-0.304-2.268-0.464-3.429-0.464s-2.339 0.161-3.429 0.464c0 0-2.625-1.768-3.768-1.411-0.75 1.893-0.286 3.286-0.143 3.643-0.875 0.964-1.411 2.179-1.411 3.679 0 5.25 3.196 6.429 6.25 6.768-0.393 0.357-0.75 0.964-0.875 1.839-0.786 0.357-2.786 0.964-3.982-1.143-0.75-1.304-2.107-1.411-2.107-1.411-1.339-0.018-0.089 0.839-0.089 0.839 0.893 0.411 1.518 2 1.518 2 0.804 2.446 4.625 1.625 4.625 1.625 0 1.143 0.018 2.214 0.018 2.554 0 0.357-0.25 0.786-0.946 0.661-5.446-1.821-9.375-6.964-9.375-13.018 0-7.571 6.143-13.714 13.714-13.714zM5.196 21.982c0.036-0.071-0.018-0.161-0.125-0.214-0.107-0.036-0.196-0.018-0.232 0.036-0.036 0.071 0.018 0.161 0.125 0.214 0.089 0.054 0.196 0.036 0.232-0.036zM5.75 22.589c0.071-0.054 0.054-0.179-0.036-0.286-0.089-0.089-0.214-0.125-0.286-0.054-0.071 0.054-0.054 0.179 0.036 0.286 0.089 0.089 0.214 0.125 0.286 0.054zM6.286 23.393c0.089-0.071 0.089-0.214 0-0.339-0.071-0.125-0.214-0.179-0.304-0.107-0.089 0.054-0.089 0.196 0 0.321s0.232 0.179 0.304 0.125zM7.036 24.143c0.071-0.071 0.036-0.232-0.071-0.339-0.125-0.125-0.286-0.143-0.357-0.054-0.089 0.071-0.054 0.232 0.071 0.339 0.125 0.125 0.286 0.143 0.357 0.054zM8.054 24.589c0.036-0.107-0.071-0.232-0.232-0.286-0.143-0.036-0.304 0.018-0.339 0.125s0.071 0.232 0.232 0.268c0.143 0.054 0.304 0 0.339-0.107zM9.179 24.679c0-0.125-0.143-0.214-0.304-0.196-0.161 0-0.286 0.089-0.286 0.196 0 0.125 0.125 0.214 0.304 0.196 0.161 0 0.286-0.089 0.286-0.196zM10.214 24.5c-0.018-0.107-0.161-0.179-0.321-0.161-0.161 0.036-0.268 0.143-0.25 0.268 0.018 0.107 0.161 0.179 0.321 0.143s0.268-0.143 0.25-0.25z"></path>
+    </symbol>
+
+    <symbol id="icon-twitter" viewBox="0 0 32 32">
+      <title>Twitter</title>
+      <path d="M32 7.075c-1.175 0.525-2.444 0.875-3.769 1.031 1.356-0.813 2.394-2.1 2.887-3.631-1.269 0.75-2.675 1.3-4.169 1.594-1.2-1.275-2.906-2.069-4.794-2.069-3.625 0-6.563 2.938-6.563 6.563 0 0.512 0.056 1.012 0.169 1.494-5.456-0.275-10.294-2.888-13.531-6.862-0.563 0.969-0.887 2.1-0.887 3.3 0 2.275 1.156 4.287 2.919 5.463-1.075-0.031-2.087-0.331-2.975-0.819 0 0.025 0 0.056 0 0.081 0 3.181 2.263 5.838 5.269 6.437-0.55 0.15-1.131 0.231-1.731 0.231-0.425 0-0.831-0.044-1.237-0.119 0.838 2.606 3.263 4.506 6.131 4.563-2.25 1.762-5.075 2.813-8.156 2.813-0.531 0-1.050-0.031-1.569-0.094 2.913 1.869 6.362 2.95 10.069 2.95 12.075 0 18.681-10.006 18.681-18.681 0-0.287-0.006-0.569-0.019-0.85 1.281-0.919 2.394-2.075 3.275-3.394z"></path>
+    </symbol>
+
+  </defs>
+</svg>
+</div>
+<div id="content" class="content">
+<header>
+<h1 class="title">Deepak Cherian</h1>
+<p class="subtitle" role="doc-subtitle">physical oceanographer; forward engineer<br /> &lt;a href=&ldquo;<a href="https://earthmover.io">https://earthmover.io</a>&rdquo;&gt;Earthmover PBC&lt;/a&gt; <br /> <a class="email" href="mailto:dcherian@ucar.edu"> dcherian@ucar.edu</a> | +1 303-497-1713 | Mesa Lab 400 <br /><a class="logo" href="rss.xml"><svg class="logo feed-logo"><title>RSS feed</title><use xlink:href="#icon-rss-square"></use></svg></a> <a class="logo" href="https://github.com/dcherian"><svg class="logo"><title>Github profile</title><use xlink:href="#icon-github"></use></svg></a><a class="logo" href="https://orcid.org/0000-0002-6861-8734" rel="noopener noreferrer"><svg class="logo"><title>ORCID profile</title><use xlink:href="#icon-Orcid"></use></svg></a><a class="logo" href="https://scholar.google.com/citations?user=8FbYoygAAAAJ"><svg class="logo"><title>Google Scholar profile</title><use xlink:href="#icon-GoogleScholar"></use></svg></a><a class="logo" href="https://twitter.com/cherian_deepak"><svg class="logo"><title>Twitter</title><use xlink:href="#icon-twitter"></use></svg></a></p>
+</header><nav class="menu">
+<ul>
+<li><a href="static/Deepak-Cherian-CV.pdf">CV</a></li>
+<li><a href="#research">Research</a></li>
+<li><a href="#publications">Publications</a></li>
+<li><a href="#posts">Posts</a></li>
+<li><a href="#teaching">Teaching</a></li>
+<li><a href="#contact">Contact</a></li>
+<li><a href="#links">Links</a></li>
+</ul>
+</nav>
+<section id="outline-container-org4f9e9e2" class="outline-2">
+<h2 id="org4f9e9e2">Hello.</h2>
+<div class="outline-text-2" id="text-org4f9e9e2">
+<p>
+I am a physical oceanographer.
+</p>
+
+
+<figure id="org83ad244">
+<img src="static/ncar.png" alt="ncar.png" style="width:35%; float:right">
+
+</figure>
+
+<p>
+I am part of the Ocean Section of the <a href="https://www.cgd.ucar.edu">Climate and Global Dynamics Lab</a> at the <a href="http://ncar.ucar.edu">National Center for Atmospheric Research</a> in Boulder, Colorado. Currently, I study problems that involve
+</p>
+<ol class="org-ol">
+<li>small-scale turbulence &amp; mixing,</li>
+<li>equatorial flows.</li>
+<li>baroclinic instabilities and mesoscale oceanic eddies,</li>
+<li>continental shelf flows</li>
+</ol>
+<p>
+using observational records from moored, shipboard and satellite platforms; as well as high resolution realistic and idealized numerical models (<a href="#research">see below</a>)
+</p>
+
+<div>
+<div style="width:35%; display:block;">
+
+<figure id="org5970159">
+<img src="static/xarray-logo.png" alt="xarray-logo.png" style="width:100%; float:left">
+
+</figure>
+
+<figure id="org3210174">
+<img src="static/pangeo-logo.png" alt="pangeo-logo.png" style="width:100%; float:left">
+
+</figure>
+</div>
+
+<div>
+<p>
+I like software tools that enable easy, intuitive, convenient and scalable analysis of datasets, both big and small. So I help with building and maintaining <a href="http://xarray.pydata.org">xarray</a>; and contribute to the wider <a href="http://pangeo.io">Pangeo</a> ecosystem of software tools (such as <a href="http://xgcm.readthedocs.io">xgcm</a> and <a href="https://cf-xarray.readthedocs.io">cf<sub>xarray</sub></a>). <a href="http://discourse.pangeo.io">Come join us</a>!
+</p>
+</div>
+
+</div>
+</div>
+</section>
+<section id="outline-container-research" class="outline-2">
+<h2 id="research">Research</h2>
+<div class="outline-text-2" id="text-research">
+</div>
+<article id="outline-container-orgd8e6a7c" class="outline-4 research">
+<h4 id="orgd8e6a7c">Linking microstructure measurements to the mesoscale</h4>
+<div class="outline-text-4" id="text-orgd8e6a7c">
+<p class="coauthors">
+With <a href="https://staff.ucar.edu/users/bryan" class="coauthors">Frank Bryan (NCAR)</a>,  <a href="http://people.oregonstate.edu/~shroyere/Welcome.html">Emily Shroyer (OSU)</a>, <a href="https://makani.coas.oregonstate.edu/nash/About_Me.html">Jonathan Nash (OSU)</a>
+</p>
+
+
+<figure id="org66c9fc9">
+<img src="static/p06-Ke.png" alt="p06-Ke.png" style="width:100%">
+
+</figure>
+
+<p>
+We are working to estimate lateral (mesoscale) diffusivity coefficients from two classes of microstructure measurements:
+</p>
+<ol class="org-ol">
+<li>moored measurements from the <b>χpod</b> of Moum &amp; Nash (2009), and</li>
+<li>basin-wide GO-SHIP transects from the <b>CTD-χpod</b> (Pickering &amp; Nash, unpublished).</li>
+</ol>
+<p>
+We will interpret the χpod measurements using the triple decomposition framework of <a href="http://www.soest.hawaii.edu/PubServices/2001pdfs/Garrett.pdf">Garrett (2001)</a>. Above [left] is a preliminary estimate for the P06 section at 24°S in the Pacific Ocean. For comparison, we show an estimate based on Argo finestructure (Cole et. al., 2015) as well as an estimate using passive tracers advected by altimetric velocities  (Abernathey &amp; Marshall, 2013). [right] Density bins used for the computation are marked on a T-S plot.
+</p>
+</div>
+</article>
+<article id="outline-container-org9d583f6" class="outline-4 research">
+<h4 id="org9d583f6">Turbulence in the equatorial Pacific cold tongue</h4>
+<div class="outline-text-4" id="text-org9d583f6">
+<p class="coauthors">
+With <a href="https://danielwhitt.github.io/" class="coauthors">Dan Whitt (NCAR)</a>, <a href="https://staff.ucar.edu/users/bachman">Scott Bachman (NCAR)</a>, <a href="https://rmholmes.github.io/">Ryan Holmes (UNSW)</a>, <a href="https://staff.ucar.edu/users/wily">Bill Large (NCAR)</a>, <a href="http://www.apl.uw.edu/people/profile.php?last_name=Lien&amp;first_name=Ren-Chieh">R-C. Lien (UW APL)</a> | <a href="static/Cherian-et-al-2020-Off-equatorial-deep-cycle-turbulence.pdf">Read the paper!</a>
+</p>
+
+
+<figure id="org133cb87">
+<img src="static/eq-pac-sst.png" alt="eq-pac-sst.png" style="width:100%">
+
+</figure>
+
+<p>
+We are studying turbulence in the equatorial cold tongue using a series of high resolution nested simulations of the eastern equatorial Pacific. This work is funded by <a href="https://cpo.noaa.gov/Meet-the-Divisions/Earth-System-Science-and-Modeling/CVP">NOAA&rsquo;s Climate Variability and Predictability (CVP)</a> program.
+</p>
+
+<p>
+One cool result so far is the presence of deep cycle turbulence off the equator in the cold cusp of Tropical Instability Waves (TIWs). This video demonstrates this using an animation of 4-hourly SST (top) and average turbulence heat flux in the top 150m (bottom; parameterized using KPP). Initially the mixed layer is included and there is a pronounced daily cycle throughout the domain. About 20 seconds in, the mixed layer is removed and a daily cycle of mixing persists in the TIW cold cusp both on and off the equator. TIWs have been observed to modulate the equatorial deep cycle at 140W (Moum et al, 2009; Inoue et al 2012; Inoue et al 2019) but no observations of an off-equatorial deep cycle exist to date.
+</p>
+
+<video controls="controls" id="orgcf6c253">
+<source src="static/eq-pac-tiw-dcl.mp4" type="video/mp4">
+<p>
+Your browser does not support the video tag.
+</p>
+</video>
+</div>
+</article>
+<article id="outline-container-org93f5290" class="outline-4 research">
+<h4 id="org93f5290">Turbulence and lack of turbulence in the Bay of Bengal</h4>
+<div class="outline-text-4" id="text-org93f5290">
+<p class="coauthors">
+With <a href="http://people.oregonstate.edu/~shroyere/Welcome.html" class="coauthors">Emily Shroyer (OSU)</a>, <a href="http://mixing.coas.oregonstate.edu/people/jmoum/">Jim Moum (OSU)</a> and the <a href="http://mixing.coas.oregonstate.edu/">OSU Ocean Mixing Group</a> | <a href="static/Cherian-et-al-2019-nrl-chipods.pdf">Read the paper!</a>  | <a href="research/bay.html">More</a>
+</p>
+
+
+<figure id="org7379344">
+<img src="static/bay-turbulence-summary.png" alt="bay-turbulence-summary.png" style="width:100%">
+
+</figure>
+
+<p>
+Multiple year-long moored turbulent mixing measurements collected using fast temperature sensors (<a href="http://mixing.coas.oregonstate.edu/papers/mixing_measurements.pdf">χ-pods</a>) as part of the <a href="http://journals.ametsoc.org/doi/10.1175/BAMS-D-14-00197.1">ASIRI</a>/EBoB/<a href="https://www.pmel.noaa.gov/gtmba/pmel-theme/indian-ocean-rama">RAMA</a> programmes paint a picture of mixing across the Bay of Bengal that spans multiple time scales: interannual to diurnal and shorter.
+</p>
+
+<p>
+Interesting signals include interannual &amp; intraseasonal variability, a daily cycle in turbulence, depressed turbulence in barrier layers, elevated mixing associated with the tropical cyclones and a quiet ocean below 50m. To me, the coolest result is the absence of turbulence in April at 100m i.e. inferred diffusivity values are near-molecular!
+</p>
+</div>
+</article>
+<article id="outline-container-org545064a" class="outline-4 research">
+<h4 id="org545064a">Shelf flows forced by mesoscale eddies</h4>
+<div class="outline-text-4" id="text-org545064a">
+<p class="coauthors">
+Advisor: <a href="http://www.whoi.edu/page.do?pid=23355" class="coauthors">Ken Brink (WHOI)</a> | <a href="static/Cherian-Brink-2018-JPO.pdf">Read the paper!</a> | <a href="research/eddyshelf.html">More</a>
+</p>
+
+<p>
+One chapter of my thesis focused on the shelf flows forced by mesoscale eddies translating at the shelfbreak. The flow field is summarized below. What I found most interesting was the difference in vertical structure of the cross-shelfbreak flow. The shelf-water outflow is approximately vertically uniform  whereas the eddy- and slope-water inflow is strongly sheared. Our paper explains why this happens.
+</p>
+
+
+<figure id="org37e6b81">
+<img src="static/shelf-flow-summary.png" alt="shelf-flow-summary.png" style="width:90%;">
+
+</figure>
+</div>
+</article>
+<article id="outline-container-org565b3c1" class="outline-4 research">
+<h4 id="org565b3c1">Cross-shelfbreak exchange by mesoscale eddies</h4>
+<div class="outline-text-4" id="text-org565b3c1">
+<p class="coauthors">
+Advisor: <a href="http://www.whoi.edu/page.do?pid=23355" class="coauthors">Ken Brink (WHOI)</a> | <a href="http:://dx.doi.org/10.1175/JPO-D-16-0085.1">Read the paper!</a> | <a href="research/eddyshelf.html">More</a>
+</p>
+
+
+<figure id="orge7465c2">
+<img src="./static/eddyshelf-3d.png" alt="eddyshelf-3d.png" style="float:left; width: 45%;">
+
+</figure>
+
+<p>
+My dissertation looked at the interaction of deep-ocean mesoscale eddies with continental shelf-slope topography.
+</p>
+
+<p>
+When visualized using passive tracer fields (red tracks eddy water and blue, shelf-slope water), the interaction clearly results in the formation of smaller-scale secondary vortices. We term these &rsquo;stacked&rsquo; vortices to reflect their (unexpected) vertical structure wherein shelf-slope water is stacked over eddy water. Observational evidence for these features remains elusive.
+</p>
+
+<p>
+Here&rsquo;s a video showing the evolution of a passive tracer. The southern boundary is the coast, the eddy is started in the northeast in deep water (flat bottom) and the β &gt; 0. The lower panel  shows a time series of volume flux of shelf water: defined to be water parcels that start on the shelf at t=0. The shelf is ≈ 40 km wide and the continental slope is 50 km wide.
+</p>
+<video controls="controls" id="org28a3ed7">
+<source src="static/ew-34-csdye.mp4" type="video/mp4">
+<p>
+Your browser does not support the video tag.
+</p>
+</video>
+</div>
+</article>
+<article id="outline-container-org8d994ce" class="outline-4 research">
+<h4 id="org8d994ce">Inertial-gravity waves in the equatorial Pacific</h4>
+<div class="outline-text-4" id="text-org8d994ce">
+<p class="coauthors">
+With <a href="http://www.whoi.edu/profile/tfarrar/" class="coauthors">Tom Farrar (WHOI)</a> &amp; <a href="http://ceoas.oregonstate.edu/profile/durland/">Ted Durland (OSU)</a> | <a href="https://github.com/dcherian/eq_waves/">Code</a>
+</p>
+
+
+<figure id="orgb3d1be8">
+<img src="static/farrar-durland-spectrum-deepak.png" alt="farrar-durland-spectrum-deepak.png" style="float:right; width:44%;">
+
+</figure>
+
+<p>
+Satellite observations give humanity an unprecedented detailed look at the surface ocean. The vertical structure of variability associated with surface signals is relatively less known, and the relevance of theoretical structures derived using strict assumptions is debated; viz., the so-called baroclinic vertical modes.
+</p>
+
+<p>
+Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculated by <a href="http://dx.doi.org/10.1175/JPO-D-11-0235.1">Farrar &amp; Durland (2012)</a> &#x2014; see image on right &#x2014;  my goal is to infer the vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific (filter band marked by horizontal lines). I am using long term subsurface temperature measurements and inferred dynamic height from <a href="https://www.pmel.noaa.gov/gtmba/pmel-theme/pacific-ocean-tao">the TAO/TRITON project</a>.
+</p>
+</div>
+</article>
+</section>
+<section id="outline-container-publications" class="outline-2">
+<h2 id="publications">Publications</h2>
+<div class="outline-text-2" id="text-publications">
+<ul class="org-ul">
+<li><b>Cherian, D. A.</b>, Guo, Y., Bryan, F. O. (2024). Assessing Modeled Mesoscale Stirring Using Microscale Observations. <i>Journal of Physical Oceanography</i>, 54(5): 1183–1194.  <a href="static/Cherian-et-al-2024-Assessing-mesoscale-stirring.pdf">PDF</a></li>
+
+<li><b>Cherian, D.</b>, Whitt, D.B., Holmes, R.M., Lien, R.-C., Bachman, S.D., Large, W.L. (2024). Off-equatorial deep cycle turbulence forced by Tropical Instability Waves in the equatorial Pacific. <i>Journal of Physical Oceanography</i> <a href="static/Cherian-et-al-2020-Off-equatorial-deep-cycle-turbulence.pdf">PDF</a></li>
+
+<li><b>Cherian, D.</b>, Whitt, D.B., Holmes, R.M., Lien, R.-C., Bachman, S.D., Large, W.L. (2021). Off-equatorial deep cycle turbulence forced by Tropical Instability Waves in the equatorial Pacific. <i>Journal of Physical Oceanography</i> <a href="static/Cherian-et-al-2020-Off-equatorial-deep-cycle-turbulence.pdf">PDF</a></li>
+
+<li>Rypina, I.I., Pratt, L.J., Entner, S., Anderson, A., <b>Cherian, D.</b>, 2020. The Influence of an Eddy in the Success Rates and Distributions of Passively Advected or Actively Swimming Biological Organisms Crossing the Continental Slope. <i>Journal of Physical Oceanography</i> 50, 1839–1852. <a href="https://doi.org/10/gg55wz">DOI</a></li>
+
+<li><b>Cherian, D.A.</b>, Shroyer, E.L., Wijesekera, H.W., Moum, J.N. (2020) The seasonal cycle of upper-ocean mixing at 8°N in the Bay of Bengal. <i>Journal of Physical Oceanography</i>. 50, 323-342 <a href="https://journals.ametsoc.org/doi/abs/10.1175/JPO-D-19-0114.1">DOI</a> <a href="static/Cherian-et-al-2019-nrl-chipods.pdf">PDF</a>.</li>
+
+<li><b>Cherian, D.A.</b>, Brink, K.H. (2018) Shelf flows forced by deep-ocean anticyclonic eddies at the shelfbreak. <i>Journal of Physical Oceanography</i>. 48, 1117–1138. <a href="https://doi.org/10.1175/JPO-D-17-0237.1">DOI</a> <a href="static/Cherian-Brink-2018-JPO.pdf">PDF</a>.</li>
+
+<li><b>Cherian, D.A.</b>, Brink, K.H. (2016) Offshore Transport of Shelf Water by Deep-Ocean Eddies. <i>Journal of Physical Oceanography</i>. 46 3599–3621. <a href="http://dx.doi.org/10.1175/JPO-D-16-0085.1">DOI</a> <a href="static/Cherian-Brink-2016.pdf">PDF</a></li>
+
+<li>Haine T.W.N., <b>Cherian D.A.</b> (2013) Analogies of Ocean/Atmosphere Rotating Fluid Dynamics with Gyroscopes: Teaching Opportunities. <i>Bull. Amer. Meteor. Soc.</i>. 94:684. <a href="http://dx.doi.org/10.1175/BAMS-D-12-00023.1">DOI</a> <a href="static/Haine-Cherian-2013.pdf">PDF</a> <a href="static/Haine-Cherian-2013-supplement.pdf">Supplement</a></li>
+
+<li>Brink K.H., <b>Cherian D.A.</b> (2013) Instability of an idealized tidal mixing front: Symmetric instabilities and frictional effects. <i>Journal of Marine Research</i>. 71(6):26. <a href="http://dx.doi.org/10.1357/002224013812587582">DOI</a> <a href="static/Brink-Cherian-2013.pdf">PDF</a></li>
+
+<li>Thesis: <b>Cherian D.A.</b> (2016) When an eddy encounters shelf-slope topography. <a href="static/Cherian-2016-When_an_eddy_encounters_shelf-slope_topography.pdf">PDF</a></li>
+</ul>
+</div>
+</section>
+<section id="outline-container-posts" class="outline-2">
+<h2 id="posts">Posts</h2>
+<div class="outline-text-2" id="text-posts">
+<ol class="org-ol">
+<li><a href="posts/podaac-l2p.html">Using podaacpy to subset Level-2P satellite swath data</a></li>
+<li><a href="posts/python-debugging.html">Debugging in python</a></li>
+<li><a href="posts/bokeh-org-mode.html">bokeh and Emacs org-mode</a></li>
+<li>An IPython notebook demonstrating xkcd-style schematics using matplotlib: <a href="https://github.com/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb">Github</a> | <a href="https://nbviewer.jupyter.org/github/dcherian/xkcd-like-schematic/blob/master/schematics.ipynb">nbviewer</a></li>
+<li><a href="posts/paper-quotes.html">Interesting quotes from the scientific literature</a> (frequently updated)</li>
+<li><a href="posts/reproducible-research-1.html">A setup for reproducible research</a></li>
+<li><a href="static/living-with-roms.pdf">Living with ROMS</a> - Some notes on ROMS</li>
+<li><a href="posts/hemingway-cocktail.html">&ldquo;Death in the Gulf Stream&rdquo; - A Hemingway cocktail</a></li>
+</ol>
+</div>
+</section>
+<section id="outline-container-teaching" class="outline-2">
+<h2 id="teaching">Teaching</h2>
+<div class="outline-text-2" id="text-teaching">
+<p>
+While at MIT, I took the semester-long <a href="https://tll.mit.edu/help/graduate-student-teaching-certificate-program">Teaching Certificate Program</a>. I learned that it is generally more effective to have students work through a derivation primarily on their own in class with hints. Following that advice, I created worksheets that guide students through a derivation, guiding them toward important implications and reasoning for various steps. Here are the ones I have so far.
+</p>
+
+<ol class="org-ol">
+<li><a href="static/rossby-adjustment-qns.pdf">Rossby adjustment</a> - for OSU&rsquo;s Geophysical Waves class</li>
+<li><a href="static/non-hydrostatic-waves-qns.pdf">Non-hydrostatic internal waves</a> - for OSU&rsquo;s Geophysical Waves class</li>
+<li><a href="static/sverdrup-qns.pdf">Sverdrup balance</a> - for MIT&rsquo;s 12.808 - Observational Physical Oceanography</li>
+</ol>
+
+<p>
+These are targeted at beginning graduate students. Any comments you might have on these are welcome. Please send me an email.
+</p>
+
+<p>
+Latex source is also available on request.
+</p>
+</div>
+</section>
+<section id="outline-container-contact" class="outline-2">
+<h2 id="contact">Contact</h2>
+<div class="outline-text-2" id="text-contact">
+Email: <a class="email" href="mailto:deepak@cherian.net">deepak@cherian.net</a>
+
+<p>
+Office Address: 1850 Table Mesa Drive, Mesa Lab 400, Boulder, CO
+</p>
+
+<p>
+Phone: +1 303-497-1713
+</p>
+</div>
+</section>
+<section id="outline-container-links" class="outline-2">
+<h2 id="links">Links</h2>
+<div class="outline-text-2" id="text-links">
+</div>
+<article id="outline-container-org3ae4c9a" class="outline-5 links">
+<h5 id="org3ae4c9a">Historical documentaries</h5>
+<div class="outline-text-5" id="text-org3ae4c9a">
+<ol class="org-ol">
+<li><a href="https://www.youtube.com/watch?v=_sPGYaEUTF0">The Turbulent Ocean (MODE)</a></li>
+<li><a href="https://www.youtube.com/watch?v=MX5cKoOm6Pk">Waves Across the Pacific</a></li>
+<li><a href="https://www.youtube.com/watch?v=je3QvqNdHl0">One Man&rsquo;s Noise: Stories of an Adventuresome Oceanographer</a></li>
+<li><a href="https://www.youtube.com/watch?v=JUgvRYTp7n4">The Monsoon Experiment (MONEX)</a></li>
+<li><a href="https://www.youtube.com/watch?v=EkCxl2BwH4w">Remembering Dev Raj Sikka (Monsoon Man)</a></li>
+<li><a href="https://igppweb.ucsd.edu/~esg006/gpstudents/bagigpp2016.html">Bag IGPP</a> (not quite the same as the rest)</li>
+</ol>
+</div>
+</article>
+<article id="outline-container-orga7e425b" class="outline-5 links">
+<h5 id="orga7e425b">Visualization</h5>
+<div class="outline-text-5" id="text-orga7e425b">
+<ol class="org-ol">
+<li><a href="http://www.realclimate.org/index.php/archives/2017/07/joy-plots-for-climate-change/">At Real Climate, great animations</a> of the change in temperature distributions over the past century.</li>
+<li><a href="https://www.flickr.com/photos/150411108@N06/35471910724/">Another sweet temperature anomaly animation</a>.</li>
+<li>NASA&rsquo;s <a href="https://podaac-tools.jpl.nasa.gov/soto/">State of the Ocean</a> tool makes it really easy to flip through a bunch of ocean surface variables.</li>
+<li>Stunning fluid dynamics images from <a href="http://www.damtp.cam.ac.uk/user/msd38/gallery.html">Dr. Megan S Davies Wykes at DAMTP</a>.</li>
+<li><a href="https://anaconda.org/jbednar/plotting_pitfalls/notebook">Great python notebook on visualizing data with high dynamic range.</a> Apparently, <a href="https://en.wikipedia.org/wiki/Histogram_equalization">histogram equalization</a> (contrast enhancement) is a pretty good default. Here&rsquo;s the <a href="https://www.mathworks.com/help/images/ref/histeq.html">equivalent MATLAB function</a>.</li>
+<li>From the Climate Impact Lab, <a href="http://www.impactlab.org/map/">a great map of projected temperature increase</a> around the world.</li>
+<li>Visualizing chemical reactions: <a href="http://www.beautifulchemistry.net/">Beautiful Chemistry,</a> and the sequel <a href="https://www.envisioningchemistry.com/films">Envisioning Chemistry.</a></li>
+<li><a href="https://www.youtube.com/watch?v=EQ7S0D1iucY">Brief history of CO<sub>2</sub> emissions</a> - Interesting visualizations of the geography of CO<sub>2</sub> emissions. Related: <a href="https://www.youtube.com/watch?v=x1SgmFa0r04">A year in the life of Earth&rsquo;s CO<sub>2</sub></a>.</li>
+<li><a href="https://elliehighwood.com/2017/06/12/climatechangecrochet-the-global-warming-blanket/">Climate change crochet: The global warming blanket</a>.</li>
+<li>Colormaps:
+<ol class="org-ol">
+<li><a href="http://sciviscolor.org/">SciVisColor: Another great colormap resource</a>. <a href="http://sciviscolor.org/enviro-cm-examples-starting-points/">Useful post on &ldquo;colormap strategies&rdquo;.</a></li>
+<li><a href="https://agilescientific.com/blog/2017/12/14/no-more-rainbows">Nice example of hillshading + contours + colormaps.</a></li>
+<li><a href="https://seaborn.pydata.org/tutorial/color_palettes.html">Seaborn&rsquo;s colormap tutorial.</a></li>
+<li><a href="https://blog.datawrapper.de/colorguide/">Your Friendly Guide to Colors in Data Visualisation</a> : Fantastic!</li>
+</ol></li>
+<li><a href="http://style.org/ku/">Great talk by Jonathan Corum, science graphics editor at the New York Times, on designing for an audience.</a></li>
+<li><a href="https://e360.yale.edu/features/redrawing-the-map-how-the-worlds-climate-zones-are-shifting">How the world&rsquo;s climate zones are shifting.</a></li>
+</ol>
+</div>
+</article>
+<article id="outline-container-orgdd5d164" class="outline-5 links">
+<h5 id="orgdd5d164">Literature</h5>
+<div class="outline-text-5" id="text-orgdd5d164">
+<ol class="org-ol">
+<li><a href="http://peabody.yale.edu/scientific-publications/classic-papers-journal-marine-research">JMR&rsquo;s &ldquo;classic papers&rdquo;</a></li>
+<li><a href="https://empslocal.ex.ac.uk/people/staff/gv219/classics.d/index.html">Geoff Vallis&rsquo; collection of classic GFD papers</a></li>
+<li><a href="http://bhavana.org.in">Bhāvanā</a> - a magazine at the intersection of math &amp; history in India. Good stuff! Also featuring interviews &#x2014; e.g. Roddam Narasimha (<a href="http://bhavana.org.in/roddam-narasimha-part2/">Part 1</a>, <a href="http://bhavana.org.in/roddam-narasimha-part2/">Part 2</a>), <a href="http://bhavana.org.in/kr-sreenivasan/">KR Sreenivasan</a>.
+<ul class="org-ul">
+<li><a href="http://bhavana.org.in/arithmetic-mean-ancient-india/">Weighted arithmetic mean in ancient India</a></li>
+</ul></li>
+<li><a href="http://forecastpod.org">Forecast</a>: Climate science podcast with Nature&rsquo;s editor for climate science, Michael White. Interviews with meteorologists, oceanographers, environmental economists and more! E.g. <a href="http://forecastpod.org/index.php/2017/04/20/jennifer-mackinnon-swirly-things/">Jen MacKinnon</a>, <a href="http://forecastpod.org/index.php/2018/05/30/carl-wunsch-and-the-rise-of-modern-oceanography/">Carl Wunsch</a>.</li>
+<li><a href="https://fermatslibrary.com/s/assessing-dangerous-climate-change">Fermat&rsquo;s library featured an annotated climate science paper — Hansen et al. (2013)!</a></li>
+<li><a href="https://eartharxiv.org/">EarthArXiv needs your preprints!</a></li>
+<li><a href="http://www.sherpa.ac.uk/romeo/index.php">SHERPA/RoMEO:</a> Simple summaries of journal copyright policies.</li>
+<li>Climate simulations of <a href="http://www.bristol.ac.uk/university/media/press/10013-english.pdf">Middle Earth</a> and <a href="https://www.paleo.bristol.ac.uk/~ggdjl/westeros/game_thrones_1.0.pdf">Game of Thrones</a> by <a href="http://www.bris.ac.uk/geography/people/dan-j-lunt/">Dan Lunt</a>.</li>
+<li><a href="https://www.oldweather.org/index.html">Old Weather: help scientists recover data from ship logs.</a></li>
+<li><a href="http://www.soest.hawaii.edu/PubServices/AhaHulikoa.html">Proceedings of the &rsquo;Aha Huliko&rsquo;a Hawaiian Winter Workshop.</a></li>
+</ol>
+</div>
+</article>
+<article id="outline-container-org44d66d2" class="outline-5 links">
+<h5 id="org44d66d2">Misc.</h5>
+<div class="outline-text-5" id="text-org44d66d2">
+<ol class="org-ol">
+<li><a href="http://img.timeinc.net/time/magazine/archive/covers/1956/1101561217_400.jpg">Carl-Gustaf Rossby on the cover of TIME magazine</a>.</li>
+<li><a href="https://storify.com/BlueLotus/mughal-science-reactions">Mughal science reactions?!</a></li>
+<li><a href="static/church-of-climatology-2.jpg">The Church of Climatology</a></li>
+<li><p>
+<a href="http://www.realclimate.org/index.php/archives/2017/12/what-did-nasa-know-and-when-did-they-know-it/#ITEM-20924-2">Real Climate details the story behind detection of the ozone hole</a>:
+</p>
+<blockquote>
+<p>
+It isn’t a simple tale of over-confidence in algorithms in the face of black swan events, but rather a tale of poor communications and siloed researchers that slowed down the ability of the wider community to see and interpret what was going on.
+</p>
+</blockquote></li>
+<li><a href="http://primes.utm.edu/notes/faq/why.html">On why people search for large prime numbers.</a></li>
+<li><a href="https://www.autodeskresearch.com/publications/samestats">The Datasaurus Dozen (Same Stats, Different Graphs)</a>.</li>
+<li><a href="https://www.youtube.com/watch?v=PlN6qs55NNE">IPCC video on climate science outreach</a>.</li>
+<li><a href="https://www.youtube.com/watch?v=qCAPwgQR13w">The incredible way the GOES-R imager scans the Earth, and space.</a></li>
+</ol>
+</div>
+</article>
+<article id="outline-container-orgd53875c" class="outline-5 links">
+<h5 id="orgd53875c">Code / Data</h5>
+<div class="outline-text-5" id="text-orgd53875c">
+<ul class="org-ul">
+<li><a href="https://cims.nyu.edu/~shafer/tools/index.html">Shafer Smith&rsquo;s QG model</a></li>
+<li><a href="https://dataverse.harvard.edu/dataverse/ECCO">ECCO dataverse</a></li>
+</ul>
+</div>
+</article>
+<article id="outline-container-org3c012b0" class="outline-5 links">
+<h5 id="org3c012b0">Python tutorials</h5>
+<div class="outline-text-5" id="text-org3c012b0">
+<ul class="org-ul">
+<li><a href="https://nbviewer.jupyter.org/github/jklymak/Phy411/tree/master/lectures/">Jody Klymak has Jupyter notebooks on signal processing with Python.</a></li>
+<li><a href="https://github.com/pangeo-data/pangeo-tutorial-sea-2018">xarray + dask + Pangeo tutorial notebooks</a></li>
+<li><a href="https://rabernat.github.io/research_computing/">Ryan Abernathey&rsquo;s class on Research Computing in Earth Sciences</a></li>
+<li><a href="https://currents.soest.hawaii.edu/ocn_data_analysis/index.html">Univ. Hawaii: Data Analysis With Python</a></li>
+<li><a href="http://pyviz.org/">PyViz: Visualization in python: great tutorials!</a></li>
+</ul>
+</div>
+</article>
+</section>
+<section id="outline-container-ack" class="outline-2">
+<h2 id="ack">Acknowledgments</h2>
+<div class="outline-text-2" id="text-ack">
+<p>
+My work has been funded by the US National Science Foundation (NSF), National Oceanic and Atmospheric Administration (NOAA), National Aeronautics and Space Administration (NASA) and the Office of Naval Research (ONR).
+</p>
+
+<p>
+Styling gratefully borrowed from <a href="http://ethanschoonover.com/solarized">Ethan Schoonover</a>, <a href="http://www.labri.fr/perso/nrougier/from-python-to-numpy/%20">Nicolas P. Rougier</a> and <a href="http://practicaltypography.com/">Matthew Butterick</a>. Icons from <a href="http://fontawesome.io/">FontAwesome</a> and <a href="https://jpswalsh.github.io/academicons/">Academicons</a>. Website built using <a href="http://orgmode.org">Emacs Org-mode</a> (<a href="https://github.com/dcherian/dcherian.github.io/tree/sources">source code</a>)
+</p>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<script data-goatcounter="https://cherian.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+<svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+
+<symbol id="icon-cc-by" viewBox="0 0 91 32">
+  <title>Creative Commons Attribution License</title>
+  <desc>Creative Commons Attribution License</desc>
+<path fill="#aab2ab" style="fill: var(--color1, #aab2ab)" d="M2.392 0.387l86.365 0.153c1.207 0 2.285-0.179 2.285 2.408l-0.106 28.441h-90.723v-28.547c0-1.276 0.123-2.456 2.179-2.456z"></path>
+<path fill="#000" style="fill: var(--color2, #000)" d="M89.716 0h-88.004c-0.944 0-1.712 0.768-1.712 1.712v29.902c0 0.213 0.173 0.386 0.387 0.386h90.655c0.213 0 0.387-0.173 0.387-0.386v-29.902c0-0.944-0.768-1.712-1.713-1.712zM1.712 0.773h88.004c0.518 0 0.939 0.421 0.939 0.938 0 0 0 12.074 0 20.782h-63.105c-2.305 4.168-6.747 6.999-11.845 6.999-5.1 0-9.54-2.828-11.845-6.999h-3.087c0-8.708 0-20.782 0-20.782 0-0.518 0.421-0.938 0.939-0.938z"></path>
+<path fill="#fff" style="fill: var(--color3, #fff)" d="M56.235 24.95c0.24 0 0.46 0.021 0.659 0.064s0.367 0.112 0.509 0.209c0.141 0.096 0.251 0.225 0.329 0.384s0.117 0.358 0.117 0.594c0 0.254-0.058 0.466-0.174 0.635s-0.287 0.308-0.513 0.417c0.312 0.089 0.545 0.246 0.699 0.47s0.231 0.494 0.231 0.81c0 0.254-0.050 0.475-0.149 0.661s-0.233 0.338-0.4 0.455c-0.168 0.118-0.359 0.206-0.574 0.262s-0.436 0.085-0.663 0.085h-2.45v-5.045h2.379zM56.093 26.991c0.198 0 0.361-0.047 0.489-0.141s0.191-0.246 0.191-0.458c0-0.118-0.021-0.214-0.064-0.289s-0.099-0.134-0.17-0.177c-0.071-0.042-0.152-0.072-0.244-0.088s-0.188-0.024-0.286-0.024h-1.040v1.177h1.125zM56.158 29.132c0.109 0 0.212-0.010 0.311-0.032s0.186-0.057 0.263-0.106c0.075-0.050 0.135-0.117 0.18-0.202s0.067-0.193 0.067-0.325c0-0.259-0.073-0.444-0.22-0.555s-0.34-0.166-0.58-0.166h-1.211v1.384h1.19z"></path>
+<path fill="#fff" style="fill: var(--color3, #fff)" d="M58.288 24.95h1.244l1.182 1.993 1.174-1.993h1.237l-1.873 3.109v1.936h-1.112v-1.964l-1.852-3.081z"></path>
+<path fill="#fff" style="fill: var(--color3, #fff)" d="M26.098 14.938c0.004 5.737-4.645 10.39-10.382 10.394s-10.391-4.644-10.395-10.381c0-0.004 0-0.008 0-0.013-0.003-5.737 4.645-10.39 10.382-10.393s10.391 4.644 10.395 10.381c0 0.004 0 0.008 0 0.012z"></path>
+<path fill="#000" style="fill: var(--color2, #000)" d="M24.155 6.477c2.304 2.303 3.456 5.124 3.456 8.461s-1.132 6.128-3.396 8.372c-2.403 2.364-5.242 3.545-8.519 3.545-3.237 0-6.028-1.172-8.371-3.516s-3.515-5.144-3.515-8.401c0-3.257 1.172-6.077 3.515-8.461 2.284-2.304 5.074-3.456 8.371-3.456 3.337 0 6.156 1.152 8.46 3.456zM8.875 8.027c-1.948 1.967-2.921 4.271-2.921 6.914s0.964 4.927 2.891 6.854c1.928 1.927 4.222 2.891 6.885 2.891s4.977-0.973 6.944-2.92c1.868-1.808 2.802-4.082 2.802-6.825 0-2.721-0.949-5.032-2.847-6.929s-4.197-2.846-6.899-2.846-4.988 0.954-6.855 2.861zM14 13.779c-0.298-0.649-0.743-0.973-1.337-0.973-1.050 0-1.575 0.707-1.575 2.121s0.525 2.12 1.575 2.12c0.694 0 1.189-0.344 1.486-1.034l1.456 0.775c-0.694 1.233-1.735 1.849-3.123 1.849-1.071 0-1.928-0.328-2.572-0.984-0.645-0.657-0.967-1.561-0.967-2.715 0-1.133 0.332-2.033 0.996-2.7s1.492-1 2.484-1c1.467 0 2.518 0.578 3.153 1.733l-1.576 0.807zM20.85 13.779c-0.298-0.649-0.735-0.973-1.31-0.973-1.071 0-1.607 0.707-1.607 2.121s0.536 2.12 1.608 2.12c0.695 0 1.181-0.344 1.459-1.034l1.488 0.775c-0.693 1.233-1.732 1.849-3.118 1.849-1.069 0-1.925-0.328-2.569-0.984-0.643-0.657-0.965-1.561-0.965-2.715 0-1.133 0.327-2.033 0.98-2.7s1.484-1 2.494-1c1.465 0 2.514 0.578 3.147 1.733l-1.607 0.807z"></path>
+<path fill="#fff" style="fill: var(--color3, #fff)" d="M66.291 11.594c0 4.519-3.663 8.181-8.182 8.181s-8.182-3.663-8.182-8.181c0-4.519 3.663-8.181 8.182-8.181s8.182 3.663 8.182 8.181z"></path>
+<path fill="#000" style="fill: var(--color2, #000)" d="M60.476 9.227c0-0.315-0.256-0.571-0.57-0.571h-3.614c-0.314 0-0.57 0.255-0.57 0.571v3.614h1.008v4.279h2.739v-4.279h1.008v-3.614z"></path>
+<path fill="#000" style="fill: var(--color2, #000)" d="M59.335 6.944c0 0.683-0.553 1.236-1.236 1.236s-1.236-0.553-1.236-1.236c0-0.683 0.553-1.236 1.236-1.236s1.236 0.553 1.236 1.236z"></path>
+<path fill="#000" style="fill: var(--color2, #000)" d="M58.088 2.58c-2.447 0-4.519 0.854-6.215 2.562-1.74 1.767-2.609 3.858-2.609 6.272s0.87 4.491 2.609 6.228c1.74 1.737 3.812 2.606 6.215 2.606 2.433 0 4.541-0.875 6.325-2.628 1.681-1.663 2.521-3.732 2.521-6.206s-0.856-4.564-2.565-6.272c-1.711-1.708-3.804-2.562-6.281-2.562zM58.11 4.169c2.005 0 3.708 0.707 5.109 2.121 1.415 1.398 2.123 3.106 2.123 5.124 0 2.032-0.693 3.718-2.078 5.057-1.46 1.443-3.177 2.164-5.153 2.164s-3.679-0.714-5.109-2.142c-1.431-1.428-2.145-3.122-2.145-5.080s0.722-3.666 2.167-5.124c1.386-1.414 3.081-2.121 5.086-2.121z"></path>
+</symbol>
+
+</defs>
+</svg>
+
+<div align="center">
+  <a rel="license" class="cc-logo" href="http://creativecommons.org/licenses/by/4.0/">
+    <svg class="cc-logo"><use xlink:href="#icon-cc-by"></use></svg></a><br />This work is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+</div>
+</div>
+</body>
+</html>

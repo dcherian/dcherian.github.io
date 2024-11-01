@@ -1,0 +1,5 @@
+#+TITLE: Sitemap for project research
+
+- [[file:bay.org][Subsurface turbulent mixing in the Bay of Bengal]]
+- [[file:eqwaves.org][Vertical structure of 7-day period inertial-gravity waves in the equatorial Pacific]]
+- [[file:eddyshelf.org][When an eddy encounters shelf-slope topography]]
