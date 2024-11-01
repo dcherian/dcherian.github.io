@@ -1,7 +1,7 @@
 #+TITLE: Deepak Cherian
-#+SUBTITLE: physical oceanographer; project scientist I@@html:<br />@@ National Center for Atmospheric Research @@html:<br /> <a class="email" href="mailto:dcherian@ucar.edu"> dcherian@ucar.edu</a> | +1 303-497-1713 | Mesa Lab 400 <br /><a class="logo" href="rss.xml"><svg class="logo feed-logo"><title>RSS feed</title><use xlink:href="#icon-rss-square"></use></svg></a> <a class="logo" href="https://github.com/dcherian"><svg class="logo"><title>Github profile</title><use xlink:href="#icon-github"></use></svg></a><a class="logo" href="https://orcid.org/0000-0002-6861-8734" rel="noopener noreferrer"><svg class="logo"><title>ORCID profile</title><use xlink:href="#icon-Orcid"></use></svg></a><a class="logo" href="https://scholar.google.com/citations?user=8FbYoygAAAAJ"><svg class="logo"><title>Google Scholar profile</title><use xlink:href="#icon-GoogleScholar"></use></svg></a><a class="logo" href="https://twitter.com/cherian_deepak"><svg class="logo"><title>Twitter</title><use xlink:href="#icon-twitter"></use></svg></a>@@
+#+SUBTITLE: physical oceanographer; forward engineer@@html:<br />@@ <a href="https://earthmover.io">Earthmover PBC</a> @@html:<br /> <a class="email" href="mailto:dcherian@ucar.edu"> dcherian@ucar.edu</a> | +1 303-497-1713 | Mesa Lab 400 <br /><a class="logo" href="rss.xml"><svg class="logo feed-logo"><title>RSS feed</title><use xlink:href="#icon-rss-square"></use></svg></a> <a class="logo" href="https://github.com/dcherian"><svg class="logo"><title>Github profile</title><use xlink:href="#icon-github"></use></svg></a><a class="logo" href="https://orcid.org/0000-0002-6861-8734" rel="noopener noreferrer"><svg class="logo"><title>ORCID profile</title><use xlink:href="#icon-Orcid"></use></svg></a><a class="logo" href="https://scholar.google.com/citations?user=8FbYoygAAAAJ"><svg class="logo"><title>Google Scholar profile</title><use xlink:href="#icon-GoogleScholar"></use></svg></a><a class="logo" href="https://twitter.com/cherian_deepak"><svg class="logo"><title>Twitter</title><use xlink:href="#icon-twitter"></use></svg></a>@@
 #+EMAIL: deepak@cherian.net
-#+KEYWORDS: physical oceanography, eddies, science, ocean
+#+KEYWORDS: physical oceanography, science, ocean, data, pangeo, oceanography, xarray
 #+OPTIONS: h:6
 
 # navigation menu
@@ -65,7 +65,7 @@ I like software tools that enable easy, intuitive, convenient and scalable analy
 :END:
 
 #+ATTR_HTML: :class coauthors
-With [[http://people.oregonstate.edu/~shroyere/Welcome.html][Emily Shroyer (OSU)]], [[https://makani.coas.oregonstate.edu/nash/About_Me.html][Jonathan Nash (OSU)]]
+With [[https://staff.ucar.edu/users/bryan][Frank Bryan (NCAR)]],  [[http://people.oregonstate.edu/~shroyere/Welcome.html][Emily Shroyer (OSU)]], [[https://makani.coas.oregonstate.edu/nash/About_Me.html][Jonathan Nash (OSU)]]
 
 #+ATTR_HTML: :style width:100%
 [[file:static/p06-Ke.png]]
@@ -131,7 +131,7 @@ One chapter of my thesis focused on the shelf flows forced by mesoscale eddies t
 :HTML_CONTAINER: article
 :END:
 #+ATTR_HTML: :class coauthors
-Advisor: [[http://www.whoi.edu/page.do?pid=23355][Ken Brink (WHOI)]] | [[doi:10.1175/JPO-D-16-0085.1][Read the paper!]] | [[file:research/eddyshelf.org][More]]
+Advisor: [[http://www.whoi.edu/page.do?pid=23355][Ken Brink (WHOI)]] | [[http:://dx.doi.org/10.1175/JPO-D-16-0085.1][Read the paper!]] | [[file:research/eddyshelf.org][More]]
 
 #+ATTR_HTML: :style float:left; width: 45%;
 [[file:./static/eddyshelf-3d.png]]
@@ -168,8 +168,11 @@ Motivated by the [zonal wavenumber]-frequency spectra of dynamic height calculat
 :PROPERTIES:
 :CUSTOM_ID: publications
 :END:
+- *Cherian, D. A.*, Guo, Y., Bryan, F. O. (2024). Assessing Modeled Mesoscale Stirring Using Microscale Observations. /Journal of Physical Oceanography/, 54(5): 1183–1194.  [[file:static/Cherian-et-al-2024-Assessing-mesoscale-stirring.pdf][PDF]]
 
-- *Cherian, D.*, Whitt, D.B., Holmes, R.M., Lien, R.-C., Bachman, S.D., Large, W.L. (/in review/). Off-equatorial deep cycle turbulence forced by Tropical Instability Waves in the equatorial Pacific. /Journal of Physical Oceanography/ [[file:static/Cherian-et-al-2020-Off-equatorial-deep-cycle-turbulence.pdf][PDF]]
+- *Cherian, D.*, Whitt, D.B., Holmes, R.M., Lien, R.-C., Bachman, S.D., Large, W.L. (2024). Off-equatorial deep cycle turbulence forced by Tropical Instability Waves in the equatorial Pacific. /Journal of Physical Oceanography/ [[file:static/Cherian-et-al-2020-Off-equatorial-deep-cycle-turbulence.pdf][PDF]]
+
+- *Cherian, D.*, Whitt, D.B., Holmes, R.M., Lien, R.-C., Bachman, S.D., Large, W.L. (2021). Off-equatorial deep cycle turbulence forced by Tropical Instability Waves in the equatorial Pacific. /Journal of Physical Oceanography/ [[file:static/Cherian-et-al-2020-Off-equatorial-deep-cycle-turbulence.pdf][PDF]]
 
 - Rypina, I.I., Pratt, L.J., Entner, S., Anderson, A., *Cherian, D.*, 2020. The Influence of an Eddy in the Success Rates and Distributions of Passively Advected or Actively Swimming Biological Organisms Crossing the Continental Slope. /Journal of Physical Oceanography/ 50, 1839–1852. [[https://doi.org/10/gg55wz][DOI]]
 

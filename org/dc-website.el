@@ -9,15 +9,15 @@
 
 (defun website-header-icons (arg)
   (with-temp-buffer
-    (insert-file-contents "~/website/org/website-icons.html")
+    (insert-file-contents "~/repos/website/org/website-icons.html")
     (buffer-string)))
 
 (setq website-head
       (with-temp-buffer
-	(insert-file-contents "~/website/org/website-head.html")
+	(insert-file-contents "~/repos/website/org/website-head.html")
 	(buffer-string)))
 
-(setq website-footer-file "~/website/org/website-footer.html")
+(setq website-footer-file "~/repos/website/org/website-footer.html")
 (defun website-footer (arg)
   (with-temp-buffer
     (insert-file-contents website-footer-file)
@@ -28,9 +28,9 @@
 
 (setq org-publish-project-alist 'nil)
 (setq org-publish-project-alist
-      `(("website" :components ("pages" "research" "posts" "blog-static" "rss"))
+      `(("website" :components ("pages" "research" "posts" "blog-static"))
 	("pages"
-	 :base-directory "~/website/org/"
+	 :base-directory "~/repos/website/org/"
 	 :base-extension "org"
 	 :recursive nil
 	 :description "Describing my ocean sciences research"
@@ -45,11 +45,11 @@
 	 :html-head-include-scripts nil
 	 :html-head-include-default-style nil
 	 :html-container "section"
-	 :publishing-directory "~/website/publish/"
+	 :publishing-directory "~/repos/website/publish/"
 	 :publishing-function org-html-publish-to-html)
 
 	("research"
-	 :base-directory "~/website/org/research/"
+	 :base-directory "~/repos/website/org/research/"
 	 :base-extension "org"
 	 :auto-sitemap t
 	 :sitemap-filename "sitemap.org"
@@ -66,11 +66,11 @@
 	 :html-head-include-scripts nil
 	 :html-head-include-default-style nil
 	 :html-container "section"
-	 :publishing-directory "~/website/publish/research/"
+	 :publishing-directory "~/repos/website/publish/research/"
 	 :publishing-function org-html-publish-to-html)
 
 	("posts"
-	 :base-directory "~/website/org/posts/"
+	 :base-directory "~/repos/website/org/posts/"
 	 :base-extension "org"
 	 :exclude "rss.org"
 	 :recursive nil
@@ -88,20 +88,20 @@
 	 :html-container "section"
 	 :auto-sitemap t
 	 :sitemap-filename "sitemap.org"
-	 :publishing-directory "~/website/publish/posts/"
+	 :publishing-directory "~/repos/website/publish/posts/"
 	 :publishing-function org-html-publish-to-html)
 
 	("blog-static"
-	 :base-directory "~/website/org/static/"
+	 :base-directory "~/repos/website/org/static/"
 	 :base-extension "png\\|jpg\\|gif\\|pdf\\|mp4\\|js\\|html\\|woff\\|woff2"
-	 :publishing-directory "~/website/publish/static/"
+	 :publishing-directory "~/repos/website/publish/static/"
 	 :recursive t
 	 :publishing-function org-publish-attachment)
 
 	("rss"
-	 :base-directory "~/website/org/posts/"
+	 :base-directory "~/repos/website/org/posts/"
 	 :base-extension "org"
-	 :publishing-directory "~/website/publish/"
+	 :publishing-directory "~/repos/website/publish/"
 	 :recursive t
 	 :publishing-function org-rss-publish-to-rss
 	 :exclude ".*"
