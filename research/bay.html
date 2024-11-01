@@ -8,27 +8,38 @@
 <meta name="generator" content="Org Mode" />
 <link rel="stylesheet" href="../research-posts.css" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500" rel="stylesheet">
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 </head>
 <body>
 <div id="preamble" class="status">
@@ -37,10 +48,9 @@
 <div id="content" class="content">
 <header>
 <h1 class="title">Subsurface turbulent mixing in the Bay of Bengal</h1>
-</header>
-<section id="outline-container-orge052bbf" class="outline-2">
-<h2 id="orge052bbf">Measurements</h2>
-<div class="outline-text-2" id="text-orge052bbf">
+</header><section id="outline-container-org13a459a" class="outline-2">
+<h2 id="org13a459a">Measurements</h2>
+<div class="outline-text-2" id="text-org13a459a">
 <figure>
 
 <img src="../static/bob-chipods-2.png" alt="bob-chipods-2.png" style="width:50%; float:left; vertical-align:middle;">
@@ -56,17 +66,15 @@ For now I am ignoring the data at 18N. The map below consists of data from RAMA 
 </p>
 </div>
 </section>
-
-
-<section id="outline-container-org53f26c7" class="outline-2">
-<h2 id="org53f26c7">Specific examples</h2>
-<div class="outline-text-2" id="text-org53f26c7">
+<section id="outline-container-org7a3705d" class="outline-2">
+<h2 id="org7a3705d">Specific examples</h2>
+<div class="outline-text-2" id="text-org7a3705d">
 <p>
 The most surprising signal is the near-molecular values observed in the thermocline (≤ 100m) at many locations in the SW Bay (off Sri Lanka).
 </p>
 
 
-<figure id="org0ad4877">
+<figure id="orgaa4ad69">
 <img src="../static/nrl5-KT-labels.png" alt="nrl5-KT-labels.png">
 
 <figcaption><span class="figure-number">Figure 1: </span>Time series of \(K_T\) from NRL5 (88.5E, 8N) at approx. 100m. Note the near-molecular values in <i>daily averaged</i> \(K_T\) during Apr-May.</figcaption>
@@ -77,13 +85,13 @@ It appears that strain values are a lot smaller than expected from the Garrett-M
 </p>
 </div>
 </section>
-<section id="outline-container-org821048b" class="outline-2">
-<h2 id="org821048b">\(K_T\) maps</h2>
-<div class="outline-text-2" id="text-org821048b">
+<section id="outline-container-orgc148740" class="outline-2">
+<h2 id="orgc148740">\(K_T\) maps</h2>
+<div class="outline-text-2" id="text-orgc148740">
 </div>
-<div id="outline-container-org5909cf5" class="outline-3">
-<h3 id="org5909cf5">Method</h3>
-<div class="outline-text-3" id="text-org5909cf5">
+<div id="outline-container-org0002604" class="outline-3">
+<h3 id="org0002604">Method</h3>
+<div class="outline-text-3" id="text-org0002604">
 <p>
 To combine data at different depths and locations throughout the Bay:
 </p>
@@ -103,27 +111,25 @@ To combine data at different depths and locations throughout the Bay:
 </ol>
 
 
-<figure id="org17f13eb">
+<figure id="orgfb1556a">
 <img src="../static/kt-dist-legend.png" alt="kt-dist-legend.png" style="width:60%;">
 
 </figure>
 </div>
 </div>
-
-<div id="outline-container-orgaec0efe" class="outline-3">
-<h3 id="orgaec0efe">Caveats</h3>
-<div class="outline-text-3" id="text-orgaec0efe">
+<div id="outline-container-orgfe72a14" class="outline-3">
+<h3 id="orgfe72a14">Caveats</h3>
+<div class="outline-text-3" id="text-orgfe72a14">
 <p>
 Binning in isopycnal space results in spatial aliasing — there is no guarantee that all moorings in an isopycnal bin witness the same mesoscale/internal-wave climate. One example is the double peaked distributions in the last column of the figure below. There are 3 moorings represented in these distributions: one mooring at (85.5E, 5N) consistently shows higher mixing than the other two &#x2014; (87E, 8N) and (88.5E, 8N).
 </p>
 </div>
 </div>
+<div id="outline-container-org9c26509" class="outline-3">
+<h3 id="org9c26509">\(K_T\) summary</h3>
+<div class="outline-text-3" id="text-org9c26509">
 
-<div id="outline-container-org0f074d8" class="outline-3">
-<h3 id="org0f074d8">\(K_T\) summary</h3>
-<div class="outline-text-3" id="text-org0f074d8">
-
-<figure id="orgec4afd6">
+<figure id="org634af14">
 <img src="../static/bay-KT-vert-profile-labeled.png" alt="bay-KT-vert-profile-labeled.png" class="full-width">
 
 <figcaption><span class="figure-number">Figure 2: </span>Seasonal variation of the vertical profile of \(K_T\) distributions in the Bay. <i>ML</i>: mixed layer; <i>BL</i>: barrier layer. The numbers (e.g. 19.5) represent the mean density in that density bin. In this case 19.6 → 1019.6 kg/m³. Each column is a season; Dec-Feb means Dec 01-Feb 28.</figcaption>
