@@ -94,7 +94,12 @@ When adding a new app to the `apps/` directory:
 
 1. **Create the app** in `apps/<app-name>/`
 2. **Configure base path** in the build config (e.g., Vite: `base: '/<app-name>/'`)
-3. **Update deploy.bash** to build and copy the app:
+3. **IMPORTANT: Use base path for asset loading**
+   - When loading static assets (JSON, images, etc.) from the `public/` directory, always use the base path
+   - For Vite apps, use `import.meta.env.BASE_URL` to reference assets
+   - Example: `fetch(\`${import.meta.env.BASE_URL}data.json\`)` instead of `fetch('/data.json')`
+   - This ensures assets load correctly when deployed to a subdirectory
+4. **Update deploy.bash** to build and copy the app:
    ```bash
    # Build app
    cd apps/<app-name>/
@@ -105,14 +110,14 @@ When adding a new app to the `apps/` directory:
    mkdir -p publish/<app-name>
    cp -r apps/<app-name>/dist/* publish/<app-name>/
    ```
-4. **Add to git in publish directory**:
+5. **Add to git in publish directory**:
    ```bash
    cd publish/
    git add <app-name>/
    git commit -m "Add <app-name> app"
    git push origin master
    ```
-5. **App will be accessible** at `cherian.net/<app-name>/`
+6. **App will be accessible** at `cherian.net/<app-name>/`
 
 ### apps/typ/ - Typing Game
 
