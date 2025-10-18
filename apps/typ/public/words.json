@@ -1,0 +1,40 @@
+{
+  "easy": [
+    "the", "and", "for", "are", "you", "all", "can", "had", "her", "him",
+    "now", "two", "oil", "may", "day", "did", "get", "say", "she", "too",
+    "old", "hot", "cut", "put", "let", "ran", "sit", "top", "cat", "dog",
+    "sun", "car", "bus", "hat", "bed", "cup", "pen", "box", "bat", "pig",
+    "red", "big", "run", "fun", "yes", "toy", "bug", "mom", "dad", "egg"
+  ],
+  "medium": [
+    "that", "with", "they", "have", "from", "this", "were", "when", "your", "said",
+    "each", "will", "them", "time", "than", "been", "call", "made", "come", "find",
+    "long", "down", "part", "word", "look", "more", "into", "many", "then", "some",
+    "tree", "blue", "fish", "bird", "book", "milk", "ball", "rain", "door", "cake",
+    "star", "moon", "jump", "play", "sing", "ring", "duck", "frog", "lamp", "bear"
+  ],
+  "hard": [
+    "about", "other", "which", "their", "there", "these", "would", "write", "could", "first",
+    "water", "people", "number", "sound", "great", "where", "before", "right", "think", "three",
+    "happy", "table", "house", "apple", "green", "horse", "river", "cloud", "sweet", "brown",
+    "queen", "turtle", "garden", "rabbit", "flower", "yellow", "butter", "monkey", "orange", "planet",
+    "dragon", "winter", "summer", "spring", "purple", "kitten", "bubble", "castle", "forest", "animal"
+  ],
+  "phrases": {
+    "easy": [
+      "the cat sat", "I can run", "see the dog", "a big sun", "my red car",
+      "one blue egg", "you and me", "she can go", "he had fun", "we are two",
+      "the hot day", "I see you", "run and jump", "a toy box", "the big bus"
+    ],
+    "medium": [
+      "look at the tree", "jump over the ball", "a duck in the rain", "the moon and stars", "sing a happy song",
+      "read your book now", "they will come home", "where is the bear", "blue fish in water", "play with your friends",
+      "find the lost ring", "when can we play", "this is my door", "make a chocolate cake", "time to go down"
+    ],
+    "hard": [
+      "write about the garden", "three yellow flowers bloom", "the purple dragon flies", "summer is very warm", "before winter comes again",
+      "where do rabbits live", "think about the forest", "people live in houses", "a monkey in the trees", "the green turtle swims slowly",
+      "sweet orange juice today", "castle on the mountain", "colorful bubbles floating high", "happy kittens playing games", "animals in the wild"
+    ]
+  }
+}

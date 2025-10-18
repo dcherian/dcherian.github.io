@@ -17,7 +17,8 @@ This repository contains the source and build system for cherian.net, a static w
 │   └── website-icons.html       # SVG icon definitions
 ├── css/                         # CSS stylesheets
 ├── publish/                     # Built HTML (master branch worktree)
-├── typ/                         # Vue.js typing game (separate sub-project)
+├── apps/                        # Web applications
+│   └── typ/                     # Vue.js typing game
 └── deploy.bash                  # Deployment script
 ```
 
@@ -83,34 +84,64 @@ This script:
 - Force pushes to origin
 - GitHub Pages automatically deploys to cherian.net
 
-## The typ/ Directory
+## The apps/ Directory
 
-Contains a standalone Vue.js typing game application for teaching typing to children.
+Contains standalone web applications.
 
-### Technology Stack
+### Creating a New App
+
+When adding a new app to the `apps/` directory:
+
+1. **Create the app** in `apps/<app-name>/`
+2. **Configure base path** in the build config (e.g., Vite: `base: '/<app-name>/'`)
+3. **Update deploy.bash** to build and copy the app:
+   ```bash
+   # Build app
+   cd apps/<app-name>/
+   npm run build
+   cd ../..
+
+   # Copy to publish
+   mkdir -p publish/<app-name>
+   cp -r apps/<app-name>/dist/* publish/<app-name>/
+   ```
+4. **Add to git in publish directory**:
+   ```bash
+   cd publish/
+   git add <app-name>/
+   git commit -m "Add <app-name> app"
+   git push origin master
+   ```
+5. **App will be accessible** at `cherian.net/<app-name>/`
+
+### apps/typ/ - Typing Game
+
+A Vue.js typing game application for teaching typing to children.
+
+**Technology Stack:**
 - Framework: Vue 3
 - Build Tool: Vite
 - Base path: `/typ/`
 
-### Build Commands
+**Build Commands:**
 ```bash
-cd typ/typ/
+cd apps/typ/
 npm run build          # Generates /dist/ with optimized output
 npm run dev            # Development mode with hot reload
 npm run preview        # Preview built output
 ```
 
-### Integration
-- Built output goes to `publish/typ/`
+**Integration:**
+- Built output copied to `publish/typ/` during deployment
 - Accessible at `cherian.net/typ/`
 - Independent Vue.js SPA served as static files
 
 ## Key Configuration Files
 
 - **org/dc-website.el** - Org Mode publishing configuration
-- **typ/typ/vite.config.js** - Vue/Vite build configuration with base path
-- **typ/typ/package.json** - Vue dependencies
-- **deploy.bash** - Deployment automation script
+- **apps/typ/vite.config.js** - Vue/Vite build configuration with base path
+- **apps/typ/package.json** - Vue dependencies
+- **deploy.bash** - Deployment automation script (builds apps and deploys)
 
 ## Hosting
 
