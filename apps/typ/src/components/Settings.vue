@@ -38,6 +38,13 @@
         <span class="timer-value">{{ timerValue }}</span>
       </div>
       <button
+        class="theme-btn"
+        @click="cycleTheme"
+        :title="`Theme: ${theme} (click to cycle)`"
+      >
+        {{ themeIcon }}
+      </button>
+      <button
         class="fullscreen-btn"
         @click="toggleFullscreen"
         :title="isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'"
@@ -54,11 +61,23 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useFullscreen } from '../composables/useFullscreen'
+import { useTheme } from '../composables/useTheme'
 import HelpModal from './HelpModal.vue'
 
 const showHelp = ref(false)
+
+const { theme, cycleTheme } = useTheme()
+
+const themeIcon = computed(() => {
+  switch (theme.value) {
+    case 'light': return '☀️'
+    case 'dark': return '🌙'
+    case 'system': return '💻'
+    default: return '💻'
+  }
+})
 
 const props = defineProps({
   modelValue: {
@@ -219,6 +238,7 @@ const selectMode = (mode) => {
   letter-spacing: 0.05em;
 }
 
+.theme-btn,
 .fullscreen-btn {
   padding: 0.5rem 0.75rem;
   font-size: 1.25rem;
@@ -231,6 +251,7 @@ const selectMode = (mode) => {
   line-height: 1;
 }
 
+.theme-btn:hover,
 .fullscreen-btn:hover {
   border-color: var(--button-active-bg);
   color: var(--button-active-bg);
@@ -275,6 +296,7 @@ const selectMode = (mode) => {
     font-size: 0.75rem;
   }
 
+  .theme-btn,
   .fullscreen-btn {
     padding: 0.4rem 0.6rem;
     font-size: 1rem;

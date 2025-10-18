@@ -7,11 +7,17 @@
     </div>
     <div class="word">
       <span
-        v-for="(letter, index) in letters"
-        :key="index"
-        :class="['letter', letterStates[index], { 'space': letter === ' ' }]"
+        v-for="(wordGroup, groupIndex) in wordGroups"
+        :key="groupIndex"
+        class="word-group"
       >
-        {{ letter === ' ' ? '\u00A0' : letter }}
+        <span
+          v-for="(letter, letterIndex) in wordGroup.letters"
+          :key="letterIndex"
+          :class="['letter', letterStates[wordGroup.startIndex + letterIndex], { 'space': letter === ' ' }]"
+        >
+          {{ letter === ' ' ? '\u00A0' : letter }}
+        </span>
       </span>
     </div>
   </div>
@@ -43,7 +49,39 @@ const props = defineProps({
   }
 })
 
-const letters = computed(() => props.word.toLowerCase().split(''))
+const letters = computed(() => props.word.toUpperCase().split(''))
+
+// Group letters into words (split by spaces) for better wrapping
+const wordGroups = computed(() => {
+  const text = props.word.toUpperCase()
+  const groups = []
+  let currentGroup = []
+  let startIndex = 0
+
+  for (let i = 0; i < text.length; i++) {
+    currentGroup.push(text[i])
+
+    // After a space, start a new group
+    if (text[i] === ' ') {
+      groups.push({
+        letters: currentGroup,
+        startIndex: startIndex
+      })
+      currentGroup = []
+      startIndex = i + 1
+    }
+  }
+
+  // Add the last group if it exists
+  if (currentGroup.length > 0) {
+    groups.push({
+      letters: currentGroup,
+      startIndex: startIndex
+    })
+  }
+
+  return groups
+})
 </script>
 
 <style scoped>
@@ -76,8 +114,15 @@ const letters = computed(() => props.word.toLowerCase().split(''))
   letter-spacing: 0.2rem;
   display: flex;
   justify-content: center;
-  gap: 0.15rem;
+  gap: 0;
   flex-wrap: wrap;
+}
+
+.word-group {
+  display: flex;
+  gap: 0.15rem;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .letter {
@@ -91,6 +136,8 @@ const letters = computed(() => props.word.toLowerCase().split(''))
   width: 2rem;
   display: inline-block;
   background-color: transparent !important;
+  flex-shrink: 0;
+  word-break: keep-all;
 }
 
 .letter.space.correct {

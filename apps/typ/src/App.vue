@@ -29,6 +29,7 @@
         ref="typingInputRef"
         :model-value="userInput"
         @update:model-value="handleInput"
+        @reset="resetInput"
       />
 
       <div class="celebration-space">
@@ -74,7 +75,8 @@ const {
   handleInput,
   setDifficulty,
   setMode,
-  toggleStrictMode
+  toggleStrictMode,
+  resetInput
 } = useWordGame()
 
 // Refocus input when mode or difficulty changes
@@ -119,8 +121,9 @@ onMounted(() => {
   --title-color: #ffffff;
 }
 
+/* Dark mode via media query (when data-theme is not set, i.e., system preference) */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     /* Dark mode colors */
     --bg-gradient-start: #1e293b;
     --bg-gradient-end: #0f172a;
@@ -149,6 +152,68 @@ onMounted(() => {
     --shadow-color: rgba(0, 0, 0, 0.5);
     --title-color: #f1f5f9;
   }
+}
+
+/* Explicit dark theme */
+:root[data-theme="dark"] {
+  /* Dark mode colors */
+  --bg-gradient-start: #1e293b;
+  --bg-gradient-end: #0f172a;
+  --main-bg: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border-color: #334155;
+  --input-bg: #0f172a;
+  --button-bg: #334155;
+  --button-border: #475569;
+  --button-text: #cbd5e1;
+  --button-active-bg: #3b82f6;
+  --button-active-border: #3b82f6;
+  --button-active-text: #ffffff;
+  --keyboard-bg: #0f172a;
+  --key-bg: #334155;
+  --key-border: #475569;
+  --key-text: #e2e8f0;
+  --key-special-bg: #1e293b;
+  --letter-pending-bg: #334155;
+  --letter-pending-text: #94a3b8;
+  --letter-correct-bg: #064e3b;
+  --letter-correct-text: #34d399;
+  --letter-incorrect-bg: #7f1d1d;
+  --letter-incorrect-text: #f87171;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --title-color: #f1f5f9;
+}
+
+/* Explicit light theme (overrides system dark preference if set) */
+:root[data-theme="light"] {
+  /* Light mode colors (same as default) */
+  --bg-gradient-start: #667eea;
+  --bg-gradient-end: #764ba2;
+  --main-bg: #ffffff;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+  --input-bg: #ffffff;
+  --button-bg: #ffffff;
+  --button-border: #e5e7eb;
+  --button-text: #6b7280;
+  --button-active-bg: #3b82f6;
+  --button-active-border: #3b82f6;
+  --button-active-text: #ffffff;
+  --keyboard-bg: #f9fafb;
+  --key-bg: #ffffff;
+  --key-border: #d1d5db;
+  --key-text: #374151;
+  --key-special-bg: #f3f4f6;
+  --letter-pending-bg: #f0f0f0;
+  --letter-pending-text: #666666;
+  --letter-correct-bg: #dcfce7;
+  --letter-correct-text: #22c55e;
+  --letter-incorrect-bg: #fee2e2;
+  --letter-incorrect-text: #ef4444;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --title-color: #ffffff;
 }
 
 * {
@@ -220,17 +285,17 @@ body {
 }
 
 .celebration.visible {
-  animation: fadeInStay 10s ease-in-out;
+  animation: fadeInStay 4s ease-in-out;
 }
 
 @keyframes fadeInStay {
   0% {
     opacity: 0;
   }
-  3% {
+  5% {
     opacity: 1;
   }
-  97% {
+  90% {
     opacity: 1;
   }
   100% {

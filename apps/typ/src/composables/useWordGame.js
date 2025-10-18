@@ -103,13 +103,13 @@ export function useWordGame() {
         }
         return 'pending'
       }
-      return userLetter === letter ? 'correct' : 'incorrect'
+      return userLetter.toUpperCase() === letter.toUpperCase() ? 'correct' : 'incorrect'
     })
   })
 
   // Check if word is complete
   const isWordComplete = computed(() => {
-    return userInput.value === currentWord.value && currentWord.value.length > 0
+    return userInput.value.toUpperCase() === currentWord.value.toUpperCase() && currentWord.value.length > 0
   })
 
   // Get the next key that should be typed
@@ -119,7 +119,7 @@ export function useWordGame() {
       return null
     }
     if (userInput.value.length < currentWord.value.length) {
-      return currentWord.value[userInput.value.length]
+      return currentWord.value[userInput.value.length].toUpperCase()
     }
     return null
   })
@@ -133,7 +133,7 @@ export function useWordGame() {
     // In non-strict mode, check if last character was wrong
     if (!strictMode.value && userInput.value.length > 0) {
       const lastIndex = userInput.value.length - 1
-      return userInput.value[lastIndex] !== currentWord.value[lastIndex]
+      return userInput.value[lastIndex].toUpperCase() !== currentWord.value[lastIndex].toUpperCase()
     }
     return false
   })
@@ -143,14 +143,14 @@ export function useWordGame() {
 
   // Handle typing
   const handleInput = (value) => {
-    const newValue = value.toLowerCase()
+    const newValue = value.toUpperCase()
 
     // In strict mode, only allow backspace or correct input
     if (strictMode.value && newValue.length > userInput.value.length) {
       // User is adding a character (not deleting)
       const newCharIndex = userInput.value.length
       const newChar = newValue[newCharIndex]
-      const expectedChar = currentWord.value[newCharIndex]
+      const expectedChar = currentWord.value[newCharIndex].toUpperCase()
 
       // Only accept the input if the new character is correct
       if (newChar !== expectedChar) {
@@ -188,6 +188,12 @@ export function useWordGame() {
     nextWord()
   }
 
+  // Reset current input
+  const resetInput = () => {
+    userInput.value = ''
+    hasStrictModeError.value = false
+  }
+
   return {
     difficulty,
     mode,
@@ -208,6 +214,7 @@ export function useWordGame() {
     handleInput,
     setDifficulty,
     setMode,
-    toggleStrictMode
+    toggleStrictMode,
+    resetInput
   }
 }
