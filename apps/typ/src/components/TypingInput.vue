@@ -79,4 +79,28 @@ defineExpose({
   border-color: var(--button-active-bg);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .typing-input {
+    padding: 0.5rem;
+  }
+
+  .input-field {
+    font-size: 2rem;
+    padding: 0.6rem 1rem;
+    border-width: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .typing-input {
+    padding: 0.4rem;
+  }
+
+  .input-field {
+    font-size: 1.5rem;
+    padding: 0.5rem 0.75rem;
+  }
+}
 </style>

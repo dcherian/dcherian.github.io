@@ -123,4 +123,65 @@ const letters = computed(() => props.word.toLowerCase().split(''))
   25% { transform: translateX(-5px); }
   75% { transform: translateX(5px); }
 }
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .word-display {
+    padding: 0.75rem 0.4rem;
+  }
+
+  .number-word-hint-space {
+    min-height: 2.5rem;
+  }
+
+  .number-word-hint {
+    font-size: 1.5rem;
+  }
+
+  .word {
+    font-size: 2.5rem;
+    letter-spacing: 0.1rem;
+    gap: 0.1rem;
+  }
+
+  .letter {
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+  }
+
+  .letter.space {
+    width: 1.5rem;
+    border-bottom-width: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .word-display {
+    padding: 0.5rem 0.3rem;
+  }
+
+  .number-word-hint-space {
+    min-height: 2rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .number-word-hint {
+    font-size: 1.2rem;
+  }
+
+  .word {
+    font-size: 2rem;
+    letter-spacing: 0.05rem;
+    gap: 0.08rem;
+  }
+
+  .letter {
+    padding: 0.15rem 0.3rem;
+    border-radius: 0.25rem;
+  }
+
+  .letter.space {
+    width: 1.2rem;
+  }
+}
 </style>

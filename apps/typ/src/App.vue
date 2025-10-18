@@ -163,23 +163,26 @@ body {
 
 .app {
   min-height: 100vh;
+  height: 100vh;
   background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 0.5rem;
+  overflow: hidden;
 }
 
 .header {
-  padding: 0.5rem;
+  padding: 0.25rem;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: var(--title-color);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   font-weight: bold;
-  letter-spacing: 0.3rem;
+  letter-spacing: 0.2rem;
   margin: 0;
 }
 
@@ -191,22 +194,24 @@ body {
   width: 100%;
   margin: 0 auto;
   background-color: var(--main-bg);
-  border-radius: 1.5rem;
+  border-radius: 1rem;
   box-shadow: 0 20px 60px var(--shadow-color);
-  padding: 1rem;
-  overflow: hidden;
+  padding: 0.5rem;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .celebration-space {
-  min-height: 6rem;
+  min-height: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem;
+  padding: 0.25rem;
+  flex-shrink: 0;
 }
 
 .celebration {
-  font-size: 5rem;
+  font-size: 3rem;
   opacity: 0;
 }
 
@@ -226,6 +231,73 @@ body {
   }
   100% {
     opacity: 0;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .app {
+    padding: 0.25rem;
+  }
+
+  .header {
+    padding: 0.15rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    letter-spacing: 0.15rem;
+  }
+
+  .main {
+    padding: 0.4rem;
+    border-radius: 0.75rem;
+  }
+
+  .celebration-space {
+    min-height: 2.5rem;
+    padding: 0.2rem;
+  }
+
+  .celebration {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .app {
+    padding: 0.2rem;
+  }
+
+  .header {
+    padding: 0.1rem;
+  }
+
+  .title {
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+  }
+
+  .main {
+    padding: 0.3rem;
+    border-radius: 0.5rem;
+  }
+
+  .celebration-space {
+    min-height: 2rem;
+    padding: 0.15rem;
+  }
+
+  .celebration {
+    font-size: 2rem;
+  }
+}
+
+/* Improve touch targets on mobile */
+@media (hover: none) and (pointer: coarse) {
+  button {
+    min-height: 44px;
+    min-width: 44px;
   }
 }
 </style>

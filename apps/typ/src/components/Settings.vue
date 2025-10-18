@@ -109,6 +109,7 @@ const selectMode = (mode) => {
   align-items: center;
   justify-content: space-between;
   border-bottom: 2px solid var(--border-color);
+  flex-wrap: wrap;
 }
 
 .left-controls {
@@ -224,5 +225,82 @@ const selectMode = (mode) => {
 .stats strong {
   color: var(--button-active-bg);
   font-size: 1.5rem;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .settings {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .difficulty-buttons,
+  .mode-buttons {
+    gap: 0.3rem;
+  }
+
+  .difficulty-btn,
+  .mode-btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  .help-btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .timer {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  .fullscreen-btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 1rem;
+  }
+
+  .stats {
+    font-size: 1rem;
+  }
+
+  .stats strong {
+    font-size: 1.2rem;
+  }
+
+  .right-controls {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .settings {
+    padding: 0.4rem;
+    gap: 0.4rem;
+    justify-content: center;
+  }
+
+  .left-controls,
+  .right-controls {
+    order: 2;
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+
+  .difficulty-buttons,
+  .mode-buttons {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+
+  .difficulty-btn,
+  .mode-btn {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .timer-icon {
+    font-size: 1rem;
+  }
 }
 </style>
