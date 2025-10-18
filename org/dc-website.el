@@ -1,6 +1,8 @@
 (require 'ob-exp)
 (require 'ox-html)
 (require 'ox-publish)
+(when (require 'ox-rss nil 'noerror)
+  (message "ox-rss loaded successfully"))
 
 (setq research-posts-head
       (concat
@@ -106,10 +108,8 @@
 	 :publishing-function org-rss-publish-to-rss
 	 :exclude ".*"
 	 :include ("rss.org")
-
 	 :with-toc nil
 	 :section-numbers nil
-
 	 :html-link-home "http://www.cherian.net/"
 	 :html-link-use-abs-url t
 	 :with-title t)))
