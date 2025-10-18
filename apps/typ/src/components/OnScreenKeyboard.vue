@@ -34,9 +34,26 @@ const props = defineProps({
   }
 })
 
-// Mobile-style QWERTY keyboard layout (similar to iOS/Android)
+// Mac QWERTY keyboard layout
 const keyboardLayout = [
   [
+    { key: '`', display: '`' },
+    { key: '1', display: '1' },
+    { key: '2', display: '2' },
+    { key: '3', display: '3' },
+    { key: '4', display: '4' },
+    { key: '5', display: '5' },
+    { key: '6', display: '6' },
+    { key: '7', display: '7' },
+    { key: '8', display: '8' },
+    { key: '9', display: '9' },
+    { key: '0', display: '0' },
+    { key: '-', display: '-' },
+    { key: '=', display: '=' },
+    { key: 'delete', display: 'delete', width: '3.5rem', class: 'special-key' }
+  ],
+  [
+    { key: 'tab', display: 'tab', width: '3.2rem', class: 'special-key' },
     { key: 'q', display: 'Q' },
     { key: 'w', display: 'W' },
     { key: 'e', display: 'E' },
@@ -46,9 +63,13 @@ const keyboardLayout = [
     { key: 'u', display: 'U' },
     { key: 'i', display: 'I' },
     { key: 'o', display: 'O' },
-    { key: 'p', display: 'P' }
+    { key: 'p', display: 'P' },
+    { key: '[', display: '[' },
+    { key: ']', display: ']' },
+    { key: '\\', display: '\\', width: '2.8rem' }
   ],
   [
+    { key: 'caps', display: 'caps lock', width: '3.5rem', class: 'special-key' },
     { key: 'a', display: 'A' },
     { key: 's', display: 'S' },
     { key: 'd', display: 'D' },
@@ -57,9 +78,13 @@ const keyboardLayout = [
     { key: 'h', display: 'H' },
     { key: 'j', display: 'J' },
     { key: 'k', display: 'K' },
-    { key: 'l', display: 'L' }
+    { key: 'l', display: 'L' },
+    { key: ';', display: ';' },
+    { key: "'", display: "'" },
+    { key: 'return', display: 'return', width: '3.8rem', class: 'special-key' }
   ],
   [
+    { key: 'shift', display: 'shift', width: '4.2rem', class: 'special-key' },
     { key: 'z', display: 'Z' },
     { key: 'x', display: 'X' },
     { key: 'c', display: 'C' },
@@ -67,97 +92,88 @@ const keyboardLayout = [
     { key: 'b', display: 'B' },
     { key: 'n', display: 'N' },
     { key: 'm', display: 'M' },
-    { key: 'delete', display: '⌫', class: 'delete-key' }
+    { key: ',', display: ',' },
+    { key: '.', display: '.' },
+    { key: '/', display: '/' },
+    { key: 'shift-r', display: 'shift', width: '4.2rem', class: 'special-key' }
   ],
   [
-    { key: '123', display: '123', class: 'number-key' },
-    { key: 'space', display: 'space', class: 'space-key' },
-    { key: 'return', display: 'return', class: 'return-key' }
+    { key: 'fn', display: 'fn', width: '2.5rem', class: 'special-key' },
+    { key: 'control', display: 'ctrl', width: '2.8rem', class: 'special-key' },
+    { key: 'option', display: 'opt', width: '2.8rem', class: 'special-key' },
+    { key: 'command', display: '⌘', width: '3.5rem', class: 'special-key' },
+    { key: 'space', display: '', width: '12rem', class: 'space-key' },
+    { key: 'command-r', display: '⌘', width: '3.5rem', class: 'special-key' },
+    { key: 'option-r', display: 'opt', width: '2.8rem', class: 'special-key' },
+    { key: 'left', display: '◀', class: 'arrow-key' },
+    { key: 'up-down', display: '▲▼', class: 'arrow-key' },
+    { key: 'right', display: '▶', class: 'arrow-key' }
   ]
 ]
 </script>
 
 <style scoped>
 .keyboard {
-  padding: 0.5rem 0.25rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
   align-items: center;
   background-color: var(--keyboard-bg);
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   margin-top: 0.5rem;
-  max-width: 100%;
 }
 
 .keyboard-row {
   display: flex;
-  gap: 0.35rem;
+  gap: 0.4rem;
   justify-content: center;
-  width: 100%;
-  max-width: 600px;
-}
-
-.keyboard-row:nth-child(2) {
-  padding: 0 1.5rem;
-}
-
-.keyboard-row:nth-child(3) {
-  padding: 0 3rem;
 }
 
 .key {
-  flex: 1;
-  min-width: 0;
   height: 3.5rem;
-  border: none;
-  border-radius: 0.35rem;
+  border: 2px solid var(--key-border);
+  border-radius: 0.5rem;
   background-color: var(--key-bg);
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 1.1rem;
+  font-weight: 600;
   color: var(--key-text);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: default;
-  transition: all 0.15s ease;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
-  text-transform: lowercase;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.delete-key,
-.number-key,
-.return-key {
+.special-key {
   background-color: var(--key-special-bg);
-  font-size: 1rem;
-  font-weight: 600;
-  text-transform: none;
+  font-size: 0.9rem;
 }
 
 .space-key {
-  flex: 5;
-  font-size: 1rem;
-  text-transform: none;
+  background-color: var(--key-bg);
 }
 
-.number-key,
-.return-key {
-  flex: 1.5;
+.arrow-key {
+  font-size: 1.4rem;
 }
 
 .key.highlight {
   background-color: #3b82f6;
+  border-color: #2563eb;
   color: white;
-  transform: scale(1.05);
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
   animation: pulse 1s ease-in-out infinite;
 }
 
 .key.highlight-delete {
   background-color: #ef4444;
+  border-color: #dc2626;
   color: white;
-  transform: scale(1.05);
-  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
   animation: pulse 1s ease-in-out infinite;
 }
 
@@ -166,34 +182,7 @@ const keyboardLayout = [
     opacity: 1;
   }
   50% {
-    opacity: 0.8;
-  }
-}
-
-/* Tablet/Desktop - slightly larger */
-@media (min-width: 769px) {
-  .keyboard {
-    padding: 0.75rem 0.5rem;
-    gap: 0.5rem;
-  }
-
-  .keyboard-row {
-    gap: 0.5rem;
-  }
-
-  .key {
-    height: 4rem;
-    font-size: 1.75rem;
-  }
-
-  .delete-key,
-  .number-key,
-  .return-key {
-    font-size: 1.1rem;
-  }
-
-  .space-key {
-    font-size: 1.1rem;
+    opacity: 0.7;
   }
 }
 

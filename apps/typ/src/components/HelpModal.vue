@@ -37,6 +37,11 @@
           </section>
 
           <section>
+            <h3>🔒 Strict Mode</h3>
+            <p>When strict mode is enabled (lock icon 🔒), only correct keystrokes are accepted. Wrong keys are ignored, forcing you to type accurately. You can only use backspace to delete. This helps develop proper typing technique and muscle memory.</p>
+          </section>
+
+          <section>
             <h3>⛶ Fullscreen Mode</h3>
             <p>Click the fullscreen button to enter immersive mode for distraction-free practice.</p>
           </section>

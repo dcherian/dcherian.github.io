@@ -4,6 +4,13 @@
       <button class="help-btn" @click="showHelp = true" title="Help">
         ?
       </button>
+      <button
+        :class="['strict-mode-btn', { active: strictMode }]"
+        @click="emit('toggle-strict-mode')"
+        title="Strict Mode: Only correct keys accepted"
+      >
+        {{ strictMode ? '🔒' : '🔓' }}
+      </button>
     </div>
     <div class="difficulty-buttons">
       <button
@@ -66,6 +73,10 @@ const props = defineProps({
     type: String,
     default: 'word'
   },
+  strictMode: {
+    type: Boolean,
+    default: false
+  },
   timerValue: {
     type: String,
     default: '00:00'
@@ -76,7 +87,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:modelValue', 'update:mode'])
+const emit = defineEmits(['update:modelValue', 'update:mode', 'toggle-strict-mode'])
 
 const { isFullscreen, toggleFullscreen } = useFullscreen()
 
@@ -117,7 +128,8 @@ const selectMode = (mode) => {
   gap: 0.5rem;
 }
 
-.help-btn {
+.help-btn,
+.strict-mode-btn {
   padding: 0.5rem 0.75rem;
   font-size: 1rem;
   font-weight: bold;
@@ -131,9 +143,16 @@ const selectMode = (mode) => {
   line-height: 1;
 }
 
-.help-btn:hover {
+.help-btn:hover,
+.strict-mode-btn:hover {
   border-color: var(--button-active-bg);
   color: var(--button-active-bg);
+}
+
+.strict-mode-btn.active {
+  background-color: var(--button-active-bg);
+  border-color: var(--button-active-border);
+  color: var(--button-active-text);
 }
 
 .difficulty-buttons,
@@ -245,7 +264,8 @@ const selectMode = (mode) => {
     font-size: 0.75rem;
   }
 
-  .help-btn {
+  .help-btn,
+  .strict-mode-btn {
     padding: 0.4rem 0.6rem;
     font-size: 0.9rem;
   }

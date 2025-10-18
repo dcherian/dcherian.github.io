@@ -9,10 +9,12 @@
         v-model="difficulty"
         :words-completed="wordsCompleted"
         :selected-mode="mode"
+        :strict-mode="strictMode"
         :timer-value="formattedTime"
         :timer-paused="isPaused"
         @update:model-value="setDifficulty"
         @update:mode="setMode"
+        @toggle-strict-mode="toggleStrictMode"
       />
 
       <WordDisplay
@@ -56,6 +58,7 @@ const typingInputRef = ref(null)
 const {
   difficulty,
   mode,
+  strictMode,
   currentWord,
   currentNumber,
   currentNumberWord,
@@ -70,7 +73,8 @@ const {
   loadWords,
   handleInput,
   setDifficulty,
-  setMode
+  setMode,
+  toggleStrictMode
 } = useWordGame()
 
 // Refocus input when mode or difficulty changes
