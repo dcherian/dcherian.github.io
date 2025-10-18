@@ -8,7 +8,7 @@
           'key',
           key.class,
           {
-            'highlight': key.key.toLowerCase() === nextKey?.toLowerCase(),
+            'highlight': isKeyHighlighted(key.key, nextKey),
             'highlight-delete': shouldHighlightDelete && key.key === 'delete'
           }
         ]"
@@ -33,6 +33,19 @@ const props = defineProps({
     default: false
   }
 })
+
+// Helper function to check if a key should be highlighted
+const isKeyHighlighted = (keyName, nextKeyChar) => {
+  if (!nextKeyChar) return false
+
+  // Special case: if nextKeyChar is a space, match with 'space' key
+  if (nextKeyChar === ' ' && keyName === 'space') {
+    return true
+  }
+
+  // Default case: direct character comparison
+  return keyName.toLowerCase() === nextKeyChar.toLowerCase()
+}
 
 // Mac QWERTY keyboard layout
 const keyboardLayout = [
