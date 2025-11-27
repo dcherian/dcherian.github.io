@@ -141,6 +141,26 @@ npm run preview        # Preview built output
 - Accessible at `cherian.net/typ/`
 - Independent Vue.js SPA served as static files
 
+**Key Components:**
+- `App.vue` - Main app with game layout and global styles (CSS variables for theming)
+- `components/WordDisplay.vue` - Shows the current word to type with letter state highlighting
+- `components/TypingInput.vue` - Text input field with always-visible clear button
+- `components/OnScreenKeyboard.vue` - Visual keyboard highlighting the next key (hidden on mobile)
+- `components/HandIndicator.vue` - Shows left/right hands with finger highlighting for touch typing guidance
+- `components/Confetti.vue` - Celebratory confetti animation on word completion (4 second duration)
+- `components/Settings.vue` - Difficulty and mode selection
+- `composables/useWordGame.js` - Core game logic, word loading, and state management
+
+**Timing Constants:**
+- Word transition delay: 4000ms (in `useWordGame.js`)
+- Confetti duration: 4000ms (in `Confetti.vue`)
+- These should be kept in sync for a smooth experience
+
+**Styling Notes:**
+- Uses CSS custom properties for light/dark theme support
+- Global styles in App.vue apply to html/body (margin: 0 to avoid white borders)
+- Hand indicator uses `--text-primary` for high contrast outlines
+
 ## Key Configuration Files
 
 - **org/dc-website.el** - Org Mode publishing configuration
