@@ -32,11 +32,9 @@
         @reset="resetInput"
       />
 
-      <div class="celebration-space">
-        <div class="celebration" :class="{ visible: isWordComplete }">
-          🎉
-        </div>
-      </div>
+      <Confetti :active="isWordComplete" />
+
+      <HandIndicator :next-key="nextKey" />
 
       <OnScreenKeyboard
         :next-key="nextKey"
@@ -52,6 +50,8 @@ import WordDisplay from './components/WordDisplay.vue'
 import TypingInput from './components/TypingInput.vue'
 import Settings from './components/Settings.vue'
 import OnScreenKeyboard from './components/OnScreenKeyboard.vue'
+import HandIndicator from './components/HandIndicator.vue'
+import Confetti from './components/Confetti.vue'
 import { useWordGame } from './composables/useWordGame'
 
 const typingInputRef = ref(null)
@@ -216,10 +216,17 @@ onMounted(() => {
   --title-color: #ffffff;
 }
 
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
 }
 
 body {
@@ -236,7 +243,7 @@ body {
   background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
+  padding: 0;
   overflow: hidden;
 }
 
@@ -270,43 +277,10 @@ body {
   overflow-x: hidden;
 }
 
-.celebration-space {
-  min-height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.25rem;
-  flex-shrink: 0;
-}
-
-.celebration {
-  font-size: 3rem;
-  opacity: 0;
-}
-
-.celebration.visible {
-  animation: fadeInStay 4s ease-in-out;
-}
-
-@keyframes fadeInStay {
-  0% {
-    opacity: 0;
-  }
-  5% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .app {
-    padding: 0.25rem;
+    padding: 0;
   }
 
   .header {
@@ -322,20 +296,11 @@ body {
     padding: 0.4rem;
     border-radius: 0.75rem;
   }
-
-  .celebration-space {
-    min-height: 2.5rem;
-    padding: 0.2rem;
-  }
-
-  .celebration {
-    font-size: 2.5rem;
-  }
 }
 
 @media (max-width: 480px) {
   .app {
-    padding: 0.2rem;
+    padding: 0;
   }
 
   .header {
@@ -350,15 +315,6 @@ body {
   .main {
     padding: 0.3rem;
     border-radius: 0.5rem;
-  }
-
-  .celebration-space {
-    min-height: 2rem;
-    padding: 0.15rem;
-  }
-
-  .celebration {
-    font-size: 2rem;
   }
 }
 

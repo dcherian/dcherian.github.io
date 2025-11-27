@@ -173,7 +173,7 @@ export function useWordGame() {
       setTimeout(() => {
         nextWord()
         hasStrictModeError.value = false
-      }, 500)
+      }, 4000)
     }
   }
 

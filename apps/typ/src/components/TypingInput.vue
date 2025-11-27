@@ -15,7 +15,6 @@
       />
       <button
         class="reset-btn"
-        :class="{ 'reset-btn-visible': modelValue && modelValue.length > 0 }"
         @click="handleReset"
         title="Clear input"
       >
@@ -128,13 +127,6 @@ defineExpose({
   align-items: center;
   justify-content: center;
   z-index: 10;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.reset-btn-visible {
-  opacity: 1;
-  pointer-events: auto;
 }
 
 .reset-btn:hover {
