@@ -80,7 +80,6 @@ const keyToFinger = {
   'f': { hand: 'left', finger: 'index' },
   'g': { hand: 'left', finger: 'index' },
   'v': { hand: 'left', finger: 'index' },
-  'b': { hand: 'left', finger: 'index' },
 
   // Right hand - index (includes reach keys)
   '6': { hand: 'right', finger: 'index' },
@@ -89,6 +88,7 @@ const keyToFinger = {
   'u': { hand: 'right', finger: 'index' },
   'h': { hand: 'right', finger: 'index' },
   'j': { hand: 'right', finger: 'index' },
+  'b': { hand: 'right', finger: 'index' },
   'n': { hand: 'right', finger: 'index' },
   'm': { hand: 'right', finger: 'index' },
 
