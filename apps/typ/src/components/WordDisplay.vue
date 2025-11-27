@@ -87,15 +87,15 @@ const wordGroups = computed(() => {
 <style scoped>
 .word-display {
   text-align: center;
-  padding: 1rem 0.5rem;
+  padding: 0.25rem 0.5rem;
 }
 
 .number-word-hint-space {
-  min-height: 3rem;
+  min-height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .number-word-hint {

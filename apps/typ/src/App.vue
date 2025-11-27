@@ -248,13 +248,13 @@ body {
 }
 
 .header {
-  padding: 0.25rem;
+  padding: 0.1rem;
   text-align: center;
   flex-shrink: 0;
 }
 
 .title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: var(--title-color);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   font-weight: bold;
@@ -272,7 +272,7 @@ body {
   background-color: var(--main-bg);
   border-radius: 1rem;
   box-shadow: 0 20px 60px var(--shadow-color);
-  padding: 0.5rem;
+  padding: 0.25rem;
   overflow-y: auto;
   overflow-x: hidden;
 }

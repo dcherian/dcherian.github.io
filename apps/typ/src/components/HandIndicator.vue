@@ -144,8 +144,8 @@ const activeFinger = computed(() => {
   display: flex;
   justify-content: center;
   gap: 2rem;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
+  padding: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .hand {

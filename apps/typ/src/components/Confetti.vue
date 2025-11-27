@@ -19,6 +19,7 @@
 
 <script setup>
 import { ref, watch } from 'vue'
+import { WORD_TRANSITION_DELAY } from '../composables/useWordGame'
 
 const props = defineProps({
   active: {
@@ -43,8 +44,8 @@ const generatePieces = () => {
     pieces.push({
       left: Math.random() * 100,
       color: colors[Math.floor(Math.random() * colors.length)],
-      delay: Math.random() * 2,
-      duration: 4 + Math.random() * 2,
+      delay: Math.random() * 0.5,
+      duration: 1.5 + Math.random() * 0.5,
       rotation: Math.random() * 360,
       size: 8 + Math.random() * 8
     })
@@ -63,10 +64,10 @@ watch(() => props.active, (newVal) => {
     confettiPieces.value = generatePieces()
     showConfetti.value = true
 
-    // Hide after 4 seconds
+    // Hide after transition delay
     hideTimeout = setTimeout(() => {
       showConfetti.value = false
-    }, 4000)
+    }, WORD_TRANSITION_DELAY)
   }
 })
 </script>

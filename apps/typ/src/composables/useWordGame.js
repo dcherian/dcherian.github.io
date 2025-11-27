@@ -2,6 +2,9 @@ import { ref, computed, watch } from 'vue'
 import { useActivityTimer } from './useActivityTimer'
 import { numberToWords, generateNumber } from '../utils/numberToWords'
 
+// Duration in ms for celebration animation and word transition
+export const WORD_TRANSITION_DELAY = 2000
+
 export function useWordGame() {
   const words = ref({ easy: [], medium: [], hard: [], phrases: { easy: [], medium: [], hard: [] } })
   const difficulty = ref('easy')
@@ -173,7 +176,7 @@ export function useWordGame() {
       setTimeout(() => {
         nextWord()
         hasStrictModeError.value = false
-      }, 4000)
+      }, WORD_TRANSITION_DELAY)
     }
   }
 

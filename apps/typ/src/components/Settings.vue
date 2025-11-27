@@ -133,9 +133,9 @@ const selectMode = (mode) => {
 
 <style scoped>
 .settings {
-  padding: 0.75rem;
+  padding: 0.4rem 0.5rem;
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   align-items: center;
   justify-content: space-between;
   border-bottom: 2px solid var(--border-color);
