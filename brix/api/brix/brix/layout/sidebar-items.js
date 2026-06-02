@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["IntTuple","LayoutError","LayoutMergeError"],"fn":["compose_impl","crd2idx_impl","inner_product_idx","iter_layout","linear_to_coord","native_layout","natural_coord"],"struct":["AxisName","Layout","NamedCoord","NamedLayout"],"type":["LayoutResult"]};

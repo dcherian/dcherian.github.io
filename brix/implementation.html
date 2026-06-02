@@ -1,0 +1,494 @@
+<!DOCTYPE HTML>
+<html lang="en" class="rust sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Algorithms &amp; Implementation - The Brix Book</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="Design and architecture guide for Brix, an nD array compute orchestration system in Rust.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="./mdbook-admonish.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "rust";
+            const default_dark_theme = "ayu";
+            window.path_to_searchindex_js = "searchindex-4dc57a28.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-5c44d544.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('rust')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Brix Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/earth-mover/brix" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/earth-mover/brix/edit/main/docs/src/implementation.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                            <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="algorithms"><a class="header" href="#algorithms">Algorithms</a></h1>
+<p>How the structural ops in the <a href="visualizer.html">pipeline visualizer</a> are
+implemented. Every one follows the same three-part shape:</p>
+<ol>
+<li><strong>Plan-time chunk-grid math</strong> (<code>array/lower.rs</code> + <code>array/chunk_grid/*</code>):
+construct the output <code>ChunkGrid</code> and the chunk-coord routing from output
+chunks back to input chunks.</li>
+<li><strong>DAG embedding</strong>: lowering emits a mid-IR <code>Expr</code> node whose <code>Input</code> edges
+each carry <code>access: HashMap&lt;AxisName, AxisAccess&gt;</code>. An axis is <em>either</em>
+<code>AxisAccess::Composed(Frame)</code> — a structural transform the planner folds
+into the loop nest (<code>NamedLayout::compose</code> / <code>logical_divide</code>) — <em>or</em>
+<code>AxisAccess::Translated(TranslatedAccess)</code> — a per-coord override applied
+at runtime by <code>AccessRelation::resolve_coord</code> after the affine pass.
+Absence from the map is identity (pass-through / broadcast).</li>
+<li><strong>Within-brick element math</strong>: the concrete <code>Kernel</code> / <code>Accumulator</code> bakes
+in both the input and output <code>ChunkGrid</code> plus the original indexer/view, so
+it can derive element-space bounds locally from one brick coordinate.</li>
+</ol>
+<p>At a glance (visualizer legend token → actual variant):</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Workload</th><th>DAG node</th><th>Edge encoding</th><th>Output <code>AxisChunks</code></th></tr>
+</thead>
+<tbody>
+<tr><td>Slicing</td><td><code>Blockwise(SliceKernel)</code></td><td><code>Translated(Independent(AxisOverride::Offset(k)))</code> — <code>Off(k)</code></td><td><code>RLE</code> (or <code>Uniform</code> fast path)</td></tr>
+<tr><td>Coarsen</td><td><code>Reduce(LoweredAccumulator)</code></td><td><code>Composed(Frame::Window{w,w})</code> — <code>Win(w,w)</code> — or identity</td><td>coarsened (<code>AxisChunks::coarsen</code>)</td></tr>
+<tr><td>Vindex</td><td><code>Blockwise(VIndexKernel)</code></td><td><code>Translated(Zipped({follower: AxisOverride::Lookup(t)}))</code> — <code>Zip{k→{i,j}}</code></td><td><code>Variable</code> (one chunk per run)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="slicing"><a class="header" href="#slicing">Slicing</a></h2>
+<p><code>ArrayOp::Slice(HashMap&lt;AxisName, Slice&gt;)</code> lowers to
+<code>Op::Blockwise(SliceKernel)</code>. Three pieces of information construct the
+output:</p>
+<ul>
+<li><strong>Output chunk grid</strong> — plan time, in
+<code>chunk_grid::select::output_grid_and_offsets</code>. Per sliced axis, each output
+chunk is the intersection of one source chunk with <code>[start, end)</code> step
+<code>step</code>, so the per-chunk sizes are encoded as <code>AxisChunks::RLE</code>. The output
+stays <code>AxisChunks::Uniform</code> only on the aligned fast path (step 1,
+start/end on chunk boundaries); slicing an <code>AxisChunks::Variable</code> axis is a
+hard error.</li>
+<li><strong>Per-axis chunk offset on the edge</strong> — <code>output_grid_and_offsets</code> also
+returns <code>k0</code> per axis: the source chunk that output chunk 0 maps to.
+Lowering embeds it on the consumer edge as
+<code>AxisAccess::Translated(TranslatedAccess::Independent(AxisOverride::Offset(k0)))</code>
+for every input axis (<code>Offset(0)</code> is a no-op for untouched axes). At runtime
+<code>AccessRelation::resolve_coord</code> adds the offset to the affine-resolved
+producer coord. The override stack is <em>ordered</em>: two slices separated by a
+Blockwise (so <code>fuse_adjacent_selects</code> can’t collapse them) accumulate as
+stacked entries applied in planner descent order — <code>Offset(1)</code> then
+<code>Offset(2)</code> reads the producer at chunk <code>c + 3</code> (the “stacked slices”
+workload).</li>
+<li><strong>Within-brick clip</strong> — <code>SliceKernel</code> records <code>slicers</code>, <code>input_grid</code>, and
+the output <code>grid</code>. Given the output brick coordinate, <code>clip</code> derives element
+bounds from both grids’ <code>slice_ranges</code>, translates output positions through
+the slicer (<code>start + pos·step</code>) into source space, subtracts the input
+brick’s element start to get brick-local ranges, and <code>slice_each_axis</code>es the
+dense payload. A <code>Fill</code> input short-circuits: re-emit a <code>Fill</code> payload at
+the output brick shape — no element work.</li>
+</ul>
+<h2 id="coarsen"><a class="header" href="#coarsen">Coarsen</a></h2>
+<p>There is no coarsen op. <code>a.coarsen({"i": 2}).sum()</code> builds
+<code>ArrayOp::Reduce { acc, view: {"i": Frame::Window { size: 2, stride: 2 }} }</code> —
+a framed reduce, where <code>array::expr::Frame</code> is in <em>element</em> space. Lowering
+emits <code>Op::Reduce(LoweredAccumulator)</code>:</p>
+<ul>
+<li><strong>Output chunk grid</strong> — <code>ChunkGrid::after_reduce</code> maps each viewed axis:
+<code>Frame::WholeAxis { keepdims: false }</code> drops it, <code>keepdims: true</code> keeps it
+at size 1, and <code>Frame::Window</code> with <code>size == stride</code> coarsens the axis
+chunks (<code>AxisChunks::coarsen</code>, extent <code>ceil(n / size)</code>).</li>
+<li><strong>Edge encoding</strong> — <code>build_reduce_access</code> re-derives the element-space frame
+in <em>chunk</em> space. With <code>w = ceil(n_in_chunks / n_out_chunks)</code>:
+<ul>
+<li><code>w == 1</code>: the window fits inside one brick — identity edge (no map
+entry). The frame is invisible to the planner; all folding is
+element-space inside the accumulator.</li>
+<li><code>w &gt; 1</code>: the window spans bricks —
+<code>AxisAccess::Composed(brix::Frame::Window { size: w, stride: w })</code>. This
+is the <code>Composed</code> arm: not a runtime coord override but loop structure.
+The planner’s <code>extend_iter_space_for_fold</code> <code>logical_divide</code>s the axis
+into <code>(n_out, w)</code> and appends a fold loop over the inner mode; a
+non-divisible <code>n_in</code> records a predication limit so the trailing partial
+window doesn’t read past the producer extent.</li>
+</ul>
+</li>
+<li><strong>Within-brick fold</strong> — <code>LoweredAccumulator</code> carries the element-space
+<code>view</code> and a keepdims=true state grid (the reduced axis survives at size 1
+in intermediate state regardless of the user’s <code>keepdims</code>). <code>fold_left</code>
+re-frames each incoming brick (<code>as_frame_iter</code>) and calls the inner
+accumulator’s <code>fold_frame</code> per (output lane, frame slot); <code>finalize</code>
+squeezes out axes whose view was <code>WholeAxis { keepdims: false }</code>.</li>
+</ul>
+<p>The two regimes are why the visualizer’s coarsen workload uses one-element
+bricks: it forces <code>w = 2</code> so the <code>Win(2,2)</code> edge and the planner-generated
+fold loop become visible. With bricks at least as large as the window the
+same expression lowers to an identity edge.</p>
+<h2 id="vindex"><a class="header" href="#vindex">Vindex</a></h2>
+<p><code>ArrayOp::Vindex(VectorizedIndexer)</code> — equal-length integer index vectors per
+consumed axis, zipped into a single produced axis <code>k</code> — lowers to
+<code>Op::Blockwise(VIndexKernel)</code>.</p>
+<ul>
+<li><strong>Run partition</strong> — plan time, in
+<code>chunk_grid::vindex::VectorizedSelection::from_indexer</code>. Walk the k
+positions; <code>AxisChunks::locate</code> resolves each index into
+<code>(source_chunk, in_chunk_position)</code> per consumed axis. Consecutive
+positions sharing the same <em>multi-axis</em> chunk-coord tuple group into a run;
+the tuple sequence must be non-decreasing in lex order over the (sorted)
+consumed axes — hard error otherwise, no auto-sort. The result is
+<code>VectorizedSelection { consumed_axes, per_axis }</code> where <code>per_axis[a][r]</code> is
+an <code>AxisSelection { source_chunk, positions }</code> for axis <code>a</code>, run <code>r</code>.</li>
+<li><strong>Output chunk grid</strong> — <code>output_grid_and_selection</code> removes the consumed
+axes (<code>without_axes</code>) and appends <code>k</code> as
+<code>AxisChunks::Variable(run_widths)</code>: one output chunk per run, so each
+output brick reads exactly one input brick.</li>
+<li><strong>Edge encoding</strong> — keyed by the <em>produced</em> axis, which does not exist on
+the producer grid:
+<code>{"k" → AxisAccess::Translated(TranslatedAccess::Zipped({i: AxisOverride::Lookup(tᵢ), j: AxisOverride::Lookup(tⱼ)}))}</code>.
+Each follower’s table maps run index → that axis’s source chunk. At runtime
+<code>resolve_coord</code> reads the leader <code>k</code>’s iter coord from the enclosing loop
+and drives <em>every</em> follower’s <code>Lookup</code> from it — the co-iteration that
+distinguishes vindex from oindex, whose per-axis
+<code>TranslatedAccess::Independent(AxisOverride::Lookup)</code> entries form a
+cartesian product.</li>
+<li><strong>Within-brick gather</strong> — <code>VIndexKernel</code> records the <code>VectorizedSelection</code>
+plus both grids. For output run <code>r</code>, it loops <code>i</code> over the run width,
+<code>index_axis_move</code>s the source brick at <code>per_axis[a][r].positions[i]</code> on
+every consumed axis simultaneously, and assigns the resulting cell into
+lane <code>i</code> of the produced axis. <code>Fill</code> inputs short-circuit to a <code>Fill</code> at
+the output brick shape.</li>
+</ul>
+<h1 id="implementation-tour"><a class="header" href="#implementation-tour">Implementation tour</a></h1>
+<h2 id="1-foundations"><a class="header" href="#1-foundations">1. Foundations</a></h2>
+<p>Read first — every other module uses these.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: right">Order</th><th>Module</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right">1</td><td><code>src/brix/error.rs</code></td><td>One error enum, used everywhere. Quick read.</td></tr>
+<tr><td style="text-align: right">2</td><td><code>src/brix/brick.rs</code></td><td><code>Brick</code>, <code>BrickCoordinate</code>, <code>BrickPayload</code>. The unit of data that flows through every layer.</td></tr>
+<tr><td style="text-align: right">3</td><td><code>src/array/brick.rs</code></td><td><code>Dense</code> and <code>Fill</code> payload impls. Concrete <code>f64</code> payloads today; will become generic when integer/bool dtypes land.</td></tr>
+<tr><td style="text-align: right">4</td><td><code>src/brix/iteration_space.rs</code> and <code>src/array/chunk_grid/mod.rs</code></td><td>Two flavours of chunk topology. <code>brix::IterationSpace</code> is counts-only (orchestration view); <code>array::ChunkGrid</code> is the rich per-axis representation (<code>AxisChunks::Uniform</code> / <code>Variable</code> / future <code>Sharded</code>).</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="2-the-brix-ir-contracts"><a class="header" href="#2-the-brix-ir-contracts">2. The Brix-IR contracts</a></h2>
+<p>Read second — these are the trait surfaces the rest of the system targets.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: right">Order</th><th>Module</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right">5</td><td><code>src/brix/expr.rs</code></td><td>The <code>Source</code> / <code>Kernel</code> / <code>Accumulator</code> traits, the <code>Op</code> enum, the <code>Expr</code> node. This is the structural vocabulary the planner consumes.</td></tr>
+<tr><td style="text-align: right">6</td><td><code>src/brix/sink.rs</code></td><td>The <code>Sink</code> trait. Concurrency-safe (<code>&amp;self</code> on <code>write_brick</code>); not part of the DAG.</td></tr>
+<tr><td style="text-align: right">7</td><td><code>src/brix/cost.rs</code></td><td><code>Cost</code> struct and how nodes report it. The planner aggregates this; understanding the shape clarifies what each <code>Source::cost</code> / <code>Accumulator::cost</code> impl is computing.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="3-concrete-impls"><a class="header" href="#3-concrete-impls">3. Concrete impls</a></h2>
+<p>Now look at the built-in <a href="api/brix/trait.Source.html"><code>Source</code></a> / <a href="api/brix/trait.Kernel.html"><code>Kernel</code></a> / <a href="api/brix/trait.Accumulator.html"><code>Accumulator</code></a> impls.
+Each is self-contained and small.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: right">Order</th><th>Module</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right">8</td><td><code>src/array/source.rs</code></td><td><code>FillSource</code>, <code>DenseSource</code>, <code>LoweredOpaque</code>. Note the <code>OpaqueSource</code> extension trait — this is the user-facing API for Zarr / Arrow IPC integrations.</td></tr>
+<tr><td style="text-align: right">9</td><td><code>src/array/kernels/ops.rs</code></td><td><code>UnaryKernel</code>, <code>BinaryKernel</code>. The simplest kernels — pure elementwise.</td></tr>
+<tr><td style="text-align: right">10</td><td><code>src/array/kernels/indexing.rs</code></td><td><code>SliceKernel</code>, <code>GatherKernel</code>. More involved; introduces the coord-rewriting story.</td></tr>
+<tr><td style="text-align: right">11</td><td><code>src/array/accumulators.rs</code></td><td><code>SumAccumulator</code>, <code>MeanAccumulator</code>. Read for the <code>State</code> downcasting dance (<code>downcast_state_mut</code> / <code>downcast_state_ref</code>) — that’s the cost of <code>Arc&lt;dyn Accumulator&gt;</code> heterogeneity.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="4-the-array-surface"><a class="header" href="#4-the-array-surface">4. The array surface</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: right">Order</th><th>Module</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right">12</td><td><code>src/array/expr.rs</code></td><td><code>ArrayExpr</code> and <code>ArrayOp</code>. The logical IR before chunking decisions. Carries <code>ArrayLayout</code> (named axes + extents + strides).</td></tr>
+<tr><td style="text-align: right">13</td><td><code>src/array/ops.rs</code></td><td><code>UnaryOp</code> / <code>BinaryOp</code> enums and their evaluation. Element-level semantics, distinct from <code>Kernel</code> impls.</td></tr>
+<tr><td style="text-align: right">14</td><td><code>src/array/indexer.rs</code></td><td><code>Indexer</code> — how slicing and gather get expressed at the array level before lowering.</td></tr>
+<tr><td style="text-align: right">15</td><td><code>src/array/mod.rs</code></td><td>The user-facing <code>Array</code> handle. Skim the impl block to see what operations exist; the tests at the bottom show end-to-end flow.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="5-the-lowering-pass"><a class="header" href="#5-the-lowering-pass">5. The lowering pass</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: right">Order</th><th>Module</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right">16</td><td><code>src/array/optimize.rs</code></td><td>Pre-lowering rewrites on <code>ArrayExpr</code> (e.g., adjacent-select fusion). Small.</td></tr>
+<tr><td style="text-align: right">17</td><td><code>src/array/lower.rs</code></td><td><strong>The interesting one.</strong> Walks <code>ArrayExpr</code> post-order, picks <code>ChunkGrid</code> per node, projects to <code>brix::IterationSpace</code>, and assembles <code>Arc&lt;Expr&gt;</code>. All chunk-sizing logic lives here.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="6-planning-and-execution"><a class="header" href="#6-planning-and-execution">6. Planning and execution</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: right">Order</th><th>Module</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right">18</td><td><code>src/brix/expr_graph.rs</code></td><td>Builds a graph view (<code>Node</code> + <code>Edge</code>) of an <code>Arc&lt;Expr&gt;</code> DAG. The planner walks this rather than the <code>Arc</code>-based tree.</td></tr>
+<tr><td style="text-align: right">19</td><td><code>src/brix/planner.rs</code></td><td>Turns the expr graph into a <code>PhysicalPlan</code>. Reads <code>AccessRelation</code>s to decide loop order and stage boundaries.</td></tr>
+<tr><td style="text-align: right">20</td><td><code>src/brix/schedule.rs</code></td><td>The <code>Schedule</code> tree — <code>Loop</code>, <code>Sequence</code>, <code>Eval</code>, <code>Init</code>, <code>Finalize</code>, <code>WriteSink</code>. The <code>schedule!</code> macro is here. Tree is data, not code.</td></tr>
+<tr><td style="text-align: right">21</td><td><code>src/executor/sync.rs</code></td><td>Interpreter for <code>Schedule</code>. A few hundred lines. Read last — by now every term in it should be familiar.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="7-sinks-and-integration"><a class="header" href="#7-sinks-and-integration">7. Sinks and integration</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: right">Order</th><th>Module</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right">22</td><td><code>src/array/sink.rs</code></td><td><code>InMemorySink</code>. Read with <code>Sink</code> trait open in another tab. Demonstrates the <code>&amp;self</code> write contract — the executor can call it from multiple threads.</td></tr>
+<tr><td style="text-align: right">23</td><td><code>tests/exercises.rs</code> and <code>tests/common/mod.rs</code></td><td>End-to-end exercises that thread every layer together. Run them with <code>RUST_LOG=trace cargo test</code> to see the planner and executor narrate.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="what-to-skip-on-first-pass"><a class="header" href="#what-to-skip-on-first-pass">What to skip on first pass</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Module</th><th>Why skip</th></tr>
+</thead>
+<tbody>
+<tr><td><code>src/brix/layout.rs</code></td><td>CuTe-style layout algebra. Large; only the surface (<code>Layout</code>, <code>NamedLayout</code>, <code>native_layout</code>) is needed for first-pass understanding.</td></tr>
+<tr><td><code>src/array/chunk_grid/{oindex,select}.rs</code></td><td>Two specific chunk-grid rewrites. Read after <code>lower.rs</code> if you’re touching indexing.</td></tr>
+<tr><td>Anything in <code>checkpoints/</code></td><td>Design rationale and decision history. Use as reference when the <em>why</em> of a design choice isn’t clear; not load-bearing for understanding the <em>what</em>.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="suggested-entry-points-by-task"><a class="header" href="#suggested-entry-points-by-task">Suggested entry points by task</a></h2>
+<ul>
+<li><strong>“I want to add a new operation”</strong> → read 5, 9, 13. Add a <a href="api/brix/trait.Kernel.html"><code>Kernel</code></a> impl in <code>array/kernels/</code>, plumb through <a href="api/brix/array/expr/enum.ArrayOp.html"><code>ArrayOp</code></a> and <code>lower.rs</code>.</li>
+<li><strong>“I want to add a new dtype”</strong> → read 2, 3, the <a href="api/brix/array/enum.DType.html"><code>DType</code></a> enum in <code>array/dtype.rs</code>. Touchpoints: every <code>Dense</code> / <code>Fill</code> site, <code>to_dense_f64</code> (will become dtype-aware), payload <code>to_bytes</code> / <code>from_bytes</code>.</li>
+<li><strong>“I want to add a new accumulator”</strong> → read 5, 11. Copy <code>SumAccumulator</code>, change the fold logic, add an <code>output_dtype</code> impl, register in <code>lower.rs</code>.</li>
+<li><strong>“I want to integrate a new storage backend”</strong> → read 6, 8 — implement <code>OpaqueSource</code> in <code>array/source.rs</code>. The lowering machinery wraps it in <code>LoweredOpaque</code> automatically.</li>
+<li><strong>“I want to add an optimization rewrite”</strong> → read 16, 17. Decide whether your rewrite is structural (greedy pass, like <code>fuse_adjacent_selects</code>) or algebraic (future egglog). For structural, copy the pattern in <code>optimize.rs</code>.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="brix/cost.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="visualizer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="brix/cost.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="visualizer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="mermaid-bf4a4f1d.min.js"></script>
+        <script src="mermaid-init-ccf746f1.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

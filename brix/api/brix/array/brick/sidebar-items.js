@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ArrayPayload","ArrayPayloadKind","BroadcastMode","ReadFrame","TypedArray","TypedView","WriteFrame"],"fn":["payload_from_bytes"],"struct":["DenseArray","FillArray"],"trait":["SliceFrames"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Indexer"],"fn":["compose_slicers","oindex_output_extent"],"struct":["VectorizedIndexer"]};

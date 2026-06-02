@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BrixError","NodeInfo","Value"],"macro":["schedule"],"mod":["array","brick","brix","cost","error","executor","expr","expr_graph","iteration_space","layout","planner","schedule","testing"],"struct":["AxisName","InMemorySink","PhysicalPlan","Slice"],"trait":["Accumulator","Kernel","Sink","Source","State"],"type":["BrixResult"]};

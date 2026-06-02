@@ -1,0 +1,2051 @@
+<!DOCTYPE HTML>
+<html lang="en" class="rust sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Brix Book</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="Design and architecture guide for Brix, an nD array compute orchestration system in Rust.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="./mdbook-admonish.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "rust";
+            const default_dark_theme = "ayu";
+            window.path_to_searchindex_js = "searchindex-4dc57a28.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-5c44d544.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('rust')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Brix Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/earth-mover/brix" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="goals"><a class="header" href="#goals">Goals</a></h1>
+<p>Brix is an nD chunked-array computing system built in Rust. It is intended to power
+analytic workflows classically driven by Xarray/Dask, bringing in ideas from OLAP databases,
+and also advance the state-of-the-art by innovating on interfaces and data models.</p>
+<h2 id="the-problems"><a class="header" href="#the-problems">The problems</a></h2>
+<ul>
+<li>optimizing is a hard game; a lot of context ends up being lost.</li>
+<li>users are not isolated from the storage layer.</li>
+<li>incremental, streaming compute</li>
+<li>At its lowest level, the current python stack is a wrapper over C-level loops.
+This makes extensibility quite hard. The <a href="https://numpy.org/doc/stable/reference/ufuncs.html">Numpy ufunc API</a>
+is great e.g. (cumulative max =<code>np.maximum.accumulate</code>, grouped max = <code>np.maximum.at</code>) but fails at composing
+these primitives, requiring arcane workarounds (how do you run an cumulative max aggregation within groups?).
+Doing such complex operations usually involves using a <em>compiled</em> extension point (Numba/Rust/Pybind11 etc.).</li>
+</ul>
+<h2 id="design-goals"><a class="header" href="#design-goals">Design goals</a></h2>
+<ul>
+<li><strong>Preserve context as much as possible.</strong></li>
+<li><strong>Be as familiar as possible.</strong> To ease adoption, we will strive to provide an API surface
+familiar to existing Python data stack users, but will</li>
+<li><strong>Isolate the user from chunk-size choices through cost-based planning.</strong>
+Peak memory is known at plan time and bounded by backpressure at every I/O boundary.
+If a single brick exceeds the budget, that is a hard error rather than a silent compromise — see
+<a href="#cost">Cost</a>.</li>
+<li><strong>Static shapes with explicit escape hatches.</strong> All extents are known at plan
+time; data-dependent shapes (<code>dropna</code>, <code>unique</code>, boolean indexing) go through
+explicit <em>materialization barriers</em>, not implicit magic.</li>
+<li><strong>Algorithm / schedule separation.</strong> Following Halide, <em>what</em> to compute (the
+<a href="#the-brix-ir"><code>Expr</code></a> graph) is separated from <em>how</em> (the
+<a href="#schedule"><code>Schedule</code></a>). The executor is a dumb interpreter.</li>
+<li><strong>Explicit over implicit.</strong> Hard errors and limits over heuristics;
+user-controlled materialization hints over automatic CSE.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="architecture"><a class="header" href="#architecture">Architecture</a></h1>
+<p>Brix is a layered nD chunked-array compute orchestration system.</p>
+<h2 id="concepts"><a class="header" href="#concepts">Concepts</a></h2>
+<p>At a high level there are three layers:</p>
+<ul>
+<li>the <em>array layer</em> characterized by shape, dtype, chunk grid <em>with chunk sizes</em>, and dimension names</li>
+<li>the <em>“brix” layer</em>  but with arrays abstracted away) characterized purely by a “brick grid” with a shape but no per-brick size.</li>
+<li>the <em>“schedule” layer</em> that translates a brix-level DAG to an iterator-level description consumed by an <em>executor</em>.</li>
+</ul>
+<p>Think of the “array layer” as expression “what to compute” in array-element space (e.g. rolling window over 5 elements along axis <code>'x'</code>).</p>
+<p>Think of the “brix layer” as representing a wiring diagram for routing <del>chunks</del> <em>bricks</em>;
+to do so we do not care about the contents of each brick, just that we know where to route it.
+This is again “how to compute” but with actual array contents abstracted away.</p>
+<p>Think of the “schedule layer” as expressing “how to compute” with limited degrees of freedom exposed to the executor.</p>
+<div id="admonition-note" class="admonition admonish-note" role="note" aria-labelledby="admonition-note-title">
+<div class="admonition-title">
+<div id="admonition-note-title">
+<p>Note</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-note"></a>
+</div>
+
+<div>
+<p>We are using the term “brick” intentionally to avoid confusion with “chunks” and “shards”
+as used in the storage layer (e.g. Zarr). “Tile” is another term used commonly.</p>
+</div>
+
+</div>
+
+<p>The brick grid is for <em>orchestration</em>, it need not be identical to or even aligned
+with the “chunk” or “shard” grid of the dataset (though of course there are benefits to doing so).</p>
+<h2 id="flow"><a class="header" href="#flow">Flow</a></h2>
+<pre><code class="language-text">+---------------------------------------------------+
+|     Array   (logical, labelled, dtype-aware)      |  src/array/
+|       ↓  wraps                                    |
+|  Array IR   (logical, labelled, dtype-aware)      |  src/array/expr.rs
+|       ↓  lowers to                                |  src/array/lower.rs
+|  Expr IR    (Brix-IR: chunk-grid-aware operators) |  src/brix/expr.rs
+|       ↓  planner rewrites to                      |  src/brix/planner.rs
+|  Schedule   (loop nest with placement + I/O)      |  src/brix/schedule.rs
+|       ↓  executed by                              |
+|  Executor   (interpreter — sync / local / remote) |  src/executor/
++---------------------------------------------------+
+</code></pre>
+<p>Each downward step is a single-purpose pass; each layer carries strictly less semantic information than the one above it.</p>
+<p>The high-level flow is as follows:</p>
+<ul>
+<li>users create <a href="api/brix/array/struct.Array.html"><code>Array</code></a> objects (either from a <a href="api/brix/trait.Source.html"><code>Source</code></a>) or an in-memory <code>ndarray</code>.</li>
+<li>operations are expressed using familiar methods on <a href="api/brix/array/struct.Array.html"><code>Array</code></a> objects e.g. <code>Array::over(axes).sum()</code>.</li>
+<li>under the hood, these operations are recorded using a lower-level <a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> with a much smaller API surface.
+For example, <code>Array::over(axes).sum()</code> is really an <code>ArrayOp::Reduce { acc, view }</code>, carrying the accumulator and the per-axis frame (<code>view</code>).</li>
+<li>At this point there are no “chunk sizes” or “brick grids” associated with <a href="api/brix/array/struct.Array.html"><code>Array</code></a>.</li>
+<li>When ready to compute, we first run an optimization pass on the <a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> (e.g. pushing indexing operations as low as possible).</li>
+<li>Then we compute a brick size target for orchestration given knowledge of execution resources available.</li>
+<li>With that in mind, the <a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> is <em>lowered</em> to an <a href="api/brix/expr/struct.Expr.html"><code>Expr</code></a> graph. This is the array-agnostic “brix” layer.
+Chosen chunk sizes are “stamped” on each <em>array Kernel</em> that will be applied.</li>
+<li>The <a href="api/brix/expr/struct.Expr.html"><code>Expr</code></a> graph formally only tracks number of bricks along each dimension of the <a href="api/brix/iteration_space/struct.IterationSpace.html"><code>IterationSpace</code></a>. Any array-specific concerns (dtypes, actual chunk sizes, etc.)
+are tracked on the specific <a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> kernels that will be applied.</li>
+<li>With this graph in hand, we can now write a <a href="api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a> for executing the graph. This is an abstract description or <em>plan</em> of the computation annotated with loop ranges, possibilities for parallelism, etc. The Schedule is a vocabulary used to communicate between the orchestration and execution layers.</li>
+<li>The <a href="api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a> is then passed to an executor for actual compute.</li>
+</ul>
+<div id="admonition-tip" class="admonition admonish-tip" role="note" aria-labelledby="admonition-tip-title">
+<div class="admonition-title">
+<div id="admonition-tip-title">
+<p>Tip</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-tip"></a>
+</div>
+
+<div>
+<p>The <a href="visualize/index.html">pipeline visualizer</a> walks canonical workloads
+through every stage of this flow — input arrays, ArrayExpr DAG, optimizer
+rewrites, chunk-grid selection, BrixExpr access relations, the schedule tree,
+and the verified output. Built by <code>just docs</code> (or <code>just visualize</code>).</p>
+</div>
+
+</div>
+
+<h2 id="layers"><a class="header" href="#layers">Layers</a></h2>
+<p>The choice to divide in to three layers means there is a trait hierarchy — there are related concepts expressed at both Array and Brix layers.</p>
+<div id="admonition-important" class="admonition admonish-tip" role="note" aria-labelledby="admonition-important-title">
+<div class="admonition-title">
+<div id="admonition-important-title">
+<p>Important</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-important"></a>
+</div>
+
+<div>
+<p>Any code in <code>array/</code> can depend on <code>brix/</code> but code in <code>brix/</code> cannot depend on <code>array/</code>.</p>
+</div>
+
+</div>
+
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Array</th><th>Brix</th><th>Relation</th></tr>
+</thead>
+<tbody>
+<tr><td><code>ChunkGrid</code> (struct)</td><td><code>IterationSpace</code> (struct)</td><td>lowering projects counts-only <code>IterationSpace</code> from <code>ChunkGrid</code></td></tr>
+<tr><td><code>ArrayPayload</code> (enum: <code>Dense</code>, <code>Fill</code>)</td><td><code>BrickPayload</code> trait</td><td><code>impl BrickPayload for ArrayPayload</code></td></tr>
+<tr><td><code>ArrayExpr</code> (struct)</td><td><code>Expr</code> (struct)</td><td>produced by lowering</td></tr>
+<tr><td><code>ArrayOp</code> (enum)</td><td><code>Op</code> (enum)</td><td>produced by lowering</td></tr>
+<tr><td><code>ArrayError</code> (enum)                    wraps</td><td><code>BrixError</code> (enum)</td><td><code>ArrayError::Brix(BrixError)</code></td></tr>
+<tr><td><code>TransparentSource</code> (enum) + <code>OpaqueSource</code> (trait); impls</td><td><code>Source</code> trait</td><td>each lowering target impls <code>Source</code>; <code>TransparentSource::lower</code> picks the variant</td></tr>
+<tr><td><code>InMemorySink</code> (struct)</td><td><code>Sink</code> trait</td><td><code>impl Sink for InMemorySink</code></td></tr>
+<tr><td><code>UnaryKernel</code>, <code>BinaryKernel</code>, … (structs)</td><td><code>Kernel</code> trait</td><td>each impls <code>Kernel</code></td></tr>
+<tr><td><code>ArrayAccumulator</code> (trait, sibling); <code>LoweredAccumulator</code> adapter</td><td><code>Accumulator</code> trait</td><td><code>Sum</code>/<code>Mean</code> impl only <code>ArrayAccumulator</code>; lowering wraps in <code>LoweredAccumulator { inner, grid }</code> which <code>impl Accumulator</code>. Parallels <code>OpaqueSource</code> → <code>LoweredOpaque</code>.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="vocabularies"><a class="header" href="#vocabularies">Vocabularies</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Layer</th><th>Vocabulary</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>Array</td><td>“sum”, “rolling sum”, “slice”</td><td>familiar from Python land</td></tr>
+<tr><td>ArrayExpr</td><td>ArrayOp : “Reduce”, “Slice”</td><td>simpler, more compositional, but complex enough for optimizer</td></tr>
+<tr><td>Expr</td><td>Op</td><td>map/reduce/scan/etc. in DAG</td></tr>
+<tr><td>Schedule</td><td><code>Schedule</code></td><td>Flattened Expr DAG</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="choices"><a class="header" href="#choices">Choices</a></h2>
+<ul>
+<li>Layout</li>
+<li>Source, Sink are separate from other Exprs.</li>
+<li>sinks are passed to <code>execute</code> separately; thus when lowering the ChunkGrid for the Sink is passed explicitly.</li>
+</ul>
+<h3 id="uncertain-choices"><a class="header" href="#uncertain-choices">Uncertain choices</a></h3>
+<ul>
+<li>Final Sinks as separate entitities outside the expression Graph?</li>
+<li>Add a NodeId to the Expr and ArrayExpr instances</li>
+<li>Add an AxisId to Axis? We use <code>name</code> to tag identity but <code>rename_dims</code> is a thing</li>
+<li><code>Arc&lt;dyn BrickPayload&gt;</code> requires downcasting in <code>SliceKernel</code>.</li>
+</ul>
+<h2 id="project-philosophy"><a class="header" href="#project-philosophy">Project philosophy</a></h2>
+<p>Deeper design rationale and historical decisions live in the repo’s
+<code>checkpoints/</code> directory. This is not well-curated.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="arrays"><a class="header" href="#arrays">Arrays</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="arrays-1"><a class="header" href="#arrays-1">Arrays</a></h1>
+<h2 id="concept"><a class="header" href="#concept">Concept</a></h2>
+<p>All arrays are characterized by:</p>
+<ol>
+<li><code>dtype</code> - A <a href="api/brix/array/enum.DType.html"><code>DType</code></a></li>
+<li><code>shape</code> - a tuple of ints</li>
+<li><code>dims</code> - Dimension names</li>
+</ol>
+<p>An <em>Axis</em> is characterized by name and extent.</p>
+<div id="admonition-important-1" class="admonition admonish-tip" role="note" aria-labelledby="admonition-important-title">
+<div class="admonition-title">
+<div id="admonition-important-title-1">
+<p>Important</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-important-1"></a>
+</div>
+
+<div>
+<p>Arrays have no chunk sizes (or chunk grids) associated with them!</p>
+</div>
+
+</div>
+
+<p>Arrays are a thin wrapper on top of <a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> presenting a more familiar, broader API surface to the user.
+At lowering time, an explicit <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> is chosen for each Array node in the graph based on cost considerations.
+At compute-time, arrays are conceptualized as streams of <a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> bricks that are operated on.
+These <a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> bricks are wrappers around underlying bare arrays (e.g. <code>ndarray::ArrayD</code>).</p>
+<h2 id="kinds"><a class="header" href="#kinds">Kinds</a></h2>
+<p>We include two concrete arrays motivated by Zarr’s storage model where <code>fill_value</code> chunks need not be stored on disk.
+Both kinds satisfy the <a href="api/brix/array/trait.ArrayLike.html"><code>ArrayLike</code></a> trait — one required method, <code>expr()</code>, with the
+rest defaulting to read through that expression (definition pulled live from
+<code>src/array/arrays/mod.rs</code>):</p>
+<pre><code class="language-rust ignore">/// Trait for user-facing array variants ([`Array`], [`BlockSparseArray`]).
+/// Required method: [`Self::expr`].
+/// Everything else has a default that reads through the expr.
+pub trait ArrayLike: std::fmt::Debug + Send + Sync {
+    /// The array-level IR node this array wraps.
+    fn expr(&amp;self) -&gt; &amp;Arc&lt;ArrayExpr&gt;;
+
+    fn shape(&amp;self) -&gt; Vec&lt;usize&gt; {
+        self.expr().shape()
+    }
+
+    fn dtype(&amp;self) -&gt; DType {
+        self.expr().dtype
+    }
+
+    fn dims(&amp;self) -&gt; Vec&lt;&amp;str&gt; {
+        self.expr().dims().iter().map(|s| s.as_str()).collect()
+    }
+
+    /// Run array-level optimization passes.
+    fn optimize(&amp;self) -&gt; ArrayResult&lt;Array&gt; {
+        Ok(Array::from(optimize::optimize(self.expr())?))
+    }
+}</code></pre>
+<p>We decompose to two axes:</p>
+<ol>
+<li>a dense or sparse chunk grid (“iteration space”);</li>
+<li>dense / sparse array (whether <code>fill_value</code> is a semantically valid value that requires propagation).</li>
+</ol>
+<p>For example, consider adding <code>1</code> to an array backed by a Zarr OpaqueSource where some on-disk chunks are missing / interpreted as all fill-value.
+If the <code>fill_value</code> is semantically invalid (e.g. <code>NaN</code>) then:</p>
+<ol>
+<li>we needn’t do anything at all for fill-value chunks.</li>
+<li>we add <code>1</code> to every populated chunk.
+If the <code>fill_value</code> is semantically valid (e.g. <code>0</code>) then</li>
+<li>we simply need to update the <code>fill_value</code> to <code>0+1=1</code>.</li>
+<li>we add <code>1</code> to every populated chunk.</li>
+</ol>
+<p>We model:</p>
+<ol>
+<li>the underlying chunk grid as dense/sparse (translates to a dense/sparse iteration space at the brix layer) using <a href="api/brix/iteration_space/struct.Occupancy.html"><code>brix::Occupancy</code></a>  in both <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> and <code>brix::IterationSpace</code>.</li>
+<li>model the presence of a valid <code>fill_value</code> through a <a href="api/brix/array/struct.BlockSparseArray.html"><code>BlockSparseArray</code></a> that adds a new <em>fill value</em> property to <a href="api/brix/array/struct.Array.html"><code>Array</code></a>.</li>
+</ol>
+<div id="admonition-choice" class="admonition admonish-warning" role="note" aria-labelledby="admonition-choice-title">
+<div class="admonition-title">
+<div id="admonition-choice-title">
+<p>Choice</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-choice"></a>
+</div>
+
+<div>
+<p><a href="api/brix/array/struct.BlockSparseArray.html"><code>BlockSparseArray</code></a> requires explicit <code>fill_value</code> treatment and propagation much in exactly the same way that sparse matrices do.
+Thus it makes sense to split that up from arrays where the <code>fill_value</code> is invalid and no such logic is required so I chose to not use <code>fill_value: Option&lt;Value&gt;</code> on <a href="api/brix/array/struct.Array.html"><code>Array</code></a>.</p>
+</div>
+
+</div>
+
+<h3 id="array"><a class="header" href="#array">Array</a></h3>
+<h3 id="blocksparsearray"><a class="header" href="#blocksparsearray">BlockSparseArray</a></h3>
+<div id="admonition-warning" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div class="admonition-title">
+<div id="admonition-warning-title">
+<p>Warning</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-warning"></a>
+</div>
+
+<div>
+<p>The <a href="api/brix/array/struct.BlockSparseArray.html"><code>BlockSparseArray</code></a> implementation is purely to test out a valid ‘fill value’. Much of the existing <a href="api/brix/array/struct.Array.html"><code>Array</code></a> API should be implemented for both <a href="api/brix/array/struct.Array.html"><code>Array</code></a> and <a href="api/brix/array/struct.BlockSparseArray.html"><code>BlockSparseArray</code></a>. To do so for the latter woudl require reasoning about propagating <code>fill_value</code> which I have deferred for now.</p>
+</div>
+
+</div>
+
+<p>Adds a <code>fill_value</code> to the <a href="api/brix/array/struct.Array.html"><code>Array</code></a> model.</p>
+<p>At lowering time this array populates the <code>brix::Occupancy</code> field on the iteration space.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="the-array-ir"><a class="header" href="#the-array-ir">The Array IR</a></h1>
+<p><a href="api/brix/array/struct.Array.html"><code>Array</code></a> is a thin handle — the operations you call on it are recorded into
+<a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a>: the array-layer IR (<code>src/array/expr.rs</code>).</p>
+<p>An <a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> node is its <code>op</code> plus its inputs and the metadata that makes the layer
+labelled and dtype-aware.</p>
+<pre><code class="language-rust ignore">/// Array-level expression node.
+#[derive(Debug, Clone)]
+pub struct ArrayExpr {
+    pub op: ArrayOp,
+    pub inputs: Vec&lt;Arc&lt;ArrayExpr&gt;&gt;,
+    // array shape, strides, order
+    pub layout: ArrayLayout,
+    pub dtype: DType,
+    // currently unused, but anticipating usefulness of distinguishing
+    // sparse/dense arrays for planning/optimizer purposes
+    pub brick_kind: ArrayPayloadKind,
+    pub label: Option&lt;String&gt;,
+}</code></pre>
+<p>Each node wraps an <a href="api/brix/array/expr/enum.ArrayOp.html"><code>ArrayOp</code></a>. The op set is deliberately explicit — separate
+<code>Unary</code>/<code>Binary</code> rather than a single general <code>Map</code> — while the optimizer’s
+needs are still being worked out:</p>
+<pre><code class="language-rust ignore">/// Array-level op.
+/// These are pretty explicit at the moment anticipating that matching
+/// against specific variants are useful for optimization.
+/// i.e. Unary, Binary are separated out, and not just a general Map.
+#[derive(Clone)]
+pub enum ArrayOp {
+    // Transparent sources are _not_ chunked and any chunk grid may be imposed.
+    // E.g. in-memory arrays
+    TransparentSource(TransparentSource),
+    // Opaque sources are chunked and have a chunk preference
+    // E.g. Zarr/Icechunk
+    OpaqueSource(Arc&lt;dyn OpaqueSource&gt;),
+    Unary(UnaryOp),
+    Binary(BinaryOp),
+    Reduce {
+        acc: Arc&lt;dyn ArrayAccumulator&gt;,
+        /// Frame applied to each reduce axis
+        view: HashMap&lt;AxisName, Frame&gt;,
+    },
+    /// Per-axis positional slicing. One `Slice` per indexed axis.
+    Slice(HashMap&lt;AxisName, Slice&gt;),
+    /// Per-axis orthogonal integer indexing.
+    Oindex(HashMap&lt;AxisName, Vec&lt;usize&gt;&gt;),
+    /// Lined-axis vectorized integer indexing.
+    Vindex(VectorizedIndexer),
+    /// Cast to a target dtype. Plan-inserted for implicit NumPy-style
+    /// promotion (see [`ArrayExpr::binary`]) or user-driven via `Array::cast`.
+    Cast(DType),
+    // Future: Transpose, Reshape, ...
+}</code></pre>
+<p>During <a href="#lowering">Lowering</a> each op resolves to a <em>kernel</em> that implements the
+appropriate underlying Brix trait.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><code>ArrayOp</code></th><th>brix <code>Op</code></th><th>Underlying brix trait (impl)</th></tr>
+</thead>
+<tbody>
+<tr><td><code>TransparentSource</code></td><td><code>Source</code></td><td><code>Source</code> — <code>FillSource</code> / <code>DenseSource</code></td></tr>
+<tr><td><code>OpaqueSource</code></td><td><code>Source</code></td><td><code>Source</code> — <code>LoweredOpaque</code></td></tr>
+<tr><td><code>Unary</code>, <code>Binary</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>UnaryKernel</code> / <code>BinaryKernel</code></td></tr>
+<tr><td><code>Cast</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>CastKernel</code></td></tr>
+<tr><td><code>Slice</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>SliceKernel</code></td></tr>
+<tr><td><code>Oindex</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>GatherKernel</code></td></tr>
+<tr><td><code>Vindex</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>VIndexKernel</code></td></tr>
+<tr><td><code>Reduce</code></td><td><code>Reduce</code></td><td><code>Accumulator</code> — <code>ArrayAccumulator</code> → <code>LoweredAccumulator</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>The brix <a href="api/brix/expr/enum.Op.html"><code>brix::Op</code></a> enum has just three variants, so every array op funnels into one
+of <a href="api/brix/trait.Source.html"><code>brix::Source</code></a>, <code>Blockwise</code>, or <code>Reduce</code>. For reductions the array-layer
+<a href="api/brix/array/trait.ArrayAccumulator.html"><code>ArrayAccumulator</code></a> (<code>Sum</code>, <code>Mean</code>, …) is wrapped in a <code>LoweredAccumulator</code>
+adapter that implements the brix <a href="api/brix/trait.Accumulator.html"><code>brix::Accumulator</code></a> trait — the same adapter pattern
+as <code>OpaqueSource</code> → <code>LoweredOpaque</code>.</p>
+<h2 id="data-flow"><a class="header" href="#data-flow">Data flow</a></h2>
+<p>The ops above describe the <em>graph</em>; what flows along its edges at execution time
+is a stream of <strong>bricks</strong>. The contents of an array-layer brick are an
+<a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> — a closed enum that is the runtime dual of the plan-time
+<code>ArrayPayloadKind</code> tag (<code>Dense</code> / <code>Fill</code> / …):</p>
+<pre><code class="language-rust ignore">/// Array-layer brick payload.
+// Keep this in sync with [`ReadFrame`], [`WriteFrame`]
+#[derive(Debug, Clone)]
+pub enum ArrayPayload {
+    Dense(DenseArray),
+    // stand-in for a payload that can be constructed
+    // on-demand cheaply given a shape.
+    // TODO: we'll need to propagate element-space ranges for each brick
+    //       so that we can write more general "functional arrays"
+    Fill(FillArray),
+    // Future: Sparse(Arc&lt;dyn SparseArray&gt;)
+    // where SparseArray is a trait that is satisfied by an external plugin?
+    // Future: Extension(Arc&lt;dyn ExtensionArray)
+    // potentially for wrapping Geoarrow geometry arrays
+}</code></pre>
+<p><a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> impls <a href="api/brix/brick/trait.BrickPayload.html"><code>brix::BrickPayload</code></a> so brix never inspects these variants (see <a href="#concepts-1">Traits</a>).</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="data-types"><a class="header" href="#data-types">Data Types</a></h1>
+<p>Brix is statically typed: every array carries a <a href="api/brix/array/enum.DType.html"><code>DType</code></a>, and scalars are
+tagged <a href="api/brix/enum.Value.html"><code>Value</code></a>s (<code>src/array/dtype.rs</code>).</p>
+<div id="admonition-warning-1" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div class="admonition-title">
+<div id="admonition-warning-title-1">
+<p>Warning</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-warning-1"></a>
+</div>
+
+<div>
+<p>This approach was fully implemented by Claude.</p>
+</div>
+
+</div>
+
+<h2 id="dtype"><a class="header" href="#dtype">DType</a></h2>
+<pre><code class="language-rust ignore">#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum DType {
+    F64,
+    I64,
+    // Future: F32, I32, U8, Bool; then logical (Categorical, DateTime, …).
+}</code></pre>
+<h2 id="value"><a class="header" href="#value">Value</a></h2>
+<p>A typed scalar — used for fill values, reduction identities/absorbers, and
+constants:</p>
+<pre><code class="language-rust ignore">/// Typed scalar.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum Value {
+    F64(f64),
+    I64(i64),
+}</code></pre>
+<h2 id="promotion"><a class="header" href="#promotion">Promotion</a></h2>
+<p><code>DType::promote</code> defines a NumPy-style symmetric promotion rules.
+Per-op output dtypes (e.g. <code>mean</code> → f64) live on the ops themselves, not here.
+A mixed-dtype binary op (e.g. int + float) inserts a plan-time <code>Cast</code> node (see <a href="#the-array-ir">The Array IR</a>).
+This allows a “relatively simple” implementation of unary ops</p>
+<h2 id="typed-buffers"><a class="header" href="#typed-buffers">Typed buffers</a></h2>
+<p><a href="api/brix/array/enum.DType.html"><code>DType</code></a>/<a href="api/brix/enum.Value.html"><code>Value</code></a> describe a single element; a <em>brick’s worth</em> of dense values is
+held in a <a href="api/brix/array/enum.TypedArray.html"><code>TypedArray</code></a> — a dtype-tagged <code>ArrayD&lt;T&gt;</code>. It’s the dense container
+only; sparse / extension kinds carry their own representation.</p>
+<pre><code class="language-rust ignore">/// Dense-kind value buffer, tagged by dtype. This is the dense container only —
+/// `ArrayD&lt;T&gt;` per primitive — not a universal typed buffer (sparse / extension
+/// kinds carry their own representation; see `checkpoints/dtypes.md`).
+#[derive(Debug, Clone)]
+pub enum TypedArray {
+    F64(ArrayD&lt;f64&gt;),
+    I64(ArrayD&lt;i64&gt;),
+}</code></pre>
+<p>Borrowed access goes through <a href="api/brix/array/enum.TypedView.html"><code>TypedView</code></a>, the view-mirror of <a href="api/brix/array/enum.TypedArray.html"><code>TypedArray</code></a> (the
+<code>Dense</code> arm of a <a href="api/brix/array/brick/enum.ReadFrame.html"><code>ReadFrame</code></a>). A consumer that knows its concrete <code>T</code> recovers an
+<code>ArrayViewD&lt;T&gt;</code> via <code>TypedView::as_typed</code>.</p>
+<pre><code class="language-rust ignore">/// Borrowed, dtype-tagged view — the `Dense` arm of [`ReadFrame`]. Mirrors
+/// [`TypedArray`] for views. Consumers that know their `T` recover a concrete
+/// `ArrayViewD&lt;T&gt;` via [`TypedView::as_typed`].
+#[derive(Debug, Clone)]
+pub enum TypedView&lt;'a&gt; {
+    F64(ArrayViewD&lt;'a, f64&gt;),
+    I64(ArrayViewD&lt;'a, i64&gt;),
+}</code></pre>
+<h2 id="parameterizing-over-dtypes"><a class="header" href="#parameterizing-over-dtypes">Parameterizing over dtypes</a></h2>
+<p><a href="api/brix/array/enum.DType.html"><code>DType</code></a>/<a href="api/brix/enum.Value.html"><code>Value</code></a>/<a href="api/brix/array/enum.TypedArray.html"><code>TypedArray</code></a> are <strong>runtime-tagged</strong> — a closed enum per concept.
+Generic code, however, wants to be written once over a static type parameter
+<code>T</code>. The <code>Element</code> trait is the bridge: it is implemented per primitive, and its
+<code>const DTYPE</code> ties the static <code>T</code> to the runtime tag.</p>
+<pre><code class="language-rust ignore">pub trait Element: Copy + Send + Sync + Debug + PartialEq + 'static {
+    const DTYPE: DType;
+    fn from_array(arr: ArrayD&lt;Self&gt;) -&gt; TypedArray;
+    fn from_scalar(v: Self) -&gt; Value;
+    fn from_value(v: Value) -&gt; Option&lt;Self&gt;;
+    fn to_le_bytes(self) -&gt; [u8; 8];
+    fn from_le_bytes(b: [u8; 8]) -&gt; Self;
+
+    // -- type-erasure bridge --------------------------------------------------
+    // These let `dispatch_dtype!`/generic bodies recover a concretely-typed
+    // view/buffer out of the runtime-tagged `TypedView`/`TypedArray` enums.
+    // A generic fn can't coerce a `TypedView::F64` arm into `ArrayViewD&lt;T&gt;`,
+    // but a *concrete* impl (T = f64) can — so the peel lives here.
+
+    /// Wrap a concrete view back into the runtime-tagged `TypedView`.
+    fn wrap_view(v: ArrayViewD&lt;'_, Self&gt;) -&gt; TypedView&lt;'_&gt;;
+    /// Peel a `TypedView` to this element's view, if the tag matches.
+    fn view_from_typed(tv: TypedView&lt;'_&gt;) -&gt; Option&lt;ArrayViewD&lt;'_, Self&gt;&gt;;
+    /// Mutable borrow of the inner buffer, if the tag matches.
+    fn array_mut_from_typed(ta: &amp;mut TypedArray) -&gt; Option&lt;&amp;mut ArrayD&lt;Self&gt;&gt;;
+    /// Take the inner buffer by value, if the tag matches.
+    fn array_from_typed(ta: TypedArray) -&gt; Option&lt;ArrayD&lt;Self&gt;&gt;;
+}</code></pre>
+<p>The trait carries a <strong>type-erasure bridge</strong>: a generic <code>fn</code> can’t coerce a
+<code>TypedView::F64</code> arm into <code>ArrayViewD&lt;T&gt;</code>, but a <em>concrete</em> impl (<code>T = f64</code>) can —
+so <code>wrap_view</code> / <code>view_from_typed</code> / <code>array_from_typed</code> live on <code>Element</code>, where
+<code>T</code> is known. Runtime dispatch in the other direction (tag → concrete body) goes
+through the <code>with_typed_array!</code> / <code>dispatch_dtype!</code> macros in <code>dtype.rs</code>.</p>
+<div id="admonition-where-per-dtype-code-lives" class="admonition admonish-note" role="note" aria-labelledby="admonition-where-per-dtype-code-lives-title">
+<div class="admonition-title">
+<div id="admonition-where-per-dtype-code-lives-title">
+<p>Where per-dtype code lives</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-where-per-dtype-code-lives"></a>
+</div>
+
+<div>
+<p>The <em>contracts</em> — <code>Element</code> (and <code>Unary</code>/<code>Binary</code>), the <a href="api/brix/array/enum.DType.html"><code>DType</code></a>/<a href="api/brix/enum.Value.html"><code>Value</code></a> enums,
+and the dispatch macros — live in <code>array/dtype.rs</code>. The concrete
+<code>impl Element for f64 { … }</code> / <code>for i64 { … }</code> blocks are mechanically
+instantiated in <code>array/generated/dtypes.rs</code> — one block per primitive, the file
+you extend when a new dtype lands. (Folder convention, not codegen.)</p>
+</div>
+
+</div>
+
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="chunk-grids"><a class="header" href="#chunk-grids">Chunk Grids</a></h1>
+<p>Chunk grids have their usual meaning: a concrete chunk size along each axis.
+These chunk grids sizes are for <em>compute orchestration</em> and may or may not align with the chunk size preferences of the Source.
+Chunk size choices are made at <em>lowering</em> time, by making decisions based on available resources and the expression graph.</p>
+<div id="admonition-warning-2" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div class="admonition-title">
+<div id="admonition-warning-title-2">
+<p>Warning</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-warning-2"></a>
+</div>
+
+<div>
+<p>This module was entirely coded by Claude, since there is plenty of prior art.</p>
+</div>
+
+</div>
+
+<p>A <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> describes how an nD array is partitioned into bricks at compute-time.
+An important addition is <code>occupancy</code> records storage sparsity — which
+bricks are present. This is directly translated to <a href="api/brix/iteration_space/struct.Occupancy.html"><code>brix::Occupancy</code></a> for a brix
+<a href="#iteration-space">Iteration Space</a>).</p>
+<pre><code class="language-rust ignore">/// TODO: Use a `Vec&lt;ChunkedAxis&gt;` struct instad of parallel Vecs
+#[derive(Clone)]
+pub struct ChunkGrid {
+    pub shape: Vec&lt;usize&gt;,
+    /// Per-axis chunk encoding. See [`AxisChunks`].
+    pub chunks: Vec&lt;AxisChunks&gt;,
+    /// Axis name per dimension (identity for broadcast alignment).
+    pub names: Vec&lt;AxisName&gt;,
+    /// Storage sparsity.
+    pub occupancy: Option&lt;Occupancy&gt;,
+}</code></pre>
+<p>Each axis’s chunking is an <a href="api/brix/array/chunk_grid/enum.AxisChunks.html"><code>AxisChunks</code></a></p>
+<pre><code class="language-rust ignore">#[derive(Clone, PartialEq, Eq)]
+pub enum AxisChunks {
+    /// All chunks identical: `n_chunks * size == shape`.
+    Uniform { size: usize, n_chunks: usize },
+    /// Run-length encoded `(size, count)` pairs. Adjacent same-size runs
+    /// merged at construction so the encoding is canonical-within-variant.
+    RLE { runs: Vec&lt;(usize, usize)&gt; },
+    /// Per-chunk sizes explicitly listed.
+    Variable(Vec&lt;usize&gt;),
+    // Future: Periodic (np.repeat patterns)
+}</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="sources--sinks"><a class="header" href="#sources--sinks">Sources &amp; Sinks</a></h1>
+<h2 id="sources"><a class="header" href="#sources">Sources</a></h2>
+<p>The array layer has two flavors of source, split on whether the data has an
+inherent chunking.</p>
+<p>A <strong>transparent source</strong> has no inherent chunk grid — <a href="#lowering">lowering</a>
+may impose any brick shape on demand:</p>
+<pre><code class="language-rust ignore">/// Transparent sources — optimizer can pattern-match on the variant.
+/// No inherent chunk grid; the planner (via lowering) assigns one freely.
+#[derive(Debug, Clone)]
+pub enum TransparentSource {
+    Fill { value: Value, shape: Vec&lt;usize&gt; },
+    Dense(TypedArray),
+    // Future: Repeat { repeats: usize, axis: usize }, Tile { ... }
+    // and Functional { Fn ... }
+}</code></pre>
+<p>An <strong>opaque source</strong> (Zarr-like) owns its native chunk grid which may carry occupancy
+for block-sparse data:</p>
+<pre><code class="language-rust ignore">/// Opaque source — I/O-backed (Zarr, Arrow, etc.).
+/// The optimizer can't see through this; it only knows shape, layout, and
+/// `ArrayPayloadKind`. The source owns its chunk grid (data is already chunked
+/// on disk).
+///
+/// Lowering wraps an `Arc&lt;dyn OpaqueSource&gt;` in a [`LoweredOpaque`]
+/// before handing it to the planner.
+pub trait OpaqueSource: Debug + Send + Sync {
+    fn shape(&amp;self) -&gt; &amp;[usize];
+    /// The source's chunk grid — opaque sources own theirs (already
+    /// chunked on disk / in storage). Lowering reads it to project a
+    /// `brix::IterationSpace` and bake it into the [`LoweredOpaque`] wrapper.
+    fn native_grid(&amp;self) -&gt; &amp;SourceNativeChunkGrid;
+    // Grab data for this range in array index space.
+    fn read(&amp;self, bounds: &amp;[Range&lt;usize&gt;]) -&gt; BrixResult&lt;Arc&lt;dyn BrickPayload&gt;&gt;;
+    fn cost(&amp;self, coord: &amp;BrickCoordinate) -&gt; Cost;
+
+    /// Element dtype the source produces.
+    fn dtype(&amp;self) -&gt; DType;
+
+    fn brick_kind(&amp;self) -&gt; ArrayPayloadKind;
+}</code></pre>
+<p>Lowers to a <a href="api/brix/array/source/struct.FillSource.html"><code>FillSource</code></a> / <a href="api/brix/array/source/struct.DenseSource.html"><code>DenseSource</code></a>, <a href="api/brix/array/source/struct.LoweredOpaque.html"><code>LoweredOpaque</code></a>, all of which include the
+chosen <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> and impl the <a href="api/brix/trait.Source.html"><code>brix::Source</code></a> trait.
+Note that the chosen <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> need not align with the OpaqueSource’s native chunk grid.</p>
+<h2 id="sinks"><a class="header" href="#sinks">Sinks</a></h2>
+<div id="admonition-warning-3" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div class="admonition-title">
+<div id="admonition-warning-title-3">
+<p>Warning</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-warning-3"></a>
+</div>
+
+<div>
+<p>I started out with the final Sink not being part of the DAG thinking that we’d want to parameterize
+over Sinks for (eventual) views.
+I do not think this was a good choice. It leaks everywhere (e.g. <code>Lowered</code> containing a <code>root_grid</code>).</p>
+</div>
+
+</div>
+
+<p>A sink is the destination passed to <code>execute()</code>. <a href="api/brix/array/sink/struct.InMemorySink.html"><code>InMemorySink</code></a> pre-allocates an
+array of the output shape and writes bricks into it by coordinate:</p>
+<pre><code class="language-rust ignore">pub struct InMemorySink {
+    array: Mutex&lt;TypedArray&gt;,
+    grid: ChunkGrid,
+}</code></pre>
+<p>It implements the <a href="api/brix/trait.Sink.html"><code>brix::Sink</code></a> trait (<code>init</code> / <code>write_brick</code> / <code>finalize</code>).</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="aggregations"><a class="header" href="#aggregations">Aggregations</a></h1>
+<p>Aggregations are (at the moment) reductions over one or more axes — <code>sum</code>, <code>mean</code>, and friends.
+They are backed by <strong>accumulators</strong> and computed over a <strong>frame</strong>.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">extern crate brix;
+</span>use std::collections::HashMap;
+use brix::Array;
+
+<span class="boring">fn main() -&gt; Result&lt;(), brix::array::ArrayError&gt; {
+</span>let data = Array::fill(1.0, vec![3, 4], &amp;["time", "x"]);
+// Reduce over the whole `time` axis.
+let totals = data.clone().over(&amp;["time"])?.sum()?;
+// Coarsen `x` into width-2 blocks, then average each block.
+let coarsened = data.coarsen(HashMap::from([("x", 2)]))?.mean()?;
+<span class="boring">Ok(())
+</span><span class="boring">}</span></code></pre>
+<h2 id="frames"><a class="header" href="#frames">Frames</a></h2>
+<p>A <strong>frame</strong> is a <em>lens</em> over an array: a way of viewing it as a stream of
+windows rather than as a flat block (<code>src/array/framed.rs</code>). The framing model
+borrows from two places:</p>
+<ol>
+<li><strong>numpy <a href="https://numpy.org/doc/stable/reference/ufuncs.html#methods">ufunc methods</a></strong> — <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.reduce.html"><code>reduce</code></a> collapses a whole axis (<a href="api/brix/array/expr/enum.Frame.html#variant.WholeAxis"><code>WholeAxis</code></a>),
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.reduceat.html"><code>reduceat</code></a> reduces over segment boundaries (<a href="api/brix/array/expr/enum.Frame.html#variant.Blocks"><code>Blocks</code></a>/<a href="api/brix/array/expr/enum.Frame.html#variant.VariableWindow"><code>VariableWindow</code></a>),
+and <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.at.html"><code>at</code></a> scatters into indexed groups (<a href="api/brix/array/expr/enum.Frame.html#variant.Groups"><code>Groups</code></a>). A <a href="api/brix/array/expr/enum.Frame.html"><code>Frame</code></a> is the
+descriptor that picks which behavior the same accumulator runs. Unlike ufuncs, our
+intent is to allow scans (“cumulative ops”, <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.accumulate.html"><code>accumulate</code></a>) to compose with these Frames.</li>
+<li><strong><a href="https://en.wikipedia.org/wiki/Window_function_(SQL)">SQL:2003 window functions</a></strong> — an aggregate evaluated against a moving <em>frame</em>
+rather than the whole input, spelled as an <code>OVER</code> clause (<code>SUM(x) OVER (...)</code>) and
+optionally factored out as a named <code>WINDOW W AS (...)</code>. Brix’s
+<a href="#framedarray"><code>over</code></a> plays the role of <code>OVER</code>, and a single frame model subsumes
+both halves of the clause: <code>PARTITION BY</code> grouping is <a href="api/brix/array/expr/enum.Frame.html#variant.Groups"><code>Groups</code></a>
+(per-element labels), while the frame spec is <a href="api/brix/array/expr/enum.Frame.html#variant.WholeAxis"><code>WholeAxis</code></a>,
+<a href="api/brix/array/expr/enum.Frame.html#variant.Window"><code>Window</code></a>, or <a href="api/brix/array/expr/enum.Frame.html#variant.Blocks"><code>Blocks</code></a>.</li>
+</ol>
+<p>All of these are just frame shapes fed to the same accumulator machinery.</p>
+<pre><code class="language-rust ignore">/// This enum enables our approach to composing Aggregators (Reduce, Scan) with
+/// different _views_ or _frames_ along an axis
+/// (`rolling`, `groupby`, `coarsen`, etc.)
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum Frame {
+    /// Reduce the whole axis; preserve size-1 axis if keepdims is true
+    WholeAxis { keepdims: bool },
+
+    /// Regular contiguous frames.
+    /// Coarsen/block-aligned: stride == size.
+    /// Sliding: stride &lt; size.
+    Window { size: usize, stride: usize },
+
+    /// Sequential contiguous frames of variable widths.
+    /// Example: resampling to a different frequency.
+    Blocks { sizes: Vec&lt;usize&gt; },
+
+    /// Compressed Blocks for quasi-periodic patterns.
+    /// Example: monthly groupby on daily data — period = [31,28,…,31] × n_periods years.
+    PeriodicBlocks { sizes: Vec&lt;usize&gt;, n_periods: usize },
+
+    /// Arbitrary per-frame ranges, possibly overlapping.
+    /// Example: rolling resample; np.ufunc.reduceat.
+    VariableWindow { ranges: Vec&lt;Range&lt;usize&gt;&gt; },
+
+    /// Group labels.
+    /// Example: GroupBy; np.ufunc.at.
+    Groups { labels: Vec&lt;usize&gt;, n_unique_labels: usize },
+}</code></pre>
+<h2 id="framedarray"><a class="header" href="#framedarray">FramedArray</a></h2>
+<p>A <code>FramedArray&lt;F&gt;</code> is the array paired with its per-axis frames. The frame kind
+is a zero-size type parameter <code>F</code> — a sealed <code>Framed</code> marker (<a href="api/brix/array/framed/struct.WholeAxis.html"><code>WholeAxis</code></a>,
+<a href="api/brix/array/framed/struct.Window.html"><code>Window</code></a>, …) named to mirror the <a href="#frames"><code>Frame</code></a> variants — so frame-specific
+methods can be gated at the type level while the shared surface stays generic:</p>
+<pre><code class="language-rust ignore">pub trait Framed: private::Sealed {
+    const NAME: &amp;'static str;
+}
+
+/// A frame over the whole axis. Mirrors [`Frame::WholeAxis`].
+pub struct WholeAxis {}
+/// A windowed frame (coarsen / block / sliding). Mirrors [`Frame::Window`].
+pub struct Window {}
+
+pub struct FramedArray&lt;F: Framed&gt; {
+    expr: Arc&lt;ArrayExpr&gt;,
+    view: HashMap&lt;AxisName, Frame&gt;,
+    _framed: PhantomData&lt;F&gt;,
+}</code></pre>
+<p><a href="api/brix/array/framed/struct.WholeAxis.html"><code>WholeAxis</code></a> and <a href="api/brix/array/framed/struct.Window.html"><code>Window</code></a> are implemented today as <code>Array::over</code> and
+<code>Array::coarsen</code>, returning <code>FramedArray&lt;WholeAxis&gt;</code> and <code>FramedArray&lt;Window&gt;</code>.
+The aggregation surface (<code>reduce</code>, <code>sum</code>, <code>mean</code>) lives on
+<code>impl&lt;F: Framed&gt; FramedArray&lt;F&gt;</code>, so the same accumulator machinery serves plain
+reductions, coarsening, and rolling alike. Frame-specific methods (e.g.
+<code>keepdims</code> on <a href="api/brix/array/framed/struct.WholeAxis.html"><code>WholeAxis</code></a>) live on the narrower <code>impl FramedArray&lt;WholeAxis&gt;</code>.</p>
+<h2 id="accumulators"><a class="header" href="#accumulators">Accumulators</a></h2>
+<p>Accumulators implement aggregations over a <a href="api/brix/array/expr/enum.Frame.html"><code>Frame</code></a> in to a <a href="api/brix/trait.State.html"><code>brix::State</code></a>.
+For example, <code>Array::over(["time"]).sum()</code> records an <code>ArrayOp::Reduce { acc, view }</code>
+— the accumulator (<code>SumAccumulator</code>) <strong>plus the
+frame</strong>: <code>view</code> maps each reduced axis to a <a href="api/brix/array/expr/enum.Frame.html"><code>Frame</code></a> (here
+<code>{"time": Frame::WholeAxis { keepdims: false }}</code>).</p>
+<pre><code class="language-rust ignore">pub trait ArrayAccumulator: Debug + Send + Sync {
+    /// Output dtype of this reduction.
+    fn output_dtype(&amp;self) -&gt; DType;
+
+    /// Output fill_value when reducing an input whose absent blocks all
+    /// hold `input_fill`, over `n_elements` along the reduce axes. Used
+    /// at plan time to give users immediate feedback on fill_value
+    /// changes; not called at runtime.
+    fn update_fill(&amp;self, input_fill: Value, n_elements: u64) -&gt; Value;
+
+    // TODO: we might combine these two into AlgebraicProperties struct
+    fn is_associative(&amp;self) -&gt; bool;
+    fn is_commutative(&amp;self) -&gt; bool;
+
+    /// Bytes of accumulator state per output element (used by the brix
+    /// `cost` bridge in `LoweredAccumulator`).
+    fn state_bytes_per_element(&amp;self) -&gt; u64;
+
+    /// Allocate state shaped to one output brick.
+    fn init(&amp;self, shape: &amp;[usize]) -&gt; BrixResult&lt;Box&lt;dyn State&gt;&gt;;
+
+    /// Fold one input frame's slot into `state` at the corresponding `state_frame_loc`.
+    fn fold_frame(
+        &amp;self,
+        // state to update
+        state: &amp;mut dyn State,
+        // destination index in State to update
+        // The accumulator is free to interpret that in the context of its own State.
+        state_frame_loc: &amp;HashMap&lt;usize, usize&gt;,
+        // view to aggregate
+        slot: ReadFrame&lt;'_&gt;,
+    ) -&gt; BrixResult&lt;()&gt;;
+
+    /// Merge states (e.g. merge step of tree reduction)
+    fn merge(&amp;self, state: &amp;mut dyn State, other: &amp;dyn State) -&gt; BrixResult&lt;()&gt;;
+
+    /// Finalize output value from state (e.g. sum/count=mean)
+    fn finalize(&amp;self, state: Box&lt;dyn State&gt;, coord: &amp;BrickCoordinate) -&gt; BrixResult&lt;Brick&gt;;
+
+    fn deserialize_state(&amp;self, bytes: &amp;[u8]) -&gt; BrixResult&lt;Box&lt;dyn State&gt;&gt;;
+}</code></pre>
+<p>An accumulator’s running state is a <code>Box&lt;dyn State&gt;</code> — opaque to the executor,
+which only passes it between accumulator methods and serializes it at stage
+boundaries. Each accumulator defines its own concrete struct (<code>SumState</code>,
+<code>MeanState</code>) and downcasts internally. <code>Accumulator::State: Serialize</code> is carried as
+a constraint for a possible future distributed execution and for possible incremental compute.</p>
+<pre><code class="language-rust ignore">/// Opaque serializable state for accumulators (and other stateful ops).
+///
+/// Each accumulator defines its own concrete state struct (e.g., `SumState`,
+/// `MeanState`) and downcasts internally. The executor never inspects state
+/// — it only passes it between accumulator methods and serializes at stage
+/// boundaries.
+pub trait State: Debug + Send + Any {
+    /// Serialize for inter-process exchange
+    fn to_bytes(&amp;self) -&gt; BrixResult&lt;Vec&lt;u8&gt;&gt;;
+    fn as_any(&amp;self) -&gt; &amp;dyn Any;
+    fn as_any_mut(&amp;mut self) -&gt; &amp;mut dyn Any;
+}</code></pre>
+<p>During <a href="#lowering">lowering</a>, each <a href="api/brix/array/trait.ArrayAccumulator.html"><code>ArrayAccumulator</code></a> is wrapped in a
+<a href="api/brix/array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a> adapter that implements the brix-layer
+<a href="#concepts-1"><code>brix::Accumulator</code></a> trait — mirroring how <code>OpaqueSource</code> becomes
+<code>LoweredOpaque</code>:</p>
+<pre><code class="language-rust ignore">#[derive(Debug, Clone)]
+pub struct LoweredAccumulator {
+    pub inner: Arc&lt;dyn ArrayAccumulator&gt;,
+    // this is the ChunkGrid assuming keepdims=True
+    // we squeeze out in finalize if keepdims is False.
+    pub grid: ChunkGrid,
+    pub view: HashMap&lt;AxisName, Frame&gt;,
+}</code></pre>
+<p>It stamps the typed <code>inner</code> accumulator with the output <code>grid</code> and the <code>view</code>
+(the frame map), so the brix layer has everything it needs without knowing about
+frames or chunk sizes.</p>
+<h2 id="folding-over-frames"><a class="header" href="#folding-over-frames">Folding over frames</a></h2>
+<div id="admonition-choices" class="admonition admonish-note" role="note" aria-labelledby="admonition-choices-title">
+<div class="admonition-title">
+<div id="admonition-choices-title">
+<p>Choices</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-choices"></a>
+</div>
+
+<div>
+<ol>
+<li>We initialize <a href="api/brix/trait.State.html"><code>brix::State</code></a> and accumulate <em>into</em> it, so <code>ArrayAccumulator::fold_left</code>
+takes <code>&amp;mut State</code>. An <em>ugly</em> choice, but it matches what low-allocation array
+aggregations need.</li>
+<li>Aggregations <em>within</em> a brick are serial; we rely on cross-brick parallelism.</li>
+</ol>
+</div>
+
+</div>
+
+<p>Here is <em>how</em> one brick’s worth of a reduction runs.</p>
+<p><code>LoweredAccumulator::fold_left</code> calls <code>ArrayPayload::as_frame_iter(view)</code> in a loop,
+and passes the returned value to <code>ArrayAccumulator::fold_frame</code>.</p>
+<p>For each framed axis, the <a href="api/brix/array/expr/enum.Frame.html"><code>Frame</code></a> implies a sequence of element-space ranges.
+The cartesian product of those per-axis sequences gives the frames we aggregate
+over. <code>ArrayPayload::as_frame_iter(view)</code> yields <code>(state_frame_loc, framed_view)</code> pairs, where <code>state_frame_loc</code>
+is the destination <a href="api/brix/trait.State.html"><code>brix::State</code></a> location to fold into.</p>
+<p>Each <code>framed_view</code> is carved by the single per-backend primitive, <code>slice_axes</code> —
+given the ranges to slice out of the input <a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> (axes not listed stay
+at full extent):</p>
+<pre><code class="language-rust ignore">pub trait SliceFrames {
+    fn slice_axes(&amp;self, ranges: &amp;[(usize, Range&lt;usize&gt;)]) -&gt; ReadFrame&lt;'_&gt;;
+}</code></pre>
+<p>Everything else on the frame-generation surface is range arithmetic over this one
+method, so extending to a new storage kind (e.g. sparse arrays) means adding one
+<code>impl SliceFrames</code> — the chunking and cartesian-product drivers are untouched.</p>
+<p>The view is then handed to <code>ArrayAccumulator::fold_frame(state, state_frame_loc, framed_view)</code>, which folds it into <code>state</code> at the lane named by <code>state_frame_loc</code>.
+The input slot is a <a href="api/brix/array/brick/enum.ReadFrame.html"><code>ReadFrame</code></a> a readonly-view:</p>
+<pre><code class="language-rust ignore">#[derive(Debug, Clone)]
+pub enum ReadFrame&lt;'a&gt; {
+    Dense(TypedView&lt;'a&gt;),
+    // Owned `FillArray` to reduce lifetime gymnastics.
+    // This is cheap to Clone so it doesn't matter
+    Fill(FillArray),
+    // Future: Sparse(SparseData), Mixed(MixedData)
+}</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="optimization"><a class="header" href="#optimization">Optimization</a></h1>
+<div id="admonition-warning-4" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div class="admonition-title">
+<div id="admonition-warning-title-4">
+<p>Warning</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-warning-4"></a>
+</div>
+
+<div>
+<p>This section of the codebase is extremely under-developed. Do not read.</p>
+</div>
+
+</div>
+
+<p>Array-level optimization rewrites <code>ArrayExpr → ArrayExpr</code> <em>before</em>
+<a href="#lowering">lowering</a> to the <a href="#the-brix-ir">Brix-IR</a>.</p>
+<pre><code class="language-rust ignore">/// Top-level array-level optimizer entry.
+pub fn optimize(expr: &amp;Arc&lt;ArrayExpr&gt;) -&gt; ArrayResult&lt;Arc&lt;ArrayExpr&gt;&gt; {
+    fuse_adjacent_selects(expr.clone())
+}</code></pre>
+<p>Today there is a single pass, <code>fuse_adjacent_selects</code>: a chain of
+<code>expr.isel(...).isel(...)</code> collapses into one <code>ArrayOp::Slice</code> with composed
+indexers (matching xarray’s semantics), so the lowered graph carries no redundant
+slice chains.</p>
+<p>This is the natural home for future algebraic simplification and rewrites.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="lowering"><a class="header" href="#lowering">Lowering</a></h1>
+<p><strong>Lowering</strong> is the single pass that turns the logical array IR into the
+array-agnostic <a href="#brix">Brix-IR</a> (<code>src/array/lower.rs</code>). It walks
+the <a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> post-order and, for each node:</p>
+<ul>
+<li>walks the DAG and picks an element-sized chunk grid per node given resource constraints as an input.</li>
+<li>bakes that grid into the concrete <a href="api/brix/trait.Source.html"><code>brix::Source</code></a> / <a href="api/brix/trait.Kernel.html"><code>brix::Kernel</code></a> / <a href="api/brix/trait.Accumulator.html"><code>brix::Accumulator</code></a> impls,</li>
+<li>projects a counts-only <a href="api/brix/iteration_space/struct.IterationSpace.html"><code>brix::IterationSpace</code></a> onto the resulting <a href="api/brix/expr/struct.Expr.html"><code>brix::Expr</code></a> for the
+planner to consume.</li>
+</ul>
+<p>All chunk assignment happens in this one place. Transparent sources (Fill,
+Dense, …) have no inherent chunk grid and can generate any brick shape on
+demand; opaque sources (Zarr) have native grids that lowering reads through.
+The brix layer never names <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> — the rich per-axis chunk representation
+stays entirely in <code>array/</code>.</p>
+<p>The pass returns a <code>Lowered</code>:</p>
+<pre><code class="language-rust ignore">#[derive(Clone)]
+pub struct Lowered {
+    pub expr: Arc&lt;Expr&gt;,
+    // FIXME: This `root_grid` is a wart that exists only because the final sink
+    // is not in the `expr`. It is passed separately, and so we need to carry the
+    // explicit array-level chunk grid for that final Sink.
+    pub root_grid: ChunkGrid,
+    // This sidecar Map is simply to enable nice visualization/explainers.
+    // It is *not* used for planning or execution at the brix layer.
+    pub grids: HashMap&lt;ExprId, ChunkGrid&gt;,
+}</code></pre>
+<p><code>expr</code> is the <a href="#the-brix-ir">Brix-IR</a> DAG handed to the planner. <code>root_grid</code>
+and <code>grids</code> (per-node, keyed by <a href="api/brix/expr/struct.ExprId.html"><code>brix::ExprId</code></a>) retain the rich element-sized
+<a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a>s — with their <code>AxisChunks</code> encoding and occupancy — that the
+counts-only <a href="api/brix/iteration_space/struct.IterationSpace.html"><code>brix::IterationSpace</code></a> on each <a href="api/brix/expr/struct.Expr.html"><code>brix::Expr</code></a> deliberately drops. Internal
+consumers (the renderer especially) read them back without re-running the
+lowering math; downstream brix execution never needs them.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="brix"><a class="header" href="#brix">Brix</a></h1>
+<p>The <strong>brix layer</strong> is the array-agnostic Brix-IR (<code>src/brix/</code>). Think of it as a
+<strong>wiring diagram for routing bricks</strong>: it does not care about the contents of
+each brick, only where each brick needs to go.</p>
+<p>A brix node is characterized purely by a <strong>brick grid</strong> — a shape with a brick
+count along each dimension, but <em>no per-brick size</em>.</p>
+<div id="admonition-why-the-term-brick" class="admonition admonish-info" role="note" aria-labelledby="admonition-why-the-term-brick-title">
+<div class="admonition-title">
+<div id="admonition-why-the-term-brick-title">
+<p>Why the term brick?</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-why-the-term-brick"></a>
+</div>
+
+<div>
+<p>We use <em>brick</em> deliberately to avoid confusion with <em>chunks</em> and <em>shards</em> as
+used in the storage layer (e.g. Zarr); <em>tile</em> is another common term. The brick
+grid is for <em>orchestration</em> — it need not be identical to, or even aligned with,
+the chunk or shard grid of the dataset (though there are benefits to aligning).</p>
+</div>
+
+</div>
+
+<p>How a computation reaches and moves through this layer:</p>
+<ul>
+<li>An optimization pass runs on the <a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> (e.g. pushing indexing as low
+as possible).</li>
+<li>A brick-size target is computed from the available execution resources.</li>
+<li>The <a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> is <strong>lowered</strong> to an <a href="api/brix/expr/struct.Expr.html"><code>Expr</code></a> graph — the brix layer. Chosen
+chunk sizes are <em>stamped</em> onto each array <a href="api/brix/trait.Kernel.html"><code>Kernel</code></a> that will be applied.</li>
+<li>The <a href="api/brix/expr/struct.Expr.html"><code>Expr</code></a> graph formally tracks only the number of bricks along each
+dimension of the <a href="api/brix/iteration_space/struct.IterationSpace.html"><code>IterationSpace</code></a>; dtypes and actual chunk sizes ride along
+on the stamped kernels, not the graph.</li>
+<li>A <a href="api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a> is written from the graph — an abstract plan annotated with loop
+ranges and opportunities for parallelism — then handed to an executor.</li>
+</ul>
+<div id="admonition-memory-budget" class="admonition admonish-warning" role="note" aria-labelledby="admonition-memory-budget-title">
+<div class="admonition-title">
+<div id="admonition-memory-budget-title">
+<p>Memory budget</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-memory-budget"></a>
+</div>
+
+<div>
+<p>If a single brick exceeds the memory budget (e.g. a large Zarr chunk), this is a
+<strong>hard error</strong> for now rather than a silent compromise.</p>
+</div>
+
+</div>
+
+<p>The brix layer must never import from the <a href="#arrays">array</a> layer; the
+dependency is one-way.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="concepts-1"><a class="header" href="#concepts-1">Concepts</a></h1>
+<p>The Brix layer exists because the fundamental operations for orchestrating array computations
+do not care about the “array-nature” of the work. So this layer is insulated from array-level concerns
+(dtypes, chunk sizes, etc.) and simply operates by routing abstract “bricks” to the right places.</p>
+<div id="admonition-one-way-dependency" class="admonition admonish-warning" role="note" aria-labelledby="admonition-one-way-dependency-title">
+<div class="admonition-title">
+<div id="admonition-one-way-dependency-title">
+<p>One-way dependency</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-one-way-dependency"></a>
+</div>
+
+<div>
+<p>Code in <code>array/</code> may depend on <code>brix/</code>, but <code>brix/</code> must never import from
+<code>array/</code>. <code>brix</code> defines the interface, <code>array/</code> provides the implementations.</p>
+</div>
+
+</div>
+
+<h2 id="bricks"><a class="header" href="#bricks">Bricks</a></h2>
+<p>A <strong>brick</strong> is the unit of data routed through the brix layer
+(<code>src/brix/brick.rs</code>). Bricks are an <em>orchestration</em> concept: think of this layer
+as representing a wiring or circuit diagram for routing array chunks from producers to consumers.</p>
+<div id="admonition-why-the-term-brick-1" class="admonition admonish-info" role="note" aria-labelledby="admonition-why-the-term-brick-title">
+<div class="admonition-title">
+<div id="admonition-why-the-term-brick-title-1">
+<p>Why the term brick?</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-why-the-term-brick-1"></a>
+</div>
+
+<div>
+<p>We use <em>brick</em> deliberately to avoid confusion with <em>chunks</em> and <em>shards</em> as
+used in the storage layer (e.g. Zarr); <em>tile</em> is another common term.</p>
+</div>
+
+</div>
+
+<p>Brick contents are described by the <a href="api/brix/brick/trait.BrickPayload.html"><code>BrickPayload</code></a> trait, which the array layer’s
+<a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> (<code>Dense</code>, <code>Fill</code>, …) implements. The brix layer routes bricks
+without inspecting their contents — it only needs to know where each brick goes:</p>
+<pre><code class="language-rust ignore">pub trait BrickPayload: Debug + Send + Sync + Any {
+    /// Serialize for inter-process exchange (shared storage, DBSP checkpoint).
+    ///
+    /// Format is implementation-specific but conventionally tagged so a
+    /// dispatcher (`array::brick::payload_from_bytes`) can recover the
+    /// concrete type. This is a bootstrapping format; a future version may
+    /// use Arrow IPC, Zarr codecs, or a zero-copy format.
+    fn to_bytes(&amp;self) -&gt; BrixResult&lt;Vec&lt;u8&gt;&gt;;
+
+    fn as_any(&amp;self) -&gt; &amp;dyn Any;
+}</code></pre>
+<h2 id="operations"><a class="header" href="#operations">Operations</a></h2>
+<p>Wiring diagrams are constructed as a sequence of brick-level operations <a href="#the-brix-ir"><code>Op</code></a>.</p>
+<pre><code class="language-rust ignore">/// The operation performed by an expression node.
+#[derive(Clone)]
+pub enum Op {
+    Source(Arc&lt;dyn Source&gt;),
+    Blockwise(Arc&lt;dyn Kernel&gt;),
+    Reduce(Arc&lt;dyn Accumulator&gt;),
+    // Scan(Arc&lt;dyn Scanner&gt;)
+}</code></pre>
+<p>The vocabulary here is simpler than that at the <a href="#the-array-ir"><code>ArrayOp</code></a> layer, and is the
+familiar data-manipulation vocabulary : map/reduce/scan/etc.
+These operations manipulate BrickPayloads on an <a href="api/brix/iteration_space/struct.IterationSpace.html"><code>IterationSpace</code></a>.
+<a href="#iteration-space">‘Iteration Spaces’</a> are chunk grids abstracted down to purely number of chunks
+per axis and an ‘occupancy’ that describes whether that chunk needs to be processed.</p>
+<h2 id="traits"><a class="header" href="#traits">Traits</a></h2>
+<p>The two-layer split means a trait hierarchy: related concepts are expressed at
+both layers, with the array layer’s concrete types implementing the brix layer’s
+traits. The brix traits are the array-agnostic interfaces the planner and
+executor speak to.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Brix trait</th><th>Array-layer implementor(s)</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="api/brix/brick/trait.BrickPayload.html"><code>BrickPayload</code></a></td><td><a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> (<code>Dense</code>, <code>Fill</code>)</td></tr>
+<tr><td><a href="api/brix/trait.Source.html"><code>Source</code></a></td><td>each <a href="api/brix/array/source/enum.TransparentSource.html"><code>TransparentSource</code></a> variant / <a href="api/brix/array/source/trait.OpaqueSource.html"><code>OpaqueSource</code></a></td></tr>
+<tr><td><a href="api/brix/trait.Sink.html"><code>Sink</code></a></td><td><a href="api/brix/array/sink/struct.InMemorySink.html"><code>InMemorySink</code></a></td></tr>
+<tr><td><a href="api/brix/trait.Kernel.html"><code>Kernel</code></a></td><td><a href="api/brix/array/kernels/ops/struct.UnaryKernel.html"><code>UnaryKernel</code></a>, <a href="api/brix/array/kernels/ops/struct.BinaryKernel.html"><code>BinaryKernel</code></a>, …</td></tr>
+<tr><td><a href="api/brix/trait.Accumulator.html"><code>Accumulator</code></a></td><td><a href="api/brix/array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a> wrapping an <a href="api/brix/array/trait.ArrayAccumulator.html"><code>ArrayAccumulator</code></a></td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="the-brix-ir"><a class="header" href="#the-brix-ir">The Brix-IR</a></h1>
+<p><a href="api/brix/expr/struct.Expr.html"><code>Expr</code></a> is the brix layer’s graph IR (<code>src/brix/expr.rs</code>) — the array-agnostic
+<strong>Brix-IR</strong> produced by <a href="#lowering">lowering</a>. It is a DAG of <a href="api/brix/expr/enum.Op.html"><code>Op</code></a> nodes
+(map / reduce / scan / …) whose vocabulary is simpler than the array layer’s.</p>
+<pre><code class="language-rust ignore">pub struct Expr {
+    /// Stable per-instance identity.
+    pub id: ExprId,
+    pub op: Op,
+    pub inputs: Vec&lt;Input&gt;,
+    /// Iteration Space for this node's output. Projected from the
+    /// element-sized `ChunkGrid` chosen at lowering time.
+    pub space: IterationSpace,
+    /// Optional user-supplied display name. When set, the planner prefers
+    /// this as the node's `NodeName` (with a `#N` collision suffix if the
+    /// same label appears more than once).
+    pub label: Option&lt;String&gt;,
+}</code></pre>
+<p>Each <a href="api/brix/expr/struct.Expr.html"><code>Expr</code></a> node formally tracks only the number of bricks along each dimension of
+its <a href="api/brix/iteration_space/struct.IterationSpace.html"><code>IterationSpace</code></a>. Array-specific concerns — dtypes, actual chunk sizes —
+are <em>not</em> on the graph; they ride on the concrete kernels stamped during
+lowering.</p>
+<pre><code class="language-rust ignore">/// The operation performed by an expression node.
+#[derive(Clone)]
+pub enum Op {
+    Source(Arc&lt;dyn Source&gt;),
+    Blockwise(Arc&lt;dyn Kernel&gt;),
+    Reduce(Arc&lt;dyn Accumulator&gt;),
+    // Scan(Arc&lt;dyn Scanner&gt;)
+}</code></pre>
+<h2 id="inputs"><a class="header" href="#inputs">Inputs</a></h2>
+<p>An edge in the DAG is an <code>Input</code>: a producer plus a per-axis description of <em>how</em>
+this consumer reads it — an “access relation” (term borrowed from polyhedral array compiler literature).
+An <a href="api/brix/expr/enum.Op.html"><code>Op</code></a> may have multiple <a href="api/brix/expr/struct.Input.html"><code>Input</code></a>s.</p>
+<pre><code class="language-rust ignore">/// An input to an expression node. Carries the producer `Arc&lt;Expr&gt;` plus a
+/// per-axis [`AxisAccess`] describing how the consumer reads chunks from
+/// this producer along that axis.
+/// Axis transformations are either
+///  - a `Composed` frame: planner applies these via `NamedLayout::compose`
+///    when constructing a [`crate::brix::schedule::Schedule::Domain`] iteration space; or
+///  - `Translated` per-coord override: imposed at runtime with [`crate::brix::schedule::AccessRelation::resolve_coord`].
+#[derive(Debug, Clone)]
+pub struct Input {
+    pub expr: Arc&lt;Expr&gt;,
+    pub access: HashMap&lt;AxisName, AxisAccess&gt;,
+}</code></pre>
+<h2 id="access-relations"><a class="header" href="#access-relations">Access relations</a></h2>
+<div id="admonition-note-1" class="admonition admonish-note" role="note" aria-labelledby="admonition-note-title">
+<div class="admonition-title">
+<div id="admonition-note-title-1">
+<p>Note</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-note-1"></a>
+</div>
+
+<div>
+<p>The vocabulary here gets complex and hard-to-read. Reading through the worked examples below will help.</p>
+</div>
+
+</div>
+
+Given the consumer brick coordinate for this iteration, we need to figure out which
+producer bricks to supply to the Op for each input. This relation is termed an "access relation".
+<p>Brix models this transformation as</p>
+<pre><code>(consumer iteration coordinate).pipe(compose with affine transform).pipe(non-affine translation)
+</code></pre>
+<p>along each axis.
+Thus <code>Input::access</code> maps each axis to an <code>AxisAccess</code> representing a transformation
+from producer <a href="api/brix/iteration_space/struct.IterationSpace.html"><code>IterationSpace</code></a> to consumer <a href="api/brix/iteration_space/struct.IterationSpace.html"><code>IterationSpace</code></a>:</p>
+<pre><code class="language-rust ignore">pub enum AxisAccess {
+    /// Affine transformations on this axis. The planner absorbs it into the
+    /// access layout via `NamedLayout::compose`; nothing about this axis
+    /// survives to runtime resolution.
+    Composed(Frame),
+    /// Per-coord override on this axis (slice offset, gather lookup,
+    /// zipped gather followers). Carried through to runtime
+    /// `resolve_coord` after the affine pass.
+    Translated(TranslatedAccess),
+    // Identity is assumed for any axis not in Input::access
+}</code></pre>
+<ul>
+<li><strong><code>Composed</code></strong> is an <em>affine</em> transformation (a <a href="api/brix/expr/enum.Frame.html"><code>Frame</code></a>: whole-axis, window, …).
+The planner folds it into the producer iteration space through <em>composition</em>
+— it becomes part of the generated loop in the <a href="#schedule"><code>Schedule</code></a>.</li>
+<li><strong><code>Translated</code></strong> are non-affine overrides (offsets for slicing, gather lookup, zipped
+gather followers) applied at runtime.</li>
+<li>Any axis absent from the map is identity (pass-through / broadcast).</li>
+</ul>
+<p>The translation per axis is an <a href="api/brix/expr/enum.AxisOverride.html"><code>AxisOverride</code></a>: a constant
+<code>Offset</code> (slicing) or a per-coord <code>Lookup</code> table (gather,
+i.e. orthogonal/vectorized indexing):</p>
+<pre><code class="language-rust ignore">pub enum AxisOverride {
+    /// Constant chunk-coord shift (slice): `c + k`.
+    /// Affine, but kept as an override for symmetry with oindex &amp; vindex.
+    Offset(usize),
+    /// Per-iteration lookup table (gather: oindex &amp; vindex): `table[c]`.
+    /// that assumes the keys are 0..len(Vec)
+    /// TODO: eventually we'll likely need an inverted index to reverse this;
+    ///       and thus a more complex type.
+    Lookup(Vec&lt;usize&gt;),
+}</code></pre>
+<p>A <code>Translated</code> axis carries a <a href="api/brix/expr/enum.TranslatedAccess.html"><code>TranslatedAccess</code></a>: either a single self-driven
+override (<code>Independent</code> — e.g. slicing or orthogonal indexing) or a co-iterated
+follower group (<code>Zipped</code> — e.g. vectorized indexing, where one produced axis
+drives gather tables on several consumed axes):</p>
+<pre><code class="language-rust ignore">/// We need the ability to express iteration spaces as being composed in at
+/// least two ways:
+/// 1. the cartesian product of iteration spaces along each axis of the chunk grid
+/// 2. a zipped iterator over iteration spaces of multiple axes of the chunk grid
+///
+/// For example, with the outer map key in `[brackets]`:
+/// - Slicing: ["i" → Independent(AxisOverride::Offset(slice_start))]
+/// - OIndex:  ["i" → Independent(AxisOverride::Lookup(outer_indices_for_i))]
+/// - VIndex:  ["k" → Zipped({"i": idx_i, "j": idx_j})]
+///   (key `k` = produced/leader axis; followers `i`,`j` are the consumed axes
+///   co-iterated by `k`, each carrying its own gather table.)
+#[derive(Clone, Debug)]
+pub enum TranslatedAccess {
+    /// Self-driven per-axis override: producer's chunk-coord on this
+    /// axis is derived from this axis's own iter coord.
+    /// Co-iterated follower group: producer's chunk-coord on each
+    /// follower axis is derived from the leader axis's iter coord.
+    Independent(AxisOverride),
+    Zipped(HashMap&lt;AxisName, AxisOverride&gt;),
+}</code></pre>
+<p>At the <a href="#schedule">Schedule</a> layer these resolve into a concrete
+<code>AccessRelation</code> (with its <code>AffineAccess</code> layout); the Brix-IR holds only the
+declarative per-axis <code>AxisAccess</code> form.</p>
+<h3 id="example-block-windowed--coarsen-operations-with-composed"><a class="header" href="#example-block-windowed--coarsen-operations-with-composed">Example: Block windowed / coarsen operations with <code>Composed</code></a></h3>
+<p>Consider coarsening-by-2 along <code>x</code> as a windowed reduce.
+The <code>Frame::Window { size: 2, stride: 2 }</code> is <code>Composed</code>,
+so the axis is folded into loop structure (below).
+The axis survives the output, halved.</p>
+<pre class="mermaid">flowchart LR
+    classDef source fill:#5EC4F7,stroke:#0E7BBF,color:#201F2C;
+    classDef reduce fill:#31D495,stroke:#0F8A5F,color:#201F2C;
+    b0["Source&lt;br/&gt;grid: Dense[x:8]"]
+    b1["Reduce&lt;br/&gt;grid: Dense[x:4]"]
+    class b0 source;
+    class b1 reduce;
+    b0 -- "core: {x}" --&gt; b1
+</pre>
+
+<p>That is, the planner tiles the producer’s flat <code>x:8</code> axis into a <em>nested</em> <code>(x_out:4, x_window:2)</code>
+iteration space, and the <a href="#schedule"><code>Schedule</code></a> grows a second <code>Loop</code> level over the window. Without
+the frame, <code>x</code> would be a single flat loop; the <code>Composed</code> frame is what inserts
+the inner fold:</p>
+<pre><code class="language-text">        identity read                         coarsen (Composed x)
+  ──────────────────────────          ──────────────────────────────────────
+  Domain  x:8                          Domain  x → (x_out:4, x_window:2)
+  └─ Loop x · mode 0   (8 bricks)      └─ Loop x · mode 0   (4 output chunks)
+     └─ Apply Source                      ├─ Init     Reduce        (alloc acc)
+                                          ├─ Loop x · mode 1  (window 2 — core: {x})
+                                          │  ├─ Apply Source   (read x_out·2 + w)
+                                          │  └─ Apply Reduce   (fold into acc)
+                                          └─ Finalize Reduce        (emit chunk)
+</code></pre>
+<p>The <code>core: {x}</code> edge label is the IR-level shorthand for that inner <code>mode 1</code>
+window loop the planner will emit.</p>
+<h3 id="example-orthogonal-indexing-with-translated"><a class="header" href="#example-orthogonal-indexing-with-translated">Example: Orthogonal indexing with <code>Translated</code></a></h3>
+<p>Orthogonally indexing <code>x</code> by an explicit list (here picking 3 arbitrary bricks out of 8)
+cannot be expressed affinely. The <code>Translated</code> variant allows us to express arbitrary translations
+between the consumer iteration space and the producer iteration space:</p>
+<p>For this example <code>x=Lookup(3)</code> (the <code>3</code> is the table length).</p>
+<pre class="mermaid">flowchart LR
+    classDef source fill:#5EC4F7,stroke:#0E7BBF,color:#201F2C;
+    classDef blockwise fill:#C396F9,stroke:#A653FF,color:#201F2C;
+    b0["Source&lt;br/&gt;grid: Dense[time:4, x:8]"]
+    b1["Blockwise(oindex)&lt;br/&gt;grid: Dense[time:4, x:3]"]
+    class b0 source;
+    class b1 blockwise;
+    b0 -- "x=Lookup(3)" --&gt; b1
+</pre>
+
+<div id="admonition-info" class="admonition admonish-info" role="note" aria-labelledby="admonition-info-title">
+<div class="admonition-title">
+<div id="admonition-info-title">
+<p>Info</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-info"></a>
+</div>
+
+<div>
+<p>Slicing is technically an affine transformation and can be expressed by manipulating the generated iteration space.
+For simpler reasoning, we <em>choose</em> to implement slicing as a runtime transformation parallel to orthogonal and vectorized indexing.</p>
+</div>
+
+</div>
+
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="iteration-space"><a class="header" href="#iteration-space">Iteration Space</a></h1>
+<p>The <a href="api/brix/iteration_space/struct.IterationSpace.html"><code>IterationSpace</code></a> is the brix layer’s counts-only view of a node’s brick
+grid: the number of bricks along each dimension, with no per-brick size.
+<a href="#lowering">Lowering</a> projects the array layer’s <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> to an <a href="api/brix/iteration_space/struct.IterationSpace.html"><code>IterationSpace</code></a>.
+The planner resolves iteration order and parallelism over this space; it does not pick chunk sizes.</p>
+<pre><code class="language-rust ignore">pub struct IterationSpace {
+    pub layout: NamedLayout,
+    pub occupancy: Option&lt;Occupancy&gt;,
+    pub limits: HashMap&lt;AxisName, usize&gt;,
+}</code></pre>
+<p>The core data structure here is <a href="api/brix/layout/struct.NamedLayout.html"><code>NamedLayout</code></a>, an extension of <a href="https://docs.nvidia.com/cutlass/latest/media/docs/cpp/cute/01_layout.html">CuTe Layouts</a>
+that adds axis names.
+This structure was used to move quickly and because it provides convenient algebra (“logical divide”, “compose” etc).
+Honestly, our requirements are a bit more complicated (occupancy, non-affine transformations), so we may dump this structure in the future.</p>
+<p><code>limits</code> records per-axis bounds for axes that <code>logical_divide</code> has
+split into nested sub-modes (coarsen / block-windows).
+<code>logical_divide(axis, w)</code> rounds the tile count <em>up</em>, so the last block of
+bricks is smaller  when the extent isn’t a multiple of <code>w</code>. The
+layout algebra can’t represent that ragged block, so the axis’s true extent is
+stashed here. <code>IterationSpace::extent</code> takes this in to account,
+and executors are expected to use that method at runtime to ensure the loops are correctly structured.</p>
+<h2 id="sparse-iteration-spaces"><a class="header" href="#sparse-iteration-spaces">Sparse iteration spaces</a></h2>
+<p>Sparsity — which bricks are actually present — rides along as an optional <code>Occupancy</code>:</p>
+<pre><code class="language-rust ignore">pub struct Occupancy {
+    /// Subset of the parent grid's axis names that this coord table describes.
+    pub sparse_axes: Vec&lt;AxisName&gt;,
+    /// Bounding box of the sparse axes (one entry per name in `sparse_axes`).
+    pub axis_extents: Vec&lt;usize&gt;,
+    /// Lex-sorted COO coord storage.
+    /// Each *inner* `Vec&lt;u32&gt;` is length `rank` and aligns with `sparse_axes` order.
+    // We may choose a more efficient format in the future, so this field is private
+    // and the impl provides methods.
+    coords: Arc&lt;Vec&lt;Vec&lt;u32&gt;&gt;&gt;,
+}</code></pre>
+<p>This structure is useful for representing sparsely-populated iteration spaces (e.g. partly populated Zarr arrays).</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="sources--sinks-1"><a class="header" href="#sources--sinks-1">Sources &amp; Sinks</a></h1>
+<p>The brix layer defines two array-agnostic seams for getting bricks into and out
+of a plan: <a href="api/brix/trait.Source.html"><code>Source</code></a> produces brick payloads on demand, and <a href="api/brix/trait.Sink.html"><code>Sink</code></a> receives
+them as they are produced. Both are <em>traits</em> here — the concrete implementations
+live in the <a href="#sources--sinks">array layer</a> and are baked into the IR
+at <a href="#lowering">lowering</a>.</p>
+<div id="admonition-what-lives-where" class="admonition admonish-info" role="note" aria-labelledby="admonition-what-lives-where-title">
+<div class="admonition-title">
+<div id="admonition-what-lives-where-title">
+<p>What lives where</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-what-lives-where"></a>
+</div>
+
+<div>
+<p>The brix layer never names a <code>ChunkGrid</code> or a dtype. A <a href="api/brix/trait.Source.html"><code>Source</code></a>/<a href="api/brix/trait.Sink.html"><code>Sink</code></a> is
+addressed purely by <a href="api/brix/brick/struct.BrickCoordinate.html"><code>BrickCoordinate</code></a>; the planner reads only the per-axis
+brick counts off the surrounding <a href="api/brix/expr/struct.Expr.html"><code>Expr::space</code></a>. Chunk sizes ride along, baked
+into the concrete impl as a private field.</p>
+</div>
+
+</div>
+
+<h2 id="sources-1"><a class="header" href="#sources-1">Sources</a></h2>
+<p>A <a href="api/brix/trait.Source.html"><code>Source</code></a> produces a brick payload for a requested chunk coord; the executor
+re-attaches the coord to build a <code>Brick</code>. The array-layer implementations
+(<code>Fill</code>/<code>Dense</code>/Zarr) are documented under
+<a href="#sources--sinks">Sources &amp; Sinks</a>.</p>
+<pre><code class="language-rust ignore">pub trait Source: Debug + Send + Sync {
+    fn get_brick_payload(&amp;self, coord: &amp;BrickCoordinate) -&gt; BrixResult&lt;Arc&lt;dyn BrickPayload&gt;&gt;;
+    fn cost(&amp;self, coord: &amp;BrickCoordinate) -&gt; Cost;
+}</code></pre>
+<h2 id="sinks-1"><a class="header" href="#sinks-1">Sinks</a></h2>
+<p>A <a href="api/brix/trait.Sink.html"><code>Sink</code></a> is the destination handed to <code>execute()</code>, outside the expression DAG.
+<code>write_brick</code> takes <code>&amp;self</code> so writes can be concurrent; <code>init</code>/<code>finalize</code> bracket
+the run.</p>
+<pre><code class="language-rust ignore">pub trait Sink: Send + Sync {
+    fn init(&amp;self) -&gt; BrixResult&lt;()&gt;;
+    fn write_brick(&amp;self, brick: Brick) -&gt; BrixResult&lt;()&gt;;
+    fn finalize(&amp;self) -&gt; BrixResult&lt;()&gt;;
+}</code></pre>
+<div id="admonition-sink-placement-is-being-reworked" class="admonition admonish-warning" role="note" aria-labelledby="admonition-sink-placement-is-being-reworked-title">
+<div class="admonition-title">
+<div id="admonition-sink-placement-is-being-reworked-title">
+<p>Sink placement is being reworked</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-sink-placement-is-being-reworked"></a>
+</div>
+
+<div>
+<p>A sink currently sits <em>outside</em> the <code>Expr</code> DAG and is matched to a
+planner-synthesized node. This leaked into <code>Lowered::root_grid</code> and a single-sink
+restriction in the executor, and the sibling <a href="#sources--sinks">array-layer page</a>
+flags the same regret.</p>
+<p>The in-flight direction (<code>checkpoints/sink-as-node.md</code>) makes the sink a
+first-class <code>Op::Sink</code> node the planner discovers by walking the graph — the same
+shape as <code>Source</code>/<code>Reduce</code> — which unlocks mid-DAG sinks for materialization
+barriers and multi-sink <code>Dataset</code> outputs. The <code>Sink</code> <em>trait</em> above is expected to
+survive unchanged; only its placement in the plan moves. This page stays thin
+until that lands.</p>
+</div>
+
+</div>
+
+<p>The only implementation today is <code>InMemorySink</code>, which pre-allocates an array of
+the output shape and writes bricks into it by coordinate — see the array layer’s
+<a href="#sinks">Sinks</a> section.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="planner"><a class="header" href="#planner">Planner</a></h1>
+<p>The <strong>planner</strong> (<code>src/brix/planner.rs</code>) turns the <a href="#the-brix-ir"><code>Expr</code></a> graph into
+a <a href="#schedule"><code>Schedule</code></a>. It resolves <em>how</em> producers and consumers iterate
+together over the <a href="#iteration-space"><code>IterationSpace</code></a> — iteration order,
+placement of computation at loop levels, opportunities for parallelism — but it
+does <strong>not</strong> pick chunk sizes (those were fixed during
+<a href="#lowering">lowering</a>).</p>
+<div id="admonition-warning-5" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div class="admonition-title">
+<div id="admonition-warning-title-5">
+<p>Warning</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-warning-5"></a>
+</div>
+
+<div>
+<p>The core algorithm here was mostly generated by Claude. Do not read.
+The high-level design is all human.</p>
+</div>
+
+</div>
+
+<p>Brix separates <em>algorithm</em> (what to compute — the <a href="api/brix/expr/struct.Expr.html"><code>Expr</code></a> graph) from <em>schedule</em>
+(how to compute it — loop order, fusion, placement). The planner is where the
+schedule is decided; the executor is an interpreter of the result with
+well-constrained degrees of freedom (parallelism, prefetch).</p>
+<p>The output <a href="api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a> is the vocabulary used to communicate between the
+orchestration and execution layers.</p>
+<h2 id="on-push-pull-and-plan-time-knowledge"><a class="header" href="#on-push-pull-and-plan-time-knowledge">On push, pull, and plan-time knowledge</a></h2>
+<p>DB query engines express pipelines through a <em>runtime protocol</em> between operators:
+pull (Volcano <code>next()</code>) or push (<code>consume()</code>). Both approaches converge to nearly the same thing.
+(<a href="https://arxiv.org/abs/1610.09166">Shaikhha et al. 2016</a>).</p>
+<p>In the case of arrays, shapes, chunk grids, and iteration spaces are <em>known at plan-time</em>.
+So the planner emits the fused loop nest directly. Co-iteration of
+multiple inputs — which forces pull engines to coordinate demand and push
+engines to buffer one side — is resolved statically by access relations.
+This kind of co-iteration is important for broadcasting e.g. <code>A[i,j] + B[j]</code>.
+At <em>plan-time</em>, we can hoist <code>B</code>’s read above the <code>i</code>
+loop and reuse the brick across iterations.</p>
+<p>I don’t understand how DBs could achieve such an optimization given that they
+are geared to <em>data-dependent</em> joins. Here’s what Claude has to say:</p>
+<blockquote>
+<p>DB engines achieve the same reuse, but indirectly: no operator knows which loop level it sits at,
+so plans insert materialization instead (Postgres <code>Materialize</code>/<code>Memoize</code>, a hash join’s build
+side) — caching <code>B</code> wholesale and paying lookup cost, rather than holding one
+brick at the right loop depth.</p>
+</blockquote>
+<p>The <a href="api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a> is a <em>schedule tree</em> in the polyhedral sense
+(<a href="https://acohen.gitlabpages.inria.fr/impact/impact2014/papers/impact2014-verdoolaege.pdf">Verdoolaege et al., IMPACT 2014</a>).
+The executor <em>interprets</em> this Schedule sublanguage; it is neither a push nor a pull engine.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="schedule"><a class="header" href="#schedule">Schedule</a></h1>
+<div id="admonition-warning-6" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div class="admonition-title">
+<div id="admonition-warning-title-6">
+<p>Warning</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-warning-6"></a>
+</div>
+
+<div>
+<p>This section is least thought-out and was sketched out with a serial for-loop executor in mind.
+Be critical when reading, and assume what semantics we might want for a good concurrent/parallel
+executor.</p>
+</div>
+
+</div>
+
+<p>A <a href="api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a> (<code>src/brix/schedule.rs</code>) is the abstract <em>plan</em> of a computation
+emitted by the <a href="#planner">planner</a>.</p>
+<p>Conceptually, Brix considers all computations as effectively being loops
+over an iteration space.
+The Brix layer is an <em>expression layer</em> (“what to compute”) that gets lowered down to this
+<em>execution layer</em> (“how to compute”) Schedule.
+In principle, we could lower the Brix layer to many candidate Schedules.</p>
+<p>The schedule is a <em>tree</em> of nested loops that controls iteration order, computation placement
+at loop levels, and stage fusion. It is the vocabulary spoken between the orchestration
+and execution layers.</p>
+<p>The <a href="api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a> is handed to an executor (<code>src/executor/</code>) for actual compute.</p>
+<pre><code class="language-rust ignore">pub enum Schedule {
+    /// Establish the iteration space for the enclosed body.
+    /// `Loop` nodes inside look up their axis extents from here. One `Domain` per band;
+    /// multi-band plans nest or sequence several.
+    /// A distributed executor may construct Schedules for each worker by simply
+    /// rewriting these Domain nodes to the appropriate subspace the worker is responsible for.
+    Domain { iter_space: IterationSpace, body: Box&lt;Schedule&gt; },
+
+    /// Iterate over a chunk dimension, identified by axis name.
+    /// The range is looked up from the enclosing `Domain` at execute time.
+    /// The enclosing `Domain`'s iteration space may be nested (e.g. for coarsen/rolling)
+    /// So we include a `mode_index` to grab the "i-th mode" or "i-th sublayout"
+    /// (Czeka 2026 Section 2.4.1) of the enclosing Domain's `iter_space`.
+    Loop { axis: AxisName, mode_index: usize, body: Vec&lt;Schedule&gt; },
+
+    /// Co-iterate `axes` over an explicit coordinate table
+    /// (soon to be) filtered by the overarching Domain range (similar to Loop).
+    /// `coords[i]` is the i-th present coord, length `axes.len()`,
+    /// values in `axes` positional order.
+    Zip { axes: Vec&lt;AxisName&gt;, coords: Arc&lt;Vec&lt;Vec&lt;u32&gt;&gt;&gt;, body: Vec&lt;Schedule&gt; },
+
+    /// Execute a list of schedule steps in *specified* order at this loop level.
+    /// Used to express top-level sequences (e.g. InitSink, loop nest,
+    /// FinalizeSink).
+    Sequence(Vec&lt;Schedule&gt;),
+
+    /// Execute a list of schedule steps in *any* order at this loop level.
+    /// Unused today
+    // Set(Vec&lt;Schedule&gt;),
+
+    /// Initialize state for a compute node that has core dimensions.
+    /// Placed before the core-dim loops begin.
+    ///
+    /// Example, for Reduce, this creates accumulator state sized to the output brick.
+    ///
+    /// `access` is this node's iter→global access relation — used to derive the
+    /// output coord that sizes the accumulator's initial state.
+    Init { node: NodeName, access: AccessRelation },
+
+    /// Per-iteration "compute" step. Examples:
+    /// - Source: read brick at current coord into workspace.
+    /// - Blockwise: read inputs from workspace, broadcast, apply op, store result.
+    /// - Reduce: fold `workspace[input]` into accumulator.
+    ///
+    /// `inputs` names the workspace entries this step reads, in port order.
+    /// Each input brick's coordinate was already fixed by the producer's own
+    /// `Apply` (recompute model: the emission immediately precedes this read),
+    /// so the edge carries no access of its own.
+    /// The planner controls placement — a source Apply can be hoisted above
+    /// inner loops for reuse when broadcasting is involved.
+    ///
+    /// `access` is this node's own iter→global translation (e.g. for the accumulator result).
+    ///
+    /// Sinks never appear in Apply — they have their own InitSink / WriteSink /
+    /// FinalizeSink variants.
+    Apply { node: NodeName, inputs: Vec&lt;NodeName&gt;, access: AccessRelation },
+
+    /// Extract result from a compute node's state after core-dim iteration
+    /// completes. Placed after the core-dim loops exit. Produces a brick
+    /// in workspace for routing to the next step.
+    ///
+    /// For Reduce: calls accumulator.finalize() → workspace brick.
+    Finalize { node: NodeName },
+
+    /// FIXME: These sink-specific variants are a wart to me.
+    /// Initialize a sink (allocate buffers, open files, etc.). Placed once,
+    /// before any WriteSink into that sink executes.
+    InitSink { sink: NodeName },
+
+    /// Write `workspace[node]` into the sink at the current brick coord, and
+    /// release `workspace[node]`. This is the explicit memory-release point
+    /// for a brick on its way out of the system.
+    ///
+    /// `access` is this node's iter→global translation — used to derive the
+    /// brick coord at which to write into the sink.
+    WriteSink { node: NodeName, sink: NodeName, access: AccessRelation },
+
+    /// Finalize a sink (commit writes, close files, etc.). Placed once,
+    /// after every WriteSink into that sink has executed.
+    FinalizeSink { sink: NodeName },
+}</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="cost"><a class="header" href="#cost">Cost</a></h1>
+<p>Before lowering, Brix computes a <strong>brick-size target</strong> for orchestration from
+the execution resources available, then plans against a memory budget. All
+terms in the memory model are known at plan time:</p>
+<pre><code class="language-text">peak_memory = sum_sources(prefetch_capacity × brick_size)
+            + recursion_stack (one brick per plan tree depth)
+            + output_channel_capacity × output_brick_size
+            + accumulator_states (for reduce nodes)
+</code></pre>
+<p>Bounded channels enforce backpressure at every I/O boundary.</p>
+<div id="admonition-hard-limits-not-heuristics" class="admonition admonish-warning" role="note" aria-labelledby="admonition-hard-limits-not-heuristics-title">
+<div class="admonition-title">
+<div id="admonition-hard-limits-not-heuristics-title">
+<p>Hard limits, not heuristics</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-hard-limits-not-heuristics"></a>
+</div>
+
+<div>
+<p>If a single brick exceeds the budget (e.g. a large Zarr chunk), this is a
+<strong>hard error</strong> for now rather than a silent compromise. A future relaxation
+could read from the source multiple times with smaller slices.</p>
+</div>
+
+</div>
+
+<p>The model is a flat budget of memory, I/O, and compute terms:</p>
+<pre><code class="language-rust ignore">pub struct Cost {
+    // --- Memory ---
+    /// Output brick bytes resident in the workspace channel.
+    pub output_bytes: u64,
+    /// Persistent accumulator state (reduce nodes). Zero for non-stateful.
+    pub state_bytes: u64,
+    /// Transient workspace during apply (FFT twiddles, gather scratch, etc.).
+    pub scratch_bytes: u64,
+
+    // --- I/O ---
+    /// Number of remote storage reads (dominates cloud cost/latency).
+    pub io_read_requests: u64,
+    /// Total bytes read from storage.
+    pub io_read_nbytes: u64,
+    /// Number of remote storage writes (spill, shuffle).
+    pub io_write_requests: u64,
+    /// Total bytes written to storage.
+    pub io_write_nbytes: u64,
+
+    // --- Compute ---
+    pub flops: u64,
+}</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="algorithms"><a class="header" href="#algorithms">Algorithms</a></h1>
+<p>How the structural ops in the <a href="#pipeline-visualizer">pipeline visualizer</a> are
+implemented. Every one follows the same three-part shape:</p>
+<ol>
+<li><strong>Plan-time chunk-grid math</strong> (<code>array/lower.rs</code> + <code>array/chunk_grid/*</code>):
+construct the output <code>ChunkGrid</code> and the chunk-coord routing from output
+chunks back to input chunks.</li>
+<li><strong>DAG embedding</strong>: lowering emits a mid-IR <code>Expr</code> node whose <code>Input</code> edges
+each carry <code>access: HashMap&lt;AxisName, AxisAccess&gt;</code>. An axis is <em>either</em>
+<code>AxisAccess::Composed(Frame)</code> — a structural transform the planner folds
+into the loop nest (<code>NamedLayout::compose</code> / <code>logical_divide</code>) — <em>or</em>
+<code>AxisAccess::Translated(TranslatedAccess)</code> — a per-coord override applied
+at runtime by <code>AccessRelation::resolve_coord</code> after the affine pass.
+Absence from the map is identity (pass-through / broadcast).</li>
+<li><strong>Within-brick element math</strong>: the concrete <code>Kernel</code> / <code>Accumulator</code> bakes
+in both the input and output <code>ChunkGrid</code> plus the original indexer/view, so
+it can derive element-space bounds locally from one brick coordinate.</li>
+</ol>
+<p>At a glance (visualizer legend token → actual variant):</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Workload</th><th>DAG node</th><th>Edge encoding</th><th>Output <code>AxisChunks</code></th></tr>
+</thead>
+<tbody>
+<tr><td>Slicing</td><td><code>Blockwise(SliceKernel)</code></td><td><code>Translated(Independent(AxisOverride::Offset(k)))</code> — <code>Off(k)</code></td><td><code>RLE</code> (or <code>Uniform</code> fast path)</td></tr>
+<tr><td>Coarsen</td><td><code>Reduce(LoweredAccumulator)</code></td><td><code>Composed(Frame::Window{w,w})</code> — <code>Win(w,w)</code> — or identity</td><td>coarsened (<code>AxisChunks::coarsen</code>)</td></tr>
+<tr><td>Vindex</td><td><code>Blockwise(VIndexKernel)</code></td><td><code>Translated(Zipped({follower: AxisOverride::Lookup(t)}))</code> — <code>Zip{k→{i,j}}</code></td><td><code>Variable</code> (one chunk per run)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="slicing"><a class="header" href="#slicing">Slicing</a></h2>
+<p><code>ArrayOp::Slice(HashMap&lt;AxisName, Slice&gt;)</code> lowers to
+<code>Op::Blockwise(SliceKernel)</code>. Three pieces of information construct the
+output:</p>
+<ul>
+<li><strong>Output chunk grid</strong> — plan time, in
+<code>chunk_grid::select::output_grid_and_offsets</code>. Per sliced axis, each output
+chunk is the intersection of one source chunk with <code>[start, end)</code> step
+<code>step</code>, so the per-chunk sizes are encoded as <code>AxisChunks::RLE</code>. The output
+stays <code>AxisChunks::Uniform</code> only on the aligned fast path (step 1,
+start/end on chunk boundaries); slicing an <code>AxisChunks::Variable</code> axis is a
+hard error.</li>
+<li><strong>Per-axis chunk offset on the edge</strong> — <code>output_grid_and_offsets</code> also
+returns <code>k0</code> per axis: the source chunk that output chunk 0 maps to.
+Lowering embeds it on the consumer edge as
+<code>AxisAccess::Translated(TranslatedAccess::Independent(AxisOverride::Offset(k0)))</code>
+for every input axis (<code>Offset(0)</code> is a no-op for untouched axes). At runtime
+<code>AccessRelation::resolve_coord</code> adds the offset to the affine-resolved
+producer coord. The override stack is <em>ordered</em>: two slices separated by a
+Blockwise (so <code>fuse_adjacent_selects</code> can’t collapse them) accumulate as
+stacked entries applied in planner descent order — <code>Offset(1)</code> then
+<code>Offset(2)</code> reads the producer at chunk <code>c + 3</code> (the “stacked slices”
+workload).</li>
+<li><strong>Within-brick clip</strong> — <code>SliceKernel</code> records <code>slicers</code>, <code>input_grid</code>, and
+the output <code>grid</code>. Given the output brick coordinate, <code>clip</code> derives element
+bounds from both grids’ <code>slice_ranges</code>, translates output positions through
+the slicer (<code>start + pos·step</code>) into source space, subtracts the input
+brick’s element start to get brick-local ranges, and <code>slice_each_axis</code>es the
+dense payload. A <code>Fill</code> input short-circuits: re-emit a <code>Fill</code> payload at
+the output brick shape — no element work.</li>
+</ul>
+<h2 id="coarsen"><a class="header" href="#coarsen">Coarsen</a></h2>
+<p>There is no coarsen op. <code>a.coarsen({"i": 2}).sum()</code> builds
+<code>ArrayOp::Reduce { acc, view: {"i": Frame::Window { size: 2, stride: 2 }} }</code> —
+a framed reduce, where <code>array::expr::Frame</code> is in <em>element</em> space. Lowering
+emits <code>Op::Reduce(LoweredAccumulator)</code>:</p>
+<ul>
+<li><strong>Output chunk grid</strong> — <code>ChunkGrid::after_reduce</code> maps each viewed axis:
+<code>Frame::WholeAxis { keepdims: false }</code> drops it, <code>keepdims: true</code> keeps it
+at size 1, and <code>Frame::Window</code> with <code>size == stride</code> coarsens the axis
+chunks (<code>AxisChunks::coarsen</code>, extent <code>ceil(n / size)</code>).</li>
+<li><strong>Edge encoding</strong> — <code>build_reduce_access</code> re-derives the element-space frame
+in <em>chunk</em> space. With <code>w = ceil(n_in_chunks / n_out_chunks)</code>:
+<ul>
+<li><code>w == 1</code>: the window fits inside one brick — identity edge (no map
+entry). The frame is invisible to the planner; all folding is
+element-space inside the accumulator.</li>
+<li><code>w &gt; 1</code>: the window spans bricks —
+<code>AxisAccess::Composed(brix::Frame::Window { size: w, stride: w })</code>. This
+is the <code>Composed</code> arm: not a runtime coord override but loop structure.
+The planner’s <code>extend_iter_space_for_fold</code> <code>logical_divide</code>s the axis
+into <code>(n_out, w)</code> and appends a fold loop over the inner mode; a
+non-divisible <code>n_in</code> records a predication limit so the trailing partial
+window doesn’t read past the producer extent.</li>
+</ul>
+</li>
+<li><strong>Within-brick fold</strong> — <code>LoweredAccumulator</code> carries the element-space
+<code>view</code> and a keepdims=true state grid (the reduced axis survives at size 1
+in intermediate state regardless of the user’s <code>keepdims</code>). <code>fold_left</code>
+re-frames each incoming brick (<code>as_frame_iter</code>) and calls the inner
+accumulator’s <code>fold_frame</code> per (output lane, frame slot); <code>finalize</code>
+squeezes out axes whose view was <code>WholeAxis { keepdims: false }</code>.</li>
+</ul>
+<p>The two regimes are why the visualizer’s coarsen workload uses one-element
+bricks: it forces <code>w = 2</code> so the <code>Win(2,2)</code> edge and the planner-generated
+fold loop become visible. With bricks at least as large as the window the
+same expression lowers to an identity edge.</p>
+<h2 id="vindex"><a class="header" href="#vindex">Vindex</a></h2>
+<p><code>ArrayOp::Vindex(VectorizedIndexer)</code> — equal-length integer index vectors per
+consumed axis, zipped into a single produced axis <code>k</code> — lowers to
+<code>Op::Blockwise(VIndexKernel)</code>.</p>
+<ul>
+<li><strong>Run partition</strong> — plan time, in
+<code>chunk_grid::vindex::VectorizedSelection::from_indexer</code>. Walk the k
+positions; <code>AxisChunks::locate</code> resolves each index into
+<code>(source_chunk, in_chunk_position)</code> per consumed axis. Consecutive
+positions sharing the same <em>multi-axis</em> chunk-coord tuple group into a run;
+the tuple sequence must be non-decreasing in lex order over the (sorted)
+consumed axes — hard error otherwise, no auto-sort. The result is
+<code>VectorizedSelection { consumed_axes, per_axis }</code> where <code>per_axis[a][r]</code> is
+an <code>AxisSelection { source_chunk, positions }</code> for axis <code>a</code>, run <code>r</code>.</li>
+<li><strong>Output chunk grid</strong> — <code>output_grid_and_selection</code> removes the consumed
+axes (<code>without_axes</code>) and appends <code>k</code> as
+<code>AxisChunks::Variable(run_widths)</code>: one output chunk per run, so each
+output brick reads exactly one input brick.</li>
+<li><strong>Edge encoding</strong> — keyed by the <em>produced</em> axis, which does not exist on
+the producer grid:
+<code>{"k" → AxisAccess::Translated(TranslatedAccess::Zipped({i: AxisOverride::Lookup(tᵢ), j: AxisOverride::Lookup(tⱼ)}))}</code>.
+Each follower’s table maps run index → that axis’s source chunk. At runtime
+<code>resolve_coord</code> reads the leader <code>k</code>’s iter coord from the enclosing loop
+and drives <em>every</em> follower’s <code>Lookup</code> from it — the co-iteration that
+distinguishes vindex from oindex, whose per-axis
+<code>TranslatedAccess::Independent(AxisOverride::Lookup)</code> entries form a
+cartesian product.</li>
+<li><strong>Within-brick gather</strong> — <code>VIndexKernel</code> records the <code>VectorizedSelection</code>
+plus both grids. For output run <code>r</code>, it loops <code>i</code> over the run width,
+<code>index_axis_move</code>s the source brick at <code>per_axis[a][r].positions[i]</code> on
+every consumed axis simultaneously, and assigns the resulting cell into
+lane <code>i</code> of the produced axis. <code>Fill</code> inputs short-circuit to a <code>Fill</code> at
+the output brick shape.</li>
+</ul>
+<h1 id="implementation-tour"><a class="header" href="#implementation-tour">Implementation tour</a></h1>
+<h2 id="1-foundations"><a class="header" href="#1-foundations">1. Foundations</a></h2>
+<p>Read first — every other module uses these.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: right">Order</th><th>Module</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right">1</td><td><code>src/brix/error.rs</code></td><td>One error enum, used everywhere. Quick read.</td></tr>
+<tr><td style="text-align: right">2</td><td><code>src/brix/brick.rs</code></td><td><code>Brick</code>, <code>BrickCoordinate</code>, <code>BrickPayload</code>. The unit of data that flows through every layer.</td></tr>
+<tr><td style="text-align: right">3</td><td><code>src/array/brick.rs</code></td><td><code>Dense</code> and <code>Fill</code> payload impls. Concrete <code>f64</code> payloads today; will become generic when integer/bool dtypes land.</td></tr>
+<tr><td style="text-align: right">4</td><td><code>src/brix/iteration_space.rs</code> and <code>src/array/chunk_grid/mod.rs</code></td><td>Two flavours of chunk topology. <code>brix::IterationSpace</code> is counts-only (orchestration view); <code>array::ChunkGrid</code> is the rich per-axis representation (<code>AxisChunks::Uniform</code> / <code>Variable</code> / future <code>Sharded</code>).</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="2-the-brix-ir-contracts"><a class="header" href="#2-the-brix-ir-contracts">2. The Brix-IR contracts</a></h2>
+<p>Read second — these are the trait surfaces the rest of the system targets.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: right">Order</th><th>Module</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right">5</td><td><code>src/brix/expr.rs</code></td><td>The <code>Source</code> / <code>Kernel</code> / <code>Accumulator</code> traits, the <code>Op</code> enum, the <code>Expr</code> node. This is the structural vocabulary the planner consumes.</td></tr>
+<tr><td style="text-align: right">6</td><td><code>src/brix/sink.rs</code></td><td>The <code>Sink</code> trait. Concurrency-safe (<code>&amp;self</code> on <code>write_brick</code>); not part of the DAG.</td></tr>
+<tr><td style="text-align: right">7</td><td><code>src/brix/cost.rs</code></td><td><code>Cost</code> struct and how nodes report it. The planner aggregates this; understanding the shape clarifies what each <code>Source::cost</code> / <code>Accumulator::cost</code> impl is computing.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="3-concrete-impls"><a class="header" href="#3-concrete-impls">3. Concrete impls</a></h2>
+<p>Now look at the built-in <a href="api/brix/trait.Source.html"><code>Source</code></a> / <a href="api/brix/trait.Kernel.html"><code>Kernel</code></a> / <a href="api/brix/trait.Accumulator.html"><code>Accumulator</code></a> impls.
+Each is self-contained and small.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: right">Order</th><th>Module</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right">8</td><td><code>src/array/source.rs</code></td><td><code>FillSource</code>, <code>DenseSource</code>, <code>LoweredOpaque</code>. Note the <code>OpaqueSource</code> extension trait — this is the user-facing API for Zarr / Arrow IPC integrations.</td></tr>
+<tr><td style="text-align: right">9</td><td><code>src/array/kernels/ops.rs</code></td><td><code>UnaryKernel</code>, <code>BinaryKernel</code>. The simplest kernels — pure elementwise.</td></tr>
+<tr><td style="text-align: right">10</td><td><code>src/array/kernels/indexing.rs</code></td><td><code>SliceKernel</code>, <code>GatherKernel</code>. More involved; introduces the coord-rewriting story.</td></tr>
+<tr><td style="text-align: right">11</td><td><code>src/array/accumulators.rs</code></td><td><code>SumAccumulator</code>, <code>MeanAccumulator</code>. Read for the <code>State</code> downcasting dance (<code>downcast_state_mut</code> / <code>downcast_state_ref</code>) — that’s the cost of <code>Arc&lt;dyn Accumulator&gt;</code> heterogeneity.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="4-the-array-surface"><a class="header" href="#4-the-array-surface">4. The array surface</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: right">Order</th><th>Module</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right">12</td><td><code>src/array/expr.rs</code></td><td><code>ArrayExpr</code> and <code>ArrayOp</code>. The logical IR before chunking decisions. Carries <code>ArrayLayout</code> (named axes + extents + strides).</td></tr>
+<tr><td style="text-align: right">13</td><td><code>src/array/ops.rs</code></td><td><code>UnaryOp</code> / <code>BinaryOp</code> enums and their evaluation. Element-level semantics, distinct from <code>Kernel</code> impls.</td></tr>
+<tr><td style="text-align: right">14</td><td><code>src/array/indexer.rs</code></td><td><code>Indexer</code> — how slicing and gather get expressed at the array level before lowering.</td></tr>
+<tr><td style="text-align: right">15</td><td><code>src/array/mod.rs</code></td><td>The user-facing <code>Array</code> handle. Skim the impl block to see what operations exist; the tests at the bottom show end-to-end flow.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="5-the-lowering-pass"><a class="header" href="#5-the-lowering-pass">5. The lowering pass</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: right">Order</th><th>Module</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right">16</td><td><code>src/array/optimize.rs</code></td><td>Pre-lowering rewrites on <code>ArrayExpr</code> (e.g., adjacent-select fusion). Small.</td></tr>
+<tr><td style="text-align: right">17</td><td><code>src/array/lower.rs</code></td><td><strong>The interesting one.</strong> Walks <code>ArrayExpr</code> post-order, picks <code>ChunkGrid</code> per node, projects to <code>brix::IterationSpace</code>, and assembles <code>Arc&lt;Expr&gt;</code>. All chunk-sizing logic lives here.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="6-planning-and-execution"><a class="header" href="#6-planning-and-execution">6. Planning and execution</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: right">Order</th><th>Module</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right">18</td><td><code>src/brix/expr_graph.rs</code></td><td>Builds a graph view (<code>Node</code> + <code>Edge</code>) of an <code>Arc&lt;Expr&gt;</code> DAG. The planner walks this rather than the <code>Arc</code>-based tree.</td></tr>
+<tr><td style="text-align: right">19</td><td><code>src/brix/planner.rs</code></td><td>Turns the expr graph into a <code>PhysicalPlan</code>. Reads <code>AccessRelation</code>s to decide loop order and stage boundaries.</td></tr>
+<tr><td style="text-align: right">20</td><td><code>src/brix/schedule.rs</code></td><td>The <code>Schedule</code> tree — <code>Loop</code>, <code>Sequence</code>, <code>Eval</code>, <code>Init</code>, <code>Finalize</code>, <code>WriteSink</code>. The <code>schedule!</code> macro is here. Tree is data, not code.</td></tr>
+<tr><td style="text-align: right">21</td><td><code>src/executor/sync.rs</code></td><td>Interpreter for <code>Schedule</code>. A few hundred lines. Read last — by now every term in it should be familiar.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="7-sinks-and-integration"><a class="header" href="#7-sinks-and-integration">7. Sinks and integration</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: right">Order</th><th>Module</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right">22</td><td><code>src/array/sink.rs</code></td><td><code>InMemorySink</code>. Read with <code>Sink</code> trait open in another tab. Demonstrates the <code>&amp;self</code> write contract — the executor can call it from multiple threads.</td></tr>
+<tr><td style="text-align: right">23</td><td><code>tests/exercises.rs</code> and <code>tests/common/mod.rs</code></td><td>End-to-end exercises that thread every layer together. Run them with <code>RUST_LOG=trace cargo test</code> to see the planner and executor narrate.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="what-to-skip-on-first-pass"><a class="header" href="#what-to-skip-on-first-pass">What to skip on first pass</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Module</th><th>Why skip</th></tr>
+</thead>
+<tbody>
+<tr><td><code>src/brix/layout.rs</code></td><td>CuTe-style layout algebra. Large; only the surface (<code>Layout</code>, <code>NamedLayout</code>, <code>native_layout</code>) is needed for first-pass understanding.</td></tr>
+<tr><td><code>src/array/chunk_grid/{oindex,select}.rs</code></td><td>Two specific chunk-grid rewrites. Read after <code>lower.rs</code> if you’re touching indexing.</td></tr>
+<tr><td>Anything in <code>checkpoints/</code></td><td>Design rationale and decision history. Use as reference when the <em>why</em> of a design choice isn’t clear; not load-bearing for understanding the <em>what</em>.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="suggested-entry-points-by-task"><a class="header" href="#suggested-entry-points-by-task">Suggested entry points by task</a></h2>
+<ul>
+<li><strong>“I want to add a new operation”</strong> → read 5, 9, 13. Add a <a href="api/brix/trait.Kernel.html"><code>Kernel</code></a> impl in <code>array/kernels/</code>, plumb through <a href="api/brix/array/expr/enum.ArrayOp.html"><code>ArrayOp</code></a> and <code>lower.rs</code>.</li>
+<li><strong>“I want to add a new dtype”</strong> → read 2, 3, the <a href="api/brix/array/enum.DType.html"><code>DType</code></a> enum in <code>array/dtype.rs</code>. Touchpoints: every <code>Dense</code> / <code>Fill</code> site, <code>to_dense_f64</code> (will become dtype-aware), payload <code>to_bytes</code> / <code>from_bytes</code>.</li>
+<li><strong>“I want to add a new accumulator”</strong> → read 5, 11. Copy <code>SumAccumulator</code>, change the fold logic, add an <code>output_dtype</code> impl, register in <code>lower.rs</code>.</li>
+<li><strong>“I want to integrate a new storage backend”</strong> → read 6, 8 — implement <code>OpaqueSource</code> in <code>array/source.rs</code>. The lowering machinery wraps it in <code>LoweredOpaque</code> automatically.</li>
+<li><strong>“I want to add an optimization rewrite”</strong> → read 16, 17. Decide whether your rewrite is structural (greedy pass, like <code>fuse_adjacent_selects</code>) or algebraic (future egglog). For structural, copy the pattern in <code>optimize.rs</code>.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="pipeline-visualizer"><a class="header" href="#pipeline-visualizer">Pipeline Visualizer</a></h1>
+<!-- Redirect chapter: the visualizer is a standalone full-page app (own
+     sidebar, wide panes) generated by `just visualize` and copied to
+     `book/visualize/` by `just docs` — it can't live inside the book
+     chrome, and SUMMARY.md can't link non-markdown pages directly. -->
+<script>window.location.replace("visualize/index.html");</script>
+<p>Redirecting to the <a href="visualize/index.html">pipeline visualizer</a>…</p>
+<p>If nothing happens, the visualizer hasn’t been built — run <code>just docs</code>
+(or <code>just visualize</code> and copy <code>target/visualize/</code> to <code>docs/book/visualize/</code>).</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="mermaid-bf4a4f1d.min.js"></script>
+        <script src="mermaid-init-ccf746f1.js"></script>
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>

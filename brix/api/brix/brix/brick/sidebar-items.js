@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Brick","BrickCoordinate"],"trait":["BrickPayload"]};

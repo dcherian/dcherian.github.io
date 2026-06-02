@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["fuse_adjacent_selects","optimize"]};

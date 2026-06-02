@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LoweringError"],"fn":["build_reduce_access","choose_chunk_target","lower","lower_inner","max_shape_in_tree"],"struct":["Lowered"],"type":["LoweringResult"]};

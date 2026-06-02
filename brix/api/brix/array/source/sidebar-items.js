@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TransparentSource"],"struct":["DenseSource","FillSource","LoweredOpaque","SourceNativeChunkGrid"],"trait":["OpaqueSource"]};

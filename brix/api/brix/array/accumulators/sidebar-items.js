@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["downcast_state_mut","downcast_state_ref","fold_sum_typed","to_f64_dense"],"struct":["LoweredAccumulator","MeanAccumulator","MeanState","SumAccumulator","SumState"],"trait":["ArrayAccumulator"]};
