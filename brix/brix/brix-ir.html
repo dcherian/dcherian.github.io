@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-4dc57a28.js";
+            window.path_to_searchindex_js = "../searchindex-32dbdb2f.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-5c44d544.js"></script>
+        <script src="../toc-d734ff7b.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -245,7 +245,7 @@ pub struct Input {
 Given the consumer brick coordinate for this iteration, we need to figure out which
 producer bricks to supply to the Op for each input. This relation is termed an "access relation".
 <p>Brix models this transformation as</p>
-<pre><code>(consumer iteration coordinate).pipe(compose with affine transform).pipe(non-affine translation)
+<pre><code class="language-text">(consumer iteration coordinate).pipe(compose with affine transform).pipe(non-affine translation)
 </code></pre>
 <p>along each axis.
 Thus <code>Input::access</code> maps each axis to an <code>AxisAccess</code> representing a transformation
@@ -264,7 +264,7 @@ from producer <a href="../api/brix/iteration_space/struct.IterationSpace.html"><
 <ul>
 <li><strong><code>Composed</code></strong> is an <em>affine</em> transformation (a <a href="../api/brix/expr/enum.Frame.html"><code>Frame</code></a>: whole-axis, window, …).
 The planner folds it into the producer iteration space through <em>composition</em>
-— it becomes part of the generated loop in the <a href="./schedule.html"><code>Schedule</code></a>.</li>
+— it becomes part of the generated loop in the <a href="./planner.html#schedule"><code>Schedule</code></a>.</li>
 <li><strong><code>Translated</code></strong> are non-affine overrides (offsets for slicing, gather lookup, zipped
 gather followers) applied at runtime.</li>
 <li>Any axis absent from the map is identity (pass-through / broadcast).</li>
@@ -306,7 +306,7 @@ pub enum TranslatedAccess {
     Independent(AxisOverride),
     Zipped(HashMap&lt;AxisName, AxisOverride&gt;),
 }</code></pre>
-<p>At the <a href="./schedule.html">Schedule</a> layer these resolve into a concrete
+<p>At the <a href="./planner.html#schedule">Schedule</a> layer these resolve into a concrete
 <code>AccessRelation</code> (with its <code>AffineAccess</code> layout); the Brix-IR holds only the
 declarative per-axis <code>AxisAccess</code> form.</p>
 <h3 id="example-block-windowed--coarsen-operations-with-composed"><a class="header" href="#example-block-windowed--coarsen-operations-with-composed">Example: Block windowed / coarsen operations with <code>Composed</code></a></h3>
@@ -325,7 +325,7 @@ The axis survives the output, halved.</p>
 </pre>
 
 <p>That is, the planner tiles the producer’s flat <code>x:8</code> axis into a <em>nested</em> <code>(x_out:4, x_window:2)</code>
-iteration space, and the <a href="./schedule.html"><code>Schedule</code></a> grows a second <code>Loop</code> level over the window. Without
+iteration space, and the <a href="./planner.html#schedule"><code>Schedule</code></a> grows a second <code>Loop</code> level over the window. Without
 the frame, <code>x</code> would be a single flat loop; the <code>Composed</code> frame is what inserts
 the inner fold:</p>
 <pre><code class="language-text">        identity read                         coarsen (Composed x)
