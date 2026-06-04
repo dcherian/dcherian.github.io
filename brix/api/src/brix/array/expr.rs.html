@@ -201,7 +201,7 @@
 <a href=#201 id=201 data-nosnippet>201</a>// Note relying exclusively on this may not be a good idea for our standard reductions.
 <a href=#202 id=202 data-nosnippet>202</a>// For example, with groupby we definitely want a single pass algorithm rather than
 <a href=#203 id=203 data-nosnippet>203</a>// iterating over views;
-<a href=#204 id=204 data-nosnippet>204</a>// Similarly for Window &amp; VariableWindow, we should use an incremental aggregator approach
+<a href=#204 id=204 data-nosnippet>204</a>// Similarly for Window &amp; VariableWindow, we could use an incremental aggregator approach
 <a href=#205 id=205 data-nosnippet>205</a>// like DuckDB does.
 <a href=#206 id=206 data-nosnippet>206</a>// BUT this is still useful as a default impl; and for a .map method where a UDF expects
 <a href=#207 id=207 data-nosnippet>207</a>// all elements in a single frame.

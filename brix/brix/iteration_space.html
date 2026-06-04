@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-32dbdb2f.js";
+            window.path_to_searchindex_js = "../searchindex-7af83ec8.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-d734ff7b.js"></script>
+        <script src="../toc-b938bee3.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -195,6 +195,7 @@ The planner resolves iteration order and parallelism over this space; it does no
 that adds axis names.
 This structure was used to move quickly and because it provides convenient algebra (“logical divide”, “compose” etc).
 Honestly, our requirements are a bit more complicated (occupancy, non-affine transformations), so we may dump this structure in the future.</p>
+<h2 id="limit-override"><a class="header" href="#limit-override">Limit override</a></h2>
 <p><code>limits</code> records per-axis bounds for axes that <code>logical_divide</code> has
 split into nested sub-modes (coarsen / block-windows).
 <code>logical_divide(axis, w)</code> rounds the tile count <em>up</em>, so the last block of

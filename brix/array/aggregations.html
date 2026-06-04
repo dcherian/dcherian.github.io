@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-32dbdb2f.js";
+            window.path_to_searchindex_js = "../searchindex-7af83ec8.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-d734ff7b.js"></script>
+        <script src="../toc-b938bee3.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -215,6 +215,38 @@ both halves of the clause: <code>PARTITION BY</code> grouping is <a href="../api
 <a href="../api/brix/array/expr/enum.Frame.html#variant.Window"><code>Window</code></a>, or <a href="../api/brix/array/expr/enum.Frame.html#variant.Blocks"><code>Blocks</code></a>.</li>
 </ol>
 <p>All of these are just frame shapes fed to the same accumulator machinery.</p>
+<div id="admonition-warning" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div class="admonition-title">
+<div id="admonition-warning-title">
+<p>Warning</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-warning"></a>
+</div>
+
+<div>
+<p>Only <code>WholeAxis</code> and <code>Coarsen</code> have been “implemented” so far.</p>
+</div>
+
+</div>
+
+<div id="admonition-choice" class="admonition admonish-note" role="note" aria-labelledby="admonition-choice-title">
+<div class="admonition-title">
+<div id="admonition-choice-title">
+<p>Choice</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-choice"></a>
+</div>
+
+<div>
+<p>These enums are quite specific (in keeping with “preserve context as much as possible”).
+Consider though that we can use this information to smartly choose variable chunk sizes
+(e.g. chunks that line up with PeriodicBlocks makes it an embarassingly parallel problem).</p>
+</div>
+
+</div>
+
 <pre><code class="language-rust ignore">/// This enum enables our approach to composing Aggregators (Reduce, Scan) with
 /// different _views_ or _frames_ along an axis
 /// (`rolling`, `groupby`, `coarsen`, etc.)

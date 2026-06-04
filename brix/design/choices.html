@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-32dbdb2f.js";
+            window.path_to_searchindex_js = "../searchindex-7af83ec8.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-d734ff7b.js"></script>
+        <script src="../toc-b938bee3.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -198,12 +198,32 @@ The up-side though is that it’s easy to spot when we (really agents) mix array
 the brix-layer. Personally, I have found it far easier to reason about the code once I added the separation.</p>
 <p>Choosing to have an iteration layer / <code>Schedule</code> is a choice that comes from realizing that in most
 array workloads we have a <strong>lot</strong> of information available at plan-time (see below).</p>
+<div id="admonition-one-way-door-or-two-way-door" class="admonition admonish-note" role="note" aria-labelledby="admonition-one-way-door-or-two-way-door-title">
+<div class="admonition-title">
+<div id="admonition-one-way-door-or-two-way-door-title">
+<p>One-way door or two-way door?</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-one-way-door-or-two-way-door"></a>
+</div>
+
+<div>
+<p>The choice to split between array &amp; brix is a one-way door (mostly). It would be a big refactor to merge the two layers but not too hard with Claude.
+It would be harder to understand though.</p>
+<p>The choice to add an iteration layer is a two-way door (below).</p>
+</div>
+
+</div>
+
 <h2 id="execution-model"><a class="header" href="#execution-model">Execution Model</a></h2>
+<h3 id="pipeline-parallelism"><a class="header" href="#pipeline-parallelism">Pipeline parallelism</a></h3>
+<h3 id="push-vs-pull-vs-interpreting"><a class="header" href="#push-vs-pull-vs-interpreting">Push vs pull vs interpreting</a></h3>
 <p>We are <em>choosing</em> to have the <code>Executor</code> be an <em>interpreter</em> of the <code>Schedule</code>.</p>
 <p>DB query engines express pipelines through a <em>runtime protocol</em> between operators:
 pull (Volcano <code>next()</code>) or push (<code>consume()</code>). Both approaches converge to nearly the same thing.
 (<a href="https://arxiv.org/abs/1610.09166">Shaikhha et al. 2016</a>).</p>
 <p>In the case of arrays, shapes, chunk grids, and iteration spaces are <em>known at plan-time</em>.
+We need not rely on heuristics (e.g. cardinality) that a DB executor does.
 So the planner emits the fused loop nest directly. Co-iteration of
 multiple inputs — which forces pull engines to coordinate demand and push
 engines to buffer one side — is resolved at plan-time and recorded using access relations
@@ -225,11 +245,22 @@ separation in polyhedral form — its schedules are the ISL schedule trees cited
 in <a href="../brix/planner.html">Planner</a>. Chapel’s
 <a href="https://chapel-lang.org/docs/technotes/dsi.html">domain maps</a> are kindred:
 they factor data distribution and iteration out of the loop body.</p>
-<p>By contrast, Dask bakes iteration into the materialized task graph (one task
-per chunk — iteration <em>is</em> the graph). Cubed keeps its plan at the op level
-and generates per-chunk tasks lazily, but hardcodes the schedule — an
-unordered, embarrassingly-parallel map over output blocks — rather than
-representing one that can be manipulated.</p>
+<div id="admonition-one-way-door-or-two-way-door-1" class="admonition admonish-note" role="note" aria-labelledby="admonition-one-way-door-or-two-way-door-1-title">
+<div class="admonition-title">
+<div id="admonition-one-way-door-or-two-way-door-1-title">
+<p>One-way door or two-way door?</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-one-way-door-or-two-way-door-1"></a>
+</div>
+
+<div>
+<p>The choice to add an iteration layer (<code>Schedule</code>) is a two-way door. I am currently considering the [<code>Schedule</code>] to be the interface to the executor.
+But this need not be true. We could pass an [<code>Arc&lt;Expr&gt;</code>] graph directly, and have the executor decide how to run it.</p>
+</div>
+
+</div>
+
 <h2 id="broadcastingtranspose-as-properties-of-the-edge"><a class="header" href="#broadcastingtranspose-as-properties-of-the-edge">Broadcasting/transpose as properties of the edge</a></h2>
 <p>Why?</p>
 <ul>

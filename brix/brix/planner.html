@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-32dbdb2f.js";
+            window.path_to_searchindex_js = "../searchindex-7af83ec8.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-d734ff7b.js"></script>
+        <script src="../toc-b938bee3.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -186,8 +186,7 @@
 a <a href="#schedule"><code>Schedule</code></a>. It resolves <em>how</em> producers and consumers iterate
 together over the <a href="./iteration_space.html"><code>IterationSpace</code></a> — iteration order,
 placement of computation at loop levels, opportunities for parallelism — but it
-does <strong>not</strong> pick chunk sizes (those were fixed during
-<a href="../array/lowering.html">lowering</a>).</p>
+does <strong>not</strong> pick chunk sizes (those were fixed during <a href="../array/lowering.html">lowering</a>).</p>
 <pre><code class="language-rust ignore">/// Convert a logical expression graph into a physical plan with a schedule.
 pub fn plan(mid: &amp;Expr) -&gt; BrixResult&lt;PhysicalPlan&gt; {</code></pre>
 <p>The output <a href="../api/brix/schedule/struct.PhysicalPlan.html"><code>PhysicalPlan</code></a> pairs the node table with the schedule tree:</p>

@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-32dbdb2f.js";
+            window.path_to_searchindex_js = "../searchindex-7af83ec8.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-d734ff7b.js"></script>
+        <script src="../toc-b938bee3.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -192,7 +192,7 @@
 </div>
 
 <div>
-<p>This section of the codebase is extremely under-developed. Do not read.</p>
+<p>This section of the codebase is extremely under-developed and a total stub. Do not read.</p>
 </div>
 
 </div>
@@ -207,7 +207,12 @@ pub fn optimize(expr: &amp;Arc&lt;ArrayExpr&gt;) -&gt; ArrayResult&lt;Arc&lt;Arr
 <code>expr.isel(...).isel(...)</code> collapses into one <code>ArrayOp::Slice</code> with composed
 indexers (matching xarray’s semantics), so the lowered graph carries no redundant
 slice chains.</p>
-<p>This is the natural home for future algebraic simplification and rewrites.</p>
+<h2 id="optimizations"><a class="header" href="#optimizations">Optimizations</a></h2>
+<ol>
+<li>[P0] Indexing pushdown to Source.</li>
+<li>[P0] Fuse sequence of indexers to one.</li>
+<li>[P3] Fuse broadcast nodes in to access relation + a ‘composed kernel’ in consumer.</li>
+</ol>
 
                     </main>
 

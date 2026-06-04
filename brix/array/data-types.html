@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-32dbdb2f.js";
+            window.path_to_searchindex_js = "../searchindex-7af83ec8.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-d734ff7b.js"></script>
+        <script src="../toc-b938bee3.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -194,6 +194,7 @@ tagged <a href="../api/brix/enum.Value.html"><code>Value</code></a>s (<code>src/
 </div>
 
 <div>
+<p>This section is in flux as we work towrd integration with Zax, specifically <code>zax-io</code>.</p>
 <p>This approach was fully implemented by Claude.</p>
 </div>
 
@@ -205,6 +206,8 @@ pub enum DType {
     F64,
     I64,
     // Future: F32, I32, U8, Bool; then logical (Categorical, DateTime, …).
+    // Extension(Arc&lt;dyn ExtensionDType&gt;) — opaque satellite dtypes (geometry);
+    // note: ends `Copy`, and `Eq`/`Hash` route through the extension's name.
 }</code></pre>
 <h2 id="value"><a class="header" href="#value">Value</a></h2>
 <p>A typed scalar — used for fill values, reduction identities/absorbers, and
@@ -297,12 +300,27 @@ you extend when a new dtype lands. (Folder convention, not codegen.)</p>
 
 <h2 id="extensions"><a class="header" href="#extensions">Extensions</a></h2>
 <ul>
-<li>CFTime</li>
+<li>Strings</li>
 <li>Arrow geometry buffers</li>
-<li>Sparse Arrays</li>
+<li>CFTime</li>
 <li>Interval Arrays</li>
 <li>Categorical Arrays</li>
+<li>Sparse Arrays</li>
 </ul>
+<p>Two of these are worked through in <a href="./extensions.html">Extensions</a>; their dtype
+treatment differs:</p>
+<p><strong>Geometry</strong> is an <em>extension dtype</em>: <code>DType</code> grows an
+<code>Extension(Arc&lt;dyn ExtensionDType&gt;)</code> arm whose <code>physical()</code> returns <code>None</code> —
+opaque, so it never enters <code>dispatch_dtype!</code>/<code>with_typed_array!</code>; geometry
+kernels live in <code>zax-geo</code> and downcast the payload. Type identity
+(extension name + CRS) drives the <code>Eq</code>/<code>Hash</code> alignment check, the same role
+<code>DType::F64</code> plays for native arrays.</p>
+<p><strong>Sparse</strong> is <em>not a dtype</em> — it’s a physical kind (a <code>BrickPayload</code> sibling
+of <code>Dense</code>/<code>Fill</code>). A sparse brick still carries an ordinary values dtype
+(<code>physical() = Some(F64)</code> etc.), so its nonzero values ride the normal
+<a href="../api/brix/array/trait.Element.html"><code>Element</code></a>/promotion path: a sparse-i64 × dense-f64 op gets the usual
+plan-time <code>Cast</code> before the kernel runs. Only the structure (nonzero
+pattern, formats) lives behind <code>dyn SparseArray</code>.</p>
 
                     </main>
 
