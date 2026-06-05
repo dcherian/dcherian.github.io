@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-42f78d7b.js";
+            window.path_to_searchindex_js = "../searchindex-23ffd982.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-c8d97abe.js"></script>
+        <script src="../toc-8e03c8ef.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -309,7 +309,7 @@ The appropriate chunk grid is created (always <a href="../api/brix/array/chunk_g
 <h3 id="brix-layer-2"><a class="header" href="#brix-layer-2">Brix layer</a></h3>
 <p><a href="../api/brix/expr/enum.Op.html#variant.Blockwise"><code>Op::Blockwise</code></a><code>(</code><a href="../api/brix/array/kernels/indexing/struct.VIndexKernel.html"><code>VIndexKernel</code></a><code>)</code>, with the edge access keyed by the <em>produced</em>
 axis, which does not exist on the producer grid:</p>
-<pre><code>{"k" → AxisAccess::Translated(
+<pre><code class="language-text">{"k" → AxisAccess::Translated(
     TranslatedAccess::Zipped(
         {i: AxisOverride::Lookup(tᵢ),
          j: AxisOverride::Lookup(tⱼ)}

@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-42f78d7b.js";
+            window.path_to_searchindex_js = "../searchindex-23ffd982.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-c8d97abe.js"></script>
+        <script src="../toc-8e03c8ef.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -198,13 +198,13 @@ The up-side though is that it’s easy to spot when we (really agents) mix array
 the brix-layer. Personally, I have found it far easier to reason about the code once I added the separation.</p>
 <p>Choosing to have an iteration layer / <code>Schedule</code> is a choice that comes from realizing that in most
 array workloads we have a <strong>lot</strong> of information available at plan-time (see below).</p>
-<div id="admonition-one-way-door-or-two-way-door" class="admonition admonish-note" role="note" aria-labelledby="admonition-one-way-door-or-two-way-door-title">
+<div id="admonition-one-way-door" class="admonition admonish-note" role="note" aria-labelledby="admonition-one-way-door-title">
 <div class="admonition-title">
-<div id="admonition-one-way-door-or-two-way-door-title">
-<p>One-way door or two-way door?</p>
+<div id="admonition-one-way-door-title">
+<p>One-way door</p>
 </div>
 
-<a class="admonition-anchor-link" href="#admonition-one-way-door-or-two-way-door"></a>
+<a class="admonition-anchor-link" href="#admonition-one-way-door"></a>
 </div>
 
 <div>
@@ -218,7 +218,12 @@ to understand, and Claude code easier to audit.</p>
 
 <h2 id="execution-model"><a class="header" href="#execution-model">Execution Model</a></h2>
 <h3 id="pipeline-parallelism"><a class="header" href="#pipeline-parallelism">Pipeline parallelism</a></h3>
-<h3 id="push-vs-pull-vs-interpreting"><a class="header" href="#push-vs-pull-vs-interpreting">Push vs pull vs interpreting</a></h3>
+<p>The core idea here is that it is relatively easy to “pipeline” array operations.
+There is almost always one or more “loop” or “batch dimensions” e.g. <code>time</code> for spatial
+operations, or <code>x,y</code> for temporal operations, and we can cheaply parallelize on these
+dimensions. To facilitate this, all operations track the dimensions they affect (“core dimensions”),
+and by extension the loop dimensions are easy to identify at plan-time.</p>
+<h3 id="push-vs-pull-vs-interpreter"><a class="header" href="#push-vs-pull-vs-interpreter">Push vs pull vs interpreter</a></h3>
 <p>We are <em>choosing</em> to have the <code>Executor</code> be an <em>interpreter</em> of the <code>Schedule</code>.</p>
 <p>DB query engines express pipelines through a <em>runtime protocol</em> between operators:
 pull (Volcano <code>next()</code>) or push (<code>consume()</code>). Both approaches converge to nearly the same thing.
@@ -236,7 +241,8 @@ are geared toward <em>data-dependent</em> joins. Here’s what Claude has to say
 <p>DB engines achieve the same reuse, but indirectly: no operator knows which loop level it sits at,
 so plans insert materialization instead (Postgres <code>Materialize</code>/<code>Memoize</code>, a hash join’s build
 side) — caching <code>B</code> wholesale and paying lookup cost, rather than holding one
-brick at the right loop depth.</p>
+brick at the right loop depth.
+That said we could probably get similar behaviour by inserting appropriate “hints”.</p>
 </blockquote>
 <p>This kind of imperative “schedule” is common to array compilers, most clearly
 <a href="https://halide-lang.org/">Halide</a>, whose algorithm/schedule split
@@ -244,25 +250,52 @@ brick at the right loop depth.</p>
 <a href="https://arxiv.org/abs/1802.04730">Tensor Comprehensions</a> makes the same
 separation in polyhedral form — its schedules are the ISL schedule trees cited
 in <a href="../brix/planner.html">Planner</a>. Chapel’s
-<a href="https://chapel-lang.org/docs/technotes/dsi.html">domain maps</a> are kindred:
+<a href="https://chapel-lang.org/docs/technotes/dsi.html">domain maps</a> are similar:
 they factor data distribution and iteration out of the loop body.</p>
-<div id="admonition-one-way-door-or-two-way-door-1" class="admonition admonish-note" role="note" aria-labelledby="admonition-one-way-door-or-two-way-door-1-title">
+<div id="admonition-two-way-door" class="admonition admonish-note" role="note" aria-labelledby="admonition-two-way-door-title">
 <div class="admonition-title">
-<div id="admonition-one-way-door-or-two-way-door-1-title">
-<p>One-way door or two-way door?</p>
+<div id="admonition-two-way-door-title">
+<p>Two-way door</p>
 </div>
 
-<a class="admonition-anchor-link" href="#admonition-one-way-door-or-two-way-door-1"></a>
+<a class="admonition-anchor-link" href="#admonition-two-way-door"></a>
 </div>
 
 <div>
 <p>The choice to add an iteration layer (<code>Schedule</code>) is a two-way door. I am currently considering the [<code>Schedule</code>] to be the interface to the executor.
 But this need not be true. We could pass an [<code>Arc&lt;Expr&gt;</code>] graph directly, and have the executor decide how to run it.</p>
+<p>Further, one might interpret today’s version of the [<code>Schedule</code>] as a very opinionated and annotated suggestions for how to execute things. The executor is free to re-interpret that information as it wishes.</p>
 </div>
 
 </div>
 
-<h2 id="handling-of-sources"><a class="header" href="#handling-of-sources">Handling of Sources</a></h2>
+<h2 id="static-shapes"><a class="header" href="#static-shapes">Static shapes</a></h2>
+<p>A core principle is that concrete shapes (axis extents) are known at plan-time.</p>
+<p>This limitation applies to Xarray today. Dask has limited ability to support arrays with
+“unknown” shapes  (only known at compute-time), mostly so as to convert from DataFrames
+of unknown size.</p>
+<p>Unknown shapes are mostly useful only with 1D input and less so with nD.
+For e.g. <code>a[a &gt; 0]</code> with numpy returns a 1D array regardless of the dimensionality of <code>a</code>.
+In general, such a <em>filter</em> operation in nD generally results in a ragged array which most
+array packages can’t represent so they return a flattened 1D array as a result.</p>
+<div id="admonition-one-way-door-1" class="admonition admonish-note" role="note" aria-labelledby="admonition-one-way-door-1-title">
+<div class="admonition-title">
+<div id="admonition-one-way-door-1-title">
+<p>One-way door</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-one-way-door-1"></a>
+</div>
+
+<div>
+<p>Supporting unknown shapes would be a pretty major change to execution.</p>
+<p>A place this may bite us is we are trying to join against or convert from tables of unknown extent
+e.g. a filtered dataframe.
+We could require a materialization barrier if we wanted to support this workflow nicely.</p>
+</div>
+
+</div>
+
 <h2 id="handling-of-sinks"><a class="header" href="#handling-of-sinks">Handling of Sinks</a></h2>
 <p>Currently we have one Sink trait. At the moment [<code>InMemorySink</code>] is the only impl.
 The intent is for this trait to cover streaming data sinks too (Icechunk/Zarr), which is at odds with
@@ -277,13 +310,13 @@ We may want this level of optimization because:</p>
 to succeed with as little memory as possible.</li>
 </ol>
 <p>I am deferring this optimization to when we build a concurrent local executor.</p>
-<div id="admonition-one-way-door-or-two-way-door-2" class="admonition admonish-note" role="note" aria-labelledby="admonition-one-way-door-or-two-way-door-2-title">
+<div id="admonition-two-way-door-1" class="admonition admonish-note" role="note" aria-labelledby="admonition-two-way-door-1-title">
 <div class="admonition-title">
-<div id="admonition-one-way-door-or-two-way-door-2-title">
-<p>One-way door or two-way door?</p>
+<div id="admonition-two-way-door-1-title">
+<p>Two-way door</p>
 </div>
 
-<a class="admonition-anchor-link" href="#admonition-one-way-door-or-two-way-door-2"></a>
+<a class="admonition-anchor-link" href="#admonition-two-way-door-1"></a>
 </div>
 
 <div>
@@ -292,25 +325,18 @@ to succeed with as little memory as possible.</li>
 
 </div>
 
-<h2 id="static-shapes"><a class="header" href="#static-shapes">Static shapes</a></h2>
 <h2 id="incorporating-ndarrays-views"><a class="header" href="#incorporating-ndarrays-views">Incorporating ndarray’s views</a></h2>
 <h2 id="aggregation-trait-and-folding-in-to-mutable-state"><a class="header" href="#aggregation-trait-and-folding-in-to-mutable-state">Aggregation trait and folding in to mutable <code>State</code></a></h2>
 <h2 id="array-payload-representation"><a class="header" href="#array-payload-representation">Array Payload representation</a></h2>
-<p>Three orthogonal axes: Storage X DType X Validity; where</p>
-<ul>
-<li>Storage (ndarray, sparse, arrow etc.)</li>
-<li>Logical Dtypes distringuished from primitive dtypes so datetimes are a logical layer
-on top of a primitive type (<code>i64</code>) + metadata (calendar, epoch, units, timezone).</li>
-<li>Validity bitmap stored independently and handled independently of storage and Dtype.
-Thus we don’t represent nullability on the dtype (like polars).</li>
-</ul>
-<div id="admonition-one-way-door-or-two-way-door-3" class="admonition admonish-note" role="note" aria-labelledby="admonition-one-way-door-or-two-way-door-3-title">
+<p>Handling complex data types (datetimes, strings, geometries) etc.</p>
+<p><strong>This is in flux at the moment.</strong></p>
+<div id="admonition-one-way-door-2" class="admonition admonish-note" role="note" aria-labelledby="admonition-one-way-door-2-title">
 <div class="admonition-title">
-<div id="admonition-one-way-door-or-two-way-door-3-title">
-<p>One-way door or two-way door?</p>
+<div id="admonition-one-way-door-2-title">
+<p>One-way door</p>
 </div>
 
-<a class="admonition-anchor-link" href="#admonition-one-way-door-or-two-way-door-3"></a>
+<a class="admonition-anchor-link" href="#admonition-one-way-door-2"></a>
 </div>
 
 <div>
@@ -319,26 +345,26 @@ Thus we don’t represent nullability on the dtype (like polars).</li>
 
 </div>
 
-<h2 id="some-in-the-weeds-concerns-at-the-moment"><a class="header" href="#some-in-the-weeds-concerns-at-the-moment">Some in-the-weeds concerns at the moment.</a></h2>
-<ul>
-<li>Add a NodeId to the Expr and ArrayExpr instances</li>
-<li>Add an AxisId to Axis? We use <code>name</code> to tag identity but <code>rename_dims</code> is a thing</li>
-<li>Using [<code>NamedLayout</code>] for easy representation of broadcasting/transpose/order is a toss-up.
-It doesn’t support variable chunk sizes, so it’s a better fit at the Brix layer, rather than the Array layer.</li>
-</ul>
-<h3 id="broadcastingtranspose-as-properties-of-the-edge"><a class="header" href="#broadcastingtranspose-as-properties-of-the-edge">Broadcasting/transpose as properties of the edge</a></h3>
-<p>Why?</p>
-<ul>
-<li>A single node can serve multiple consumers, each of which have different expectations.</li>
-<li>This allows us to preserve context: the edge makes it clear that a <em>cheap</em> broadcast/transpose operation
-is being applied, allowing us to optimize loop placement without requiring traversal of parents.</li>
-</ul>
+<!--
+## Some in-the-weeds concerns at the moment.
+- Add a NodeId to the Expr and ArrayExpr instances
+- Add an AxisId to Axis? We use `name` to tag identity but `rename_dims` is a thing
+- Using [`NamedLayout`] for easy representation of broadcasting/transpose/order is a toss-up.
+  It doesn't support variable chunk sizes, so it's a better fit at the Brix layer, rather than the Array layer.
+
+### Broadcasting/transpose as properties of the edge
+
+Why?
+- A single node can serve multiple consumers, each of which have different expectations.
+- This allows us to preserve context: the edge makes it clear that a *cheap* broadcast/transpose operation
+  is being applied, allowing us to optimize loop placement without requiring traversal of parents.
+-->
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../design/architecture.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../design/flow.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
@@ -352,7 +378,7 @@ is being applied, allowing us to optimize loop placement without requiring trave
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../design/architecture.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../design/flow.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 

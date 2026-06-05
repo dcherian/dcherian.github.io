@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-42f78d7b.js";
+            window.path_to_searchindex_js = "../searchindex-23ffd982.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-c8d97abe.js"></script>
+        <script src="../toc-8e03c8ef.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -338,7 +338,7 @@ frame</strong>: <code>view</code> maps each reduced axis to a <a href="../api/br
         // The accumulator is free to interpret that in the context of its own State.
         state_frame_loc: &amp;HashMap&lt;usize, usize&gt;,
         // view to aggregate
-        slot: ReadFrame&lt;'_&gt;,
+        input: ReadFrame&lt;'_&gt;,
     ) -&gt; BrixResult&lt;()&gt;;
 
     /// Merge states (e.g. merge step of tree reduction)
@@ -403,15 +403,15 @@ aggregations need.</li>
 </div>
 
 <p>Here is <em>how</em> one brick’s worth of a reduction runs.</p>
-<p><code>LoweredAccumulator::fold_left</code> calls <code>ArrayPayload::as_frame_iter(view)</code> in a loop,
-and passes the returned value to <code>ArrayAccumulator::fold_frame</code>.</p>
 <p>For each framed axis, the <a href="../api/brix/array/expr/enum.Frame.html"><code>Frame</code></a> implies a sequence of element-space ranges.
 The cartesian product of those per-axis sequences gives the frames we aggregate
-over. <code>ArrayPayload::as_frame_iter(view)</code> yields <code>(state_frame_loc, framed_view)</code> pairs, where <code>state_frame_loc</code>
-is the destination <a href="../api/brix/trait.State.html"><code>brix::State</code></a> location to fold into.</p>
-<p>Each <code>framed_view</code> is carved by using [<code>Index::slice</code>], reusing the existing slicing machinery.
-The view is then handed to <code>ArrayAccumulator::fold_frame(state, state_frame_loc, framed_view)</code>, which folds it into <code>state</code> at the lane named by <code>state_frame_loc</code>.
-The input slot is a <a href="../api/brix/array/brick/enum.ReadFrame.html"><code>ReadFrame</code></a> a readonly-view:</p>
+over. <code>ArrayPayload::as_frame_iter(view)</code> yields <code>(state_frame_loc, framed_view)</code> pairs,
+where <code>state_frame_loc</code> is the destination <a href="../api/brix/trait.State.html"><code>brix::State</code></a> location to fold into.
+Each <code>framed_view</code> is carved by using [<code>Index::slice</code>], reusing the existing slicing machinery.</p>
+<p><code>LoweredAccumulator::fold_left</code> calls <code>ArrayPayload::as_frame_iter(view)</code> in a loop,
+and passes the returned view to <code>ArrayAccumulator::fold_frame</code>, which folds it into <code>state</code>
+at the lane named by <code>state_frame_loc</code>.</p>
+<p>The <code>input</code> to be aggregate is a readonly-view encapsulated in <a href="../api/brix/array/brick/enum.ReadFrame.html"><code>ReadFrame</code></a>:</p>
 <pre><code class="language-rust ignore">#[derive(Debug, Clone)]
 pub enum ReadFrame&lt;'a&gt; {
     Dense(TypedView&lt;'a&gt;),

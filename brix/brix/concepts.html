@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-42f78d7b.js";
+            window.path_to_searchindex_js = "../searchindex-23ffd982.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-c8d97abe.js"></script>
+        <script src="../toc-8e03c8ef.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -227,10 +227,7 @@ without inspecting their contents — it only needs to know where each brick goe
 <pre><code class="language-rust ignore">pub trait BrickPayload: Debug + Send + Sync + Any {
     /// Serialize for inter-process exchange (shared storage, DBSP checkpoint).
     ///
-    /// Format is implementation-specific but conventionally tagged so a
-    /// dispatcher (`array::brick::payload_from_bytes`) can recover the
-    /// concrete type. This is a bootstrapping format; a future version may
-    /// use Arrow IPC, Zarr codecs, or a zero-copy format.
+    /// Forward-looking interface only — no concrete format is committed yet.
     fn to_bytes(&amp;self) -&gt; BrixResult&lt;Vec&lt;u8&gt;&gt;;
 
     fn as_any(&amp;self) -&gt; &amp;dyn Any;

@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-42f78d7b.js";
+            window.path_to_searchindex_js = "../searchindex-23ffd982.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-c8d97abe.js"></script>
+        <script src="../toc-8e03c8ef.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -182,63 +182,8 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="arrays"><a class="header" href="#arrays">Arrays</a></h1>
-<h2 id="concept"><a class="header" href="#concept">Concept</a></h2>
-<p>All arrays are characterized by:</p>
-<ol>
-<li><code>dtype</code> - A <a href="../api/brix/array/enum.DType.html"><code>DType</code></a></li>
-<li><code>shape</code> - a tuple of ints</li>
-<li><code>dims</code> - Dimension names</li>
-</ol>
-<p>An <em>Axis</em> is characterized by name and extent.</p>
-<div id="admonition-important" class="admonition admonish-tip" role="note" aria-labelledby="admonition-important-title">
-<div class="admonition-title">
-<div id="admonition-important-title">
-<p>Important</p>
-</div>
-
-<a class="admonition-anchor-link" href="#admonition-important"></a>
-</div>
-
-<div>
-<p>Arrays have no chunk sizes (or chunk grids) associated with them!</p>
-</div>
-
-</div>
-
-<p>Arrays are a thin wrapper on top of <a href="../api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> presenting a more familiar, broader API surface to the user.
-At lowering time, an explicit <a href="../api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> is chosen for each Array node in the graph based on cost considerations.
-At compute-time, arrays are conceptualized as streams of <a href="../api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> bricks that are operated on.
-These <a href="../api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> bricks are wrappers around underlying bare arrays (e.g. <code>ndarray::ArrayD</code>).</p>
-<h2 id="kinds"><a class="header" href="#kinds">Kinds</a></h2>
-<p>We include two concrete arrays motivated by Zarr’s storage model where <code>fill_value</code> chunks need not be stored on disk.
-Both kinds satisfy the <a href="../api/brix/array/trait.ArrayLike.html"><code>ArrayLike</code></a> trait — one required method, <code>expr()</code>, with the
-rest defaulting to read through that expression (definition pulled live from
-<code>src/array/arrays/mod.rs</code>):</p>
-<pre><code class="language-rust ignore">/// Trait for user-facing array variants ([`Array`], [`BlockSparseArray`]).
-/// Required method: [`Self::expr`].
-/// Everything else has a default that reads through the expr.
-pub trait ArrayLike: std::fmt::Debug + Send + Sync {
-    /// The array-level IR node this array wraps.
-    fn expr(&amp;self) -&gt; &amp;Arc&lt;ArrayExpr&gt;;
-
-    fn shape(&amp;self) -&gt; Vec&lt;usize&gt; {
-        self.expr().shape()
-    }
-
-    fn dtype(&amp;self) -&gt; DType {
-        self.expr().dtype
-    }
-
-    fn dims(&amp;self) -&gt; Vec&lt;&amp;str&gt; {
-        self.expr().dims().iter().map(|s| s.as_str()).collect()
-    }
-
-    /// Run array-level optimization passes.
-    fn optimize(&amp;self) -&gt; ArrayResult&lt;Array&gt; {
-        Ok(Array::from(optimize::optimize(self.expr())?))
-    }
-}</code></pre>
-<p>We decompose to two axes:</p>
+<p>We include two concrete arrays that <code>impl ArrayLike</code> motivated by Zarr’s storage model where <code>fill_value</code> chunks need not be stored on disk.
+We decompose to two axes:</p>
 <ol>
 <li>a dense or sparse chunk grid (“iteration space”);</li>
 <li>dense / sparse array (whether <code>fill_value</code> is a semantically valid value that requires propagation).</li>
@@ -273,7 +218,7 @@ Thus it makes sense to split that up from arrays where the <code>fill_value</cod
 
 </div>
 
-<h3 id="array"><a class="header" href="#array">Array</a></h3>
+<h2 id="array"><a class="header" href="#array">Array</a></h2>
 <pre><code class="language-rust ignore">/// User-facing logical array — a thin handle over `Arc&lt;ArrayExpr&gt;`.
 /// All shape/dtype/dims/layout info lives on the underlying `ArrayExpr`.
 /// `Array` exists to give the user a clean and familiar API surface
@@ -282,7 +227,7 @@ Thus it makes sense to split that up from arrays where the <code>fill_value</cod
 pub struct Array {
     expr: Arc&lt;ArrayExpr&gt;,
 }</code></pre>
-<h3 id="blocksparsearray"><a class="header" href="#blocksparsearray">BlockSparseArray</a></h3>
+<h2 id="blocksparsearray"><a class="header" href="#blocksparsearray">BlockSparseArray</a></h2>
 <div id="admonition-warning" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
 <div class="admonition-title">
 <div id="admonition-warning-title">
@@ -315,7 +260,7 @@ pub struct BlockSparseArray {
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../array/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../array/data-model.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
@@ -329,7 +274,7 @@ pub struct BlockSparseArray {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../array/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../array/data-model.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 

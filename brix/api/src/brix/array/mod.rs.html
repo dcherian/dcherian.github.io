@@ -25,22 +25,24 @@
 <a href=#25 id=25 data-nosnippet>25</a>
 <a href=#26 id=26 data-nosnippet>26</a><span class="kw">pub use </span>accumulators::{ArrayAccumulator, MeanAccumulator, SumAccumulator};
 <a href=#27 id=27 data-nosnippet>27</a><span class="kw">pub use </span>arrays::{Array, ArrayLike, BlockSparseArray};
-<a href=#28 id=28 data-nosnippet>28</a><span class="kw">pub use </span>brick::{ArrayPayload, ArrayPayloadKind, BroadcastMode, TypedArray, TypedView, WriteFrame};
-<a href=#29 id=29 data-nosnippet>29</a><span class="kw">pub use </span>error::{ArrayError, ArrayResult};
-<a href=#30 id=30 data-nosnippet>30</a><span class="kw">pub use </span>kernels::{GatherKernel, SliceKernel};
-<a href=#31 id=31 data-nosnippet>31</a><span class="kw">pub use </span>lower::{LoweringError, LoweringResult};
-<a href=#32 id=32 data-nosnippet>32</a>
-<a href=#33 id=33 data-nosnippet>33</a><span class="comment">// Selected re-exports — narrow surface so external consumers reach DType
-<a href=#34 id=34 data-nosnippet>34</a>// without a `pub mod dtype` (the module itself is internal).
-<a href=#35 id=35 data-nosnippet>35</a></span><span class="kw">pub use </span>dtype::{Binary, DType, Element, Numeric, Unary, Value};
-<a href=#36 id=36 data-nosnippet>36</a>
-<a href=#37 id=37 data-nosnippet>37</a><span class="kw">use </span><span class="kw">crate</span>::array::chunk_grid::ChunkGrid;
-<a href=#38 id=38 data-nosnippet>38</a><span class="kw">use </span><span class="kw">crate</span>::brix::Cost;
-<a href=#39 id=39 data-nosnippet>39</a>
-<a href=#40 id=40 data-nosnippet>40</a><span class="doccomment">/// Worst-case per-brick cost on a candidate output [`ChunkGrid`].
-<a href=#41 id=41 data-nosnippet>41</a>/// Used during planning when the array layer is choosing among
-<a href=#42 id=42 data-nosnippet>42</a>/// candidate grids.
-<a href=#43 id=43 data-nosnippet>43</a></span><span class="kw">pub trait </span>MaxCost {
-<a href=#44 id=44 data-nosnippet>44</a>    <span class="kw">fn </span>max_cost(<span class="kw-2">&amp;</span><span class="self">self</span>, grid: <span class="kw-2">&amp;</span>ChunkGrid) -&gt; Cost;
-<a href=#45 id=45 data-nosnippet>45</a>}
+<a href=#28 id=28 data-nosnippet>28</a><span class="kw">pub use </span>brick::{
+<a href=#29 id=29 data-nosnippet>29</a>    ArrayPayload, ArrayPayloadKind, BroadcastMode, ReadFrame, TypedArray, TypedView, WriteFrame,
+<a href=#30 id=30 data-nosnippet>30</a>};
+<a href=#31 id=31 data-nosnippet>31</a><span class="kw">pub use </span>error::{ArrayError, ArrayResult};
+<a href=#32 id=32 data-nosnippet>32</a><span class="kw">pub use </span>kernels::{GatherKernel, SliceKernel};
+<a href=#33 id=33 data-nosnippet>33</a><span class="kw">pub use </span>lower::{LoweringError, LoweringResult};
+<a href=#34 id=34 data-nosnippet>34</a>
+<a href=#35 id=35 data-nosnippet>35</a><span class="comment">// Selected re-exports — narrow surface so external consumers reach DType
+<a href=#36 id=36 data-nosnippet>36</a>// without a `pub mod dtype` (the module itself is internal).
+<a href=#37 id=37 data-nosnippet>37</a></span><span class="kw">pub use </span>dtype::{Binary, DType, Element, Numeric, Unary, Value};
+<a href=#38 id=38 data-nosnippet>38</a>
+<a href=#39 id=39 data-nosnippet>39</a><span class="kw">use </span><span class="kw">crate</span>::array::chunk_grid::ChunkGrid;
+<a href=#40 id=40 data-nosnippet>40</a><span class="kw">use </span><span class="kw">crate</span>::brix::Cost;
+<a href=#41 id=41 data-nosnippet>41</a>
+<a href=#42 id=42 data-nosnippet>42</a><span class="doccomment">/// Worst-case per-brick cost on a candidate output [`ChunkGrid`].
+<a href=#43 id=43 data-nosnippet>43</a>/// Used during planning when the array layer is choosing among
+<a href=#44 id=44 data-nosnippet>44</a>/// candidate grids.
+<a href=#45 id=45 data-nosnippet>45</a></span><span class="kw">pub trait </span>MaxCost {
+<a href=#46 id=46 data-nosnippet>46</a>    <span class="kw">fn </span>max_cost(<span class="kw-2">&amp;</span><span class="self">self</span>, grid: <span class="kw-2">&amp;</span>ChunkGrid) -&gt; Cost;
+<a href=#47 id=47 data-nosnippet>47</a>}
 </code></pre></div></section></main></body></html>

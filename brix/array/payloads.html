@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-42f78d7b.js";
+            window.path_to_searchindex_js = "../searchindex-23ffd982.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-c8d97abe.js"></script>
+        <script src="../toc-8e03c8ef.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -184,8 +184,7 @@
                         <h1 id="payloads"><a class="header" href="#payloads">Payloads</a></h1>
 <p>The <a href="./array-ir.html">ops</a> describe the <em>graph</em>; what flows along its edges at
 execution time is a stream of <strong>bricks</strong>. The contents of an array-layer brick
-are an <a href="../api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> — a closed enum that is the runtime dual of the plan-time
-<code>ArrayPayloadKind</code> tag (<code>Dense</code> / <code>Fill</code> / …):</p>
+are an <a href="../api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a>:</p>
 <pre><code class="language-rust ignore">/// Array-layer brick payload.
 // Keep this in sync with [`ReadFrame`], [`WriteFrame`]
 #[derive(Debug, Clone)]
@@ -230,22 +229,34 @@ At the moment this is just <a href="../api/brix/array/brick/trait.Index.html"><c
     fn oindex(&amp;self, indexers: &amp;[(usize, Vec&lt;usize&gt;)]) -&gt; ArrayPayload;
     fn vindex(&amp;self, indexers: &amp;[(usize, Vec&lt;usize&gt;)], produces: usize) -&gt; ArrayPayload;
 }</code></pre>
-<h2 id="array-payload-traits"><a class="header" href="#array-payload-traits">Array payload traits</a></h2>
-<h3 id="strings"><a class="header" href="#strings">Strings</a></h3>
-<p>We specially model strings since we’d like to support “compute” ops on them.
+<!--
+## Array payload traits
+
+### Strings
+
+We specially model strings since we'd like to support "compute" ops on them.
 We would also like to dispatch out these ops to external libraries (e.g. arrow)
-in a separate crate (<code>zax-arrow</code>).</p>
-<p>We need to support indexing like any other payload so this trait has <a href="../api/brix/array/brick/trait.Index.html"><code>Index</code></a>
-as a supertrait</p>
-<pre><code class="language-rust ignore">pub trait StringArray: Index + Send + Sync + Debug { }</code></pre>
-<p>We want string ops (<code>==</code>, <code>contains</code>, <code>lower</code>, regex, …) to live externally in <code>zax-arrow</code>
-and call <code>arrow::compute</code>. To allow applying these kernels we define an opaque</p>
-<pre><code class="language-rust ignore">ArrayOp::Elemwise(Arc&lt;dyn ElemwiseKernel&gt;)</code></pre>
-<p>Note that currently array elemwise ops like unary &amp; binary ops are an explicit variant,
-so that the optimizer can handle them specially.</p>
-<p>The <code>zax-arrow</code> crate could define an extension trait with method <code>.str()</code>.
-So, for example, <code>array.str().contains(pat)</code> constructs an <code>ArrayOp::Elemwise</code>
-with the appropriate kernel, and all of this is external to the core codebase.</p>
+in a separate crate (`zax-arrow`).
+
+We need to support indexing like any other payload so this trait has [`Index`]
+as a supertrait
+
+```rust,ignore
+pub trait StringArray: Index + Send + Sync + Debug { }
+```
+
+We want string ops (`==`, `contains`, `lower`, regex, …) to live externally in `zax-arrow`
+and call `arrow::compute`. To allow applying these kernels we define an opaque
+```rust,ignore
+ArrayOp::Elemwise(Arc<dyn ElemwiseKernel>)
+```
+Note that currently array elemwise ops like unary & binary ops are an explicit variant,
+so that the optimizer can handle them specially.
+
+The `zax-arrow` crate could define an extension trait with method `.str()`.
+So, for example, `array.str().contains(pat)` constructs an `ArrayOp::Elemwise`
+with the appropriate kernel, and all of this is external to the core codebase.
+-->
 
                     </main>
 

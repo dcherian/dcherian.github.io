@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-42f78d7b.js";
+            window.path_to_searchindex_js = "../searchindex-23ffd982.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-c8d97abe.js"></script>
+        <script src="../toc-8e03c8ef.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -281,7 +281,7 @@ through the CuTe layout algebra we use to model <a href="../api/brix/iteration_s
    └─ Finalize Reduce                    #   finalize() → output chunk c
 </code></pre>
 <p>When <code>n</code> isn’t divisible by <code>w</code>, <code>logical_divide</code> rounds the block count up via <code>ceil</code>,
-so the last window is smaller. The [<code>NamedLayout</code>] cannot express this fact, so we add a sidecar
+so the last window is smaller. The <a href="crate::brix::NamedLayout"><code>NamedLayout</code></a> cannot express this fact, so we add a sidecar
 <a href="../api/brix/iteration_space/struct.IterationSpace.html#structfield.limits"><code>IterationSpace::limits</code></a> to limit the inner loop to the right extent (see
 <a href="../brix/iteration_space.html#limit-override">Limit override</a>).</p>
 <h3 id="runtime-per-brick-1"><a class="header" href="#runtime-per-brick-1">Runtime (per-brick)</a></h3>

@@ -54,23 +54,20 @@
 <a href=#54 id=54 data-nosnippet>54</a></span><span class="kw">pub trait </span>BrickPayload: Debug + Send + Sync + Any {
 <a href=#55 id=55 data-nosnippet>55</a>    <span class="doccomment">/// Serialize for inter-process exchange (shared storage, DBSP checkpoint).
 <a href=#56 id=56 data-nosnippet>56</a>    ///
-<a href=#57 id=57 data-nosnippet>57</a>    /// Format is implementation-specific but conventionally tagged so a
-<a href=#58 id=58 data-nosnippet>58</a>    /// dispatcher (`array::brick::payload_from_bytes`) can recover the
-<a href=#59 id=59 data-nosnippet>59</a>    /// concrete type. This is a bootstrapping format; a future version may
-<a href=#60 id=60 data-nosnippet>60</a>    /// use Arrow IPC, Zarr codecs, or a zero-copy format.
-<a href=#61 id=61 data-nosnippet>61</a>    </span><span class="kw">fn </span>to_bytes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; BrixResult&lt;Vec&lt;u8&gt;&gt;;
-<a href=#62 id=62 data-nosnippet>62</a>
-<a href=#63 id=63 data-nosnippet>63</a>    <span class="kw">fn </span>as_any(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="kw">dyn </span>Any;
-<a href=#64 id=64 data-nosnippet>64</a>}
-<a href=#65 id=65 data-nosnippet>65</a><span class="comment">// ANCHOR_END: brick_payload
-<a href=#66 id=66 data-nosnippet>66</a>
-<a href=#67 id=67 data-nosnippet>67</a></span><span class="doccomment">/// A located chunk of data: data plus its block position in the producer's chunk grid.
-<a href=#68 id=68 data-nosnippet>68</a></span><span class="attr">#[derive(Debug, Clone)]
-<a href=#69 id=69 data-nosnippet>69</a></span><span class="kw">pub struct </span>Brick {
-<a href=#70 id=70 data-nosnippet>70</a>    <span class="doccomment">/// Block indices in the _native_ chunk grid for this input
-<a href=#71 id=71 data-nosnippet>71</a>    </span><span class="comment">// Note: the output coordinate is passed separately to the applied kernels.
-<a href=#72 id=72 data-nosnippet>72</a>    // So the kernels should have all possible context.
-<a href=#73 id=73 data-nosnippet>73</a>    </span><span class="kw">pub </span>coord: BrickCoordinate,
-<a href=#74 id=74 data-nosnippet>74</a>    <span class="kw">pub </span>data: Arc&lt;<span class="kw">dyn </span>BrickPayload&gt;,
-<a href=#75 id=75 data-nosnippet>75</a>}
+<a href=#57 id=57 data-nosnippet>57</a>    /// Forward-looking interface only — no concrete format is committed yet.
+<a href=#58 id=58 data-nosnippet>58</a>    </span><span class="kw">fn </span>to_bytes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; BrixResult&lt;Vec&lt;u8&gt;&gt;;
+<a href=#59 id=59 data-nosnippet>59</a>
+<a href=#60 id=60 data-nosnippet>60</a>    <span class="kw">fn </span>as_any(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="kw">dyn </span>Any;
+<a href=#61 id=61 data-nosnippet>61</a>}
+<a href=#62 id=62 data-nosnippet>62</a><span class="comment">// ANCHOR_END: brick_payload
+<a href=#63 id=63 data-nosnippet>63</a>
+<a href=#64 id=64 data-nosnippet>64</a></span><span class="doccomment">/// A located chunk of data: data plus its block position in the producer's chunk grid.
+<a href=#65 id=65 data-nosnippet>65</a></span><span class="attr">#[derive(Debug, Clone)]
+<a href=#66 id=66 data-nosnippet>66</a></span><span class="kw">pub struct </span>Brick {
+<a href=#67 id=67 data-nosnippet>67</a>    <span class="doccomment">/// Block indices in the _native_ chunk grid for this input
+<a href=#68 id=68 data-nosnippet>68</a>    </span><span class="comment">// Note: the output coordinate is passed separately to the applied kernels.
+<a href=#69 id=69 data-nosnippet>69</a>    // So the kernels should have all possible context.
+<a href=#70 id=70 data-nosnippet>70</a>    </span><span class="kw">pub </span>coord: BrickCoordinate,
+<a href=#71 id=71 data-nosnippet>71</a>    <span class="kw">pub </span>data: Arc&lt;<span class="kw">dyn </span>BrickPayload&gt;,
+<a href=#72 id=72 data-nosnippet>72</a>}
 </code></pre></div></section></main></body></html>

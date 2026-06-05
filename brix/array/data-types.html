@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-42f78d7b.js";
+            window.path_to_searchindex_js = "../searchindex-23ffd982.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-c8d97abe.js"></script>
+        <script src="../toc-8e03c8ef.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -313,8 +313,6 @@ Generic code, however, wants to be written once over a static type parameter
     fn from_array(arr: ArrayD&lt;Self&gt;) -&gt; TypedArray;
     fn from_scalar(v: Self) -&gt; Value;
     fn from_value(v: Value) -&gt; Option&lt;Self&gt;;
-    fn to_le_bytes(self) -&gt; [u8; 8];
-    fn from_le_bytes(b: [u8; 8]) -&gt; Self;
 
     // -- type-erasure bridge --------------------------------------------------
     // These let `dispatch_dtype!`/generic bodies recover a concretely-typed

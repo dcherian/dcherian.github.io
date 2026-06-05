@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Architecture"><title>brix - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-77263533.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="brix" data-themes="" data-resource-suffix="" data-rustdoc-version="1.94.0 (4a4ef493e 2026-03-02)" data-channel="1.94.0" data-search-js="search-9e2438ea.js" data-stringdex-js="stringdex-b897f86f.js" data-settings-js="settings-c38705f0.js" ><script src="../static.files/storage-e2aeef58.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-7bab91a1.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-ffcac47a.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate brix</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../brix/index.html">brix</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#architecture" title="Architecture">Architecture</a><ul><li><a href="#goals" title="Goals">Goals</a></li><li><a href="#concepts" title="Concepts">Concepts</a></li><li><a href="#flow" title="Flow">Flow</a></li><li><a href="#vocabularies" title="Vocabularies">Vocabularies</a></li><li><a href="#layers" title="Layers">Layers</a></li></ul></li><li><a href="#algorithms" title="Algorithms">Algorithms</a><ul><li><a href="#summary" title="Summary">Summary</a></li></ul></li><li><a href="#indexing" title="Indexing">Indexing</a><ul><li><a href="#slicing" title="Slicing">Slicing</a></li><li><a href="#orthogonal-or-outer-indexing" title="Orthogonal (or outer) indexing">Orthogonal (or outer) indexing</a></li><li><a href="#vectorized-indexing" title="Vectorized indexing">Vectorized indexing</a></li></ul></li><li><a href="#reductions" title="Reductions">Reductions</a><ul><li><a href="#whole-axis-reduction-mean" title="Whole-axis reduction (mean)">Whole-axis reduction (mean)</a></li><li><a href="#coarsen" title="Coarsen">Coarsen</a></li></ul></li></ul><h3><a href="#reexports">Crate Items</a></h3><ul class="block"><li><a href="#reexports" title="Re-exports">Re-exports</a></li><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#macros" title="Macros">Macros</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#traits" title="Traits">Traits</a></li><li><a href="#types" title="Type Aliases">Type Aliases</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content"><div class="main-heading"><h1>Crate <span>brix</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/brix/lib.rs.html#1-83">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="architecture"><a class="doc-anchor" href="#architecture">§</a>Architecture</h2>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Architecture"><title>brix - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-77263533.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="brix" data-themes="" data-resource-suffix="" data-rustdoc-version="1.94.0 (4a4ef493e 2026-03-02)" data-channel="1.94.0" data-search-js="search-9e2438ea.js" data-stringdex-js="stringdex-b897f86f.js" data-settings-js="settings-c38705f0.js" ><script src="../static.files/storage-e2aeef58.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-7bab91a1.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-ffcac47a.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate brix</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../brix/index.html">brix</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#architecture" title="Architecture">Architecture</a><ul><li><a href="#goals" title="Goals">Goals</a></li><li><a href="#concepts" title="Concepts">Concepts</a></li><li><a href="#vocabularies" title="Vocabularies">Vocabularies</a></li><li><a href="#layers" title="Layers">Layers</a></li></ul></li><li><a href="#algorithms" title="Algorithms">Algorithms</a><ul><li><a href="#summary" title="Summary">Summary</a></li></ul></li><li><a href="#indexing" title="Indexing">Indexing</a><ul><li><a href="#slicing" title="Slicing">Slicing</a></li><li><a href="#orthogonal-or-outer-indexing" title="Orthogonal (or outer) indexing">Orthogonal (or outer) indexing</a></li><li><a href="#vectorized-indexing" title="Vectorized indexing">Vectorized indexing</a></li></ul></li><li><a href="#reductions" title="Reductions">Reductions</a><ul><li><a href="#whole-axis-reduction-mean" title="Whole-axis reduction (mean)">Whole-axis reduction (mean)</a></li><li><a href="#coarsen" title="Coarsen">Coarsen</a></li></ul></li></ul><h3><a href="#reexports">Crate Items</a></h3><ul class="block"><li><a href="#reexports" title="Re-exports">Re-exports</a></li><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#macros" title="Macros">Macros</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#traits" title="Traits">Traits</a></li><li><a href="#types" title="Type Aliases">Type Aliases</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content"><div class="main-heading"><h1>Crate <span>brix</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/brix/lib.rs.html#1-83">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="architecture"><a class="doc-anchor" href="#architecture">§</a>Architecture</h2>
 <p>Brix is a layered nD chunked-array compute orchestration system.</p>
 <h3 id="goals"><a class="doc-anchor" href="#goals">§</a>Goals</h3>
 <ol>
@@ -12,6 +12,9 @@ data participating in the workload.</li>
 of data used in the wild (dense arrays, sparse arrays, Arrow geometries, etc.).</li>
 <li>First class support for the Zarr data model (<code>fill_value</code>, <code>write_empty_chunks=False</code>)
 including an explicit representation of “sparsely populated” chunk grids of data on-disk.</li>
+<li>Expose extension points. The goal is to provide an expression layer as well as a parallel
+execution layer; not to innovate on in-memory array storage by duplicating <code>ndarray</code>
+(for example).</li>
 </ol>
 <h3 id="concepts"><a class="doc-anchor" href="#concepts">§</a>Concepts</h3>
 <p>At a high level there are three layers:</p>
@@ -30,62 +33,7 @@ This is again “what to compute” but with actual array contents abstracted aw
 as used in the storage layer (e.g. Zarr). &quot;Tile&quot; is another term used commonly.
 
 The brix grid ([`IterationSpace`]) is for _orchestration_, it need not be identical to or even aligned
-with the &quot;chunk&quot; or &quot;shard&quot; grid of the dataset (though of course there are benefits to doing so).</code></pre></div><h3 id="flow"><a class="doc-anchor" href="#flow">§</a>Flow</h3><div class="example-wrap"><pre class="language-text"><code>+---------------------------------------------------+
-|     Array   (logical, labelled, dtype-aware)      |  src/array/
-|       ↓  wraps                                    |
-|  Array IR   (logical, labelled, dtype-aware)      |  src/array/expr.rs
-|       ↓  lowers to                                |  src/array/lower.rs
-|  Expr IR    (Brix-IR: chunk-grid-aware operators) |  src/brix/expr.rs
-|       ↓  planner rewrites to                      |  src/brix/planner.rs
-|  PhysicalPlan / Schedule (loop nests)             |  src/brix/schedule.rs
-|       ↓  executed by                              |
-|  Executor   (interpreter — sync / local / remote) |  src/executor/
-+---------------------------------------------------+</code></pre></div>
-<p>The high-level flow is as follows:</p>
-<ul>
-<li>users create <a href="../array/kinds.md"><code>Array</code></a> objects (either from a <a href="../array/sources-sinks.md"><code>Source</code></a>) or an in-memory <code>ndarray</code>.
-<ul>
-<li>operations are expressed using familiar methods on <a href="../array/kinds.md"><code>Array</code></a> objects e.g. <code>Array::over(axes).sum()</code>.</li>
-<li>under the hood, these operations are recorded using a lower-level <a href="../array/array-ir.md"><code>ArrayExpr</code></a> with a much smaller API surface.
-For example, <code>Array::over(axes).sum()</code> is really an <code>ArrayOp::Reduce { acc, view }</code>, carrying the accumulator and the per-axis frame (<code>view</code>).</li>
-<li>At this point there are no “chunk sizes” or “brick grids” associated with <a href="../array/kinds.md"><code>Array</code></a>.</li>
-</ul>
-</li>
-<li>When ready to compute, the user submits to the server (<strong>this is not built out in this code base but in <code>zax</code> at the moment.</strong></li>
-<li>Next we run an array-layer <a href="../array/optimize.md">optimization pass</a> on the <code>ArrayExpr</code> (e.g. pushing indexing operations as low as possible).</li>
-</ul>
-
-<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code>{{#include ../../../src/array/optimize.rs:optimize_sig}}</code></pre></div>
-<ul>
-<li>With that in mind, the <code>ArrayExpr</code> is <em>lowered</em> to an <a href="../brix/brix-ir.md"><code>Expr</code></a> graph. This is the array-agnostic “brix” layer.
-At this point, we compute a brick size target for orchestration given knowledge of execution resources available.
-Chosen chunk sizes are “stamped” on each <em>array Kernel</em> that will be applied.</li>
-</ul>
-
-<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code>{{#include ../../../src/array/lower.rs:lower_sig}}</code></pre></div>
-<ul>
-<li><a href="../array/lowering.md"><code>Lowered</code></a> is a small wrapper over a brix layer <code>Expr</code> graph. This layer formally only tracks number of bricks along each dimension of the <a href="../brix/iteration_space.md"><code>IterationSpace</code></a>.
-Any array-specific concerns (dtypes, actual chunk sizes, etc.)  are tracked on the specific <code>ArrayExpr</code> kernels that will be applied.</li>
-<li>With this graph in hand, the <a href="../brix/planner.md">planner</a> generates a <a href="../brix/planner.md"><code>PhysicalPlan</code></a> (wraps a <a href="../brix/planner.md"><code>Schedule</code></a>) for executing the graph. The <code>Schedule</code> is an abstract description or <em>plan</em> of the computation annotated with loop ranges, possibilities for parallelism, etc. The Schedule is a vocabulary used to communicate between the orchestration and execution layers.</li>
-</ul>
-
-<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code>{{#include ../../../src/brix/planner.rs:plan_sig}}</code></pre></div>
-<ul>
-<li>The <a href="../brix/planner.md"><code>PhysicalPlan</code></a> is then passed to an executor for actual compute. Execution
-is the one step behind a trait — backends differ in concurrency strategy
-(sequential / local-parallel / distributed) while sharing one entry point.
-Resource limits (memory budget, parallelism) are constructor-time concerns on
-the concrete <a href="../array/execution.md"><code>Executor</code></a>, not part of the trait contract.</li>
-</ul>
-
-<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code>{{#include ../../../src/executor/<span class="kw">mod</span>.rs:executor}}</code></pre></div>
-<p>The whole flow, end-to-end, is the <code>compute</code> helper our integration tests use
-(<code>tests/common/mod.rs</code>):</p>
-
-<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code>{{#include ../../../tests/common/<span class="kw">mod</span>.rs:compute}}</code></pre></div><div class="example-wrap"><pre class="language-admonish"><code>The [pipeline visualizer](../visualize/index.html) walks canonical workloads
-through every stage of this flow — input arrays, ArrayExpr DAG, optimizer
-rewrites, chunk-grid selection, BrixExpr access relations, the schedule tree,
-and the verified output.</code></pre></div><h3 id="vocabularies"><a class="doc-anchor" href="#vocabularies">§</a>Vocabularies</h3>
+with the &quot;chunk&quot; or &quot;shard&quot; grid of the dataset (though of course there are benefits to doing so).</code></pre></div><h3 id="vocabularies"><a class="doc-anchor" href="#vocabularies">§</a>Vocabularies</h3>
 <p>Each layer has its own vocabulary</p>
 <div><table><thead><tr><th>Layer</th><th>Vocabulary</th><th>Notes</th></tr></thead><tbody>
 <tr><td>Array</td><td>“sum”, “rolling sum”, “slice”</td><td>familiar from Python land</td></tr>
@@ -219,8 +167,7 @@ The appropriate chunk grid is created (always <a href="../api/brix/array/chunk_g
 <h4 id="brix-layer-2"><a class="doc-anchor" href="#brix-layer-2">§</a>Brix layer</h4>
 <p><a href="../api/brix/expr/enum.Op.html#variant.Blockwise"><code>Op::Blockwise</code></a><code>(</code><a href="../api/brix/array/kernels/indexing/struct.VIndexKernel.html"><code>VIndexKernel</code></a><code>)</code>, with the edge access keyed by the <em>produced</em>
 axis, which does not exist on the producer grid:</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code>{<span class="string">"k" </span>→ AxisAccess::Translated(
+<div class="example-wrap"><pre class="language-text"><code>{&quot;k&quot; → AxisAccess::Translated(
     TranslatedAccess::Zipped(
         {i: AxisOverride::Lookup(tᵢ),
          j: AxisOverride::Lookup(tⱼ)}
@@ -324,7 +271,7 @@ through the CuTe layout algebra we use to model <a href="../api/brix/iteration_s
    │  └─ Apply Reduce ← [Source]         #     fold that chunk into accumulator[c]
    └─ Finalize Reduce                    #   finalize() → output chunk c</code></pre></div>
 <p>When <code>n</code> isn’t divisible by <code>w</code>, <code>logical_divide</code> rounds the block count up via <code>ceil</code>,
-so the last window is smaller. The [<code>NamedLayout</code>] cannot express this fact, so we add a sidecar
+so the last window is smaller. The <a href="layout/struct.NamedLayout.html" title="struct brix::layout::NamedLayout"><code>NamedLayout</code></a> cannot express this fact, so we add a sidecar
 <a href="../api/brix/iteration_space/struct.IterationSpace.html#structfield.limits"><code>IterationSpace::limits</code></a> to limit the inner loop to the right extent (see
 <a href="../brix/iteration_space.md#limit-override">Limit override</a>).</p>
 <h4 id="runtime-per-brick-4"><a class="doc-anchor" href="#runtime-per-brick-4">§</a>Runtime (per-brick)</h4>

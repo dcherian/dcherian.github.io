@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-42f78d7b.js";
+            window.path_to_searchindex_js = "../searchindex-23ffd982.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-c8d97abe.js"></script>
+        <script src="../toc-8e03c8ef.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -195,6 +195,9 @@ data participating in the workload.</li>
 of data used in the wild (dense arrays, sparse arrays, Arrow geometries, etc.).</li>
 <li>First class support for the Zarr data model (<code>fill_value</code>, <code>write_empty_chunks=False</code>)
 including an explicit representation of “sparsely populated” chunk grids of data on-disk.</li>
+<li>Expose extension points. The goal is to provide an expression layer as well as a parallel
+execution layer; not to innovate on in-memory array storage by duplicating <code>ndarray</code>
+(for example).</li>
 </ol>
 <h2 id="concepts"><a class="header" href="#concepts">Concepts</a></h2>
 <p>At a high level there are three layers:</p>
@@ -223,105 +226,6 @@ This is again “what to compute” but with actual array contents abstracted aw
 as used in the storage layer (e.g. Zarr). “Tile” is another term used commonly.</p>
 <p>The brix grid (<a href="../api/brix/iteration_space/struct.IterationSpace.html"><code>IterationSpace</code></a>) is for <em>orchestration</em>, it need not be identical to or even aligned
 with the “chunk” or “shard” grid of the dataset (though of course there are benefits to doing so).</p>
-</div>
-
-</div>
-
-<h2 id="flow"><a class="header" href="#flow">Flow</a></h2>
-<pre><code class="language-text">+---------------------------------------------------+
-|     Array   (logical, labelled, dtype-aware)      |  src/array/
-|       ↓  wraps                                    |
-|  Array IR   (logical, labelled, dtype-aware)      |  src/array/expr.rs
-|       ↓  lowers to                                |  src/array/lower.rs
-|  Expr IR    (Brix-IR: chunk-grid-aware operators) |  src/brix/expr.rs
-|       ↓  planner rewrites to                      |  src/brix/planner.rs
-|  PhysicalPlan / Schedule (loop nests)             |  src/brix/schedule.rs
-|       ↓  executed by                              |
-|  Executor   (interpreter — sync / local / remote) |  src/executor/
-+---------------------------------------------------+
-</code></pre>
-<p>The high-level flow is as follows:</p>
-<ul>
-<li>users create <a href="../array/kinds.html"><code>Array</code></a> objects (either from a <a href="../array/sources-sinks.html"><code>Source</code></a>) or an in-memory <code>ndarray</code>.
-<ul>
-<li>operations are expressed using familiar methods on <a href="../array/kinds.html"><code>Array</code></a> objects e.g. <code>Array::over(axes).sum()</code>.</li>
-<li>under the hood, these operations are recorded using a lower-level <a href="../array/array-ir.html"><code>ArrayExpr</code></a> with a much smaller API surface.
-For example, <code>Array::over(axes).sum()</code> is really an <code>ArrayOp::Reduce { acc, view }</code>, carrying the accumulator and the per-axis frame (<code>view</code>).</li>
-<li>At this point there are no “chunk sizes” or “brick grids” associated with <a href="../array/kinds.html"><code>Array</code></a>.</li>
-</ul>
-</li>
-<li>When ready to compute, the user submits to the server (<strong>this is not built out in this code base but in <code>zax</code> at the moment.</strong></li>
-<li>Next we run an array-layer <a href="../array/optimize.html">optimization pass</a> on the <code>ArrayExpr</code> (e.g. pushing indexing operations as low as possible).</li>
-</ul>
-<pre><code class="language-rust ignore">/// Top-level array-level optimizer entry.
-pub fn optimize(expr: &amp;Arc&lt;ArrayExpr&gt;) -&gt; ArrayResult&lt;Arc&lt;ArrayExpr&gt;&gt; {</code></pre>
-<ul>
-<li>With that in mind, the <code>ArrayExpr</code> is <em>lowered</em> to an <a href="../brix/brix-ir.html"><code>Expr</code></a> graph. This is the array-agnostic “brix” layer.
-At this point, we compute a brick size target for orchestration given knowledge of execution resources available.
-Chosen chunk sizes are “stamped” on each <em>array Kernel</em> that will be applied.</li>
-</ul>
-<pre><code class="language-rust ignore">/// Lower an [`ArrayLike`] to a mid-IR `Arc&lt;Expr&gt;` DAG.
-/// The per-axis chunk target is derived from root shape + dtype + memory budget;
-/// child targets inherit it.
-/// FIXME: `memory_budget` needs to become a broader "ResourceConstraints" or similar.
-pub fn lower(arr: &amp;impl ArrayLike, memory_budget: usize) -&gt; ArrayResult&lt;Lowered&gt; {</code></pre>
-<ul>
-<li><a href="../array/lowering.html"><code>Lowered</code></a> is a small wrapper over a brix layer <code>Expr</code> graph. This layer formally only tracks number of bricks along each dimension of the <a href="../brix/iteration_space.html"><code>IterationSpace</code></a>.
-Any array-specific concerns (dtypes, actual chunk sizes, etc.)  are tracked on the specific <code>ArrayExpr</code> kernels that will be applied.</li>
-<li>With this graph in hand, the <a href="../brix/planner.html">planner</a> generates a <a href="../brix/planner.html"><code>PhysicalPlan</code></a> (wraps a <a href="../brix/planner.html"><code>Schedule</code></a>) for executing the graph. The <code>Schedule</code> is an abstract description or <em>plan</em> of the computation annotated with loop ranges, possibilities for parallelism, etc. The Schedule is a vocabulary used to communicate between the orchestration and execution layers.</li>
-</ul>
-<pre><code class="language-rust ignore">/// Convert a logical expression graph into a physical plan with a schedule.
-pub fn plan(mid: &amp;Expr) -&gt; BrixResult&lt;PhysicalPlan&gt; {</code></pre>
-<ul>
-<li>The <a href="../brix/planner.html"><code>PhysicalPlan</code></a> is then passed to an executor for actual compute. Execution
-is the one step behind a trait — backends differ in concurrency strategy
-(sequential / local-parallel / distributed) while sharing one entry point.
-Resource limits (memory budget, parallelism) are constructor-time concerns on
-the concrete <a href="../array/execution.html"><code>Executor</code></a>, not part of the trait contract.</li>
-</ul>
-<pre><code class="language-rust ignore">/// Executor interpreting a [`PhysicalPlan`] and writing results to a `Sink`.
-///
-/// Backends differ in concurrency strategy (sequential / local-parallel /
-/// distributed) but share this entry point. Resource limits (memory
-/// budget, parallelism) are constructor-time concerns on the concrete
-/// executor, not part of the trait contract.
-pub trait Executor {
-    fn execute(&amp;self, plan: &amp;PhysicalPlan, sink: &amp;dyn Sink) -&gt; BrixResult&lt;()&gt;;
-}</code></pre>
-<p>The whole flow, end-to-end, is the <code>compute</code> helper our integration tests use
-(<code>tests/common/mod.rs</code>):</p>
-<pre><code class="language-rust ignore">pub fn compute&lt;T: Element, A: ArrayLike + SinkFill&gt;(
-    execute: ExecuteFn,
-    arr: &amp;A,
-    budget: usize,
-) -&gt; ndarray::ArrayD&lt;T&gt; {
-    init_tracing();
-    let optimized = arr.optimize().unwrap();
-    let lowered = lower(&amp;optimized, budget).unwrap();
-    let physical = plan(&amp;lowered.expr).unwrap();
-    let _ = physical
-        .nodes
-        .iter()
-        .find(|(_, info)| matches!(info, NodeInfo::Sink { .. }))
-        .expect("plan must have a Sink node");
-    let sink = InMemorySink::new(lowered.root_grid, arr.dtype(), arr.sink_fill()).unwrap();
-    execute(&amp;physical, budget, &amp;sink).unwrap();
-    sink.into_array::&lt;T&gt;()
-}</code></pre>
-<div id="admonition-tip" class="admonition admonish-tip" role="note" aria-labelledby="admonition-tip-title">
-<div class="admonition-title">
-<div id="admonition-tip-title">
-<p>Tip</p>
-</div>
-
-<a class="admonition-anchor-link" href="#admonition-tip"></a>
-</div>
-
-<div>
-<p>The <a href="../visualize/index.html">pipeline visualizer</a> walks canonical workloads
-through every stage of this flow — input arrays, ArrayExpr DAG, optimizer
-rewrites, chunk-grid selection, BrixExpr access relations, the schedule tree,
-and the verified output.</p>
 </div>
 
 </div>
@@ -381,11 +285,11 @@ and the verified output.</p>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../design/motivation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../design/roadmap.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../design/choices.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../design/flow.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -395,11 +299,11 @@ and the verified output.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../design/motivation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../design/roadmap.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../design/choices.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../design/flow.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
