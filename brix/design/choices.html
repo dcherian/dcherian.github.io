@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-23ffd982.js";
+            window.path_to_searchindex_js = "../searchindex-7509ff32.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-8e03c8ef.js"></script>
@@ -217,12 +217,6 @@ to understand, and Claude code easier to audit.</p>
 </div>
 
 <h2 id="execution-model"><a class="header" href="#execution-model">Execution Model</a></h2>
-<h3 id="pipeline-parallelism"><a class="header" href="#pipeline-parallelism">Pipeline parallelism</a></h3>
-<p>The core idea here is that it is relatively easy to “pipeline” array operations.
-There is almost always one or more “loop” or “batch dimensions” e.g. <code>time</code> for spatial
-operations, or <code>x,y</code> for temporal operations, and we can cheaply parallelize on these
-dimensions. To facilitate this, all operations track the dimensions they affect (“core dimensions”),
-and by extension the loop dimensions are easy to identify at plan-time.</p>
 <h3 id="push-vs-pull-vs-interpreter"><a class="header" href="#push-vs-pull-vs-interpreter">Push vs pull vs interpreter</a></h3>
 <p>We are <em>choosing</em> to have the <code>Executor</code> be an <em>interpreter</em> of the <code>Schedule</code>.</p>
 <p>DB query engines express pipelines through a <em>runtime protocol</em> between operators:
@@ -262,9 +256,9 @@ they factor data distribution and iteration out of the loop body.</p>
 </div>
 
 <div>
-<p>The choice to add an iteration layer (<code>Schedule</code>) is a two-way door. I am currently considering the [<code>Schedule</code>] to be the interface to the executor.
-But this need not be true. We could pass an [<code>Arc&lt;Expr&gt;</code>] graph directly, and have the executor decide how to run it.</p>
-<p>Further, one might interpret today’s version of the [<code>Schedule</code>] as a very opinionated and annotated suggestions for how to execute things. The executor is free to re-interpret that information as it wishes.</p>
+<p>The choice to add an iteration layer (<code>Schedule</code>) is a two-way door. I am currently considering the <a href="../api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a> to be the interface to the executor.
+But this need not be true. We could pass an <a href="../api/brix/expr/struct.Expr.html"><code>Arc&lt;Expr&gt;</code></a> graph directly, and have the executor decide how to run it.</p>
+<p>Further, one might interpret today’s version of the <a href="../api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a> as a very opinionated and annotated suggestions for how to execute things. The executor is free to re-interpret that information as it wishes.</p>
 </div>
 
 </div>
@@ -297,7 +291,7 @@ We could require a materialization barrier if we wanted to support this workflow
 </div>
 
 <h2 id="handling-of-sinks"><a class="header" href="#handling-of-sinks">Handling of Sinks</a></h2>
-<p>Currently we have one Sink trait. At the moment [<code>InMemorySink</code>] is the only impl.
+<p>Currently we have one Sink trait. At the moment <a href="../api/brix/struct.InMemorySink.html"><code>InMemorySink</code></a> is the only impl.
 The intent is for this trait to cover streaming data sinks too (Icechunk/Zarr), which is at odds with
 collecting in to an in memory buffer.</p>
 <p>So I made a choice to gather bricks in a Vec and concatenate them in <code>finalize</code>.
@@ -305,7 +299,7 @@ This is 2X memory use. Technically, we can use <code>ArrayD::axis_iter_chunks_mu
 slices and write bricks to the output buffer as they stream in for lower memory.
 We may want this level of optimization because:</p>
 <ol>
-<li>[<code>InMemorySink</code>] will be very useful for smaller rechunks (e.g. for permuting after <code>oindex</code> or <code>vindex</code>).</li>
+<li><a href="../api/brix/struct.InMemorySink.html"><code>InMemorySink</code></a> will be very useful for smaller rechunks (e.g. for permuting after <code>oindex</code> or <code>vindex</code>).</li>
 <li>It’s not uncommon to grab 10-20GB in total across multiple arrays, and work with it in-memory. We’d like those operations
 to succeed with as little memory as possible.</li>
 </ol>
@@ -320,7 +314,7 @@ to succeed with as little memory as possible.</li>
 </div>
 
 <div>
-<p>Two-way door; there will be some churn around [<code>InMemorySink</code>] but it will be contained.</p>
+<p>Two-way door; there will be some churn around <a href="../api/brix/struct.InMemorySink.html"><code>InMemorySink</code></a> but it will be contained.</p>
 </div>
 
 </div>

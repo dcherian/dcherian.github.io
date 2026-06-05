@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-23ffd982.js";
+            window.path_to_searchindex_js = "../searchindex-7509ff32.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-8e03c8ef.js"></script>
@@ -196,12 +196,12 @@
 </code></pre>
 <p>We distinguish between</p>
 <ol>
-<li><strong>Expression-time</strong>: A user calls a method on [<code>Array</code>].</li>
+<li><strong>Expression-time</strong>: A user calls a method on <a href="../array/kinds.html"><code>Array</code></a>.</li>
 <li><strong>Submit-time</strong>: A user submits the compute graph to the server.</li>
 <li><strong>Plan-time</strong>: The system walks through the submitted expression graph, optimizes the graph, plans explicitly sized
 chunk grids for executing each expression node, and lowers to a brix graph. The brix graph is then converted
-to the [<code>PhysicalPlan</code>]</li>
-<li><strong>Run-time</strong>: The executor receives the PhysicalPlan and executes it. At this time, [<code>ArrayPayload</code>]s are routed through to the right kernels for computation.</li>
+to the <a href="../brix/planner.html"><code>PhysicalPlan</code></a></li>
+<li><strong>Run-time</strong>: The executor receives the PhysicalPlan and executes it. At this time, <a href="../api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a>s are routed through to the right kernels for computation.</li>
 </ol>
 <p>The whole flow, end-to-end:</p>
 <pre><code class="language-rust ignore">pub fn compute&lt;T: Element, A: ArrayLike + SinkFill&gt;(
@@ -223,12 +223,12 @@ to the [<code>PhysicalPlan</code>]</li>
     sink.into_array::&lt;T&gt;()
 }</code></pre>
 <h2 id="expression-time"><a class="header" href="#expression-time">Expression-time</a></h2>
-<p>Users create [<code>Array</code>] objects (either from a <a href="../array/sources-sinks.html"><code>Source</code></a>) or an in-memory <code>ndarray</code>.</p>
+<p>Users create <a href="../array/kinds.html"><code>Array</code></a> objects (either from a <a href="../array/sources-sinks.html"><code>Source</code></a>) or an in-memory <code>ndarray</code>.</p>
 <ul>
-<li>operations are expressed using familiar methods on [<code>Array</code>] objects e.g. <code>Array::over(axes).sum()</code>.</li>
+<li>operations are expressed using familiar methods on <a href="../array/kinds.html"><code>Array</code></a> objects e.g. <code>Array::over(axes).sum()</code>.</li>
 <li>under the hood, these operations are recorded using a lower-level <a href="../array/array-ir.html"><code>ArrayExpr</code></a> with a much smaller API surface.
 For example, <code>Array::over(axes).sum()</code> is really an <code>ArrayOp::Reduce { acc, view }</code>, carrying the accumulator and the per-axis frame (<code>view</code>).</li>
-<li>At this point there are no “chunk sizes” or “brick grids” associated with [<code>Array</code>].</li>
+<li>At this point there are no “chunk sizes” or “brick grids” associated with <a href="../array/kinds.html"><code>Array</code></a>.</li>
 </ul>
 <h2 id="submit-time"><a class="header" href="#submit-time">Submit-time</a></h2>
 <p>When ready to compute, the user submits to the server</p>
@@ -264,18 +264,18 @@ Chosen chunk sizes are “stamped” on each <em>array Kernel</em> that will be 
 /// FIXME: `memory_budget` needs to become a broader "ResourceConstraints" or similar.
 pub fn lower(arr: &amp;impl ArrayLike, memory_budget: usize) -&gt; ArrayResult&lt;Lowered&gt; {</code></pre>
 <ul>
-<li>[<code>Lowered</code>] is a small wrapper over a brix layer <code>Expr</code> graph. This layer formally only tracks number of bricks along each dimension of the <a href="../brix/iteration_space.html"><code>IterationSpace</code></a>.
+<li><a href="../array/lowering.html"><code>Lowered</code></a> is a small wrapper over a brix layer <code>Expr</code> graph. This layer formally only tracks number of bricks along each dimension of the <a href="../brix/iteration_space.html"><code>IterationSpace</code></a>.
 Any array-specific concerns (dtypes, actual chunk sizes, etc.)  are tracked on the specific <code>ArrayExpr</code> kernels that will be applied.</li>
-<li>With this graph in hand, the <a href="../brix/planner.html">planner</a> generates a [<code>PhysicalPlan</code>] (wraps a <a href="../brix/planner.html"><code>Schedule</code></a>) for executing the graph. The <code>Schedule</code> is an abstract description or <em>plan</em> of the computation annotated with loop ranges, possibilities for parallelism, etc. The Schedule is a vocabulary used to communicate between the orchestration and execution layers.</li>
+<li>With this graph in hand, the <a href="../brix/planner.html">planner</a> generates a <a href="../brix/planner.html"><code>PhysicalPlan</code></a> (wraps a <a href="../brix/planner.html"><code>Schedule</code></a>) for executing the graph. The <code>Schedule</code> is an abstract description or <em>plan</em> of the computation annotated with loop ranges, possibilities for parallelism, etc. The Schedule is a vocabulary used to communicate between the orchestration and execution layers.</li>
 </ul>
 <pre><code class="language-rust ignore">/// Convert a logical expression graph into a physical plan with a schedule.
 pub fn plan(mid: &amp;Expr) -&gt; BrixResult&lt;PhysicalPlan&gt; {</code></pre>
 <h2 id="execution-time"><a class="header" href="#execution-time">Execution-time</a></h2>
-<p>The [<code>PhysicalPlan</code>] is then passed to an executor for actual compute. Execution
+<p>The <a href="../brix/planner.html"><code>PhysicalPlan</code></a> is then passed to an executor for actual compute. Execution
 is the one step behind a trait — backends differ in concurrency strategy
 (sequential / local-parallel / distributed) while sharing one entry point.
 Resource limits (memory budget, parallelism) are constructor-time concerns on
-the concrete [<code>Executor</code>], not part of the trait contract.</p>
+the concrete <a href="../array/execution.html"><code>Executor</code></a>, not part of the trait contract.</p>
 <pre><code class="language-rust ignore">/// Executor interpreting a [`PhysicalPlan`] and writing results to a `Sink`.
 ///
 /// Backends differ in concurrency strategy (sequential / local-parallel /

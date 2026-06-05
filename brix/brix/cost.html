@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-23ffd982.js";
+            window.path_to_searchindex_js = "../searchindex-7509ff32.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-8e03c8ef.js"></script>
@@ -182,33 +182,24 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="cost"><a class="header" href="#cost">Cost</a></h1>
-<p>Before lowering, Brix computes a <strong>brick-size target</strong> for orchestration from
-the execution resources available, then plans against a memory budget. All
-terms in the memory model are known at plan time:</p>
-<pre><code class="language-text">peak_memory = sum_sources(prefetch_capacity × brick_size)
-            + recursion_stack (one brick per plan tree depth)
-            + output_channel_capacity × output_brick_size
-            + accumulator_states (for reduce nodes)
-</code></pre>
-<p>Bounded channels enforce backpressure at every I/O boundary.</p>
-<div id="admonition-hard-limits-not-heuristics" class="admonition admonish-warning" role="note" aria-labelledby="admonition-hard-limits-not-heuristics-title">
+<div id="admonition-not-implemented" class="admonition admonish-warning" role="note" aria-labelledby="admonition-not-implemented-title">
 <div class="admonition-title">
-<div id="admonition-hard-limits-not-heuristics-title">
-<p>Hard limits, not heuristics</p>
+<div id="admonition-not-implemented-title">
+<p>not implemented</p>
 </div>
 
-<a class="admonition-anchor-link" href="#admonition-hard-limits-not-heuristics"></a>
+<a class="admonition-anchor-link" href="#admonition-not-implemented"></a>
 </div>
 
 <div>
-<p>If a single brick exceeds the budget (e.g. a large Zarr chunk), this is a
-<strong>hard error</strong> for now rather than a silent compromise. A future relaxation
-could read from the source multiple times with smaller slices.</p>
+<p>This is not implemented really.</p>
 </div>
 
 </div>
 
-<p>The model is a flat budget of memory, I/O, and compute terms:</p>
+<p>The idea is to model both a <code>max_cost</code> for planning purposes:</p>
+<p>and a run time cost-per-brick (for executor purposes):</p>
+<p>I expect to model memory and I/O (for example <code>TransparentSource</code> payloads are cheaper than <code>OpaqueSource</code> payloads):</p>
 <pre><code class="language-rust ignore">pub struct Cost {
     // --- Memory ---
     /// Output brick bytes resident in the workspace channel.
@@ -227,9 +218,6 @@ could read from the source multiple times with smaller slices.</p>
     pub io_write_requests: u64,
     /// Total bytes written to storage.
     pub io_write_nbytes: u64,
-
-    // --- Compute ---
-    pub flops: u64,
 }</code></pre>
 
                     </main>

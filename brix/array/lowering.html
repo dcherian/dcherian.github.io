@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-23ffd982.js";
+            window.path_to_searchindex_js = "../searchindex-7509ff32.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-8e03c8ef.js"></script>
@@ -224,12 +224,32 @@ pub struct Lowered {
     // It is *not* used for planning or execution at the brix layer.
     pub grids: HashMap&lt;ExprId, ChunkGrid&gt;,
 }</code></pre>
-<p><code>expr</code> is the <a href="../brix/brix-ir.html">Brix-IR</a> DAG handed to the planner. <code>root_grid</code>
-and <code>grids</code> (per-node, keyed by <a href="../api/brix/expr/struct.ExprId.html"><code>brix::ExprId</code></a>) retain the rich element-sized
-<a href="../api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a>s — with their <code>AxisChunks</code> encoding and occupancy — that the
-counts-only <a href="../api/brix/iteration_space/struct.IterationSpace.html"><code>brix::IterationSpace</code></a> on each <a href="../api/brix/expr/struct.Expr.html"><code>brix::Expr</code></a> deliberately drops. Internal
-consumers (the renderer especially) read them back without re-running the
-lowering math; downstream brix execution never needs them.</p>
+<p><code>expr</code> is the <a href="../brix/brix-ir.html">Brix-IR</a> DAG handed to the Brix planner.</p>
+<h2 id="choosing-grids-with-maxcost"><a class="header" href="#choosing-grids-with-maxcost">Choosing grids with <code>MaxCost</code></a></h2>
+<div id="admonition-stub" class="admonition admonish-warning" role="note" aria-labelledby="admonition-stub-title">
+<div class="admonition-title">
+<div id="admonition-stub-title">
+<p>Stub</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-stub"></a>
+</div>
+
+<div>
+<p>This is unimplemented as of now.</p>
+</div>
+
+</div>
+
+<p>To pick a chunk grid “given resource constraints”, lowering needs to compare
+candidates. Each array-layer operand implements <a href="../api/brix/array/trait.MaxCost.html"><code>MaxCost</code></a>, reporting the
+worst-case per-brick <a href="../api/brix/cost/struct.Cost.html"><code>Cost</code></a> on a candidate output <a href="../api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a>.</p>
+<pre><code class="language-rust ignore">/// Worst-case per-brick cost on a candidate output [`ChunkGrid`].
+/// Used during planning when the array layer is choosing among
+/// candidate grids.
+pub trait MaxCost {
+    fn max_cost(&amp;self, grid: &amp;ChunkGrid) -&gt; Cost;
+}</code></pre>
 
                     </main>
 

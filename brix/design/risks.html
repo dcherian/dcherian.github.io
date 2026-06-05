@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-23ffd982.js";
+            window.path_to_searchindex_js = "../searchindex-7509ff32.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-8e03c8ef.js"></script>
@@ -190,8 +190,8 @@
 <h3 id="functional-array-payloads"><a class="header" href="#functional-array-payloads">Functional array payloads</a></h3>
 <p>E.g. we could generate array values on the fly (think affine transform based coordinate systems),
 or very-large <code>np.arange</code> style coordinate arrays.
-To do so we need to convert the [<code>BrickCoordinate</code>] to an array element-space <code>Vec&lt;Range&gt;</code>, and pass that in.
-Alternatively, we make it so that the node embeds the [<code>ChunkGrid</code>], as the other nodes do.</p>
+To do so we need to convert the <a href="../api/brix/brick/struct.BrickCoordinate.html"><code>BrickCoordinate</code></a> to an array element-space <code>Vec&lt;Range&gt;</code>, and pass that in.
+Alternatively, we make it so that the node embeds the <a href="../api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a>, as the other nodes do.</p>
 <p>For reference, <code>dask.array.map_blocks</code> can provide the following input to each chunk:</p>
 <pre><code class="language-python">&gt;&gt;&gt; block_info
 {0: {'shape': (1000,), # input brick
