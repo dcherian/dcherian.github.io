@@ -37,7 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-bcd865a0.js";
+            window.path_to_searchindex_js = "searchindex-42f78d7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-c8d97abe.js"></script>
@@ -980,6 +980,8 @@ pub enum DType {
     Primitive(PrimitiveType),              // F64/I64 (F32, U8 … later)
     Datetime(Arc&lt;dyn DatetimeLikeDtype&gt;),  // unified numpy + CF time; physical = I64
     Utf8,                                  // variable-length strings; String kind
+    Interval(???),
+    Categorical(???),
     Extension(Arc&lt;dyn ExtensionDType&gt;),    // opaque (geometry); physical = None
 }</code></pre>
 <h3 id="datetime"><a class="header" href="#datetime">Datetime</a></h3>
@@ -1168,14 +1170,12 @@ intent, not built — full notes in <code>checkpoints/zax-geo.md</code> and
 <code>checkpoints/zax-sparse.md</code>. The two sit at opposite ends of a commitment
 spectrum: geometry is <strong>opaque</strong> (core can’t reason about it), sparse is the
 <strong>typed middle</strong> (core-recognized kind, pluggable backing).</p>
+<h2 id="zax-arrow"><a class="header" href="#zax-arrow"><code>zax-arrow</code></a></h2>
+<h2 id="zax-time"><a class="header" href="#zax-time"><code>zax-time</code></a></h2>
 <h2 id="zax-geo"><a class="header" href="#zax-geo"><code>zax-geo</code></a></h2>
-<p>Arrow buffers (specifically geometries) in <code>ArrayPayload</code>. Necessary for
+<p>Arrow buffers (specifically geometries) in <code>ArrayPayload::Extension</code>. Necessary for
 zonal statistics (aggregations within geometries).</p>
-<p>Core gains a backing-agnostic extension slot — <code>DType::Extension(Arc&lt;dyn ExtensionDType&gt;)</code> paired with <code>BrickPayload::Extension(Arc&lt;dyn ExtensionArray&gt;)</code> — mirroring the native <code>DType::F64</code> ⟷ <code>TypedArray::F64</code>
-split. <code>zax-geo</code> implements it by wrapping geoarrow’s type enum rather than
-reinventing the taxonomy; CRS is part of type identity (the <code>Hash + Eq</code>
-alignment story). Geometry kernels live in the satellite and downcast via
-<code>as_any</code>; core’s dtype dispatch never touches them.</p>
+<p>Core gains a backing-agnostic extension slot — <code>DType::Extension(Arc&lt;dyn ExtensionDType&gt;)</code> paired with <code>ArrayPayload::Extension(Arc&lt;dyn ExtensionArray&gt;)</code>.</p>
 <p>Cross-kind ops collapse to a <strong>conversion kernel at a shallow boundary</strong>:
 zonal stats = <code>rasterize</code> (geometry → native categorical zone-id raster, the
 <em>only</em> geometry+raster kernel) followed by a pure-native groupby-reduce.

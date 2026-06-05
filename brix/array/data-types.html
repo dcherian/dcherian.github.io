@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-bcd865a0.js";
+            window.path_to_searchindex_js = "../searchindex-42f78d7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-c8d97abe.js"></script>
@@ -233,6 +233,8 @@ pub enum DType {
     Primitive(PrimitiveType),              // F64/I64 (F32, U8 … later)
     Datetime(Arc&lt;dyn DatetimeLikeDtype&gt;),  // unified numpy + CF time; physical = I64
     Utf8,                                  // variable-length strings; String kind
+    Interval(???),
+    Categorical(???),
     Extension(Arc&lt;dyn ExtensionDType&gt;),    // opaque (geometry); physical = None
 }</code></pre>
 <h3 id="datetime"><a class="header" href="#datetime">Datetime</a></h3>
