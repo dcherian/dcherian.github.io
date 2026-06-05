@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["cast_typed"],"struct":["BinaryKernel","CastKernel","UnaryKernel"]};
+window.SIDEBAR_ITEMS = {"fn":["cast_typed"],"struct":["AsTypeKernel","BinaryKernel","UnaryKernel"]};

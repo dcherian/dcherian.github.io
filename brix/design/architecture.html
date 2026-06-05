@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-7af83ec8.js";
+            window.path_to_searchindex_js = "../searchindex-bcd865a0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-b938bee3.js"></script>
+        <script src="../toc-c8d97abe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -242,21 +242,21 @@ with the “chunk” or “shard” grid of the dataset (though of course there 
 </code></pre>
 <p>The high-level flow is as follows:</p>
 <ul>
-<li>users create <a href="../api/brix/array/struct.Array.html"><code>Array</code></a> objects (either from a <a href="../api/brix/trait.Source.html"><code>Source</code></a>) or an in-memory <code>ndarray</code>.
+<li>users create <a href="../array/kinds.html"><code>Array</code></a> objects (either from a <a href="../array/sources-sinks.html"><code>Source</code></a>) or an in-memory <code>ndarray</code>.
 <ul>
-<li>operations are expressed using familiar methods on <a href="../api/brix/array/struct.Array.html"><code>Array</code></a> objects e.g. <code>Array::over(axes).sum()</code>.</li>
-<li>under the hood, these operations are recorded using a lower-level <a href="../api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> with a much smaller API surface.
+<li>operations are expressed using familiar methods on <a href="../array/kinds.html"><code>Array</code></a> objects e.g. <code>Array::over(axes).sum()</code>.</li>
+<li>under the hood, these operations are recorded using a lower-level <a href="../array/array-ir.html"><code>ArrayExpr</code></a> with a much smaller API surface.
 For example, <code>Array::over(axes).sum()</code> is really an <code>ArrayOp::Reduce { acc, view }</code>, carrying the accumulator and the per-axis frame (<code>view</code>).</li>
-<li>At this point there are no “chunk sizes” or “brick grids” associated with <a href="../api/brix/array/struct.Array.html"><code>Array</code></a>.</li>
+<li>At this point there are no “chunk sizes” or “brick grids” associated with <a href="../array/kinds.html"><code>Array</code></a>.</li>
 </ul>
 </li>
 <li>When ready to compute, the user submits to the server (<strong>this is not built out in this code base but in <code>zax</code> at the moment.</strong></li>
-<li>Next we run an array-layer optimization pass on the <a href="../api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> (e.g. pushing indexing operations as low as possible).</li>
+<li>Next we run an array-layer <a href="../array/optimize.html">optimization pass</a> on the <code>ArrayExpr</code> (e.g. pushing indexing operations as low as possible).</li>
 </ul>
 <pre><code class="language-rust ignore">/// Top-level array-level optimizer entry.
 pub fn optimize(expr: &amp;Arc&lt;ArrayExpr&gt;) -&gt; ArrayResult&lt;Arc&lt;ArrayExpr&gt;&gt; {</code></pre>
 <ul>
-<li>With that in mind, the <a href="../api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> is <em>lowered</em> to an <a href="../api/brix/expr/struct.Expr.html"><code>Expr</code></a> graph. This is the array-agnostic “brix” layer.
+<li>With that in mind, the <code>ArrayExpr</code> is <em>lowered</em> to an <a href="../brix/brix-ir.html"><code>Expr</code></a> graph. This is the array-agnostic “brix” layer.
 At this point, we compute a brick size target for orchestration given knowledge of execution resources available.
 Chosen chunk sizes are “stamped” on each <em>array Kernel</em> that will be applied.</li>
 </ul>
@@ -266,18 +266,18 @@ Chosen chunk sizes are “stamped” on each <em>array Kernel</em> that will be 
 /// FIXME: `memory_budget` needs to become a broader "ResourceConstraints" or similar.
 pub fn lower(arr: &amp;impl ArrayLike, memory_budget: usize) -&gt; ArrayResult&lt;Lowered&gt; {</code></pre>
 <ul>
-<li><a href="../api/brix/array/lower/struct.Lowered.html"><code>Lowered</code></a> is a small wrapper over a brix layer <a href="../api/brix/expr/struct.Expr.html"><code>Expr</code></a> graph. This layer formally only tracks number of bricks along each dimension of the <a href="../api/brix/iteration_space/struct.IterationSpace.html"><code>IterationSpace</code></a>.
-Any array-specific concerns (dtypes, actual chunk sizes, etc.)  are tracked on the specific <a href="../api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> kernels that will be applied.</li>
-<li>With this graph in hand, the planner generates a <a href="../api/brix/schedule/struct.PhysicalPlan.html"><code>PhysicalPlan</code></a> (wraps a <a href="../api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a>) for executing the graph. The <a href="../api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a> is an abstract description or <em>plan</em> of the computation annotated with loop ranges, possibilities for parallelism, etc. The Schedule is a vocabulary used to communicate between the orchestration and execution layers.</li>
+<li><a href="../array/lowering.html"><code>Lowered</code></a> is a small wrapper over a brix layer <code>Expr</code> graph. This layer formally only tracks number of bricks along each dimension of the <a href="../brix/iteration_space.html"><code>IterationSpace</code></a>.
+Any array-specific concerns (dtypes, actual chunk sizes, etc.)  are tracked on the specific <code>ArrayExpr</code> kernels that will be applied.</li>
+<li>With this graph in hand, the <a href="../brix/planner.html">planner</a> generates a <a href="../brix/planner.html"><code>PhysicalPlan</code></a> (wraps a <a href="../brix/planner.html"><code>Schedule</code></a>) for executing the graph. The <code>Schedule</code> is an abstract description or <em>plan</em> of the computation annotated with loop ranges, possibilities for parallelism, etc. The Schedule is a vocabulary used to communicate between the orchestration and execution layers.</li>
 </ul>
 <pre><code class="language-rust ignore">/// Convert a logical expression graph into a physical plan with a schedule.
 pub fn plan(mid: &amp;Expr) -&gt; BrixResult&lt;PhysicalPlan&gt; {</code></pre>
 <ul>
-<li>The <a href="../api/brix/schedule/struct.PhysicalPlan.html"><code>PhysicalPlan</code></a> is then passed to an executor for actual compute. Execution
+<li>The <a href="../brix/planner.html"><code>PhysicalPlan</code></a> is then passed to an executor for actual compute. Execution
 is the one step behind a trait — backends differ in concurrency strategy
 (sequential / local-parallel / distributed) while sharing one entry point.
 Resource limits (memory budget, parallelism) are constructor-time concerns on
-the concrete <a href="../api/brix/executor/trait.Executor.html"><code>Executor</code></a>, not part of the trait contract.</li>
+the concrete <a href="../array/execution.html"><code>Executor</code></a>, not part of the trait contract.</li>
 </ul>
 <pre><code class="language-rust ignore">/// Executor interpreting a [`PhysicalPlan`] and writing results to a `Sink`.
 ///

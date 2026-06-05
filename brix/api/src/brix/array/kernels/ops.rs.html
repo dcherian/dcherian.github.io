@@ -109,7 +109,7 @@
 <a href=#109 id=109 data-nosnippet>109</a>}
 <a href=#110 id=110 data-nosnippet>110</a>
 <a href=#111 id=111 data-nosnippet>111</a><span class="comment">// ---------------------------------------------------------------------------
-<a href=#112 id=112 data-nosnippet>112</a>// Cast — implicit dtype promotion (plan-inserted) / explicit `Array::cast`.
+<a href=#112 id=112 data-nosnippet>112</a>// AsType — implicit dtype promotion (plan-inserted) / explicit `Array::cast`.
 <a href=#113 id=113 data-nosnippet>113</a>// ---------------------------------------------------------------------------
 <a href=#114 id=114 data-nosnippet>114</a>
 <a href=#115 id=115 data-nosnippet>115</a></span><span class="doccomment">/// Monomorphic `src → dst` cast (`as`-semantics). `Fill` stays `Fill` (scalar
@@ -134,13 +134,13 @@
 <a href=#134 id=134 data-nosnippet>134</a><span class="doccomment">/// Reifies `DType::promote`-driven implicit casts (and explicit `Array::cast`)
 <a href=#135 id=135 data-nosnippet>135</a>/// as a `Blockwise` node, so runtime ops stay strictly monomorphic.
 <a href=#136 id=136 data-nosnippet>136</a></span><span class="attr">#[derive(Debug, Clone)]
-<a href=#137 id=137 data-nosnippet>137</a></span><span class="kw">pub struct </span>CastKernel {
+<a href=#137 id=137 data-nosnippet>137</a></span><span class="kw">pub struct </span>AsTypeKernel {
 <a href=#138 id=138 data-nosnippet>138</a>    <span class="kw">pub </span>src: DType,
 <a href=#139 id=139 data-nosnippet>139</a>    <span class="kw">pub </span>dst: DType,
 <a href=#140 id=140 data-nosnippet>140</a>    <span class="kw">pub </span>grid: ChunkGrid,
 <a href=#141 id=141 data-nosnippet>141</a>}
 <a href=#142 id=142 data-nosnippet>142</a>
-<a href=#143 id=143 data-nosnippet>143</a><span class="kw">impl </span>Kernel <span class="kw">for </span>CastKernel {
+<a href=#143 id=143 data-nosnippet>143</a><span class="kw">impl </span>Kernel <span class="kw">for </span>AsTypeKernel {
 <a href=#144 id=144 data-nosnippet>144</a>    <span class="kw">fn </span>apply(
 <a href=#145 id=145 data-nosnippet>145</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
 <a href=#146 id=146 data-nosnippet>146</a>        inputs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>Brick],
@@ -163,7 +163,7 @@
 <a href=#163 id=163 data-nosnippet>163</a>    </span>}
 <a href=#164 id=164 data-nosnippet>164</a>}
 <a href=#165 id=165 data-nosnippet>165</a>
-<a href=#166 id=166 data-nosnippet>166</a><span class="kw">impl </span>MaxCost <span class="kw">for </span>CastKernel {
+<a href=#166 id=166 data-nosnippet>166</a><span class="kw">impl </span>MaxCost <span class="kw">for </span>AsTypeKernel {
 <a href=#167 id=167 data-nosnippet>167</a>    <span class="kw">fn </span>max_cost(<span class="kw-2">&amp;</span><span class="self">self</span>, grid: <span class="kw-2">&amp;</span>ChunkGrid) -&gt; Cost {
 <a href=#168 id=168 data-nosnippet>168</a>        <span class="kw">let </span>n = grid.max_brick_elements() <span class="kw">as </span>u64;
 <a href=#169 id=169 data-nosnippet>169</a>        Cost { output_bytes: n * <span class="self">self</span>.dst.itemsize() <span class="kw">as </span>u64, flops: n, ..Default::default() }

@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-7af83ec8.js";
+            window.path_to_searchindex_js = "../searchindex-bcd865a0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-b938bee3.js"></script>
+        <script src="../toc-c8d97abe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -253,6 +253,7 @@ Consider though that we can use this information to smartly choose variable chun
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum Frame {
     /// Reduce the whole axis; preserve size-1 axis if keepdims is true
+    /// TODO: We could remove keepdims; and insert a Squeeze if necessary?
     WholeAxis { keepdims: bool },
 
     /// Regular contiguous frames.
@@ -408,16 +409,8 @@ and passes the returned value to <code>ArrayAccumulator::fold_frame</code>.</p>
 The cartesian product of those per-axis sequences gives the frames we aggregate
 over. <code>ArrayPayload::as_frame_iter(view)</code> yields <code>(state_frame_loc, framed_view)</code> pairs, where <code>state_frame_loc</code>
 is the destination <a href="../api/brix/trait.State.html"><code>brix::State</code></a> location to fold into.</p>
-<p>Each <code>framed_view</code> is carved by the single per-backend primitive, <code>slice_axes</code> —
-given the ranges to slice out of the input <a href="../api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> (axes not listed stay
-at full extent):</p>
-<pre><code class="language-rust ignore">pub trait SliceFrames {
-    fn slice_axes(&amp;self, ranges: &amp;[(usize, Range&lt;usize&gt;)]) -&gt; ReadFrame&lt;'_&gt;;
-}</code></pre>
-<p>Everything else on the frame-generation surface is range arithmetic over this one
-method, so extending to a new storage kind (e.g. sparse arrays) means adding one
-<code>impl SliceFrames</code> — the chunking and cartesian-product drivers are untouched.</p>
-<p>The view is then handed to <code>ArrayAccumulator::fold_frame(state, state_frame_loc, framed_view)</code>, which folds it into <code>state</code> at the lane named by <code>state_frame_loc</code>.
+<p>Each <code>framed_view</code> is carved by using [<code>Index::slice</code>], reusing the existing slicing machinery.
+The view is then handed to <code>ArrayAccumulator::fold_frame(state, state_frame_loc, framed_view)</code>, which folds it into <code>state</code> at the lane named by <code>state_frame_loc</code>.
 The input slot is a <a href="../api/brix/array/brick/enum.ReadFrame.html"><code>ReadFrame</code></a> a readonly-view:</p>
 <pre><code class="language-rust ignore">#[derive(Debug, Clone)]
 pub enum ReadFrame&lt;'a&gt; {

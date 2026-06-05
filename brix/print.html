@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-7af83ec8.js";
+            window.path_to_searchindex_js = "searchindex-bcd865a0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-b938bee3.js"></script>
+        <script src="toc-c8d97abe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -328,21 +328,21 @@ with the “chunk” or “shard” grid of the dataset (though of course there 
 </code></pre>
 <p>The high-level flow is as follows:</p>
 <ul>
-<li>users create <a href="api/brix/array/struct.Array.html"><code>Array</code></a> objects (either from a <a href="api/brix/trait.Source.html"><code>Source</code></a>) or an in-memory <code>ndarray</code>.
+<li>users create <a href="#arrays-1"><code>Array</code></a> objects (either from a <a href="#sources--sinks"><code>Source</code></a>) or an in-memory <code>ndarray</code>.
 <ul>
-<li>operations are expressed using familiar methods on <a href="api/brix/array/struct.Array.html"><code>Array</code></a> objects e.g. <code>Array::over(axes).sum()</code>.</li>
-<li>under the hood, these operations are recorded using a lower-level <a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> with a much smaller API surface.
+<li>operations are expressed using familiar methods on <a href="#arrays-1"><code>Array</code></a> objects e.g. <code>Array::over(axes).sum()</code>.</li>
+<li>under the hood, these operations are recorded using a lower-level <a href="#the-array-ir"><code>ArrayExpr</code></a> with a much smaller API surface.
 For example, <code>Array::over(axes).sum()</code> is really an <code>ArrayOp::Reduce { acc, view }</code>, carrying the accumulator and the per-axis frame (<code>view</code>).</li>
-<li>At this point there are no “chunk sizes” or “brick grids” associated with <a href="api/brix/array/struct.Array.html"><code>Array</code></a>.</li>
+<li>At this point there are no “chunk sizes” or “brick grids” associated with <a href="#arrays-1"><code>Array</code></a>.</li>
 </ul>
 </li>
 <li>When ready to compute, the user submits to the server (<strong>this is not built out in this code base but in <code>zax</code> at the moment.</strong></li>
-<li>Next we run an array-layer optimization pass on the <a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> (e.g. pushing indexing operations as low as possible).</li>
+<li>Next we run an array-layer <a href="#optimization">optimization pass</a> on the <code>ArrayExpr</code> (e.g. pushing indexing operations as low as possible).</li>
 </ul>
 <pre><code class="language-rust ignore">/// Top-level array-level optimizer entry.
 pub fn optimize(expr: &amp;Arc&lt;ArrayExpr&gt;) -&gt; ArrayResult&lt;Arc&lt;ArrayExpr&gt;&gt; {</code></pre>
 <ul>
-<li>With that in mind, the <a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> is <em>lowered</em> to an <a href="api/brix/expr/struct.Expr.html"><code>Expr</code></a> graph. This is the array-agnostic “brix” layer.
+<li>With that in mind, the <code>ArrayExpr</code> is <em>lowered</em> to an <a href="#the-brix-ir"><code>Expr</code></a> graph. This is the array-agnostic “brix” layer.
 At this point, we compute a brick size target for orchestration given knowledge of execution resources available.
 Chosen chunk sizes are “stamped” on each <em>array Kernel</em> that will be applied.</li>
 </ul>
@@ -352,18 +352,18 @@ Chosen chunk sizes are “stamped” on each <em>array Kernel</em> that will be 
 /// FIXME: `memory_budget` needs to become a broader "ResourceConstraints" or similar.
 pub fn lower(arr: &amp;impl ArrayLike, memory_budget: usize) -&gt; ArrayResult&lt;Lowered&gt; {</code></pre>
 <ul>
-<li><a href="api/brix/array/lower/struct.Lowered.html"><code>Lowered</code></a> is a small wrapper over a brix layer <a href="api/brix/expr/struct.Expr.html"><code>Expr</code></a> graph. This layer formally only tracks number of bricks along each dimension of the <a href="api/brix/iteration_space/struct.IterationSpace.html"><code>IterationSpace</code></a>.
-Any array-specific concerns (dtypes, actual chunk sizes, etc.)  are tracked on the specific <a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> kernels that will be applied.</li>
-<li>With this graph in hand, the planner generates a <a href="api/brix/schedule/struct.PhysicalPlan.html"><code>PhysicalPlan</code></a> (wraps a <a href="api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a>) for executing the graph. The <a href="api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a> is an abstract description or <em>plan</em> of the computation annotated with loop ranges, possibilities for parallelism, etc. The Schedule is a vocabulary used to communicate between the orchestration and execution layers.</li>
+<li><a href="#lowering"><code>Lowered</code></a> is a small wrapper over a brix layer <code>Expr</code> graph. This layer formally only tracks number of bricks along each dimension of the <a href="#iteration-space"><code>IterationSpace</code></a>.
+Any array-specific concerns (dtypes, actual chunk sizes, etc.)  are tracked on the specific <code>ArrayExpr</code> kernels that will be applied.</li>
+<li>With this graph in hand, the <a href="#planner">planner</a> generates a <a href="#planner"><code>PhysicalPlan</code></a> (wraps a <a href="#planner"><code>Schedule</code></a>) for executing the graph. The <code>Schedule</code> is an abstract description or <em>plan</em> of the computation annotated with loop ranges, possibilities for parallelism, etc. The Schedule is a vocabulary used to communicate between the orchestration and execution layers.</li>
 </ul>
 <pre><code class="language-rust ignore">/// Convert a logical expression graph into a physical plan with a schedule.
 pub fn plan(mid: &amp;Expr) -&gt; BrixResult&lt;PhysicalPlan&gt; {</code></pre>
 <ul>
-<li>The <a href="api/brix/schedule/struct.PhysicalPlan.html"><code>PhysicalPlan</code></a> is then passed to an executor for actual compute. Execution
+<li>The <a href="#planner"><code>PhysicalPlan</code></a> is then passed to an executor for actual compute. Execution
 is the one step behind a trait — backends differ in concurrency strategy
 (sequential / local-parallel / distributed) while sharing one entry point.
 Resource limits (memory budget, parallelism) are constructor-time concerns on
-the concrete <a href="api/brix/executor/trait.Executor.html"><code>Executor</code></a>, not part of the trait contract.</li>
+the concrete <a href="#execution"><code>Executor</code></a>, not part of the trait contract.</li>
 </ul>
 <pre><code class="language-rust ignore">/// Executor interpreting a [`PhysicalPlan`] and writing results to a `Sink`.
 ///
@@ -490,8 +490,9 @@ array workloads we have a <strong>lot</strong> of information available at plan-
 </div>
 
 <div>
-<p>The choice to split between array &amp; brix is a one-way door (mostly). It would be a big refactor to merge the two layers but not too hard with Claude.
-It would be harder to understand though.</p>
+<p>The choice to split between array &amp; brix is a one-way door (mostly). It would be a massive refactor to
+merge the two layers but not too hard with Claude. I belive the separation makes the codebase easier
+to understand, and Claude code easier to audit.</p>
 <p>The choice to add an iteration layer is a two-way door (below).</p>
 </div>
 
@@ -505,7 +506,7 @@ It would be harder to understand though.</p>
 pull (Volcano <code>next()</code>) or push (<code>consume()</code>). Both approaches converge to nearly the same thing.
 (<a href="https://arxiv.org/abs/1610.09166">Shaikhha et al. 2016</a>).</p>
 <p>In the case of arrays, shapes, chunk grids, and iteration spaces are <em>known at plan-time</em>.
-We need not rely on heuristics (e.g. cardinality) that a DB executor does.
+We need not <em>need to</em> rely on heuristics (e.g. cardinality) that a DB executor does.
 So the planner emits the fused loop nest directly. Co-iteration of
 multiple inputs — which forces pull engines to coordinate demand and push
 engines to buffer one side — is resolved at plan-time and recorded using access relations
@@ -519,7 +520,7 @@ so plans insert materialization instead (Postgres <code>Materialize</code>/<code
 side) — caching <code>B</code> wholesale and paying lookup cost, rather than holding one
 brick at the right loop depth.</p>
 </blockquote>
-<p>This kind of “schedule” is common to array compilers, most clearly
+<p>This kind of imperative “schedule” is common to array compilers, most clearly
 <a href="https://halide-lang.org/">Halide</a>, whose algorithm/schedule split
 <a href="https://tvm.apache.org/">TVM</a> and <a href="http://tensor-compiler.org/">TACO</a> inherit.
 <a href="https://arxiv.org/abs/1802.04730">Tensor Comprehensions</a> makes the same
@@ -543,27 +544,76 @@ But this need not be true. We could pass an [<code>Arc&lt;Expr&gt;</code>] graph
 
 </div>
 
-<h2 id="broadcastingtranspose-as-properties-of-the-edge"><a class="header" href="#broadcastingtranspose-as-properties-of-the-edge">Broadcasting/transpose as properties of the edge</a></h2>
-<p>Why?</p>
-<ul>
-<li>A single node can serve multiple consumers, each of which have different expectations.</li>
-<li>This allows us to preserve context: the edge makes it clear that a <em>cheap</em> broadcast/transpose operation
-is being applied, allowing us to optimize loop placement without requiring traversal of parents.</li>
-</ul>
-<h2 id="handling-of-sources-sinks"><a class="header" href="#handling-of-sources-sinks">Handling of Sources, Sinks</a></h2>
-<ul>
-<li>Source, Sink are separate from other Exprs.</li>
-<li>sinks are passed to <code>execute</code> separately; thus when lowering the ChunkGrid for the Sink is passed explicitly.</li>
-<li>Final Sinks as separate entitities outside the expression Graph?</li>
-</ul>
+<h2 id="handling-of-sources"><a class="header" href="#handling-of-sources">Handling of Sources</a></h2>
+<h2 id="handling-of-sinks"><a class="header" href="#handling-of-sinks">Handling of Sinks</a></h2>
+<p>Currently we have one Sink trait. At the moment [<code>InMemorySink</code>] is the only impl.
+The intent is for this trait to cover streaming data sinks too (Icechunk/Zarr), which is at odds with
+collecting in to an in memory buffer.</p>
+<p>So I made a choice to gather bricks in a Vec and concatenate them in <code>finalize</code>.
+This is 2X memory use. Technically, we can use <code>ArrayD::axis_iter_chunks_mut</code> to grab disjoint
+slices and write bricks to the output buffer as they stream in for lower memory.
+We may want this level of optimization because:</p>
+<ol>
+<li>[<code>InMemorySink</code>] will be very useful for smaller rechunks (e.g. for permuting after <code>oindex</code> or <code>vindex</code>).</li>
+<li>It’s not uncommon to grab 10-20GB in total across multiple arrays, and work with it in-memory. We’d like those operations
+to succeed with as little memory as possible.</li>
+</ol>
+<p>I am deferring this optimization to when we build a concurrent local executor.</p>
+<div id="admonition-one-way-door-or-two-way-door-2" class="admonition admonish-note" role="note" aria-labelledby="admonition-one-way-door-or-two-way-door-2-title">
+<div class="admonition-title">
+<div id="admonition-one-way-door-or-two-way-door-2-title">
+<p>One-way door or two-way door?</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-one-way-door-or-two-way-door-2"></a>
+</div>
+
+<div>
+<p>Two-way door; there will be some churn around [<code>InMemorySink</code>] but it will be contained.</p>
+</div>
+
+</div>
+
+<h2 id="static-shapes"><a class="header" href="#static-shapes">Static shapes</a></h2>
+<h2 id="incorporating-ndarrays-views"><a class="header" href="#incorporating-ndarrays-views">Incorporating ndarray’s views</a></h2>
 <h2 id="aggregation-trait-and-folding-in-to-mutable-state"><a class="header" href="#aggregation-trait-and-folding-in-to-mutable-state">Aggregation trait and folding in to mutable <code>State</code></a></h2>
-<h2 id="dtype-design"><a class="header" href="#dtype-design">DType design</a></h2>
+<h2 id="array-payload-representation"><a class="header" href="#array-payload-representation">Array Payload representation</a></h2>
+<p>Three orthogonal axes: Storage X DType X Validity; where</p>
+<ul>
+<li>Storage (ndarray, sparse, arrow etc.)</li>
+<li>Logical Dtypes distringuished from primitive dtypes so datetimes are a logical layer
+on top of a primitive type (<code>i64</code>) + metadata (calendar, epoch, units, timezone).</li>
+<li>Validity bitmap stored independently and handled independently of storage and Dtype.
+Thus we don’t represent nullability on the dtype (like polars).</li>
+</ul>
+<div id="admonition-one-way-door-or-two-way-door-3" class="admonition admonish-note" role="note" aria-labelledby="admonition-one-way-door-or-two-way-door-3-title">
+<div class="admonition-title">
+<div id="admonition-one-way-door-or-two-way-door-3-title">
+<p>One-way door or two-way door?</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-one-way-door-or-two-way-door-3"></a>
+</div>
+
+<div>
+<p>One-way door. This is a foudnational data model choice.</p>
+</div>
+
+</div>
+
 <h2 id="some-in-the-weeds-concerns-at-the-moment"><a class="header" href="#some-in-the-weeds-concerns-at-the-moment">Some in-the-weeds concerns at the moment.</a></h2>
 <ul>
 <li>Add a NodeId to the Expr and ArrayExpr instances</li>
 <li>Add an AxisId to Axis? We use <code>name</code> to tag identity but <code>rename_dims</code> is a thing</li>
 <li>Using [<code>NamedLayout</code>] for easy representation of broadcasting/transpose/order is a toss-up.
 It doesn’t support variable chunk sizes, so it’s a better fit at the Brix layer, rather than the Array layer.</li>
+</ul>
+<h3 id="broadcastingtranspose-as-properties-of-the-edge"><a class="header" href="#broadcastingtranspose-as-properties-of-the-edge">Broadcasting/transpose as properties of the edge</a></h3>
+<p>Why?</p>
+<ul>
+<li>A single node can serve multiple consumers, each of which have different expectations.</li>
+<li>This allows us to preserve context: the edge makes it clear that a <em>cheap</em> broadcast/transpose operation
+is being applied, allowing us to optimize loop placement without requiring traversal of parents.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="risks-as-of-jun-2-2026"><a class="header" href="#risks-as-of-jun-2-2026">Risks (as of Jun 2, 2026)</a></h1>
@@ -573,10 +623,23 @@ It doesn’t support variable chunk sizes, so it’s a better fit at the Brix la
 <h3 id="array-level-optimizer"><a class="header" href="#array-level-optimizer">Array-level Optimizer</a></h3>
 <h3 id="dtypes--extension-model"><a class="header" href="#dtypes--extension-model">DTypes &amp; extension model</a></h3>
 <h3 id="functional-array-payloads"><a class="header" href="#functional-array-payloads">Functional array payloads</a></h3>
-<p>E.g. we could be generate array values on the fly (think affine transform based coordinate systems),
+<p>E.g. we could generate array values on the fly (think affine transform based coordinate systems),
 or very-large <code>np.arange</code> style coordinate arrays.
 To do so we need to convert the [<code>BrickCoordinate</code>] to an array element-space <code>Vec&lt;Range&gt;</code>, and pass that in.
-This is unimplemented thus far.</p>
+Alternatively, we make it so that the node embeds the [<code>ChunkGrid</code>], as the other nodes do.</p>
+<p>For reference, <code>dask.array.map_blocks</code> can provide the following input to each chunk:</p>
+<pre><code class="language-python">&gt;&gt;&gt; block_info
+{0: {'shape': (1000,), # input brick
+     'num-chunks': (10,),
+     'chunk-location': (4,),
+     'array-location': [(400, 500)]},
+ None: {'shape': (1000,),  # Output brick
+        'num-chunks': (10,),
+        'chunk-location': (4,),
+        'array-location': [(400, 500)],
+        'chunk-shape': (100,),
+        'dtype': dtype('float64')}}
+</code></pre>
 <h2 id="unknown-unknowns"><a class="header" href="#unknown-unknowns">Unknown Unknowns</a></h2>
 <p>There are <em>unknown</em> because I haven’t really tried them out yet.</p>
 <h3 id="shuffle"><a class="header" href="#shuffle">Shuffle</a></h3>
@@ -751,6 +814,9 @@ pub enum ArrayOp {
     // Opaque sources are chunked and have a chunk preference
     // E.g. Zarr/Icechunk
     OpaqueSource(Arc&lt;dyn OpaqueSource&gt;),
+    // For generic external scalar operations, e.g. many string operations
+    // that may be provided by zax-arrow
+    // Elemwise(Arc&lt;dyn MapKernel&gt;)
     Unary(UnaryOp),
     Binary(BinaryOp),
     Reduce {
@@ -764,9 +830,9 @@ pub enum ArrayOp {
     Oindex(HashMap&lt;AxisName, Vec&lt;usize&gt;&gt;),
     /// Lined-axis vectorized integer indexing.
     Vindex(VectorizedIndexer),
-    /// Cast to a target dtype. Plan-inserted for implicit NumPy-style
-    /// promotion (see [`ArrayExpr::binary`]) or user-driven via `Array::cast`.
-    Cast(DType),
+    /// Cast to a target dtype. Either inserted at plan-time for implicit NumPy-style
+    /// promotion (see [`ArrayExpr::binary`]) or user-specified by `Array::cast`.
+    AsType(DType),
     // Future: Transpose, Reshape, ...
 }</code></pre>
 <p>During <a href="#lowering">Lowering</a> each op resolves to a <em>kernel</em> that implements the
@@ -780,7 +846,7 @@ appropriate underlying Brix trait.</p>
 <tr><td><code>TransparentSource</code></td><td><code>Source</code></td><td><code>Source</code> — <code>FillSource</code> / <code>DenseSource</code></td></tr>
 <tr><td><code>OpaqueSource</code></td><td><code>Source</code></td><td><code>Source</code> — <code>LoweredOpaque</code></td></tr>
 <tr><td><code>Unary</code>, <code>Binary</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>UnaryKernel</code> / <code>BinaryKernel</code></td></tr>
-<tr><td><code>Cast</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>CastKernel</code></td></tr>
+<tr><td><code>AsType</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>AsTypeKernel</code></td></tr>
 <tr><td><code>Slice</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>SliceKernel</code></td></tr>
 <tr><td><code>Oindex</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>GatherKernel</code></td></tr>
 <tr><td><code>Vindex</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>VIndexKernel</code></td></tr>
@@ -793,10 +859,13 @@ of <a href="api/brix/trait.Source.html"><code>brix::Source</code></a>, <code>Blo
 <a href="api/brix/array/trait.ArrayAccumulator.html"><code>ArrayAccumulator</code></a> (<code>Sum</code>, <code>Mean</code>, …) is wrapped in a <code>LoweredAccumulator</code>
 adapter that implements the brix <a href="api/brix/trait.Accumulator.html"><code>brix::Accumulator</code></a> trait — the same adapter pattern
 as <code>OpaqueSource</code> → <code>LoweredOpaque</code>.</p>
-<h2 id="data-flow"><a class="header" href="#data-flow">Data flow</a></h2>
-<p>The ops above describe the <em>graph</em>; what flows along its edges at execution time
-is a stream of <strong>bricks</strong>. The contents of an array-layer brick are an
-<a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> — a closed enum that is the runtime dual of the plan-time
+<p>The bricks that flow along the graph’s edges at execution time are
+<a href="#payloads">Payloads</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="payloads"><a class="header" href="#payloads">Payloads</a></h1>
+<p>The <a href="#the-array-ir">ops</a> describe the <em>graph</em>; what flows along its edges at
+execution time is a stream of <strong>bricks</strong>. The contents of an array-layer brick
+are an <a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> — a closed enum that is the runtime dual of the plan-time
 <code>ArrayPayloadKind</code> tag (<code>Dense</code> / <code>Fill</code> / …):</p>
 <pre><code class="language-rust ignore">/// Array-layer brick payload.
 // Keep this in sync with [`ReadFrame`], [`WriteFrame`]
@@ -808,16 +877,14 @@ pub enum ArrayPayload {
     // TODO: we'll need to propagate element-space ranges for each brick
     //       so that we can write more general "functional arrays"
     Fill(FillArray),
-    // Future: Sparse(Arc&lt;dyn SparseArray&gt;)
-    // where SparseArray is a trait that is satisfied by an external plugin?
-    // Future: Extension(Arc&lt;dyn ExtensionArray)
-    // potentially for wrapping Geoarrow geometry arrays
+    // String(Arc&lt;dyn StringArray&gt;) // specially modeled so we can provide String ops
+    //                              // backed by an externally provided array (zax-arrow).
+    // Sparse(Arc&lt;dyn SparseArray&gt;)
+    // Extension(Arc&lt;dyn ExtensionArray) // Geoarrow geometry arrays
 }</code></pre>
-<p><a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> impls <a href="api/brix/brick/trait.BrickPayload.html"><code>brix::BrickPayload</code></a> so brix never inspects these variants (see <a href="#concepts-1">Traits</a>).</p>
-<div style="break-before: page; page-break-before: always;"></div>
-<h1 id="data-types"><a class="header" href="#data-types">Data Types</a></h1>
-<p>Brix is statically typed: every array carries a <a href="api/brix/array/enum.DType.html"><code>DType</code></a>, and scalars are
-tagged <a href="api/brix/enum.Value.html"><code>Value</code></a>s (<code>src/array/dtype.rs</code>).</p>
+<p><a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> impls <a href="api/brix/brick/trait.BrickPayload.html"><code>brix::BrickPayload</code></a> so brix never inspects these
+variants (see <a href="#concepts-1">Traits</a>).</p>
+<h2 id="validity"><a class="header" href="#validity">Validity</a></h2>
 <div id="admonition-warning-1" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
 <div class="admonition-title">
 <div id="admonition-warning-title-1">
@@ -828,21 +895,121 @@ tagged <a href="api/brix/enum.Value.html"><code>Value</code></a>s (<code>src/arr
 </div>
 
 <div>
-<p>This section is in flux as we work towrd integration with Zax, specifically <code>zax-io</code>.</p>
-<p>This approach was fully implemented by Claude.</p>
+<p>Approach to validity masks hasn’t been sketched out yet. Except that it is sidecat metadata stored next to the Payload.</p>
+<p>Where is it placed? Is it wrapped by <a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a>?</p>
+<p>We will have to reimplement support across all ops (but there is prior art here).</p>
 </div>
 
 </div>
 
-<h2 id="dtype"><a class="header" href="#dtype">DType</a></h2>
-<pre><code class="language-rust ignore">#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub enum DType {
+<h2 id="ops-traits"><a class="header" href="#ops-traits">Ops traits</a></h2>
+<p>To provide useful operations, traits are implemented for each variant (<code>DenseArray</code> / <code>FillArray</code>).
+At the moment this is just <a href="api/brix/array/brick/trait.Index.html"><code>Index</code></a> to allow indexing of the payloads.</p>
+<pre><code class="language-rust ignore">pub trait Index {
+    // TODO: we need an iindex - "integer index" too
+    fn slice(&amp;self, slicers: &amp;[(usize, Slice)]) -&gt; ReadFrame&lt;'_&gt;;
+    fn oindex(&amp;self, indexers: &amp;[(usize, Vec&lt;usize&gt;)]) -&gt; ArrayPayload;
+    fn vindex(&amp;self, indexers: &amp;[(usize, Vec&lt;usize&gt;)], produces: usize) -&gt; ArrayPayload;
+}</code></pre>
+<h2 id="array-payload-traits"><a class="header" href="#array-payload-traits">Array payload traits</a></h2>
+<h3 id="strings"><a class="header" href="#strings">Strings</a></h3>
+<p>We specially model strings since we’d like to support “compute” ops on them.
+We would also like to dispatch out these ops to external libraries (e.g. arrow)
+in a separate crate (<code>zax-arrow</code>).</p>
+<p>We need to support indexing like any other payload so this trait has <a href="api/brix/array/brick/trait.Index.html"><code>Index</code></a>
+as a supertrait</p>
+<pre><code class="language-rust ignore">pub trait StringArray: Index + Send + Sync + Debug { }</code></pre>
+<p>We want string ops (<code>==</code>, <code>contains</code>, <code>lower</code>, regex, …) to live externally in <code>zax-arrow</code>
+and call <code>arrow::compute</code>. To allow applying these kernels we define an opaque</p>
+<pre><code class="language-rust ignore">ArrayOp::Elemwise(Arc&lt;dyn ElemwiseKernel&gt;)</code></pre>
+<p>Note that currently array elemwise ops like unary &amp; binary ops are an explicit variant,
+so that the optimizer can handle them specially.</p>
+<p>The <code>zax-arrow</code> crate could define an extension trait with method <code>.str()</code>.
+So, for example, <code>array.str().contains(pat)</code> constructs an <code>ArrayOp::Elemwise</code>
+with the appropriate kernel, and all of this is external to the core codebase.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="data-types"><a class="header" href="#data-types">Data Types</a></h1>
+<h2 id="requirements"><a class="header" href="#requirements">Requirements</a></h2>
+<ul>
+<li>We need to support something like <code>Datetime { calendar, epoch, units }</code>.
+We expect an external <code>zax-cftime</code> crate to provide implementations for
+non-standard calendars (since this is a climate science-only requirement).</li>
+<li>We need to support Strings.</li>
+<li>We need to support Arrow geometry buffers. We can ignore arithmetic ops here
+but need to support slicing.</li>
+</ul>
+<h2 id="approach"><a class="header" href="#approach">Approach</a></h2>
+<div id="admonition-warning-2" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div class="admonition-title">
+<div id="admonition-warning-title-2">
+<p>Warning</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-warning-2"></a>
+</div>
+
+<div>
+<p>The dtype model is in flux as we work toward Zax (<code>zax-io</code>) integration. The
+shipped code is still the flat <code>DType { F64, I64 }</code> enum; the shape below is the
+migration target. Everything past the primitives is design intent — see
+<code>checkpoints/dtypes.md</code>.</p>
+</div>
+
+</div>
+
+<p>Brix is statically typed: every array carries a <a href="api/brix/array/enum.DType.html"><code>DType</code></a>, and scalars are
+tagged <a href="api/brix/enum.Value.html"><code>Value</code></a>s (<code>src/array/dtype.rs</code>).</p>
+<ul>
+<li><strong>Physical dtype</strong> — dtype of the runtime brick payload. These are primitive types
+(<code>i64</code>, <code>f64</code> etc.).</li>
+<li><strong>Logical dtype</strong> — what the values <em>mean</em> (<a href="api/brix/array/enum.DType.html"><code>DType</code></a>): WE can wrap primitive types <code>Primitive</code>,
+and defined derived types on top of primitive types: <code>Datetime</code> (over <code>i64</code>), <code>Categorical</code>,
+or other types: <code>Utf8</code>, <code>Extension</code>.</li>
+<li><strong>Validity</strong> — a null mask parallel to the value buffer (discussed in Payloads).
+Dtypes don’t carry “nullability” (like Polars).</li>
+</ul>
+<h2 id="logical-dtypes"><a class="header" href="#logical-dtypes">Logical DTypes</a></h2>
+<p>A <code>Primitive(PrimitiveType)</code> variant wraps the closed primitive set, core-recognized
+logical types are their own variants, and <code>Extension</code> is the opaque escape hatch.</p>
+<pre><code class="language-rust ignore">pub enum PrimitiveType {
     F64,
     I64,
-    // Future: F32, I32, U8, Bool; then logical (Categorical, DateTime, …).
-    // Extension(Arc&lt;dyn ExtensionDType&gt;) — opaque satellite dtypes (geometry);
-    // note: ends `Copy`, and `Eq`/`Hash` route through the extension's name.
+}
+
+pub enum DType {
+    Primitive(PrimitiveType),              // F64/I64 (F32, U8 … later)
+    Datetime(Arc&lt;dyn DatetimeLikeDtype&gt;),  // unified numpy + CF time; physical = I64
+    Utf8,                                  // variable-length strings; String kind
+    Extension(Arc&lt;dyn ExtensionDType&gt;),    // opaque (geometry); physical = None
 }</code></pre>
+<h3 id="datetime"><a class="header" href="#datetime">Datetime</a></h3>
+<p>We mode datetimes as one logical dtype backed by one trait.
+All datetimes are characterized by calendar, unit, and epoch.
+E.g. numpy’s <code>datetime64</code> has fixed <code>calendar = proleptic_gregorian</code> and a unix
+epoch. “cftime” provides non-standard calendars and an arbitrary epoch.
+We will represent all these as <code>i64</code> under the hood.
+We expect to have an external <code>zax-time</code> (or at least <code>zax-cftime</code>)
+so the core library defines traits (<code>DatetimeLikeDtype</code>) and enums (<code>TimeUnit</code>)</p>
+<pre><code class="language-rust ignore">DType::Datetime(Arc&lt;dyn DatetimeLikeDtype&gt;)
+
+pub trait DatetimeLikeDtype: Send + Sync + Debug {
+    fn unit(&amp;self) -&gt; TimeUnit;                       // S/Ms/Us/Ns/D…
+    fn storage(&amp;self) -&gt; PrimitiveType;               // = I64; feeds physical()
+    // calendar/tz-dependent behavior — the reason this is a trait:
+    // time-specific ops, e.g. for resampling
+}</code></pre>
+<ul>
+<li>Datetime arithmetic is implemented on the i64 kernel. <code>dt − dt</code>, <code>dt + td</code>,
+<code>dt &lt; dt</code> are calendar-independent by definition; only the output dtype <em>tag</em>
+changes. Cross-unit (<code>dt[s] + td[ns]</code>) is a plan-time unit-scaling <code>AsType</code>.</li>
+<li>Calendar-dependent ops (add months/years, resample buckets, decode, components) are
+deferred to specific external implementations (this needs to be sketched out later)</li>
+<li>Timezone is metadata on the gregorian calendar impl.</li>
+</ul>
+<h3 id="string"><a class="header" href="#string">String</a></h3>
+<p>The logical dtype is <code>Utf8</code>; its physical layout
+(offsets + bytes) lives in a separate brick kind — see the
+<a href="#strings">String kind</a> in Payloads.</p>
 <h2 id="value"><a class="header" href="#value">Value</a></h2>
 <p>A typed scalar — used for fill values, reduction identities/absorbers, and
 constants:</p>
@@ -855,7 +1022,8 @@ pub enum Value {
 <h2 id="promotion"><a class="header" href="#promotion">Promotion</a></h2>
 <p><code>DType::promote</code> defines a NumPy-style symmetric promotion rules.
 Per-op output dtypes (e.g. <code>mean</code> → f64) live on the ops themselves, not here.
-A mixed-dtype binary op (e.g. int + float) inserts a plan-time <code>Cast</code> node (see <a href="#the-array-ir">The Array IR</a>).
+A mixed-dtype binary op (e.g. int + float) inserts a plan-time <code>AsType</code> node
+(see <a href="#the-array-ir">The Array IR</a>).
 This allows a “relatively simple” implementation of unary ops</p>
 <h2 id="typed-buffers"><a class="header" href="#typed-buffers">Typed buffers</a></h2>
 <p><a href="api/brix/array/enum.DType.html"><code>DType</code></a>/<a href="api/brix/enum.Value.html"><code>Value</code></a> describe a single element; a <em>brick’s worth</em> of dense values is
@@ -913,6 +1081,43 @@ Generic code, however, wants to be written once over a static type parameter
 so <code>wrap_view</code> / <code>view_from_typed</code> / <code>array_from_typed</code> live on <code>Element</code>, where
 <code>T</code> is known. Runtime dispatch in the other direction (tag → concrete body) goes
 through the <code>with_typed_array!</code> / <code>dispatch_dtype!</code> macros in <code>dtype.rs</code>.</p>
+<h3 id="capability-traits"><a class="header" href="#capability-traits">Capability traits</a></h3>
+<p>Op kernels don’t bound on <code>Element</code> directly — they bound on <strong>capability
+traits</strong> that bundle exactly the arithmetic a body needs. <code>Binary</code> (add / sub /
+mul plus the <code>Zero</code>/<code>One</code> reduction identities) is <strong>unsigned-compatible</strong>;
+<code>Unary</code> (negation, <code>abs</code>) is <strong>signed-only</strong> — <code>Signed</code> supplies both, so a future
+<code>u8</code> is correctly excluded. <code>Numeric</code> is the both-families bundle, granted free by
+a blanket impl:</p>
+<pre><code class="language-rust ignore">/// Capability umbrella for the `BinaryOp` family (add / sub / mul) plus the
+/// `Zero`/`One` identities reductions need. **Unsigned-compatible** — a future
+/// `u8`/`u16` code-width dtype implements this, so binary ops / `sum` / `cast`
+/// stay open to it. The universal arithmetic bound; mirrors `BinaryOp`.
+pub trait Binary:
+    Element + Add&lt;Output = Self&gt; + Sub&lt;Output = Self&gt; + Mul&lt;Output = Self&gt; + Zero + One
+{
+}
+
+/// Capability for the `UnaryOp` family (negation / absolute value). **Signed
+/// only** — `Signed` supplies both `Neg` and `abs`, so unsigned dtypes are
+/// correctly excluded. Mirrors `UnaryOp`.
+pub trait Unary: Element + Neg&lt;Output = Self&gt; + Signed {}
+
+/// Fully numeric: both op families. The convenience bundle for code that needs
+/// everything; bodies that need only one family should bound on [`Binary`] or
+/// [`Unary`] directly so they don't over-constrain (e.g. exclude unsigned).
+pub trait Numeric: Binary + Unary {}
+
+// Concrete `impl Element/Binary/Unary for {f64,i64}` blocks live in
+// `array/generated/dtypes.rs` — one mechanical block per primitive dtype.
+
+// `Numeric` is a method-less bundle, so a blanket impl gives it for free to any
+// type that has both capabilities — no per-dtype `impl Numeric` line needed.
+impl&lt;T: Binary + Unary&gt; Numeric for T {}</code></pre>
+<p>All three are <strong>method-less</strong>: the behavior comes entirely from the supertrait
+bounds, so the per-primitive impls in <code>generated/dtypes.rs</code> are empty markers
+(<code>impl Unary for f64 {}</code>). A unary op runs one monomorphic body bounded
+<code>&lt;T: Unary&gt;</code>, reached by <code>dispatch_dtype!</code> on the runtime tag — <code>Neg =&gt; -x</code>,
+<code>Abs =&gt; x.abs()</code>.</p>
 <div id="admonition-where-per-dtype-code-lives" class="admonition admonish-note" role="note" aria-labelledby="admonition-where-per-dtype-code-lives-title">
 <div class="admonition-title">
 <div id="admonition-where-per-dtype-code-lives-title">
@@ -953,7 +1158,7 @@ kernels live in <code>zax-geo</code> and downcast the payload. Type identity
 of <code>Dense</code>/<code>Fill</code>). A sparse brick still carries an ordinary values dtype
 (<code>physical() = Some(F64)</code> etc.), so its nonzero values ride the normal
 <a href="api/brix/array/trait.Element.html"><code>Element</code></a>/promotion path: a sparse-i64 × dense-f64 op gets the usual
-plan-time <code>Cast</code> before the kernel runs. Only the structure (nonzero
+plan-time <code>AsType</code> before the kernel runs. Only the structure (nonzero
 pattern, formats) lives behind <code>dyn SparseArray</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="extensions-1"><a class="header" href="#extensions-1">Extensions</a></h1>
@@ -996,13 +1201,13 @@ mechanism.</p>
 <p>Chunk grids have their usual meaning: a concrete chunk size along each axis.
 These chunk grids sizes are for <em>compute orchestration</em> and may or may not align with the chunk size preferences of the Source.
 Chunk size choices are made at <em>lowering</em> time, by making decisions based on available resources and the expression graph.</p>
-<div id="admonition-warning-2" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div id="admonition-warning-3" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
 <div class="admonition-title">
-<div id="admonition-warning-title-2">
+<div id="admonition-warning-title-3">
 <p>Warning</p>
 </div>
 
-<a class="admonition-anchor-link" href="#admonition-warning-2"></a>
+<a class="admonition-anchor-link" href="#admonition-warning-3"></a>
 </div>
 
 <div>
@@ -1082,13 +1287,13 @@ pub trait OpaqueSource: Debug + Send + Sync {
 chosen <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> and impl the <a href="api/brix/trait.Source.html"><code>brix::Source</code></a> trait.
 Note that the chosen <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> need not align with the OpaqueSource’s native chunk grid.</p>
 <h2 id="sinks"><a class="header" href="#sinks">Sinks</a></h2>
-<div id="admonition-warning-3" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div id="admonition-warning-4" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
 <div class="admonition-title">
-<div id="admonition-warning-title-3">
+<div id="admonition-warning-title-4">
 <p>Warning</p>
 </div>
 
-<a class="admonition-anchor-link" href="#admonition-warning-3"></a>
+<a class="admonition-anchor-link" href="#admonition-warning-4"></a>
 </div>
 
 <div>
@@ -1141,13 +1346,13 @@ both halves of the clause: <code>PARTITION BY</code> grouping is <a href="api/br
 <a href="api/brix/array/expr/enum.Frame.html#variant.Window"><code>Window</code></a>, or <a href="api/brix/array/expr/enum.Frame.html#variant.Blocks"><code>Blocks</code></a>.</li>
 </ol>
 <p>All of these are just frame shapes fed to the same accumulator machinery.</p>
-<div id="admonition-warning-4" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div id="admonition-warning-5" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
 <div class="admonition-title">
-<div id="admonition-warning-title-4">
+<div id="admonition-warning-title-5">
 <p>Warning</p>
 </div>
 
-<a class="admonition-anchor-link" href="#admonition-warning-4"></a>
+<a class="admonition-anchor-link" href="#admonition-warning-5"></a>
 </div>
 
 <div>
@@ -1179,6 +1384,7 @@ Consider though that we can use this information to smartly choose variable chun
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum Frame {
     /// Reduce the whole axis; preserve size-1 axis if keepdims is true
+    /// TODO: We could remove keepdims; and insert a Squeeze if necessary?
     WholeAxis { keepdims: bool },
 
     /// Regular contiguous frames.
@@ -1334,16 +1540,8 @@ and passes the returned value to <code>ArrayAccumulator::fold_frame</code>.</p>
 The cartesian product of those per-axis sequences gives the frames we aggregate
 over. <code>ArrayPayload::as_frame_iter(view)</code> yields <code>(state_frame_loc, framed_view)</code> pairs, where <code>state_frame_loc</code>
 is the destination <a href="api/brix/trait.State.html"><code>brix::State</code></a> location to fold into.</p>
-<p>Each <code>framed_view</code> is carved by the single per-backend primitive, <code>slice_axes</code> —
-given the ranges to slice out of the input <a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> (axes not listed stay
-at full extent):</p>
-<pre><code class="language-rust ignore">pub trait SliceFrames {
-    fn slice_axes(&amp;self, ranges: &amp;[(usize, Range&lt;usize&gt;)]) -&gt; ReadFrame&lt;'_&gt;;
-}</code></pre>
-<p>Everything else on the frame-generation surface is range arithmetic over this one
-method, so extending to a new storage kind (e.g. sparse arrays) means adding one
-<code>impl SliceFrames</code> — the chunking and cartesian-product drivers are untouched.</p>
-<p>The view is then handed to <code>ArrayAccumulator::fold_frame(state, state_frame_loc, framed_view)</code>, which folds it into <code>state</code> at the lane named by <code>state_frame_loc</code>.
+<p>Each <code>framed_view</code> is carved by using [<code>Index::slice</code>], reusing the existing slicing machinery.
+The view is then handed to <code>ArrayAccumulator::fold_frame(state, state_frame_loc, framed_view)</code>, which folds it into <code>state</code> at the lane named by <code>state_frame_loc</code>.
 The input slot is a <a href="api/brix/array/brick/enum.ReadFrame.html"><code>ReadFrame</code></a> a readonly-view:</p>
 <pre><code class="language-rust ignore">#[derive(Debug, Clone)]
 pub enum ReadFrame&lt;'a&gt; {
@@ -1355,13 +1553,13 @@ pub enum ReadFrame&lt;'a&gt; {
 }</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="optimization"><a class="header" href="#optimization">Optimization</a></h1>
-<div id="admonition-warning-5" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div id="admonition-warning-6" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
 <div class="admonition-title">
-<div id="admonition-warning-title-5">
+<div id="admonition-warning-title-6">
 <p>Warning</p>
 </div>
 
-<a class="admonition-anchor-link" href="#admonition-warning-5"></a>
+<a class="admonition-anchor-link" href="#admonition-warning-6"></a>
 </div>
 
 <div>
@@ -1388,13 +1586,13 @@ slice chains.</p>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="lowering"><a class="header" href="#lowering">Lowering</a></h1>
-<div id="admonition-warning-6" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div id="admonition-warning-7" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
 <div class="admonition-title">
-<div id="admonition-warning-title-6">
+<div id="admonition-warning-title-7">
 <p>Warning</p>
 </div>
 
-<a class="admonition-anchor-link" href="#admonition-warning-6"></a>
+<a class="admonition-anchor-link" href="#admonition-warning-7"></a>
 </div>
 
 <div>
@@ -1724,6 +1922,10 @@ drives gather tables on several consumed axes):</p>
 /// - VIndex:  ["k" → Zipped({"i": idx_i, "j": idx_j})]
 ///   (key `k` = produced/leader axis; followers `i`,`j` are the consumed axes
 ///   co-iterated by `k`, each carrying its own gather table.)
+///
+/// As a side-note, neither Mullin's Mathematics of Arrays calculus, nor CuTe layouts,
+/// provide any formalism for oindex/vindex operations. Those two harmonize the affine
+/// access pieces, with MoA apparently folding in the AxisOverride::Offset piece too.
 #[derive(Clone, Debug)]
 pub enum TranslatedAccess {
     /// Self-driven per-axis override: producer's chunk-coord on this
@@ -1932,13 +2134,13 @@ pub struct PhysicalPlan {
     pub nodes: HashMap&lt;NodeName, NodeInfo&gt;,
     pub schedule: Schedule,
 }</code></pre>
-<div id="admonition-warning-7" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div id="admonition-warning-8" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
 <div class="admonition-title">
-<div id="admonition-warning-title-7">
+<div id="admonition-warning-title-8">
 <p>Warning</p>
 </div>
 
-<a class="admonition-anchor-link" href="#admonition-warning-7"></a>
+<a class="admonition-anchor-link" href="#admonition-warning-8"></a>
 </div>
 
 <div>

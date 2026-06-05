@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-7af83ec8.js";
+            window.path_to_searchindex_js = "../searchindex-bcd865a0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-b938bee3.js"></script>
+        <script src="../toc-c8d97abe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -214,6 +214,9 @@ pub enum ArrayOp {
     // Opaque sources are chunked and have a chunk preference
     // E.g. Zarr/Icechunk
     OpaqueSource(Arc&lt;dyn OpaqueSource&gt;),
+    // For generic external scalar operations, e.g. many string operations
+    // that may be provided by zax-arrow
+    // Elemwise(Arc&lt;dyn MapKernel&gt;)
     Unary(UnaryOp),
     Binary(BinaryOp),
     Reduce {
@@ -227,9 +230,9 @@ pub enum ArrayOp {
     Oindex(HashMap&lt;AxisName, Vec&lt;usize&gt;&gt;),
     /// Lined-axis vectorized integer indexing.
     Vindex(VectorizedIndexer),
-    /// Cast to a target dtype. Plan-inserted for implicit NumPy-style
-    /// promotion (see [`ArrayExpr::binary`]) or user-driven via `Array::cast`.
-    Cast(DType),
+    /// Cast to a target dtype. Either inserted at plan-time for implicit NumPy-style
+    /// promotion (see [`ArrayExpr::binary`]) or user-specified by `Array::cast`.
+    AsType(DType),
     // Future: Transpose, Reshape, ...
 }</code></pre>
 <p>During <a href="./lowering.html">Lowering</a> each op resolves to a <em>kernel</em> that implements the
@@ -243,7 +246,7 @@ appropriate underlying Brix trait.</p>
 <tr><td><code>TransparentSource</code></td><td><code>Source</code></td><td><code>Source</code> — <code>FillSource</code> / <code>DenseSource</code></td></tr>
 <tr><td><code>OpaqueSource</code></td><td><code>Source</code></td><td><code>Source</code> — <code>LoweredOpaque</code></td></tr>
 <tr><td><code>Unary</code>, <code>Binary</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>UnaryKernel</code> / <code>BinaryKernel</code></td></tr>
-<tr><td><code>Cast</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>CastKernel</code></td></tr>
+<tr><td><code>AsType</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>AsTypeKernel</code></td></tr>
 <tr><td><code>Slice</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>SliceKernel</code></td></tr>
 <tr><td><code>Oindex</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>GatherKernel</code></td></tr>
 <tr><td><code>Vindex</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>VIndexKernel</code></td></tr>
@@ -256,27 +259,8 @@ of <a href="../api/brix/trait.Source.html"><code>brix::Source</code></a>, <code>
 <a href="../api/brix/array/trait.ArrayAccumulator.html"><code>ArrayAccumulator</code></a> (<code>Sum</code>, <code>Mean</code>, …) is wrapped in a <code>LoweredAccumulator</code>
 adapter that implements the brix <a href="../api/brix/trait.Accumulator.html"><code>brix::Accumulator</code></a> trait — the same adapter pattern
 as <code>OpaqueSource</code> → <code>LoweredOpaque</code>.</p>
-<h2 id="data-flow"><a class="header" href="#data-flow">Data flow</a></h2>
-<p>The ops above describe the <em>graph</em>; what flows along its edges at execution time
-is a stream of <strong>bricks</strong>. The contents of an array-layer brick are an
-<a href="../api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> — a closed enum that is the runtime dual of the plan-time
-<code>ArrayPayloadKind</code> tag (<code>Dense</code> / <code>Fill</code> / …):</p>
-<pre><code class="language-rust ignore">/// Array-layer brick payload.
-// Keep this in sync with [`ReadFrame`], [`WriteFrame`]
-#[derive(Debug, Clone)]
-pub enum ArrayPayload {
-    Dense(DenseArray),
-    // stand-in for a payload that can be constructed
-    // on-demand cheaply given a shape.
-    // TODO: we'll need to propagate element-space ranges for each brick
-    //       so that we can write more general "functional arrays"
-    Fill(FillArray),
-    // Future: Sparse(Arc&lt;dyn SparseArray&gt;)
-    // where SparseArray is a trait that is satisfied by an external plugin?
-    // Future: Extension(Arc&lt;dyn ExtensionArray)
-    // potentially for wrapping Geoarrow geometry arrays
-}</code></pre>
-<p><a href="../api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> impls <a href="../api/brix/brick/trait.BrickPayload.html"><code>brix::BrickPayload</code></a> so brix never inspects these variants (see <a href="../brix/concepts.html">Traits</a>).</p>
+<p>The bricks that flow along the graph’s edges at execution time are
+<a href="./payloads.html">Payloads</a>.</p>
 
                     </main>
 
@@ -286,7 +270,7 @@ pub enum ArrayPayload {
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../array/data-types.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../array/payloads.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -300,7 +284,7 @@ pub enum ArrayPayload {
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../array/data-types.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../array/payloads.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

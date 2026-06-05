@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-7af83ec8.js";
+            window.path_to_searchindex_js = "../searchindex-bcd865a0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-b938bee3.js"></script>
+        <script src="../toc-c8d97abe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -188,10 +188,23 @@
 <h3 id="array-level-optimizer"><a class="header" href="#array-level-optimizer">Array-level Optimizer</a></h3>
 <h3 id="dtypes--extension-model"><a class="header" href="#dtypes--extension-model">DTypes &amp; extension model</a></h3>
 <h3 id="functional-array-payloads"><a class="header" href="#functional-array-payloads">Functional array payloads</a></h3>
-<p>E.g. we could be generate array values on the fly (think affine transform based coordinate systems),
+<p>E.g. we could generate array values on the fly (think affine transform based coordinate systems),
 or very-large <code>np.arange</code> style coordinate arrays.
 To do so we need to convert the [<code>BrickCoordinate</code>] to an array element-space <code>Vec&lt;Range&gt;</code>, and pass that in.
-This is unimplemented thus far.</p>
+Alternatively, we make it so that the node embeds the [<code>ChunkGrid</code>], as the other nodes do.</p>
+<p>For reference, <code>dask.array.map_blocks</code> can provide the following input to each chunk:</p>
+<pre><code class="language-python">&gt;&gt;&gt; block_info
+{0: {'shape': (1000,), # input brick
+     'num-chunks': (10,),
+     'chunk-location': (4,),
+     'array-location': [(400, 500)]},
+ None: {'shape': (1000,),  # Output brick
+        'num-chunks': (10,),
+        'chunk-location': (4,),
+        'array-location': [(400, 500)],
+        'chunk-shape': (100,),
+        'dtype': dtype('float64')}}
+</code></pre>
 <h2 id="unknown-unknowns"><a class="header" href="#unknown-unknowns">Unknown Unknowns</a></h2>
 <p>There are <em>unknown</em> because I haven’t really tried them out yet.</p>
 <h3 id="shuffle"><a class="header" href="#shuffle">Shuffle</a></h3>

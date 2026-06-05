@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-7af83ec8.js";
+            window.path_to_searchindex_js = "../searchindex-bcd865a0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-b938bee3.js"></script>
+        <script src="../toc-c8d97abe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -208,8 +208,9 @@ array workloads we have a <strong>lot</strong> of information available at plan-
 </div>
 
 <div>
-<p>The choice to split between array &amp; brix is a one-way door (mostly). It would be a big refactor to merge the two layers but not too hard with Claude.
-It would be harder to understand though.</p>
+<p>The choice to split between array &amp; brix is a one-way door (mostly). It would be a massive refactor to
+merge the two layers but not too hard with Claude. I belive the separation makes the codebase easier
+to understand, and Claude code easier to audit.</p>
 <p>The choice to add an iteration layer is a two-way door (below).</p>
 </div>
 
@@ -223,7 +224,7 @@ It would be harder to understand though.</p>
 pull (Volcano <code>next()</code>) or push (<code>consume()</code>). Both approaches converge to nearly the same thing.
 (<a href="https://arxiv.org/abs/1610.09166">Shaikhha et al. 2016</a>).</p>
 <p>In the case of arrays, shapes, chunk grids, and iteration spaces are <em>known at plan-time</em>.
-We need not rely on heuristics (e.g. cardinality) that a DB executor does.
+We need not <em>need to</em> rely on heuristics (e.g. cardinality) that a DB executor does.
 So the planner emits the fused loop nest directly. Co-iteration of
 multiple inputs — which forces pull engines to coordinate demand and push
 engines to buffer one side — is resolved at plan-time and recorded using access relations
@@ -237,7 +238,7 @@ so plans insert materialization instead (Postgres <code>Materialize</code>/<code
 side) — caching <code>B</code> wholesale and paying lookup cost, rather than holding one
 brick at the right loop depth.</p>
 </blockquote>
-<p>This kind of “schedule” is common to array compilers, most clearly
+<p>This kind of imperative “schedule” is common to array compilers, most clearly
 <a href="https://halide-lang.org/">Halide</a>, whose algorithm/schedule split
 <a href="https://tvm.apache.org/">TVM</a> and <a href="http://tensor-compiler.org/">TACO</a> inherit.
 <a href="https://arxiv.org/abs/1802.04730">Tensor Comprehensions</a> makes the same
@@ -261,27 +262,76 @@ But this need not be true. We could pass an [<code>Arc&lt;Expr&gt;</code>] graph
 
 </div>
 
-<h2 id="broadcastingtranspose-as-properties-of-the-edge"><a class="header" href="#broadcastingtranspose-as-properties-of-the-edge">Broadcasting/transpose as properties of the edge</a></h2>
-<p>Why?</p>
-<ul>
-<li>A single node can serve multiple consumers, each of which have different expectations.</li>
-<li>This allows us to preserve context: the edge makes it clear that a <em>cheap</em> broadcast/transpose operation
-is being applied, allowing us to optimize loop placement without requiring traversal of parents.</li>
-</ul>
-<h2 id="handling-of-sources-sinks"><a class="header" href="#handling-of-sources-sinks">Handling of Sources, Sinks</a></h2>
-<ul>
-<li>Source, Sink are separate from other Exprs.</li>
-<li>sinks are passed to <code>execute</code> separately; thus when lowering the ChunkGrid for the Sink is passed explicitly.</li>
-<li>Final Sinks as separate entitities outside the expression Graph?</li>
-</ul>
+<h2 id="handling-of-sources"><a class="header" href="#handling-of-sources">Handling of Sources</a></h2>
+<h2 id="handling-of-sinks"><a class="header" href="#handling-of-sinks">Handling of Sinks</a></h2>
+<p>Currently we have one Sink trait. At the moment [<code>InMemorySink</code>] is the only impl.
+The intent is for this trait to cover streaming data sinks too (Icechunk/Zarr), which is at odds with
+collecting in to an in memory buffer.</p>
+<p>So I made a choice to gather bricks in a Vec and concatenate them in <code>finalize</code>.
+This is 2X memory use. Technically, we can use <code>ArrayD::axis_iter_chunks_mut</code> to grab disjoint
+slices and write bricks to the output buffer as they stream in for lower memory.
+We may want this level of optimization because:</p>
+<ol>
+<li>[<code>InMemorySink</code>] will be very useful for smaller rechunks (e.g. for permuting after <code>oindex</code> or <code>vindex</code>).</li>
+<li>It’s not uncommon to grab 10-20GB in total across multiple arrays, and work with it in-memory. We’d like those operations
+to succeed with as little memory as possible.</li>
+</ol>
+<p>I am deferring this optimization to when we build a concurrent local executor.</p>
+<div id="admonition-one-way-door-or-two-way-door-2" class="admonition admonish-note" role="note" aria-labelledby="admonition-one-way-door-or-two-way-door-2-title">
+<div class="admonition-title">
+<div id="admonition-one-way-door-or-two-way-door-2-title">
+<p>One-way door or two-way door?</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-one-way-door-or-two-way-door-2"></a>
+</div>
+
+<div>
+<p>Two-way door; there will be some churn around [<code>InMemorySink</code>] but it will be contained.</p>
+</div>
+
+</div>
+
+<h2 id="static-shapes"><a class="header" href="#static-shapes">Static shapes</a></h2>
+<h2 id="incorporating-ndarrays-views"><a class="header" href="#incorporating-ndarrays-views">Incorporating ndarray’s views</a></h2>
 <h2 id="aggregation-trait-and-folding-in-to-mutable-state"><a class="header" href="#aggregation-trait-and-folding-in-to-mutable-state">Aggregation trait and folding in to mutable <code>State</code></a></h2>
-<h2 id="dtype-design"><a class="header" href="#dtype-design">DType design</a></h2>
+<h2 id="array-payload-representation"><a class="header" href="#array-payload-representation">Array Payload representation</a></h2>
+<p>Three orthogonal axes: Storage X DType X Validity; where</p>
+<ul>
+<li>Storage (ndarray, sparse, arrow etc.)</li>
+<li>Logical Dtypes distringuished from primitive dtypes so datetimes are a logical layer
+on top of a primitive type (<code>i64</code>) + metadata (calendar, epoch, units, timezone).</li>
+<li>Validity bitmap stored independently and handled independently of storage and Dtype.
+Thus we don’t represent nullability on the dtype (like polars).</li>
+</ul>
+<div id="admonition-one-way-door-or-two-way-door-3" class="admonition admonish-note" role="note" aria-labelledby="admonition-one-way-door-or-two-way-door-3-title">
+<div class="admonition-title">
+<div id="admonition-one-way-door-or-two-way-door-3-title">
+<p>One-way door or two-way door?</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-one-way-door-or-two-way-door-3"></a>
+</div>
+
+<div>
+<p>One-way door. This is a foudnational data model choice.</p>
+</div>
+
+</div>
+
 <h2 id="some-in-the-weeds-concerns-at-the-moment"><a class="header" href="#some-in-the-weeds-concerns-at-the-moment">Some in-the-weeds concerns at the moment.</a></h2>
 <ul>
 <li>Add a NodeId to the Expr and ArrayExpr instances</li>
 <li>Add an AxisId to Axis? We use <code>name</code> to tag identity but <code>rename_dims</code> is a thing</li>
 <li>Using [<code>NamedLayout</code>] for easy representation of broadcasting/transpose/order is a toss-up.
 It doesn’t support variable chunk sizes, so it’s a better fit at the Brix layer, rather than the Array layer.</li>
+</ul>
+<h3 id="broadcastingtranspose-as-properties-of-the-edge"><a class="header" href="#broadcastingtranspose-as-properties-of-the-edge">Broadcasting/transpose as properties of the edge</a></h3>
+<p>Why?</p>
+<ul>
+<li>A single node can serve multiple consumers, each of which have different expectations.</li>
+<li>This allows us to preserve context: the edge makes it clear that a <em>cheap</em> broadcast/transpose operation
+is being applied, allowing us to optimize loop placement without requiring traversal of parents.</li>
 </ul>
 
                     </main>
