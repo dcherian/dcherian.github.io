@@ -37,7 +37,7 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-8167ce62.js";
+            window.path_to_searchindex_js = "../searchindex-d38720ec.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-31366b7a.js"></script>
@@ -307,7 +307,7 @@ But this need not be true. We could pass an <a href="../api/brix/expr/struct.Exp
 
 <h2 id="incorporating-ndarrays-mutable-views--in-place-mutation"><a class="header" href="#incorporating-ndarrays-mutable-views--in-place-mutation">Incorporating ndarray’s mutable views / in-place mutation</a></h2>
 <p>ndarray has the ability to represent both readonly and <a href="https://docs.rs/ndarray/latest/ndarray/struct.ArrayRef.html#method.axis_chunks_iter_mut">disjoint mutable views</a> of the data.
-Allocating once and writing in parallel to disjoint regions is an important optimization (usually).</p>
+We are dealing with O(GBs) of data so allocating once and writing in parallel to disjoint regions is <em>usually</em> an important optimization.</p>
 <p>I am unsure about how well this will play with a concurrent executor given Rust’s ownership semantics.</p>
 <p>There are a couple of places I do this today:</p>
 <ul>
@@ -361,8 +361,13 @@ to succeed with as little memory as possible.</li>
 </div>
 
 <h2 id="array-payload-representation"><a class="header" href="#array-payload-representation">Array Payload representation</a></h2>
-<p>Handling complex data types (datetimes, strings, geometries) etc.</p>
-<p><strong>This is in flux at the moment.</strong></p>
+<p>Dtypes, extension arrays have been designed and up for review in <a href="https://github.com/earth-mover/zax/issues/53">this issue</a>.</p>
+<p>There I am proposing:</p>
+<ul>
+<li>model a set of internal primitive types &amp; dense arrays; and leaving everything else (datetimes/intervals/strings etc.) to external crates.</li>
+<li>provide a mechanism to allow extension types to enter binary operations.</li>
+<li>ship external <code>zax-time</code> and <code>zax-strings</code> crates that provide datetime, timedelta, and string dtypes</li>
+</ul>
 <div id="admonition-one-way-door-2" class="admonition admonish-note" role="note" aria-labelledby="admonition-one-way-door-2-title">
 <div class="admonition-title">
 <div id="admonition-one-way-door-2-title">

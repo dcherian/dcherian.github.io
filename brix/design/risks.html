@@ -37,7 +37,7 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-8167ce62.js";
+            window.path_to_searchindex_js = "../searchindex-d38720ec.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-31366b7a.js"></script>
@@ -183,7 +183,6 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="risks-as-of-jun-2-2026"><a class="header" href="#risks-as-of-jun-2-2026">Risks (as of Jun 2, 2026)</a></h1>
-<h2 id="known-unknowns"><a class="header" href="#known-unknowns">Known Unknowns</a></h2>
 <h3 id="rust"><a class="header" href="#rust">Rust</a></h3>
 <p>The Rust scientific computing ecosystem is quite immature.</p>
 <p>For example, our regridding workload would need <code>tensordor(sparse, dense)</code>
@@ -196,16 +195,14 @@ operations like that one.</p>
 <p>We should have two external consumers soon (<code>zax-time</code>, <code>zax-strings</code>).</p>
 <p>Our approach to validity is still undefined.</p>
 <p>Our approach to aggregations (min/max e.g.) for extension arrays is still undefined.</p>
-<h2 id="unknowns"><a class="header" href="#unknowns">Unknowns</a></h2>
-<p>There are <em>unknown</em> because I haven’t really tried them out yet.</p>
-<h3 id="array-level-planner"><a class="header" href="#array-level-planner">Array-level planner</a></h3>
-<h3 id="array-level-optimizer"><a class="header" href="#array-level-optimizer">Array-level Optimizer</a></h3>
-<h3 id="materialization-barriers"><a class="header" href="#materialization-barriers">Materialization barriers</a></h3>
+<h3 id="unknown-chunk-shapes--materialization-barriers"><a class="header" href="#unknown-chunk-shapes--materialization-barriers">Unknown chunk shapes / Materialization barriers</a></h3>
 <ul>
 <li>building iteration spaces at runtime</li>
 <li>How does the planner react to this?</li>
 <li>Do we re-plan after a barrier?</li>
 </ul>
+<h3 id="array-level-planner"><a class="header" href="#array-level-planner">Array-level planner</a></h3>
+<h3 id="array-level-optimizer"><a class="header" href="#array-level-optimizer">Array-level Optimizer</a></h3>
 <h3 id="shuffle"><a class="header" href="#shuffle">Shuffle</a></h3>
 <h3 id="fan-infan-out"><a class="header" href="#fan-infan-out">Fan-In/Fan-out</a></h3>
 <h3 id="overlap"><a class="header" href="#overlap">Overlap</a></h3>
