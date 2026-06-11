@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":["drop_at"],"struct":["CoordIter","IterationSpace","Occupancy"]};

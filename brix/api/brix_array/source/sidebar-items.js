@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["FillSource","InMemorySource","LoweredLiteral","LoweredOpaque","LoweredTransparent","SourceNativeChunkGrid"],"trait":["OpaqueSource","TransparentSource"]};

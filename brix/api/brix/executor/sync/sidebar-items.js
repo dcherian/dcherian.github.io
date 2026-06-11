@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["execute","run"],"struct":["ExecState","SyncExecutor"]};
+window.SIDEBAR_ITEMS = {"fn":["execute","run","sink_of"],"struct":["ExecState","SyncExecutor"]};

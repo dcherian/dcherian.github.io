@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["AxisAccess","AxisOverride","Frame","Op","TranslatedAccess"],"struct":["Expr","ExprId","Input"],"trait":["Accumulator","Kernel","Sink","Source","State"],"type":["TranslatedAccessStack"]};

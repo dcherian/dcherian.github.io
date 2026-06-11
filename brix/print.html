@@ -30,6 +30,7 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="./mdbook-admonish.css">
+        <link rel="stylesheet" href="./mdbook-admonish-custom.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -37,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-7509ff32.js";
+            window.path_to_searchindex_js = "searchindex-371300b0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-8e03c8ef.js"></script>
+        <script src="toc-31366b7a.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -267,6 +268,8 @@ a strong limiter on workloads.</li>
 </ol>
 <p>An equally vibrant array compiler / DSL space has also spun up in the last decade targeted at ML teams. MLIR/XLA/Triton/CuTile/”Tensor Comprehensions”/Halide/Mojo/Finch.jl/TACO/Chapel/Futhark/Accelerate  all have the very similar goals - write once, execute optimally on different hardware. These projects are unifying 50 years of HPC work on matrix computation (e.g. BLAS) with more generic array transformations needed for ML kernels.</p>
 <div style="break-before: page; page-break-before: always;"></div>
+<h1 id="design"><a class="header" href="#design">Design</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="roadmap"><a class="header" href="#roadmap">Roadmap</a></h1>
 <p>This is an opinionated set of goals to drive development.
 The intent is to build a vertical slice that is representative of data processing patterns, not completeness.</p>
@@ -359,7 +362,7 @@ with the “chunk” or “shard” grid of the dataset (though of course there 
 </thead>
 <tbody>
 <tr><td>Array</td><td>“sum”, “rolling sum”, “slice”</td><td>familiar from Python land</td></tr>
-<tr><td>ArrayExpr</td><td><a href="api/brix/array/expr/enum.ArrayOp.html"><code>ArrayOp</code></a> : “Reduce”, “Slice”</td><td>simpler, more compositional, but complex enough for optimizer</td></tr>
+<tr><td>ArrayExpr</td><td><a href="api/brix_array/expr/enum.ArrayOp.html"><code>ArrayOp</code></a> : “Reduce”, “Slice”</td><td>simpler, more compositional, but complex enough for optimizer</td></tr>
 <tr><td>Expr</td><td><a href="api/brix/expr/enum.Op.html"><code>Op</code></a></td><td>map/reduce/scan/etc.</td></tr>
 <tr><td>Schedule</td><td><a href="api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a></td><td>Flattened Expr DAG   with iteration spaces and parallelism potential annotated.</td></tr>
 </tbody>
@@ -388,15 +391,15 @@ with the “chunk” or “shard” grid of the dataset (though of course there 
 <tr><th>Array</th><th>Brix</th><th>Relation</th></tr>
 </thead>
 <tbody>
-<tr><td><a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> (struct)</td><td><a href="api/brix/iteration_space/struct.IterationSpace.html"><code>IterationSpace</code></a> (struct)</td><td>lowering projects counts-only <code>IterationSpace</code> from <code>ChunkGrid</code></td></tr>
-<tr><td><a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> (enum: <code>Dense</code>, <code>Fill</code>)</td><td><a href="api/brix/brick/trait.BrickPayload.html"><code>BrickPayload</code></a> trait</td><td><code>impl BrickPayload for ArrayPayload</code></td></tr>
-<tr><td><a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> (struct)</td><td><a href="api/brix/expr/struct.Expr.html"><code>Expr</code></a> (struct)</td><td>produced by lowering</td></tr>
-<tr><td><a href="api/brix/array/expr/enum.ArrayOp.html"><code>ArrayOp</code></a> (enum)</td><td><a href="api/brix/expr/enum.Op.html"><code>Op</code></a> (enum)</td><td>produced by lowering</td></tr>
-<tr><td><a href="api/brix/array/error/enum.ArrayError.html"><code>ArrayError</code></a> (enum)                  wraps</td><td><a href="api/brix/enum.BrixError.html"><code>BrixError</code></a> (enum)</td><td><code>ArrayError::Brix(BrixError)</code></td></tr>
-<tr><td><a href="api/brix/array/source/enum.TransparentSource.html"><code>TransparentSource</code></a> (enum) + <a href="api/brix/array/source/trait.OpaqueSource.html"><code>OpaqueSource</code></a> (trait); impls</td><td><a href="api/brix/trait.Source.html"><code>Source</code></a> trait</td><td>each lowering target impls <code>Source</code>; <code>TransparentSource::lower</code> picks the variant</td></tr>
-<tr><td><a href="api/brix/struct.InMemorySink.html"><code>InMemorySink</code></a> (struct)</td><td><a href="api/brix/trait.Sink.html"><code>Sink</code></a> trait</td><td><code>impl Sink for InMemorySink</code></td></tr>
-<tr><td><a href="api/brix/array/kernels/ops/struct.UnaryKernel.html"><code>UnaryKernel</code></a>, <a href="api/brix/array/kernels/ops/struct.BinaryKernel.html"><code>BinaryKernel</code></a>, … (structs)</td><td><a href="api/brix/trait.Kernel.html"><code>Kernel</code></a> trait</td><td>each impls <code>Kernel</code></td></tr>
-<tr><td><a href="api/brix/array/trait.ArrayAccumulator.html"><code>ArrayAccumulator</code></a> (trait, sibling); <a href="api/brix/array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a> adapter</td><td><a href="api/brix/trait.Accumulator.html"><code>Accumulator</code></a> trait</td><td><code>Sum</code>/<code>Mean</code> impl only <code>ArrayAccumulator</code>; lowering wraps in <code>LoweredAccumulator { inner, grid }</code> which <code>impl Accumulator</code>. Parallels <code>OpaqueSource</code> → <a href="api/brix/array/source/struct.LoweredOpaque.html"><code>LoweredOpaque</code></a>.</td></tr>
+<tr><td><a href="api/brix_array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> (struct)</td><td><a href="api/brix/iteration_space/struct.IterationSpace.html"><code>IterationSpace</code></a> (struct)</td><td>lowering projects counts-only <code>IterationSpace</code> from <code>ChunkGrid</code></td></tr>
+<tr><td><a href="api/brix_array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> (enum: <code>Dense</code>, <code>Extension</code>)</td><td><a href="api/brix/brick/trait.BrickPayload.html"><code>BrickPayload</code></a> trait</td><td><code>impl BrickPayload for ArrayPayload</code></td></tr>
+<tr><td><a href="api/brix_array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> (struct)</td><td><a href="api/brix/expr/struct.Expr.html"><code>Expr</code></a> (struct)</td><td>produced by lowering</td></tr>
+<tr><td><a href="api/brix_array/expr/enum.ArrayOp.html"><code>ArrayOp</code></a> (enum)</td><td><a href="api/brix/expr/enum.Op.html"><code>Op</code></a> (enum)</td><td>produced by lowering</td></tr>
+<tr><td><a href="api/brix_array/error/enum.ArrayError.html"><code>ArrayError</code></a> (enum)                  wraps</td><td><a href="api/brix/error/enum.BrixError.html"><code>BrixError</code></a> (enum)</td><td><code>ArrayError::Brix(BrixError)</code></td></tr>
+<tr><td><a href="api/brix_array/source/trait.TransparentSource.html"><code>TransparentSource</code></a> (enum) + <a href="api/brix_array/source/trait.OpaqueSource.html"><code>OpaqueSource</code></a> (trait); impls</td><td><a href="api/brix/expr/trait.Source.html"><code>Source</code></a> trait</td><td>each lowering target impls <code>Source</code>; <code>TransparentSource::lower</code> picks the variant</td></tr>
+<tr><td><a href="api/brix_array/struct.InMemorySink.html"><code>InMemorySink</code></a> (struct)</td><td><a href="api/brix/expr/trait.Sink.html"><code>Sink</code></a> trait</td><td><code>impl Sink for InMemorySink</code></td></tr>
+<tr><td><a href="api/brix_array/kernels/ops/struct.UnaryKernel.html"><code>UnaryKernel</code></a>, <a href="api/brix_array/kernels/ops/struct.BinaryKernel.html"><code>BinaryKernel</code></a>, … (structs)</td><td><a href="api/brix/expr/trait.Kernel.html"><code>Kernel</code></a> trait</td><td>each impls <code>Kernel</code></td></tr>
+<tr><td><a href="api/brix_array/trait.ArrayAccumulator.html"><code>ArrayAccumulator</code></a> (trait, sibling); <a href="api/brix_array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a> adapter</td><td><a href="api/brix/expr/trait.Accumulator.html"><code>Accumulator</code></a> trait</td><td><code>Sum</code>/<code>Mean</code> impl only <code>ArrayAccumulator</code>; lowering wraps in <code>LoweredAccumulator { inner, grid }</code> which <code>impl Accumulator</code>. Parallels <code>OpaqueSource</code> → <a href="api/brix_array/source/struct.LoweredOpaque.html"><code>LoweredOpaque</code></a>.</td></tr>
 </tbody>
 </table>
 </div>
@@ -421,26 +424,29 @@ with the “chunk” or “shard” grid of the dataset (though of course there 
 <li><strong>Plan-time</strong>: The system walks through the submitted expression graph, optimizes the graph, plans explicitly sized
 chunk grids for executing each expression node, and lowers to a brix graph. The brix graph is then converted
 to the <a href="#planner"><code>PhysicalPlan</code></a></li>
-<li><strong>Run-time</strong>: The executor receives the PhysicalPlan and executes it. At this time, <a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a>s are routed through to the right kernels for computation.</li>
+<li><strong>Run-time</strong>: The executor receives the PhysicalPlan and executes it. At this time, <a href="api/brix_array/enum.ArrayPayload.html"><code>ArrayPayload</code></a>s are routed through to the right kernels for computation.</li>
 </ol>
 <p>The whole flow, end-to-end:</p>
-<pre><code class="language-rust ignore">pub fn compute&lt;T: Element, A: ArrayLike + SinkFill&gt;(
-    execute: ExecuteFn,
+<pre><code class="language-rust ignore">pub fn compute&lt;T: Element, A: ArrayLike&gt;(
+    executor: impl Executor,
     arr: &amp;A,
     budget: usize,
 ) -&gt; ndarray::ArrayD&lt;T&gt; {
     init_tracing();
     let optimized = arr.optimize().unwrap();
-    let lowered = lower(&amp;optimized, budget).unwrap();
+    let rooted = optimized
+        .to_sink(Arc::new(InMemorySink::new(arr.sink_fill().map(Into::into))))
+        .expect("sink fill dtype matches the output dtype");
+    let lowered = lower(&amp;rooted, budget).unwrap();
     let physical = plan(&amp;lowered.expr).unwrap();
-    let _ = physical
-        .nodes
-        .iter()
-        .find(|(_, info)| matches!(info, NodeInfo::Sink { .. }))
-        .expect("plan must have a Sink node");
-    let sink = InMemorySink::new(lowered.root_grid, arr.dtype(), arr.sink_fill()).unwrap();
-    execute(&amp;physical, budget, &amp;sink).unwrap();
-    sink.into_array::&lt;T&gt;()
+    let outputs = executor.execute(&amp;physical).unwrap();
+    let payload = outputs.into_values().next().expect("in-memory sink yields one output");
+    ArrayPayload::from_payload(&amp;*payload)
+        .to_dense_dyn()
+        .expect("dense payload")
+        .into_array::&lt;T&gt;()
+        .expect("dtype matches T")
+        .into_owned()
 }</code></pre>
 <h2 id="expression-time"><a class="header" href="#expression-time">Expression-time</a></h2>
 <p>Users create <a href="#arrays-1"><code>Array</code></a> objects (either from a <a href="#sources--sinks"><code>Source</code></a>) or an in-memory <code>ndarray</code>.</p>
@@ -496,14 +502,16 @@ is the one step behind a trait — backends differ in concurrency strategy
 (sequential / local-parallel / distributed) while sharing one entry point.
 Resource limits (memory budget, parallelism) are constructor-time concerns on
 the concrete <a href="#execution"><code>Executor</code></a>, not part of the trait contract.</p>
-<pre><code class="language-rust ignore">/// Executor interpreting a [`PhysicalPlan`] and writing results to a `Sink`.
+<pre><code class="language-rust ignore">/// Executor interpreting a [`PhysicalPlan`]. Returns the materialized outputs
+/// keyed by sink node — the caller maps a node name back to its array (via the
+/// sink's label).
 ///
 /// Backends differ in concurrency strategy (sequential / local-parallel /
 /// distributed) but share this entry point. Resource limits (memory
 /// budget, parallelism) are constructor-time concerns on the concrete
 /// executor, not part of the trait contract.
 pub trait Executor {
-    fn execute(&amp;self, plan: &amp;PhysicalPlan, sink: &amp;dyn Sink) -&gt; BrixResult&lt;()&gt;;
+    fn execute(&amp;self, plan: &amp;PhysicalPlan) -&gt; BrixResult&lt;SinkOutputs&gt;;
 }</code></pre>
 <div id="admonition-tip" class="admonition admonish-tip" role="note" aria-labelledby="admonition-tip-title">
 <div class="admonition-title">
@@ -634,7 +642,7 @@ We could require a materialization barrier if we wanted to support this workflow
 </div>
 
 <h2 id="handling-of-sinks"><a class="header" href="#handling-of-sinks">Handling of Sinks</a></h2>
-<p>Currently we have one Sink trait. At the moment <a href="api/brix/struct.InMemorySink.html"><code>InMemorySink</code></a> is the only impl.
+<p>Currently we have one Sink trait. At the moment <a href="api/brix_array/struct.InMemorySink.html"><code>InMemorySink</code></a> is the only impl.
 The intent is for this trait to cover streaming data sinks too (Icechunk/Zarr), which is at odds with
 collecting in to an in memory buffer.</p>
 <p>So I made a choice to gather bricks in a Vec and concatenate them in <code>finalize</code>.
@@ -642,7 +650,7 @@ This is 2X memory use. Technically, we can use <code>ArrayD::axis_iter_chunks_mu
 slices and write bricks to the output buffer as they stream in for lower memory.
 We may want this level of optimization because:</p>
 <ol>
-<li><a href="api/brix/struct.InMemorySink.html"><code>InMemorySink</code></a> will be very useful for smaller rechunks (e.g. for permuting after <code>oindex</code> or <code>vindex</code>).</li>
+<li><a href="api/brix_array/struct.InMemorySink.html"><code>InMemorySink</code></a> will be very useful for smaller rechunks (e.g. for permuting after <code>oindex</code> or <code>vindex</code>).</li>
 <li>It’s not uncommon to grab 10-20GB in total across multiple arrays, and work with it in-memory. We’d like those operations
 to succeed with as little memory as possible.</li>
 </ol>
@@ -657,12 +665,15 @@ to succeed with as little memory as possible.</li>
 </div>
 
 <div>
-<p>Two-way door; there will be some churn around <a href="api/brix/struct.InMemorySink.html"><code>InMemorySink</code></a> but it will be contained.</p>
+<p>Two-way door; there will be some churn around <a href="api/brix_array/struct.InMemorySink.html"><code>InMemorySink</code></a> but it will be contained.</p>
 </div>
 
 </div>
 
 <h2 id="incorporating-ndarrays-views"><a class="header" href="#incorporating-ndarrays-views">Incorporating ndarray’s views</a></h2>
+<p>ndarray has the ability to represent both readonly and <a href="https://docs.rs/ndarray/latest/ndarray/struct.ArrayRef.html#method.axis_chunks_iter_mut">disjoint mutable views</a> of the data.
+Allocating once and writing in parallel to disjoint regions is an important optimization (usually).</p>
+<p>I am unsure about how well this will play with a concurrent executor given Rust’s ownership semantics.</p>
 <h2 id="aggregation-trait-and-folding-in-to-mutable-state"><a class="header" href="#aggregation-trait-and-folding-in-to-mutable-state">Aggregation trait and folding in to mutable <code>State</code></a></h2>
 <h2 id="array-payload-representation"><a class="header" href="#array-payload-representation">Array Payload representation</a></h2>
 <p>Handling complex data types (datetimes, strings, geometries) etc.</p>
@@ -699,15 +710,12 @@ Why?
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="risks-as-of-jun-2-2026"><a class="header" href="#risks-as-of-jun-2-2026">Risks (as of Jun 2, 2026)</a></h1>
 <h2 id="known-unknowns"><a class="header" href="#known-unknowns">Known Unknowns</a></h2>
-<h3 id="array-level-planner"><a class="header" href="#array-level-planner">Array-level planner</a></h3>
-<p>This walks the dag and chooses a chunk grid</p>
-<h3 id="array-level-optimizer"><a class="header" href="#array-level-optimizer">Array-level Optimizer</a></h3>
-<h3 id="dtypes--extension-model"><a class="header" href="#dtypes--extension-model">DTypes &amp; extension model</a></h3>
+<h3 id="dtypes-validity--extension-array-model"><a class="header" href="#dtypes-validity--extension-array-model">DTypes, validity &amp; extension array model</a></h3>
 <h3 id="functional-array-payloads"><a class="header" href="#functional-array-payloads">Functional array payloads</a></h3>
 <p>E.g. we could generate array values on the fly (think affine transform based coordinate systems),
 or very-large <code>np.arange</code> style coordinate arrays.
 To do so we need to convert the <a href="api/brix/brick/struct.BrickCoordinate.html"><code>BrickCoordinate</code></a> to an array element-space <code>Vec&lt;Range&gt;</code>, and pass that in.
-Alternatively, we make it so that the node embeds the <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a>, as the other nodes do.</p>
+Alternatively, we make it so that the node embeds the <a href="api/brix_array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a>, as the other nodes do.</p>
 <p>For reference, <code>dask.array.map_blocks</code> can provide the following input to each chunk:</p>
 <pre><code class="language-python">&gt;&gt;&gt; block_info
 {0: {'shape': (1000,), # input brick
@@ -721,12 +729,18 @@ Alternatively, we make it so that the node embeds the <a href="api/brix/array/ch
         'chunk-shape': (100,),
         'dtype': dtype('float64')}}
 </code></pre>
-<h2 id="unknown-unknowns"><a class="header" href="#unknown-unknowns">Unknown Unknowns</a></h2>
+<h2 id="unknowns"><a class="header" href="#unknowns">Unknowns</a></h2>
 <p>There are <em>unknown</em> because I haven’t really tried them out yet.</p>
+<h3 id="array-level-planner"><a class="header" href="#array-level-planner">Array-level planner</a></h3>
+<h3 id="array-level-optimizer"><a class="header" href="#array-level-optimizer">Array-level Optimizer</a></h3>
 <h3 id="shuffle"><a class="header" href="#shuffle">Shuffle</a></h3>
 <h3 id="fan-infan-out"><a class="header" href="#fan-infan-out">Fan-In/Fan-out</a></h3>
 <h3 id="overlap"><a class="header" href="#overlap">Overlap</a></h3>
 <h3 id="materialization-barriers"><a class="header" href="#materialization-barriers">Materialization barriers</a></h3>
+<ul>
+<li>building iteration spaces at runtime</li>
+<li></li>
+</ul>
 <h3 id="udfs"><a class="header" href="#udfs">UDFs</a></h3>
 <h3 id="incremental-compute-story"><a class="header" href="#incremental-compute-story">Incremental compute story</a></h3>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -755,7 +769,7 @@ pub trait ArrayLike: std::fmt::Debug + Send + Sync {
     }
 
     fn dtype(&amp;self) -&gt; DType {
-        self.expr().dtype
+        self.expr().dtype.clone()
     }
 
     fn dims(&amp;self) -&gt; Vec&lt;&amp;str&gt; {
@@ -765,6 +779,19 @@ pub trait ArrayLike: std::fmt::Debug + Send + Sync {
     /// Run array-level optimization passes.
     fn optimize(&amp;self) -&gt; ArrayResult&lt;Array&gt; {
         Ok(Array::from(optimize::optimize(self.expr())?))
+    }
+
+    /// Fill value for absent / unwritten output positions —
+    /// This is a _logical_ fill value for sparse arrays.
+    /// So it is `Some` for sparse outputs; `None` for dense outputs.
+    /// TODO: this seems like a (small) wart
+    fn sink_fill(&amp;self) -&gt; Option&lt;Value&gt;;
+
+    /// Wrap this array in a terminal [`ArraySink`], yielding an `Array` ready
+    /// for `lower`/`plan`/`execute`. Fallible: the sink validates the output
+    /// dtype (e.g. a fill value of the wrong dtype) at construction.
+    fn to_sink(&amp;self, sink: Arc&lt;dyn ArraySink&gt;) -&gt; ArrayResult&lt;Array&gt; {
+        Ok(Array::from(Arc::new(ArrayExpr::sink(self.expr().clone(), sink)?)))
     }
 }</code></pre>
 <h2 id="arrays-are-lazy"><a class="header" href="#arrays-are-lazy">Arrays are lazy</a></h2>
@@ -791,20 +818,15 @@ This [<code>ChunkGrid</code>] translates to a Brix [<code>IterationSpace</code>]
 <h2 id="arrays-are-streams-of-payloads"><a class="header" href="#arrays-are-streams-of-payloads">Arrays are streams of payloads.</a></h2>
 <p>At compute-time, arrays are conceptualized as streams of [<code>ArrayPayload</code>] bricks that are operated on.
 These [<code>ArrayPayload</code>] bricks are wrappers around underlying bare arrays (e.g. <code>ndarray::ArrayD</code>).</p>
-<pre><code class="language-rust ignore">/// Array-layer brick payload.
-// Keep this in sync with [`ReadFrame`], [`WriteFrame`]
+<pre><code class="language-rust ignore">/// Array-layer brick payload. The arms are the closed *kind* tag; the data
+/// behind each arm answers the uniform [`ArrayData`] contract.
+// Keep this in sync with [`ArrayPayloadKind`], [`WriteFrame`]
 #[derive(Debug, Clone)]
 pub enum ArrayPayload {
     Dense(DenseArray),
-    // stand-in for a payload that can be constructed
-    // on-demand cheaply given a shape.
-    // TODO: we'll need to propagate element-space ranges for each brick
-    //       so that we can write more general "functional arrays"
-    Fill(FillArray),
-    // String(Arc&lt;dyn StringArray&gt;) // specially modeled so we can provide String ops
-    //                              // backed by an externally provided array (zax-arrow).
+    /// Externally provided payload (datetime, categorical, string, geometry).
+    Extension(Arc&lt;dyn ArrayData&gt;),
     // Sparse(Arc&lt;dyn SparseArray&gt;)
-    // Extension(Arc&lt;dyn ExtensionArray) // Geoarrow geometry arrays
 }</code></pre>
 <p>[<code>ArrayPayload</code>] impls [<code>brix::BrickPayload</code>] so brix never inspects these
 variants (see <a href="#concepts-1">Traits</a>).</p>
@@ -852,8 +874,8 @@ If the <code>fill_value</code> is semantically valid (e.g. <code>0</code>) then<
 </ol>
 <p>We model:</p>
 <ol>
-<li>the underlying chunk grid as dense/sparse (translates to a dense/sparse iteration space at the brix layer) using <a href="api/brix/iteration_space/struct.Occupancy.html"><code>brix::Occupancy</code></a>  in both <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> and <code>brix::IterationSpace</code>.</li>
-<li>model the presence of a valid <code>fill_value</code> through a <a href="api/brix/array/struct.BlockSparseArray.html"><code>BlockSparseArray</code></a> that adds a new <em>fill value</em> property to <a href="api/brix/array/struct.Array.html"><code>Array</code></a>.</li>
+<li>the underlying chunk grid as dense/sparse (translates to a dense/sparse iteration space at the brix layer) using <a href="api/brix/iteration_space/struct.Occupancy.html"><code>brix::Occupancy</code></a>  in both <a href="api/brix_array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> and <code>brix::IterationSpace</code>.</li>
+<li>model the presence of a valid <code>fill_value</code> through a <a href="api/brix_array/struct.BlockSparseArray.html"><code>BlockSparseArray</code></a> that adds a new <em>fill value</em> property to <a href="api/brix_array/struct.Array.html"><code>Array</code></a>.</li>
 </ol>
 <div id="admonition-choice" class="admonition admonish-warning" role="note" aria-labelledby="admonition-choice-title">
 <div class="admonition-title">
@@ -865,8 +887,8 @@ If the <code>fill_value</code> is semantically valid (e.g. <code>0</code>) then<
 </div>
 
 <div>
-<p><a href="api/brix/array/struct.BlockSparseArray.html"><code>BlockSparseArray</code></a> requires explicit <code>fill_value</code> treatment and propagation much in exactly the same way that sparse matrices do.
-Thus it makes sense to split that up from arrays where the <code>fill_value</code> is invalid and no such logic is required so I chose to not use <code>fill_value: Option&lt;Value&gt;</code> on <a href="api/brix/array/struct.Array.html"><code>Array</code></a>.</p>
+<p><a href="api/brix_array/struct.BlockSparseArray.html"><code>BlockSparseArray</code></a> requires explicit <code>fill_value</code> treatment and propagation much in exactly the same way that sparse matrices do.
+Thus it makes sense to split that up from arrays where the <code>fill_value</code> is invalid and no such logic is required so I chose to not use <code>fill_value: Option&lt;Value&gt;</code> on <a href="api/brix_array/struct.Array.html"><code>Array</code></a>.</p>
 </div>
 
 </div>
@@ -891,12 +913,12 @@ pub struct Array {
 </div>
 
 <div>
-<p>The <a href="api/brix/array/struct.BlockSparseArray.html"><code>BlockSparseArray</code></a> implementation is purely to test out a valid ‘fill value’. Much of the existing <a href="api/brix/array/struct.Array.html"><code>Array</code></a> API should be implemented for both <a href="api/brix/array/struct.Array.html"><code>Array</code></a> and <a href="api/brix/array/struct.BlockSparseArray.html"><code>BlockSparseArray</code></a>. To do so for the latter woudl require reasoning about propagating <code>fill_value</code> which I have deferred for now.</p>
+<p>The <a href="api/brix_array/struct.BlockSparseArray.html"><code>BlockSparseArray</code></a> implementation is purely to test out a valid ‘fill value’. Much of the existing <a href="api/brix_array/struct.Array.html"><code>Array</code></a> API should be implemented for both <a href="api/brix_array/struct.Array.html"><code>Array</code></a> and <a href="api/brix_array/struct.BlockSparseArray.html"><code>BlockSparseArray</code></a>. To do so for the latter woudl require reasoning about propagating <code>fill_value</code> which I have deferred for now.</p>
 </div>
 
 </div>
 
-<p>Adds a <code>fill_value</code> to the <a href="api/brix/array/struct.Array.html"><code>Array</code></a> model.</p>
+<p>Adds a <code>fill_value</code> to the <a href="api/brix_array/struct.Array.html"><code>Array</code></a> model.</p>
 <pre><code class="language-rust ignore">/// Logical array with storage sparsity.
 /// Wraps an `Arc&lt;ArrayExpr&gt;` whose root source's `native_grid` carries
 /// `occupancy: Some(_)`.
@@ -910,9 +932,9 @@ pub struct BlockSparseArray {
 <p>At lowering time this array populates the <code>brix::Occupancy</code> field on the iteration space.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="the-array-ir"><a class="header" href="#the-array-ir">The Array IR</a></h1>
-<p><a href="api/brix/array/struct.Array.html"><code>Array</code></a> is a thin handle — the operations you call on it are recorded into
-<a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a>: the array-layer IR (<code>src/array/expr.rs</code>).</p>
-<p>An <a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> node is its <code>op</code> plus its inputs and the metadata that makes the layer
+<p><a href="api/brix_array/struct.Array.html"><code>Array</code></a> is a thin handle — the operations you call on it are recorded into
+<a href="api/brix_array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a>: the array-layer IR (<code>array/src/expr.rs</code>).</p>
+<p>An <a href="api/brix_array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> node is its <code>op</code> plus its inputs and the metadata that makes the layer
 labelled and dtype-aware.</p>
 <pre><code class="language-rust ignore">/// Array-level expression node.
 #[derive(Debug, Clone)]
@@ -927,7 +949,7 @@ pub struct ArrayExpr {
     pub brick_kind: ArrayPayloadKind,
     pub label: Option&lt;String&gt;,
 }</code></pre>
-<p>Each node wraps an <a href="api/brix/array/expr/enum.ArrayOp.html"><code>ArrayOp</code></a>. The op set is deliberately explicit — separate
+<p>Each node wraps an <a href="api/brix_array/expr/enum.ArrayOp.html"><code>ArrayOp</code></a>. The op set is deliberately explicit — separate
 <code>Unary</code>/<code>Binary</code> rather than a single general <code>Map</code> — while the optimizer’s
 needs are still being worked out:</p>
 <pre><code class="language-rust ignore">/// Array-level op.
@@ -937,15 +959,18 @@ needs are still being worked out:</p>
 #[derive(Clone)]
 pub enum ArrayOp {
     // Transparent sources are _not_ chunked and any chunk grid may be imposed.
-    // E.g. in-memory arrays
-    TransparentSource(TransparentSource),
+    // E.g. in-memory arrays and functional arrays (fill, future arange/eye).
+    TransparentSource(Arc&lt;dyn TransparentSource&gt;),
     // Opaque sources are chunked and have a chunk preference
     // E.g. Zarr/Icechunk
     OpaqueSource(Arc&lt;dyn OpaqueSource&gt;),
     // For generic external scalar operations, e.g. many string operations
     // that may be provided by zax-arrow
     // Elemwise(Arc&lt;dyn MapKernel&gt;)
+    Literal(ScalarValue),
     Unary(UnaryOp),
+    /// Elementwise binary op — always two inputs. A scalar operand
+    /// (`x + 1.0`) enters as a rank-0 [`ArrayOp::Literal`] input,
     Binary(BinaryOp),
     Reduce {
         acc: Arc&lt;dyn ArrayAccumulator&gt;,
@@ -961,6 +986,7 @@ pub enum ArrayOp {
     /// Cast to a target dtype. Either inserted at plan-time for implicit NumPy-style
     /// promotion (see [`ArrayExpr::binary`]) or user-specified by `Array::cast`.
     AsType(DType),
+    Sink(Arc&lt;dyn ArraySink&gt;),
     // Future: Transpose, Reshape, ...
 }</code></pre>
 <p>During <a href="#lowering">Lowering</a> each op resolves to a <em>kernel</em> that implements the
@@ -971,8 +997,9 @@ appropriate underlying Brix trait.</p>
 <tr><th><code>ArrayOp</code></th><th>brix <code>Op</code></th><th>Underlying brix trait (impl)</th></tr>
 </thead>
 <tbody>
-<tr><td><code>TransparentSource</code></td><td><code>Source</code></td><td><code>Source</code> — <code>FillSource</code> / <code>DenseSource</code></td></tr>
+<tr><td><code>TransparentSource</code></td><td><code>Source</code></td><td><code>Source</code> — <code>LoweredTransparent</code></td></tr>
 <tr><td><code>OpaqueSource</code></td><td><code>Source</code></td><td><code>Source</code> — <code>LoweredOpaque</code></td></tr>
+<tr><td><code>Literal</code></td><td><code>Source</code></td><td><code>Source</code> — <code>LoweredLiteral</code></td></tr>
 <tr><td><code>Unary</code>, <code>Binary</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>UnaryKernel</code> / <code>BinaryKernel</code></td></tr>
 <tr><td><code>AsType</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>AsTypeKernel</code></td></tr>
 <tr><td><code>Slice</code></td><td><code>Blockwise</code></td><td><code>Kernel</code> — <code>SliceKernel</code></td></tr>
@@ -983,34 +1010,79 @@ appropriate underlying Brix trait.</p>
 </table>
 </div>
 <p>The brix <a href="api/brix/expr/enum.Op.html"><code>brix::Op</code></a> enum has just three variants, so every array op funnels into one
-of <a href="api/brix/trait.Source.html"><code>brix::Source</code></a>, <code>Blockwise</code>, or <code>Reduce</code>. For reductions the array-layer
-<a href="api/brix/array/trait.ArrayAccumulator.html"><code>ArrayAccumulator</code></a> (<code>Sum</code>, <code>Mean</code>, …) is wrapped in a <code>LoweredAccumulator</code>
-adapter that implements the brix <a href="api/brix/trait.Accumulator.html"><code>brix::Accumulator</code></a> trait — the same adapter pattern
+of <a href="api/brix/expr/trait.Source.html"><code>brix::Source</code></a>, <code>Blockwise</code>, or <code>Reduce</code>. For reductions the array-layer
+<a href="api/brix_array/trait.ArrayAccumulator.html"><code>ArrayAccumulator</code></a> (<code>Sum</code>, <code>Mean</code>, …) is wrapped in a <code>LoweredAccumulator</code>
+adapter that implements the brix <a href="api/brix/expr/trait.Accumulator.html"><code>brix::Accumulator</code></a> trait — the same adapter pattern
 as <code>OpaqueSource</code> → <code>LoweredOpaque</code>.</p>
 <p>The bricks that flow along the graph’s edges at execution time are
 <a href="#payloads">Payloads</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="payloads"><a class="header" href="#payloads">Payloads</a></h1>
+<p>Array payloads have three axes, how they are bundled is up for debate.</p>
+<ul>
+<li>Storage: dense/sparse/extension</li>
+<li>Validity mask</li>
+<li>DataType: primitive/extension</li>
+</ul>
 <p>The <a href="#the-array-ir">ops</a> describe the <em>graph</em>; what flows along its edges at
 execution time is a stream of <strong>bricks</strong>. The contents of an array-layer brick
-are an <a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a>:</p>
-<pre><code class="language-rust ignore">/// Array-layer brick payload.
-// Keep this in sync with [`ReadFrame`], [`WriteFrame`]
+are an <a href="api/brix_array/enum.ArrayPayload.html"><code>ArrayPayload</code></a>:</p>
+<pre><code class="language-rust ignore">/// Array-layer brick payload. The arms are the closed *kind* tag; the data
+/// behind each arm answers the uniform [`ArrayData`] contract.
+// Keep this in sync with [`ArrayPayloadKind`], [`WriteFrame`]
 #[derive(Debug, Clone)]
 pub enum ArrayPayload {
     Dense(DenseArray),
-    // stand-in for a payload that can be constructed
-    // on-demand cheaply given a shape.
-    // TODO: we'll need to propagate element-space ranges for each brick
-    //       so that we can write more general "functional arrays"
-    Fill(FillArray),
-    // String(Arc&lt;dyn StringArray&gt;) // specially modeled so we can provide String ops
-    //                              // backed by an externally provided array (zax-arrow).
+    /// Externally provided payload (datetime, categorical, string, geometry).
+    Extension(Arc&lt;dyn ArrayData&gt;),
     // Sparse(Arc&lt;dyn SparseArray&gt;)
-    // Extension(Arc&lt;dyn ExtensionArray) // Geoarrow geometry arrays
 }</code></pre>
-<p><a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> impls <a href="api/brix/brick/trait.BrickPayload.html"><code>brix::BrickPayload</code></a> so brix never inspects these
+<p><a href="api/brix_array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> impls <a href="api/brix/brick/trait.BrickPayload.html"><code>brix::BrickPayload</code></a> so brix never inspects these
 variants (see <a href="#concepts-1">Traits</a>).</p>
+<div id="admonition-choice-1" class="admonition admonish-note" role="note" aria-labelledby="admonition-choice-title">
+<div class="admonition-title">
+<div id="admonition-choice-title-1">
+<p>Choice</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-choice-1"></a>
+</div>
+
+<div>
+<p>We <em>choose</em> to model <code>Dense</code> <code>ndarray</code> payloads and some future sparse payload explicitly.
+Everything else (including complex logical types like datetimes, categoricals, strings are <code>Extension</code>
+with an <code>ExtensionDType</code>).
+We do so because</p>
+<ul>
+<li>dense ndarrays of primitive types are the most common payload,</li>
+<li>we need to maintain a cross-dtype promotion rules for various primitive dtypes, and</li>
+<li>we need first-class support for mixed sparse-dense workloads (<code>tensordot</code> for regridding).</li>
+</ul>
+</div>
+
+</div>
+
+<h2 id="dense-array"><a class="header" href="#dense-array">Dense array</a></h2>
+<p><a href="api/brix_array/enum.DType.html"><code>DType</code></a>/<a href="api/brix_array/enum.Value.html"><code>Value</code></a> describe a single element; a <em>brick’s worth</em> of dense values
+is held in a <a href="api/brix_array/enum.DenseArray.html"><code>DenseArray</code></a> — a dtype-tagged <code>ArcArrayD&lt;T&gt;</code>. This is the dense
+container only; extension kinds carry their own representation behind
+<code>ArrayData</code>. <code>ArcArray</code> storage makes clones and slices zero-copy buffer shares,
+so sliced frames are owned payloads with no view lifetimes; a consumer that knows
+its concrete <code>T</code> borrows an <code>ArrayViewD&lt;T&gt;</code> via <code>DenseArray::as_typed</code>.</p>
+<pre><code class="language-rust ignore">/// Dense-kind value buffer, tagged by dtype. This is the dense container only —
+/// `ArcArrayD&lt;T&gt;` per primitive type T.
+///
+/// `ArcArray` storage makes clones and [`Index::slice`] outputs zero-copy
+/// buffer shares.
+///
+/// FIXME: Sadly mutation ([`Element::array_mut_from_dense`]) is copy-on-write;
+/// the writers (accumulator state, sink buffer) hold the sole
+/// reference by construction, so the copy never fires.
+#[derive(Debug, Clone)]
+pub enum DenseArray {
+    F64(ArcArrayD&lt;f64&gt;),
+    I64(ArcArrayD&lt;i64&gt;),
+}</code></pre>
 <h2 id="validity"><a class="header" href="#validity">Validity</a></h2>
 <div id="admonition-warning-2" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
 <div class="admonition-title">
@@ -1023,223 +1095,178 @@ variants (see <a href="#concepts-1">Traits</a>).</p>
 
 <div>
 <p>Approach to validity masks hasn’t been sketched out yet. Except that it is sidecat metadata stored next to the Payload.</p>
-<p>Where is it placed? Is it wrapped by <a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a>?</p>
+<p>Where is it placed? Is it wrapped by <a href="api/brix_array/enum.ArrayPayload.html"><code>ArrayPayload</code></a>?</p>
 <p>We will have to reimplement support across all ops (but there is prior art here).</p>
 </div>
 
 </div>
 
 <h2 id="ops-traits"><a class="header" href="#ops-traits">Ops traits</a></h2>
-<p>To provide useful operations, traits are implemented for each variant (<code>DenseArray</code> / <code>FillArray</code>).
-At the moment this is just <a href="api/brix/array/brick/trait.Index.html"><code>Index</code></a> to allow indexing of the payloads.</p>
-<pre><code class="language-rust ignore">pub trait Index {
+<p>Every payload kind — core’s <code>DenseArray</code> and externally provided extension
+arrays alike — implements the same two traits: <a href="api/brix_array/brick/trait.Index.html"><code>Index</code></a> for per-brick
+indexing and <code>ArrayData</code> for the remaining structural contract (dtype, shape,
+squeeze, sink writes). <code>ArrayPayload</code> delegates to them uniformly.</p>
+<pre><code class="language-rust ignore">/// Per-brick structural indexing. Every method returns an owned
+/// [`ArrayPayload`]; `slice` is zero-copy by kind contract (`Dense` shares
+/// the parent buffer through `ArcArray`, `Extension` impls buffer-share
+/// Arrow-style), while `oindex`/`vindex` gather into fresh buffers.
+pub trait Index {
     // TODO: we need an iindex - "integer index" too
-    fn slice(&amp;self, slicers: &amp;[(usize, Slice)]) -&gt; ReadFrame&lt;'_&gt;;
+    fn slice(&amp;self, slicers: &amp;[(usize, Slice)]) -&gt; ArrayPayload;
     fn oindex(&amp;self, indexers: &amp;[(usize, Vec&lt;usize&gt;)]) -&gt; ArrayPayload;
     fn vindex(&amp;self, indexers: &amp;[(usize, Vec&lt;usize&gt;)], produces: usize) -&gt; ArrayPayload;
 }</code></pre>
-<!--
-## Array payload traits
+<pre><code class="language-rust ignore">/// The uniform contract over payload data — what every payload
+/// kind supports regardless of storage representation.
+/// TODO: break this up in to more super-traits when it makes sense.
+///       this will let us be more explicit about the contract for each use-case
+///       e.g. ArrayData is too much for SinkBuffer;
+///       Note: traits cant have constructors, so `empty` is not here but on the DType.
+///       DType is the only thing the LoweredSink holds.
+pub trait ArrayData: Index + Send + Sync + Debug {
+    /// Logical element dtype of this payload.
+    fn dtype(&amp;self) -&gt; DType;
 
-### Strings
+    /// Per-axis element extents.
+    fn shape(&amp;self) -&gt; &amp;[usize];
 
-We specially model strings since we'd like to support "compute" ops on them.
-We would also like to dispatch out these ops to external libraries (e.g. arrow)
-in a separate crate (`zax-arrow`).
+    /// Drop the given size-1 axes (ascending positions; extents pre-validated
+    /// by the caller, [`ArrayPayload::squeeze`]). A buffer-sharing reshape.
+    fn squeeze(&amp;self, axes: &amp;[usize]) -&gt; BrixResult&lt;ArrayPayload&gt;;
 
-We need to support indexing like any other payload so this trait has [`Index`]
-as a supertrait
+    /// Write `data` into the element-space region `ranges` (one per axis) —
+    /// the sink population path, only ever called on a buffer the sink
+    /// exclusively owns (core-allocated, or via
+    /// [`crate::extension::ExtensionDType::empty`]). Accept the payloads
+    /// this data kind can ingest; reject the rest.
+    fn write_range(&amp;mut self, ranges: &amp;[Range&lt;usize&gt;], data: &amp;ArrayPayload) -&gt; BrixResult&lt;()&gt;;
 
-```rust,ignore
-pub trait StringArray: Index + Send + Sync + Debug { }
-```
-
-We want string ops (`==`, `contains`, `lower`, regex, …) to live externally in `zax-arrow`
-and call `arrow::compute`. To allow applying these kernels we define an opaque
-```rust,ignore
-ArrayOp::Elemwise(Arc<dyn ElemwiseKernel>)
-```
-Note that currently array elemwise ops like unary & binary ops are an explicit variant,
-so that the optimizer can handle them specially.
-
-The `zax-arrow` crate could define an extension trait with method `.str()`.
-So, for example, `array.str().contains(pat)` constructs an `ArrayOp::Elemwise`
-with the appropriate kernel, and all of this is external to the core codebase.
--->
+    /// The kernel-side downcast hook.
+    fn as_any(&amp;self) -&gt; &amp;dyn Any;
+}</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="data-types"><a class="header" href="#data-types">Data Types</a></h1>
-<h2 id="requirements"><a class="header" href="#requirements">Requirements</a></h2>
+<p>Every array carries a <a href="api/brix_array/enum.DType.html"><code>DType</code></a>, and scalars are dtype-tagged values.
+We distinguish between <em>opaque</em> and <em>interpreted</em> variants:</p>
+<pre><code class="language-rust ignore">#[derive(Debug, Clone)]
+pub enum DType {
+    Primitive(PrimitiveType),
+    Extension(Arc&lt;dyn ExtensionDType&gt;),
+}</code></pre>
 <ul>
-<li>We need to support something like <code>Datetime { calendar, epoch, units }</code>.
-We expect an external <code>zax-cftime</code> crate to provide implementations for
-non-standard calendars (since this is a climate science-only requirement).</li>
-<li>We need to support Strings.</li>
-<li>We need to support Arrow geometry buffers. We can ignore arithmetic ops here
-but need to support slicing.</li>
+<li><code>Primitive</code> — those with a Rust equivalent (<code>i64</code>, <code>f64</code>). Core owns these because
+numeric promotion needs a <em>closed</em> set of rules implemented.</li>
+<li><code>Extension</code> — everything not primitive: datetime, categorical, string,
+geometry. Fully external, behind <code>Arc&lt;dyn ExtensionDType&gt;</code>.</li>
 </ul>
-<h2 id="approach"><a class="header" href="#approach">Approach</a></h2>
-<div id="admonition-warning-3" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
-<div class="admonition-title">
-<div id="admonition-warning-title-3">
-<p>Warning</p>
-</div>
-
-<a class="admonition-anchor-link" href="#admonition-warning-3"></a>
-</div>
-
-<div>
-<p>The dtype model is in flux as we work toward Zax (<code>zax-io</code>) integration. The
-shipped code is still the flat <code>DType { F64, I64 }</code> enum; the shape below is the
-migration target. Everything past the primitives is design intent — see
-<code>checkpoints/dtypes.md</code>.</p>
-</div>
-
-</div>
-
-<p>Brix is statically typed: every array carries a <a href="api/brix/array/enum.DType.html"><code>DType</code></a>, and scalars are
-tagged <a href="api/brix/enum.Value.html"><code>Value</code></a>s (<code>src/array/dtype.rs</code>).</p>
-<ul>
-<li><strong>Physical dtype</strong> — dtype of the runtime brick payload. These are primitive types
-(<code>i64</code>, <code>f64</code> etc.).</li>
-<li><strong>Logical dtype</strong> — what the values <em>mean</em> (<a href="api/brix/array/enum.DType.html"><code>DType</code></a>): WE can wrap primitive types <code>Primitive</code>,
-and defined derived types on top of primitive types: <code>Datetime</code> (over <code>i64</code>), <code>Categorical</code>,
-or other types: <code>Utf8</code>, <code>Extension</code>.</li>
-<li><strong>Validity</strong> — a null mask parallel to the value buffer (discussed in Payloads).
-Dtypes don’t carry “nullability” (like Polars).</li>
-</ul>
-<h2 id="logical-dtypes"><a class="header" href="#logical-dtypes">Logical DTypes</a></h2>
-<p>A <code>Primitive(PrimitiveType)</code> variant wraps the closed primitive set, core-recognized
-logical types are their own variants, and <code>Extension</code> is the opaque escape hatch.</p>
-<pre><code class="language-rust ignore">pub enum PrimitiveType {
+<h2 id="primitivetype-and-promotion"><a class="header" href="#primitivetype-and-promotion"><code>PrimitiveType</code> and promotion</a></h2>
+<pre><code class="language-rust ignore">#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum PrimitiveType {
     F64,
     I64,
-}
-
-pub enum DType {
-    Primitive(PrimitiveType),              // F64/I64 (F32, U8 … later)
-    Datetime(Arc&lt;dyn DatetimeLikeDtype&gt;),  // unified numpy + CF time; physical = I64
-    Utf8,                                  // variable-length strings; String kind
-    Interval(???),
-    Categorical(???),
-    Extension(Arc&lt;dyn ExtensionDType&gt;),    // opaque (geometry); physical = None
-}</code></pre>
-<h3 id="datetime"><a class="header" href="#datetime">Datetime</a></h3>
-<p>We mode datetimes as one logical dtype backed by one trait.
-All datetimes are characterized by calendar, unit, and epoch.
-E.g. numpy’s <code>datetime64</code> has fixed <code>calendar = proleptic_gregorian</code> and a unix
-epoch. “cftime” provides non-standard calendars and an arbitrary epoch.
-We will represent all these as <code>i64</code> under the hood.
-We expect to have an external <code>zax-time</code> (or at least <code>zax-cftime</code>)
-so the core library defines traits (<code>DatetimeLikeDtype</code>) and enums (<code>TimeUnit</code>)</p>
-<pre><code class="language-rust ignore">DType::Datetime(Arc&lt;dyn DatetimeLikeDtype&gt;)
-
-pub trait DatetimeLikeDtype: Send + Sync + Debug {
-    fn unit(&amp;self) -&gt; TimeUnit;                       // S/Ms/Us/Ns/D…
-    fn storage(&amp;self) -&gt; PrimitiveType;               // = I64; feeds physical()
-    // calendar/tz-dependent behavior — the reason this is a trait:
-    // time-specific ops, e.g. for resampling
+    // Future: F32, I32, U8, Bool.
 }</code></pre>
 <ul>
-<li>Datetime arithmetic is implemented on the i64 kernel. <code>dt − dt</code>, <code>dt + td</code>,
-<code>dt &lt; dt</code> are calendar-independent by definition; only the output dtype <em>tag</em>
-changes. Cross-unit (<code>dt[s] + td[ns]</code>) is a plan-time unit-scaling <code>AsType</code>.</li>
-<li>Calendar-dependent ops (add months/years, resample buckets, decode, components) are
-deferred to specific external implementations (this needs to be sketched out later)</li>
-<li>Timezone is metadata on the gregorian calendar impl.</li>
+<li><code>PrimitiveType::promote</code> implements the single symmetric promotion ruleset,
+following the <a href="https://data-apis.org/array-api/latest/API_specification/type_promotion.html">Array API type-promotion rules</a>. It is deliberately closed
+over <code>DType::Primitive</code>. Extension dtypes have <em>no</em> promotion lattice with
+primitives — binary ops involving them are delegated to the external crate.</li>
+<li>A mixed-dtype binary op (e.g. <code>int + float</code>) inserts a plan-time <code>AsType</code> node
+(see <a href="#the-array-ir">The Array IR</a>) so unary op kernels never see mixed inputs.</li>
+<li>Scalar operands follow <em>weak</em> promotion (<code>promote_weak</code>), the Array API’s
+<a href="https://data-apis.org/array-api/latest/API_specification/type_promotion.html#mixing-arrays-and-python-scalars">mixing arrays and Python scalars</a> rule: a scalar contributes only its <em>kind</em>
+(integral vs. floating), never its width — <code>i64_arr + 2</code> stays <code>i64</code>,
+<code>i64_arr * 2.5</code> promotes to <code>f64</code>.</li>
+<li>Per-op output dtypes (e.g. <code>mean</code> → <code>f64</code>) live on the ops, not in the lattice.</li>
 </ul>
-<h3 id="string"><a class="header" href="#string">String</a></h3>
-<p>The logical dtype is <code>Utf8</code>; its physical layout
-(offsets + bytes) lives in a separate brick kind — see the
-<a href="#strings">String kind</a> in Payloads.</p>
-<h2 id="value"><a class="header" href="#value">Value</a></h2>
-<p>A typed scalar — used for fill values, reduction identities/absorbers, and
-constants:</p>
+<h2 id="scalars-value-and-scalarvalue"><a class="header" href="#scalars-value-and-scalarvalue">Scalars: <code>Value</code> and <code>ScalarValue</code></a></h2>
+<p>Again we have a primitive-vs-extension split:</p>
 <pre><code class="language-rust ignore">/// Typed scalar.
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Value {
     F64(f64),
     I64(i64),
 }</code></pre>
-<h2 id="promotion"><a class="header" href="#promotion">Promotion</a></h2>
-<p><code>DType::promote</code> defines a NumPy-style symmetric promotion rules.
-Per-op output dtypes (e.g. <code>mean</code> → f64) live on the ops themselves, not here.
-A mixed-dtype binary op (e.g. int + float) inserts a plan-time <code>AsType</code> node
-(see <a href="#the-array-ir">The Array IR</a>).
-This allows a “relatively simple” implementation of unary ops</p>
-<h2 id="typed-buffers"><a class="header" href="#typed-buffers">Typed buffers</a></h2>
-<p><a href="api/brix/array/enum.DType.html"><code>DType</code></a>/<a href="api/brix/enum.Value.html"><code>Value</code></a> describe a single element; a <em>brick’s worth</em> of dense values is
-held in a <a href="api/brix/array/enum.TypedArray.html"><code>TypedArray</code></a> — a dtype-tagged <code>ArrayD&lt;T&gt;</code>. It’s the dense container
-only; sparse / extension kinds carry their own representation.</p>
-<pre><code class="language-rust ignore">/// Dense-kind value buffer, tagged by dtype. This is the dense container only —
-/// `ArrayD&lt;T&gt;` per primitive — not a universal typed buffer (sparse / extension
-/// kinds carry their own representation; see `checkpoints/dtypes.md`).
+<pre><code class="language-rust ignore">/// Host-side typed scalar across both dtype arms — [`Value`] is the
+/// primitive-only tagged union; this adds the extension arm. The dtype is
+/// derived from the value (mirroring `ArrayPayload::dtype`), not stored.
 #[derive(Debug, Clone)]
-pub enum TypedArray {
-    F64(ArrayD&lt;f64&gt;),
-    I64(ArrayD&lt;i64&gt;),
+pub enum ScalarValue {
+    Primitive(Value),
+    Extension(Arc&lt;dyn ExtensionScalar&gt;),
 }</code></pre>
-<p>Borrowed access goes through <a href="api/brix/array/enum.TypedView.html"><code>TypedView</code></a>, the view-mirror of <a href="api/brix/array/enum.TypedArray.html"><code>TypedArray</code></a> (the
-<code>Dense</code> arm of a <a href="api/brix/array/brick/enum.ReadFrame.html"><code>ReadFrame</code></a>). A consumer that knows its concrete <code>T</code> recovers an
-<code>ArrayViewD&lt;T&gt;</code> via <code>TypedView::as_typed</code>.</p>
-<pre><code class="language-rust ignore">/// Borrowed, dtype-tagged view — the `Dense` arm of [`ReadFrame`]. Mirrors
-/// [`TypedArray`] for views. Consumers that know their `T` recover a concrete
-/// `ArrayViewD&lt;T&gt;` via [`TypedView::as_typed`].
-#[derive(Debug, Clone)]
-pub enum TypedView&lt;'a&gt; {
-    F64(ArrayViewD&lt;'a, f64&gt;),
-    I64(ArrayViewD&lt;'a, i64&gt;),
-}</code></pre>
-<h2 id="parameterizing-over-dtypes"><a class="header" href="#parameterizing-over-dtypes">Parameterizing over dtypes</a></h2>
-<p><a href="api/brix/array/enum.DType.html"><code>DType</code></a>/<a href="api/brix/enum.Value.html"><code>Value</code></a>/<a href="api/brix/array/enum.TypedArray.html"><code>TypedArray</code></a> are <strong>runtime-tagged</strong> — a closed enum per concept.
-Generic code, however, wants to be written once over a static type parameter
-<code>T</code>. The <code>Element</code> trait is the bridge: it is implemented per primitive, and its
-<code>const DTYPE</code> ties the static <code>T</code> to the runtime tag.</p>
-<pre><code class="language-rust ignore">pub trait Element: Copy + Send + Sync + Debug + PartialEq + 'static {
-    const DTYPE: DType;
-    fn from_array(arr: ArrayD&lt;Self&gt;) -&gt; TypedArray;
-    fn from_scalar(v: Self) -&gt; Value;
-    fn from_value(v: Value) -&gt; Option&lt;Self&gt;;
+<p>A literal is embedded in the graph as an expression node (<a href="api/brix_array/enum.ArrayOp.html#variant.Literal"><code>ArrayOp::Literal</code></a>), lowered to one
+rank-0 brick generated on demand. Example: <code>arr + 1</code> is a two-input Blockwise over
+the array and a rank-0 literal, broadcast by the planner’s absent-axis machinery.</p>
+<!-- ## Parameterizing over dtypes
+
+[`DType`]/[`Value`]/[`DenseArray`] are *runtime-tagged*: a closed enum with one
+arm per dtype, picked at runtime. Kernel bodies, by contrast, want to be written
+once over a static type parameter — `fn add<T: Numeric>(…)`. So we constantly
+need to cross between the runtime tag and the static `T`, in both directions.
+
+The `Element` trait is that bridge. It is implemented once per primitive, and
+its `const DTYPE` is the anchor that ties a static `T` to its runtime tag.
+
+```rust,ignore
+pub trait Element: Copy + Send + Sync + Debug + PartialEq + 'static {
+    const DTYPE: PrimitiveType;
+    /// Wrap a concrete buffer into the runtime-tagged `DenseArray`. Accepts
+    /// `ArrayD` (fresh kernel outputs — `into_shared` moves, no copy) and
+    /// `ArcArrayD` (zero-copy slices) alike.
+    fn from_array(arr: impl Into<ArcArrayD<Self>>) -> DenseArray;
+    fn from_scalar(v: Self) -> Value;
+    fn from_value(v: Value) -> Option<Self>;
 
     // -- type-erasure bridge --------------------------------------------------
-    // These let `dispatch_dtype!`/generic bodies recover a concretely-typed
-    // view/buffer out of the runtime-tagged `TypedView`/`TypedArray` enums.
-    // A generic fn can't coerce a `TypedView::F64` arm into `ArrayViewD&lt;T&gt;`,
-    // but a *concrete* impl (T = f64) can — so the peel lives here.
+    // These let `dispatch_dtype!` recover a concretely-typed
+    // view/buffer out of the runtime-tagged `DenseArray` enum.
 
-    /// Wrap a concrete view back into the runtime-tagged `TypedView`.
-    fn wrap_view(v: ArrayViewD&lt;'_, Self&gt;) -&gt; TypedView&lt;'_&gt;;
-    /// Peel a `TypedView` to this element's view, if the tag matches.
-    fn view_from_typed(tv: TypedView&lt;'_&gt;) -&gt; Option&lt;ArrayViewD&lt;'_, Self&gt;&gt;;
-    /// Mutable borrow of the inner buffer, if the tag matches.
-    fn array_mut_from_typed(ta: &amp;mut TypedArray) -&gt; Option&lt;&amp;mut ArrayD&lt;Self&gt;&gt;;
+    /// Borrow the inner buffer as this element's view, if the tag matches.
+    fn view_from_dense(da: &DenseArray) -> Option<ArrayViewD<'_, Self>>;
+    /// Mutable borrow of the inner buffer, if the tag matches. Copy-on-write:
+    /// callers must hold the buffer's sole reference (see [`DenseArray`]).
+    fn array_mut_from_dense(da: &mut DenseArray) -> Option<&mut ArcArrayD<Self>>;
     /// Take the inner buffer by value, if the tag matches.
-    fn array_from_typed(ta: TypedArray) -&gt; Option&lt;ArrayD&lt;Self&gt;&gt;;
-}</code></pre>
-<p>The trait carries a <strong>type-erasure bridge</strong>: a generic <code>fn</code> can’t coerce a
-<code>TypedView::F64</code> arm into <code>ArrayViewD&lt;T&gt;</code>, but a <em>concrete</em> impl (<code>T = f64</code>) can —
-so <code>wrap_view</code> / <code>view_from_typed</code> / <code>array_from_typed</code> live on <code>Element</code>, where
-<code>T</code> is known. Runtime dispatch in the other direction (tag → concrete body) goes
-through the <code>with_typed_array!</code> / <code>dispatch_dtype!</code> macros in <code>dtype.rs</code>.</p>
-<h3 id="capability-traits"><a class="header" href="#capability-traits">Capability traits</a></h3>
-<p>Op kernels don’t bound on <code>Element</code> directly — they bound on <strong>capability
-traits</strong> that bundle exactly the arithmetic a body needs. <code>Binary</code> (add / sub /
-mul plus the <code>Zero</code>/<code>One</code> reduction identities) is <strong>unsigned-compatible</strong>;
-<code>Unary</code> (negation, <code>abs</code>) is <strong>signed-only</strong> — <code>Signed</code> supplies both, so a future
-<code>u8</code> is correctly excluded. <code>Numeric</code> is the both-families bundle, granted free by
-a blanket impl:</p>
-<pre><code class="language-rust ignore">/// Capability umbrella for the `BinaryOp` family (add / sub / mul) plus the
+    fn array_from_dense(da: DenseArray) -> Option<ArcArrayD<Self>>;
+}
+```
+
+**Static `T` → runtime tag.** Code that already knows `T` reads `T::DTYPE` for
+the tag, and `T::from_array` / `from_scalar` wrap a concrete buffer or value into
+the tagged [`DenseArray`] / [`Value`].
+
+**Runtime tag → static `T`.** The harder direction, in two parts:
+
+- *Pulling a concrete buffer out of the enum.* A generic `fn` can't write
+  `match da { DenseArray::F64(a) => a }` and call the result `ArcArrayD<T>` —
+  that only type-checks when `T = f64`. So the extraction lives on the
+  per-primitive `Element` impl, where `T` *is* concrete: `view_from_dense` /
+  `array_from_dense` (and `from_value` for scalars).
+- *Running a generic body for a runtime tag.* The `dispatch_dtype!` /
+  `with_dense_array!` macros (in `dtype.rs`) expand to one `match` arm per dtype,
+  each binding a local type alias to the concrete type — so a single
+  `<T>`-generic body is monomorphized once per arm, all at one match site.
+
+### Capability traits
+
+Op kernels don't bound on `Element` directly — they bound on *capability
+traits* that bundle exactly the arithmetic a body needs:
+
+```rust,ignore
+/// Capability umbrella for the `BinaryOp` family (add / sub / mul) plus the
 /// `Zero`/`One` identities reductions need. **Unsigned-compatible** — a future
 /// `u8`/`u16` code-width dtype implements this, so binary ops / `sum` / `cast`
 /// stay open to it. The universal arithmetic bound; mirrors `BinaryOp`.
 pub trait Binary:
-    Element + Add&lt;Output = Self&gt; + Sub&lt;Output = Self&gt; + Mul&lt;Output = Self&gt; + Zero + One
+    Element + Add<Output = Self> + Sub<Output = Self> + Mul<Output = Self> + Zero + One
 {
 }
 
 /// Capability for the `UnaryOp` family (negation / absolute value). **Signed
 /// only** — `Signed` supplies both `Neg` and `abs`, so unsigned dtypes are
 /// correctly excluded. Mirrors `UnaryOp`.
-pub trait Unary: Element + Neg&lt;Output = Self&gt; + Signed {}
+pub trait Unary: Element + Neg<Output = Self> + Signed {}
 
 /// Fully numeric: both op families. The convenience bundle for code that needs
 /// everything; bodies that need only one family should bound on [`Binary`] or
@@ -1251,68 +1278,377 @@ pub trait Numeric: Binary + Unary {}
 
 // `Numeric` is a method-less bundle, so a blanket impl gives it for free to any
 // type that has both capabilities — no per-dtype `impl Numeric` line needed.
-impl&lt;T: Binary + Unary&gt; Numeric for T {}</code></pre>
-<p>All three are <strong>method-less</strong>: the behavior comes entirely from the supertrait
-bounds, so the per-primitive impls in <code>generated/dtypes.rs</code> are empty markers
-(<code>impl Unary for f64 {}</code>). A unary op runs one monomorphic body bounded
-<code>&lt;T: Unary&gt;</code>, reached by <code>dispatch_dtype!</code> on the runtime tag — <code>Neg =&gt; -x</code>,
-<code>Abs =&gt; x.abs()</code>.</p>
-<div id="admonition-where-per-dtype-code-lives" class="admonition admonish-note" role="note" aria-labelledby="admonition-where-per-dtype-code-lives-title">
+impl<T: Binary + Unary> Numeric for T {}
+```
+
+- `Binary` (add / sub / mul + the `Zero`/`One` reduction identities) is
+  *unsigned-compatible* — a future `u8` implements it, so `sum`/`cast` stay
+  open to it.
+- `Unary` (negation, `abs`) is *signed-only* (`Signed` supplies both), so a
+  future `u8` is correctly *excluded*.
+- `Numeric` is the both-families bundle, granted free by a blanket impl.
+
+All three are *method-less*: behavior comes entirely from the supertrait
+bounds, so the per-primitive impls are empty markers (`impl Unary for f64 {}`). A
+unary op runs one monomorphic body bounded `<T: Unary>`, reached by
+`dispatch_dtype!` on the runtime tag — `Neg => -x`, `Abs => x.abs()`.
+
+```admonish note title="Where per-dtype code lives"
+The *contracts* — `Element`, the capability traits, the [`DType`]/[`Value`]
+enums, and the dispatch macros — live in `array/dtype.rs`. The concrete
+`impl Element for f64 { … }` / `for i64 { … }` blocks are mechanically
+instantiated in `array/generated/dtypes.rs` — one block per primitive, the file
+you extend when a new primitive dtype lands. (Folder convention, not codegen.)
+```
+ -->
+<h2 id="extensions"><a class="header" href="#extensions">Extensions</a></h2>
+<p>The <code>Extension</code> arm — the dtype, host scalar, and payload contracts a satellite
+crate implements to plug in a new logical dtype — is covered in
+<a href="#extensions-1">Extensions</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="extensions-1"><a class="header" href="#extensions-1">Extensions</a></h1>
+<p>This page describes the <em>mechanism</em> by which a satellite crate (<code>zax-time</code>,
+<code>zax-geo</code>, …) plugs a new logical dtype.
+Three contracts need to be implemented — a dtype, a scalar, and an array payload.</p>
+<p>An extension dtype is <em>identity plus plan-time capability gates — no compute
+methods</em>. Runtime compute dispatches through the paired payload, never the
+dtype.</p>
+<pre><code class="language-rust ignore">/// An externally-owned logical dtype.
+///
+/// Carries **no compute methods**: a dtype is identity plus plan-time
+/// opt-in capability gates (e.g. "i support binary ops").
+/// Carries allocation primitives, since a DType is the only concrete
+/// handle we have at runtime. ArrayPayload::empty() cannot be implemented
+/// because Rust.
+pub trait ExtensionDType: DynEqHash + Send + Sync + Debug {
+    /// Identity / display name (e.g. `"datetime64[ns]"`).
+    fn name(&amp;self) -&gt; &amp;str;
+
+    /// Storage element size in bytes — an estimate for variable-size types.
+    /// Feeds the same cost/chunk-budget math as `PrimitiveType::itemsize`.
+    fn itemsize(&amp;self) -&gt; usize;
+
+    /// The binary-op capability, or `None` if this dtype advertises no
+    /// binary ops (then every `binary()` involving it is a plan-time error).
+    /// FIXME: we may need to be smarter here, but for now... this is OK.
+    fn binary(&amp;self) -&gt; Option&lt;&amp;dyn BinaryCapability&gt;;
+
+    /// Allocate a writable host array of `shape` with unspecified contents —
+    /// dtype-driven construction (`np.empty(shape, dtype)`). Lives on the
+    /// dtype because no array exists yet to dispatch through; sinks populate
+    /// the result via [`ArrayData::write_range`].
+    fn empty(&amp;self, shape: &amp;[usize]) -&gt; Box&lt;dyn ArrayData&gt;;
+
+    /// Allocate a writable host array of `shape` filled with `fill` —
+    /// `np.full(shape, fill, dtype)`. Infallible like [`Self::empty`]:
+    /// `fill` belonging to this dtype is a caller-validated precondition,
+    /// so the satellite downcast is a genuine invariant (`expect`). Serves
+    /// sink prefill (extension fills) and rank-0 literal materialization.
+    fn full(&amp;self, fill: &amp;dyn ExtensionScalar, shape: &amp;[usize]) -&gt; Box&lt;dyn ArrayData&gt;;
+}</code></pre>
+<p><code>empty</code>/<code>full</code> live on the dtype (not the array) because they construct <em>from
+nothing</em> — Array API <a href="https://data-apis.org/array-api/latest/API_specification/generated/array_api.empty.html"><code>empty(shape, dtype)</code></a> — and sinks need them before any
+array exists.</p>
+<h2 id="binary-ops"><a class="header" href="#binary-ops">Binary Ops</a></h2>
+<p>Binary ops dispatch through a capability modeled directly on Python’s
+<a href="https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types"><code>__add__</code>/<code>__radd__</code></a> operand-coercion protocol. Because planning precedes
+materialization, <a href="api/brix_array/trait.BinaryCapability.html#tymethod.apply"><code>BinaryCapability::apply</code></a> runs with <em>no brick</em>: it infers the output dtype,
+inserts operand casts, and returns a built <code>ArrayExpr</code>.</p>
+<pre><code class="language-rust ignore">/// Build `this &lt;op&gt; other` when this dtype owns the op. The direct analogue
+/// of Python's `__add__`/`__radd__` operand-coercion protocol;
+/// `apply` runs with no brick — it infers the output dtype, inserts operand casts,
+/// and returns a built [`ArrayExpr`].
+///
+/// Operands are [`Operand`]s, so scalars dispatch through the same protocol
+/// (an extension-*scalar* lhs dispatches via its dtype).
+///
+/// Contract, mirroring Python exactly
+/// (&lt;https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types&gt;):
+/// - `None`           ≙ `__op__` returned `NotImplemented` → try the other operand
+/// - `Some(Ok(expr))` ≙ a handled `__op__`/`__rop__` — the full lowered subgraph
+/// - `Some(Err(e))`   ≙ the op is mine, but the operands are invalid (a real
+///   error, not a decline)
+pub trait BinaryCapability {
+    fn apply(
+        &amp;self,
+        op: BinaryOp,
+        this: &amp;Operand,
+        other: &amp;Operand,
+    ) -&gt; Option&lt;ArrayResult&lt;ArrayExpr&gt;&gt;;
+}</code></pre>
+<p>An extension crate is expected to handle both array and scalar operands.</p>
+<h2 id="reductions"><a class="header" href="#reductions">Reductions</a></h2>
+<div id="admonition-not-designed-yet" class="admonition admonish-warning" role="note" aria-labelledby="admonition-not-designed-yet-title">
 <div class="admonition-title">
-<div id="admonition-where-per-dtype-code-lives-title">
-<p>Where per-dtype code lives</p>
+<div id="admonition-not-designed-yet-title">
+<p>Not designed yet.</p>
 </div>
 
-<a class="admonition-anchor-link" href="#admonition-where-per-dtype-code-lives"></a>
+<a class="admonition-anchor-link" href="#admonition-not-designed-yet"></a>
 </div>
 
 <div>
-<p>The <em>contracts</em> — <code>Element</code> (and <code>Unary</code>/<code>Binary</code>), the <a href="api/brix/array/enum.DType.html"><code>DType</code></a>/<a href="api/brix/enum.Value.html"><code>Value</code></a> enums,
-and the dispatch macros — live in <code>array/dtype.rs</code>. The concrete
-<code>impl Element for f64 { … }</code> / <code>for i64 { … }</code> blocks are mechanically
-instantiated in <code>array/generated/dtypes.rs</code> — one block per primitive, the file
-you extend when a new dtype lands. (Folder convention, not codegen.)</p>
+<p>Delegating reductions (e.g. min for datetime array) ahs not been sketched out yet.</p>
+<p>https://github.com/earth-mover/zax/issues/48</p>
 </div>
 
 </div>
 
-<h2 id="extensions"><a class="header" href="#extensions">Extensions</a></h2>
+<h2 id="array-payloads"><a class="header" href="#array-payloads">Array payloads</a></h2>
+<p>A <em>brick’s worth</em> of extension data is the <code>Extension</code> arm of <a href="api/brix_array/enum.ArrayPayload.html"><code>ArrayPayload</code></a>:</p>
+<pre><code class="language-rust ignore">/// Array-layer brick payload. The arms are the closed *kind* tag; the data
+/// behind each arm answers the uniform [`ArrayData`] contract.
+// Keep this in sync with [`ArrayPayloadKind`], [`WriteFrame`]
+#[derive(Debug, Clone)]
+pub enum ArrayPayload {
+    Dense(DenseArray),
+    /// Externally provided payload (datetime, categorical, string, geometry).
+    Extension(Arc&lt;dyn ArrayData&gt;),
+    // Sparse(Arc&lt;dyn SparseArray&gt;)
+}</code></pre>
+<p>The crate hands core an <code>Arc&lt;dyn ArrayData&gt;</code> (the type its <code>ExtensionDType::empty</code>/<code>full</code> return).
+<a href="api/brix_array/trait.ArrayData.html"><code>ArrayData</code></a> is the <em>structural</em> contract every payload answers
+regardless of dtype:</p>
+<pre><code class="language-rust ignore">/// The uniform contract over payload data — what every payload
+/// kind supports regardless of storage representation.
+/// TODO: break this up in to more super-traits when it makes sense.
+///       this will let us be more explicit about the contract for each use-case
+///       e.g. ArrayData is too much for SinkBuffer;
+///       Note: traits cant have constructors, so `empty` is not here but on the DType.
+///       DType is the only thing the LoweredSink holds.
+pub trait ArrayData: Index + Send + Sync + Debug {
+    /// Logical element dtype of this payload.
+    fn dtype(&amp;self) -&gt; DType;
+
+    /// Per-axis element extents.
+    fn shape(&amp;self) -&gt; &amp;[usize];
+
+    /// Drop the given size-1 axes (ascending positions; extents pre-validated
+    /// by the caller, [`ArrayPayload::squeeze`]). A buffer-sharing reshape.
+    fn squeeze(&amp;self, axes: &amp;[usize]) -&gt; BrixResult&lt;ArrayPayload&gt;;
+
+    /// Write `data` into the element-space region `ranges` (one per axis) —
+    /// the sink population path, only ever called on a buffer the sink
+    /// exclusively owns (core-allocated, or via
+    /// [`crate::extension::ExtensionDType::empty`]). Accept the payloads
+    /// this data kind can ingest; reject the rest.
+    fn write_range(&amp;mut self, ranges: &amp;[Range&lt;usize&gt;], data: &amp;ArrayPayload) -&gt; BrixResult&lt;()&gt;;
+
+    /// The kernel-side downcast hook.
+    fn as_any(&amp;self) -&gt; &amp;dyn Any;
+}</code></pre>
+<p>So an extension array implements, in order of how much it can lean on Arrow-style
+buffer sharing:</p>
 <ul>
-<li>Strings</li>
-<li>Arrow geometry buffers</li>
-<li>CFTime</li>
-<li>Interval Arrays</li>
-<li>Categorical Arrays</li>
-<li>Sparse Arrays</li>
+<li><em>Structural indexing</em> — <a href="api/brix_array/trait.Index.html"><code>Index</code></a> - <code>slice/oindex/vindex</code>.</li>
+<li><em>Shape manipulation</em> — <code>squeeze</code> (drop size-1 axes).</li>
+<li><em>Metadata</em> — <code>dtype</code> and <code>shape</code>.</li>
+<li><em>The sink path</em> — <code>write_range</code>, called only on a buffer the sink exclusively
+owns; the impl accepts the payloads its kind can ingest and rejects the rest.</li>
+<li><em>The kernel hook</em> — <code>as_any</code>, so a satellite kernel can downcast back to its
+concrete array and compute on it.</li>
 </ul>
-<p>Two of these are worked through in <a href="#extensions-1">Extensions</a>; their dtype
-treatment differs:</p>
-<p><strong>Geometry</strong> is an <em>extension dtype</em>: <code>DType</code> grows an
-<code>Extension(Arc&lt;dyn ExtensionDType&gt;)</code> arm whose <code>physical()</code> returns <code>None</code> —
-opaque, so it never enters <code>dispatch_dtype!</code>/<code>with_typed_array!</code>; geometry
-kernels live in <code>zax-geo</code> and downcast the payload. Type identity
-(extension name + CRS) drives the <code>Eq</code>/<code>Hash</code> alignment check, the same role
-<code>DType::F64</code> plays for native arrays.</p>
-<p><strong>Sparse</strong> is <em>not a dtype</em> — it’s a physical kind (a <code>BrickPayload</code> sibling
-of <code>Dense</code>/<code>Fill</code>). A sparse brick still carries an ordinary values dtype
-(<code>physical() = Some(F64)</code> etc.), so its nonzero values ride the normal
-<a href="api/brix/array/trait.Element.html"><code>Element</code></a>/promotion path: a sparse-i64 × dense-f64 op gets the usual
-plan-time <code>AsType</code> before the kernel runs. Only the structure (nonzero
-pattern, formats) lives behind <code>dyn SparseArray</code>.</p>
+<div id="admonition-note-1" class="admonition admonish-note" role="note" aria-labelledby="admonition-note-title">
+<div class="admonition-title">
+<div id="admonition-note-title-1">
+<p>Note</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-note-1"></a>
+</div>
+
+<div>
+<p>We may break this trait up in to a number of supertraits in the future.</p>
+</div>
+
+</div>
+
+<h3 id="index"><a class="header" href="#index">Index</a></h3>
+<p>The <a href="api/brix_array/trait.Index.html"><code>Index</code></a> supertrait:</p>
+<pre><code class="language-rust ignore">/// Per-brick structural indexing. Every method returns an owned
+/// [`ArrayPayload`]; `slice` is zero-copy by kind contract (`Dense` shares
+/// the parent buffer through `ArcArray`, `Extension` impls buffer-share
+/// Arrow-style), while `oindex`/`vindex` gather into fresh buffers.
+pub trait Index {
+    // TODO: we need an iindex - "integer index" too
+    fn slice(&amp;self, slicers: &amp;[(usize, Slice)]) -&gt; ArrayPayload;
+    fn oindex(&amp;self, indexers: &amp;[(usize, Vec&lt;usize&gt;)]) -&gt; ArrayPayload;
+    fn vindex(&amp;self, indexers: &amp;[(usize, Vec&lt;usize&gt;)], produces: usize) -&gt; ArrayPayload;
+}</code></pre>
+<p>Core never matches on the concrete type: it indexes and writes through the
+trait, and hands the payload to satellite kernels — selected by the dtype’s
+capability — that downcast and do the actual work.</p>
+<h2 id="scalars"><a class="header" href="#scalars">Scalars</a></h2>
+<p>The host-side rank-0 value mirrors the array payload:</p>
+<pre><code class="language-rust ignore">/// A satellite-owned rank-0 value. Surfaces at the **host boundary** —
+/// constructing a literal, or materializing a 0-d result (`.item()`) — and
+/// as a binary operand ([`Operand::Scalar`]): the owning capability resolves
+/// it at plan time, to its storage primitive or to an extension-dtype
+/// literal node (see [`BinaryCapability`]).
+pub trait ExtensionScalar: DynEqHash + Send + Sync + Debug {
+    /// Recover the dtype from the value (e.g. `Category("Forest")` →
+    /// its `CategoricalDType`).
+    fn dtype(&amp;self) -&gt; Arc&lt;dyn ExtensionDType&gt;;
+}</code></pre>
+<h2 id="example-a-minutes-payload"><a class="header" href="#example-a-minutes-payload">Example: a <code>minutes</code> payload</a></h2>
+<p>This toy <code>minutes</code> dtype stores an <code>i64</code> count per element.
+Its payload wraps an <code>ArrayD&lt;i64&gt;</code> and implements the <code>ArrayData</code> contract.
+<code>as_any</code> is the hook that lets a satellite kernel recover the
+concrete <code>MinutesArray</code> from the <code>dyn ArrayData</code> it was handed:</p>
+<pre><code class="language-rust ignore">/// Toy satellite payload: minutes stored as `ArrayD&lt;i64&gt;`. A real impl
+/// buffer-shares on `slice` (Arrow-style); this test impl copies.
+#[derive(Debug)]
+struct MinutesArray(ArrayD&lt;i64&gt;);
+
+impl Index for MinutesArray {
+    fn slice(&amp;self, slicers: &amp;[(usize, Slice)]) -&gt; ArrayPayload {
+        let v = slicers.iter().fold(self.0.view(), |mut v, (ax, s)| {
+            v.slice_axis_inplace(
+                Axis(*ax),
+                ndarray::Slice::new(s.start as isize, Some(s.end as isize), s.step as isize),
+            );
+            v
+        });
+        ArrayPayload::Extension(Arc::new(MinutesArray(v.to_owned())))
+    }
+
+    fn oindex(&amp;self, indexers: &amp;[(usize, Vec&lt;usize&gt;)]) -&gt; ArrayPayload {
+        let out = indexers
+            .iter()
+            .fold(self.0.clone(), |out, (axis, positions)| out.select(Axis(*axis), positions));
+        ArrayPayload::Extension(Arc::new(MinutesArray(out)))
+    }
+
+    fn vindex(&amp;self, _indexers: &amp;[(usize, Vec&lt;usize&gt;)], _produces: usize) -&gt; ArrayPayload {
+        unimplemented!("not exercised by these tests")
+    }
+}
+
+impl ArrayData for MinutesArray {
+    fn dtype(&amp;self) -&gt; DType {
+        Minutes::dtype()
+    }
+    fn shape(&amp;self) -&gt; &amp;[usize] {
+        self.0.shape()
+    }
+    fn squeeze(&amp;self, axes: &amp;[usize]) -&gt; BrixResult&lt;ArrayPayload&gt; {
+        let v = axes.iter().rev().fold(self.0.view(), |v, &amp;p| v.index_axis_move(Axis(p), 0));
+        Ok(ArrayPayload::Extension(Arc::new(MinutesArray(v.to_owned()))))
+    }
+    fn write_range(&amp;mut self, ranges: &amp;[Range&lt;usize&gt;], data: &amp;ArrayPayload) -&gt; BrixResult&lt;()&gt; {
+        let src = match data {
+            ArrayPayload::Extension(e) =&gt; e
+                .downcast_ref::&lt;MinutesArray&gt;()
+                .ok_or(BrixError::DowncastError { expected: "MinutesArray" })?,
+            _ =&gt; {
+                panic!("minutes sink accepts minutes bricks only");
+            }
+        };
+        let mut view = self.0.view_mut();
+        for (axis, range) in ranges.iter().enumerate() {
+            view.slice_axis_inplace(
+                Axis(axis),
+                ndarray::Slice::from(range.start as isize..range.end as isize),
+            );
+        }
+        view.assign(&amp;src.0);
+        Ok(())
+    }
+    fn as_any(&amp;self) -&gt; &amp;dyn Any {
+        self
+    }
+}</code></pre>
+<p><code>as_any</code> is what makes “core never matches, kernels downcast” work: core only
+sees <code>&amp;dyn ArrayData</code>, and a kernel selected for the <code>minutes</code> dtype calls
+<code>payload.downcast_ref::&lt;MinutesArray&gt;()</code> (which routes through <code>as_any</code>) to get
+back its <code>i64</code> buffer.</p>
+<h3 id="binary-ops-1"><a class="header" href="#binary-ops-1">Binary ops</a></h3>
+<p>The toy <code>minutes</code> dtype owns <code>minutes ± minutes</code> and <code>minutes * i64</code>, and
+declines everything else.</p>
+<p>Since the underlying storage is <code>ArrayD&lt;i64&gt;</code> this code reuses the internal <code>i64</code> path.
+Note the use of <code>ArrayError::ExtensionDowncastError</code> for nice error handling.</p>
+<pre><code class="language-rust ignore">fn retag(e: &amp;Arc&lt;ArrayExpr&gt;, dtype: DType) -&gt; Arc&lt;ArrayExpr&gt; {
+    Arc::new(ArrayExpr { dtype, ..e.as_ref().clone() })
+}
+
+impl BinaryCapability for Minutes {
+    /// Supports minutes ± minutes and minutes * i64, and declines everything else.
+    fn apply(
+        &amp;self,
+        op: BinaryOp,
+        this: &amp;Operand,
+        other: &amp;Operand,
+    ) -&gt; Option&lt;ArrayResult&lt;ArrayExpr&gt;&gt; {
+        use BinaryOp::*;
+
+        // Can we handle the requested operation?
+        let other_dtype = other.dtype();
+        let handled = match op {
+            // minutes ± minutes
+            Add | Sub =&gt; other_dtype.as_extension().is_some_and(|e| e.is::&lt;Minutes&gt;()),
+            // minutes * i64
+            Mul =&gt; matches!(other_dtype, DType::Primitive(PrimitiveType::I64)),
+        };
+        if !handled {
+            // don't know what to do here, bail.
+            return None;
+        }
+
+        // Resolve operands to their i64 storage and reuse the core's binary op path.
+        let as_i64 = |o: &amp;Operand| -&gt; ArrayResult&lt;Operand&gt; {
+            Ok(match o {
+                Operand::Expr(e) =&gt; Operand::Expr(retag(e, DType::I64)),
+                Operand::Scalar(ScalarValue::Primitive(v)) =&gt; Operand::from(*v),
+                Operand::Scalar(ScalarValue::Extension(s)) =&gt; {
+                    // A scalar that advertises the minutes dtype but isn't a
+                    // `MinutesScalar` is a malformed operand
+                    let m = s
+                        .downcast_ref::&lt;MinutesScalar&gt;()
+                        .ok_or(ArrayError::ExtensionDowncastError { expected: "MinutesScalar" })?;
+                    Operand::from(Value::I64(m.0))
+                }
+            })
+        };
+        Some((|| -&gt; ArrayResult&lt;ArrayExpr&gt; {
+            let expr = ArrayExpr::binary(op, as_i64(this)?, as_i64(other)?)?;
+            Ok(ArrayExpr { dtype: Minutes::dtype(), ..expr })
+        })())
+    }
+}</code></pre>
+<h2 id="see-also"><a class="header" href="#see-also">See also</a></h2>
+<ul>
+<li><a href="#binary-ops-2">Binary Ops</a> — the <code>__op__</code> / <code>__rop__</code> dispatch chain
+that picks a capability and the primitive kernel it lowers to.</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="extensions-1"><a class="header" href="#extensions-1">Extensions</a></h1>
+<h1 id="extension-crates"><a class="header" href="#extension-crates">Extension Crates</a></h1>
+<div id="admonition-warning-3" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div class="admonition-title">
+<div id="admonition-warning-title-3">
+<p>Warning</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-warning-3"></a>
+</div>
+
+<div>
+<p>Do not read closely yet!</p>
+</div>
+
+</div>
+
 <p>Satellite crates (<code>zax-*</code>) that extend the brick/payload model while keeping
 heavy dependencies out of brix core under every feature combination. Design
 intent, not built — full notes in <code>checkpoints/zax-geo.md</code> and
 <code>checkpoints/zax-sparse.md</code>. The two sit at opposite ends of a commitment
 spectrum: geometry is <strong>opaque</strong> (core can’t reason about it), sparse is the
 <strong>typed middle</strong> (core-recognized kind, pluggable backing).</p>
-<h2 id="zax-arrow"><a class="header" href="#zax-arrow"><code>zax-arrow</code></a></h2>
+<h2 id="zax-strings"><a class="header" href="#zax-strings"><code>zax-strings</code></a></h2>
 <h2 id="zax-time"><a class="header" href="#zax-time"><code>zax-time</code></a></h2>
 <h2 id="zax-geo"><a class="header" href="#zax-geo"><code>zax-geo</code></a></h2>
 <p>Arrow buffers (specifically geometries) in <code>ArrayPayload::Extension</code>. Necessary for
 zonal statistics (aggregations within geometries).</p>
-<p>Core gains a backing-agnostic extension slot — <code>DType::Extension(Arc&lt;dyn ExtensionDType&gt;)</code> paired with <code>ArrayPayload::Extension(Arc&lt;dyn ExtensionArray&gt;)</code>.</p>
+<p>Core gains a backing-agnostic extension slot — <code>DType::Extension(Arc&lt;dyn ExtensionDType&gt;)</code> paired with <code>ArrayPayload::Extension(Arc&lt;dyn ArrayData&gt;)</code>.</p>
 <p>Cross-kind ops collapse to a <strong>conversion kernel at a shallow boundary</strong>:
 zonal stats = <code>rasterize</code> (geometry → native categorical zone-id raster, the
 <em>only</em> geometry+raster kernel) followed by a pure-native groupby-reduce.
@@ -1353,7 +1689,7 @@ Chunk size choices are made at <em>lowering</em> time, by making decisions based
 
 </div>
 
-<p>A <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> describes how an nD array is partitioned into bricks at compute-time.
+<p>A <a href="api/brix_array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> describes how an nD array is partitioned into bricks at compute-time.
 An important addition is <code>occupancy</code> records storage sparsity — which
 bricks are present. This is directly translated to <a href="api/brix/iteration_space/struct.Occupancy.html"><code>brix::Occupancy</code></a> for a brix
 <a href="#iteration-space">Iteration Space</a>).</p>
@@ -1368,7 +1704,7 @@ pub struct ChunkGrid {
     /// Storage sparsity.
     pub occupancy: Option&lt;Occupancy&gt;,
 }</code></pre>
-<p>Each axis’s chunking is an <a href="api/brix/array/chunk_grid/enum.AxisChunks.html"><code>AxisChunks</code></a></p>
+<p>Each axis’s chunking is an <a href="api/brix_array/chunk_grid/enum.AxisChunks.html"><code>AxisChunks</code></a></p>
 <pre><code class="language-rust ignore">#[derive(Clone, PartialEq, Eq)]
 pub enum AxisChunks {
     /// All chunks identical: `n_chunks * size == shape`.
@@ -1387,14 +1723,37 @@ pub enum AxisChunks {
 inherent chunking.</p>
 <p>A <strong>transparent source</strong> has no inherent chunk grid — <a href="#lowering">lowering</a>
 may impose any brick shape on demand:</p>
-<pre><code class="language-rust ignore">/// Transparent sources — optimizer can pattern-match on the variant.
-/// No inherent chunk grid; the planner (via lowering) assigns one freely.
-#[derive(Debug, Clone)]
-pub enum TransparentSource {
-    Fill { value: Value, shape: Vec&lt;usize&gt; },
-    Dense(TypedArray),
-    // Future: Repeat { repeats: usize, axis: usize }, Tile { ... }
-    // and Functional { Fn ... }
+<pre><code class="language-rust ignore">/// Transparent source — generates any requested brick on demand, cheaply
+/// and infallibly. The trait behind functional arrays: an impl is a generation rule
+/// (constant, range, function) plus its shape and dtype.
+///
+/// `read` is infallible by contract — validation happens at expression-time.
+/// For now, fallibe sources should be [`OpaqueSource`].
+/// So out-of-range (for example) is detected at plan-time
+/// For the moment, there is no cost hook in favor of `numel × itemsize`
+/// from grid + dtype.
+pub trait TransparentSource: Debug + Send + Sync {
+    /// Per-axis element extents.
+    fn shape(&amp;self) -&gt; &amp;[usize];
+
+    /// Element dtype this source produces. Sources are an entry point for
+    /// dtype info the same way they are for shape.
+    fn dtype(&amp;self) -&gt; DType;
+
+    /// Plan-time promise of the payload kind `read` emits. Explicit, not
+    /// derived from dtype — kind is orthogonal to dtype (a transparent
+    /// `eye(n)` could emit Sparse bricks of primitive dtype).
+    fn brick_kind(&amp;self) -&gt; ArrayPayloadKind;
+
+    /// Generate the brick covering `bounds` (element space, one range per
+    /// axis).
+    fn read(&amp;self, bounds: &amp;[Range&lt;usize&gt;]) -&gt; ArrayPayload;
+
+    /// Short display label (viz, debug output).
+    fn label(&amp;self) -&gt; String;
+
+    /// The downcast hook (viz data extraction, satellite kernels).
+    fn as_any(&amp;self) -&gt; &amp;dyn Any;
 }</code></pre>
 <p>An <strong>opaque source</strong> (Zarr-like) owns its native chunk grid which may carry occupancy
 for block-sparse data:</p>
@@ -1420,9 +1779,13 @@ pub trait OpaqueSource: Debug + Send + Sync {
 
     fn brick_kind(&amp;self) -&gt; ArrayPayloadKind;
 }</code></pre>
-<p>Lowers to a <a href="api/brix/array/source/struct.FillSource.html"><code>FillSource</code></a> / <a href="api/brix/array/source/struct.DenseSource.html"><code>DenseSource</code></a>, <a href="api/brix/array/source/struct.LoweredOpaque.html"><code>LoweredOpaque</code></a>, all of which include the
-chosen <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> and impl the <a href="api/brix/trait.Source.html"><code>brix::Source</code></a> trait.
-Note that the chosen <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> need not align with the OpaqueSource’s native chunk grid.</p>
+<p>Lowering wraps either flavor in a grid-carrying adapter — [<code>LoweredTransparent</code>]
+/ <a href="api/brix_array/source/struct.LoweredOpaque.html"><code>LoweredOpaque</code></a> — which includes the chosen <a href="api/brix_array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> and impls the
+<a href="api/brix/expr/trait.Source.html"><code>brix::Source</code></a> trait. The transparent impls today are <a href="api/brix_array/source/struct.FillSource.html"><code>FillSource</code></a>
+(constant functional array, emits materialized dense bricks) and
+[<code>InMemorySource</code>] (any in-memory <code>ArrayPayload</code>, the entry point for
+extension data).
+Note that the chosen <a href="api/brix_array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> need not align with the OpaqueSource’s native chunk grid.</p>
 <h2 id="sinks"><a class="header" href="#sinks">Sinks</a></h2>
 <div id="admonition-warning-5" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
 <div class="admonition-title">
@@ -1441,46 +1804,46 @@ I do not think this was a good choice. It leaks everywhere (e.g. <code>Lowered</
 
 </div>
 
-<p>A sink is the destination passed to <code>execute()</code>. <a href="api/brix/array/sink/struct.InMemorySink.html"><code>InMemorySink</code></a> pre-allocates an
+<p>A sink is the destination passed to <code>execute()</code>. <a href="api/brix_array/sink/struct.InMemorySink.html"><code>InMemorySink</code></a> pre-allocates an
 array of the output shape and writes bricks into it by coordinate:</p>
-<pre><code class="language-rust ignore">pub struct InMemorySink {
-    array: Mutex&lt;TypedArray&gt;,
-    grid: ChunkGrid,
+<pre><code class="language-rust ignore">#[derive(Debug)]
+pub struct InMemorySink {
+    fill: Option&lt;ScalarValue&gt;,
 }</code></pre>
-<p>It implements the <a href="api/brix/trait.Sink.html"><code>brix::Sink</code></a> trait (<code>init</code> / <code>write_brick</code> / <code>finalize</code>).</p>
+<p>It implements the <a href="api/brix/expr/trait.Sink.html"><code>brix::Sink</code></a> trait (<code>init</code> / <code>write_brick</code> / <code>finalize</code>).</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="aggregations"><a class="header" href="#aggregations">Aggregations</a></h1>
 <p>Aggregations are (at the moment) reductions over one or more axes — <code>sum</code>, <code>mean</code>, and friends.
 They are backed by <strong>accumulators</strong> and computed over a <strong>frame</strong>.</p>
-<pre class="playground"><code class="language-rust"><span class="boring">extern crate brix;
+<pre class="playground"><code class="language-rust"><span class="boring">extern crate brix_array;
 </span>use std::collections::HashMap;
-use brix::Array;
+use brix_array::{Array, ArrayError};
 
-<span class="boring">fn main() -&gt; Result&lt;(), brix::array::ArrayError&gt; {
-</span>let data = Array::fill(1.0, vec![3, 4], &amp;["time", "x"]);
+<span class="boring">fn main() -&gt; Result&lt;(), ArrayError&gt; {
+</span>let data = Array::fill(1.0, vec![3, 5], &amp;["time", "x"]);
 // Reduce over the whole `time` axis.
 let totals = data.clone().over(&amp;["time"])?.sum()?;
-// Coarsen `x` into width-2 blocks, then average each block.
+// Coarsen `x` into width-2 blocks; 5 isn't a multiple of 2, so the last block is a width-1 tail.
 let coarsened = data.coarsen(HashMap::from([("x", 2)]))?.mean()?;
 <span class="boring">Ok(())
 </span><span class="boring">}</span></code></pre>
 <h2 id="frames"><a class="header" href="#frames">Frames</a></h2>
 <p>A <strong>frame</strong> is a <em>lens</em> over an array: a way of viewing it as a stream of
-windows rather than as a flat block (<code>src/array/framed.rs</code>). The framing model
+windows rather than as a flat block (<code>array/src/framed.rs</code>). The framing model
 borrows from two places:</p>
 <ol>
-<li><strong>numpy <a href="https://numpy.org/doc/stable/reference/ufuncs.html#methods">ufunc methods</a></strong> — <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.reduce.html"><code>reduce</code></a> collapses a whole axis (<a href="api/brix/array/expr/enum.Frame.html#variant.WholeAxis"><code>WholeAxis</code></a>),
-<a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.reduceat.html"><code>reduceat</code></a> reduces over segment boundaries (<a href="api/brix/array/expr/enum.Frame.html#variant.Blocks"><code>Blocks</code></a>/<a href="api/brix/array/expr/enum.Frame.html#variant.VariableWindow"><code>VariableWindow</code></a>),
-and <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.at.html"><code>at</code></a> scatters into indexed groups (<a href="api/brix/array/expr/enum.Frame.html#variant.Groups"><code>Groups</code></a>). A <a href="api/brix/array/expr/enum.Frame.html"><code>Frame</code></a> is the
+<li><strong>numpy <a href="https://numpy.org/doc/stable/reference/ufuncs.html#methods">ufunc methods</a></strong> — <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.reduce.html"><code>reduce</code></a> collapses a whole axis (<a href="api/brix_array/expr/enum.Frame.html#variant.WholeAxis"><code>WholeAxis</code></a>),
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.reduceat.html"><code>reduceat</code></a> reduces over segment boundaries (<a href="api/brix_array/expr/enum.Frame.html#variant.Blocks"><code>Blocks</code></a>/<a href="api/brix_array/expr/enum.Frame.html#variant.VariableWindow"><code>VariableWindow</code></a>),
+and <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.at.html"><code>at</code></a> scatters into indexed groups (<a href="api/brix_array/expr/enum.Frame.html#variant.Groups"><code>Groups</code></a>). A <a href="api/brix_array/expr/enum.Frame.html"><code>Frame</code></a> is the
 descriptor that picks which behavior the same accumulator runs. Unlike ufuncs, our
 intent is to allow scans (“cumulative ops”, <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.accumulate.html"><code>accumulate</code></a>) to compose with these Frames.</li>
 <li><strong><a href="https://en.wikipedia.org/wiki/Window_function_(SQL)">SQL:2003 window functions</a></strong> — an aggregate evaluated against a moving <em>frame</em>
 rather than the whole input, spelled as an <code>OVER</code> clause (<code>SUM(x) OVER (...)</code>) and
 optionally factored out as a named <code>WINDOW W AS (...)</code>. Brix’s
 <a href="#framedarray"><code>over</code></a> plays the role of <code>OVER</code>, and a single frame model subsumes
-both halves of the clause: <code>PARTITION BY</code> grouping is <a href="api/brix/array/expr/enum.Frame.html#variant.Groups"><code>Groups</code></a>
-(per-element labels), while the frame spec is <a href="api/brix/array/expr/enum.Frame.html#variant.WholeAxis"><code>WholeAxis</code></a>,
-<a href="api/brix/array/expr/enum.Frame.html#variant.Window"><code>Window</code></a>, or <a href="api/brix/array/expr/enum.Frame.html#variant.Blocks"><code>Blocks</code></a>.</li>
+both halves of the clause: <code>PARTITION BY</code> grouping is <a href="api/brix_array/expr/enum.Frame.html#variant.Groups"><code>Groups</code></a>
+(per-element labels), while the frame spec is <a href="api/brix_array/expr/enum.Frame.html#variant.WholeAxis"><code>WholeAxis</code></a>,
+<a href="api/brix_array/expr/enum.Frame.html#variant.Window"><code>Window</code></a>, or <a href="api/brix_array/expr/enum.Frame.html#variant.Blocks"><code>Blocks</code></a>.</li>
 </ol>
 <p>All of these are just frame shapes fed to the same accumulator machinery.</p>
 <div id="admonition-warning-6" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
@@ -1498,13 +1861,13 @@ both halves of the clause: <code>PARTITION BY</code> grouping is <a href="api/br
 
 </div>
 
-<div id="admonition-choice-1" class="admonition admonish-note" role="note" aria-labelledby="admonition-choice-title">
+<div id="admonition-choice-2" class="admonition admonish-note" role="note" aria-labelledby="admonition-choice-title">
 <div class="admonition-title">
-<div id="admonition-choice-title-1">
+<div id="admonition-choice-title-2">
 <p>Choice</p>
 </div>
 
-<a class="admonition-anchor-link" href="#admonition-choice-1"></a>
+<a class="admonition-anchor-link" href="#admonition-choice-2"></a>
 </div>
 
 <div>
@@ -1547,8 +1910,8 @@ pub enum Frame {
 }</code></pre>
 <h2 id="framedarray"><a class="header" href="#framedarray">FramedArray</a></h2>
 <p>A <code>FramedArray&lt;F&gt;</code> is the array paired with its per-axis frames. The frame kind
-is a zero-size type parameter <code>F</code> — a sealed <code>Framed</code> marker (<a href="api/brix/array/framed/struct.WholeAxis.html"><code>WholeAxis</code></a>,
-<a href="api/brix/array/framed/struct.Window.html"><code>Window</code></a>, …) named to mirror the <a href="#frames"><code>Frame</code></a> variants — so frame-specific
+is a zero-size type parameter <code>F</code> — a sealed <code>Framed</code> marker (<a href="api/brix_array/framed/struct.WholeAxis.html"><code>WholeAxis</code></a>,
+<a href="api/brix_array/framed/struct.Window.html"><code>Window</code></a>, …) named to mirror the <a href="#frames"><code>Frame</code></a> variants — so frame-specific
 methods can be gated at the type level while the shared surface stays generic:</p>
 <pre><code class="language-rust ignore">pub trait Framed: private::Sealed {
     const NAME: &amp;'static str;
@@ -1564,17 +1927,17 @@ pub struct FramedArray&lt;F: Framed&gt; {
     view: HashMap&lt;AxisName, Frame&gt;,
     _framed: PhantomData&lt;F&gt;,
 }</code></pre>
-<p><a href="api/brix/array/framed/struct.WholeAxis.html"><code>WholeAxis</code></a> and <a href="api/brix/array/framed/struct.Window.html"><code>Window</code></a> are implemented today as <code>Array::over</code> and
+<p><a href="api/brix_array/framed/struct.WholeAxis.html"><code>WholeAxis</code></a> and <a href="api/brix_array/framed/struct.Window.html"><code>Window</code></a> are implemented today as <code>Array::over</code> and
 <code>Array::coarsen</code>, returning <code>FramedArray&lt;WholeAxis&gt;</code> and <code>FramedArray&lt;Window&gt;</code>.
 The aggregation surface (<code>reduce</code>, <code>sum</code>, <code>mean</code>) lives on
 <code>impl&lt;F: Framed&gt; FramedArray&lt;F&gt;</code>, so the same accumulator machinery serves plain
 reductions, coarsening, and rolling alike. Frame-specific methods (e.g.
-<code>keepdims</code> on <a href="api/brix/array/framed/struct.WholeAxis.html"><code>WholeAxis</code></a>) live on the narrower <code>impl FramedArray&lt;WholeAxis&gt;</code>.</p>
+<code>keepdims</code> on <a href="api/brix_array/framed/struct.WholeAxis.html"><code>WholeAxis</code></a>) live on the narrower <code>impl FramedArray&lt;WholeAxis&gt;</code>.</p>
 <h2 id="accumulators"><a class="header" href="#accumulators">Accumulators</a></h2>
-<p>Accumulators implement aggregations over a <a href="api/brix/array/expr/enum.Frame.html"><code>Frame</code></a> in to a <a href="api/brix/trait.State.html"><code>brix::State</code></a>.
+<p>Accumulators implement aggregations over a <a href="api/brix_array/expr/enum.Frame.html"><code>Frame</code></a> in to a <a href="api/brix/expr/trait.State.html"><code>brix::State</code></a>.
 For example, <code>Array::over(["time"]).sum()</code> records an <code>ArrayOp::Reduce { acc, view }</code>
 — the accumulator (<code>SumAccumulator</code>) <strong>plus the
-frame</strong>: <code>view</code> maps each reduced axis to a <a href="api/brix/array/expr/enum.Frame.html"><code>Frame</code></a> (here
+frame</strong>: <code>view</code> maps each reduced axis to a <a href="api/brix_array/expr/enum.Frame.html"><code>Frame</code></a> (here
 <code>{"time": Frame::WholeAxis { keepdims: false }}</code>).</p>
 <pre><code class="language-rust ignore">pub trait ArrayAccumulator: Debug + Send + Sync {
     /// Output dtype of this reduction.
@@ -1601,12 +1964,14 @@ frame</strong>: <code>view</code> maps each reduced axis to a <a href="api/brix/
     fn fold_frame(
         &amp;self,
         // state to update
+        // For now, this mut is OK because we expect to be parallelizing over loop dimensions,
+        // constructing one State per output brick, and folding in to it.
         state: &amp;mut dyn State,
         // destination index in State to update
         // The accumulator is free to interpret that in the context of its own State.
         state_frame_loc: &amp;HashMap&lt;usize, usize&gt;,
-        // view to aggregate
-        input: ReadFrame&lt;'_&gt;,
+        // frame to aggregate (an owned ideally-zero-copy slice of the input brick)
+        input: ArrayPayload,
     ) -&gt; BrixResult&lt;()&gt;;
 
     /// Merge states (e.g. merge step of tree reduction)
@@ -1634,8 +1999,8 @@ pub trait State: Debug + Send + Any {
     fn as_any(&amp;self) -&gt; &amp;dyn Any;
     fn as_any_mut(&amp;mut self) -&gt; &amp;mut dyn Any;
 }</code></pre>
-<p>During <a href="#lowering">lowering</a>, each <a href="api/brix/array/trait.ArrayAccumulator.html"><code>ArrayAccumulator</code></a> is wrapped in a
-<a href="api/brix/array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a> adapter that implements the brix-layer
+<p>During <a href="#lowering">lowering</a>, each <a href="api/brix_array/trait.ArrayAccumulator.html"><code>ArrayAccumulator</code></a> is wrapped in a
+<a href="api/brix_array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a> adapter that implements the brix-layer
 <a href="#concepts-1"><code>brix::Accumulator</code></a> trait — mirroring how <code>OpaqueSource</code> becomes
 <code>LoweredOpaque</code>:</p>
 <pre><code class="language-rust ignore">#[derive(Debug, Clone)]
@@ -1661,33 +2026,42 @@ frames or chunk sizes.</p>
 
 <div>
 <ol>
-<li>We initialize <a href="api/brix/trait.State.html"><code>brix::State</code></a> and accumulate <em>into</em> it, so <code>ArrayAccumulator::fold_left</code>
-takes <code>&amp;mut State</code>. An <em>ugly</em> choice, but it matches what low-allocation array
-aggregations need.</li>
+<li>We initialize <a href="api/brix/expr/trait.State.html"><code>brix::State</code></a> per output brick and accumulate <em>into</em> it, so <code>ArrayAccumulator::fold_left</code>
+takes <code>&amp;mut State</code>. An <em>ugly</em> choice, but it reduces memory allocations.</li>
 <li>Aggregations <em>within</em> a brick are serial; we rely on cross-brick parallelism.</li>
 </ol>
 </div>
 
 </div>
 
-<p>Here is <em>how</em> one brick’s worth of a reduction runs.</p>
-<p>For each framed axis, the <a href="api/brix/array/expr/enum.Frame.html"><code>Frame</code></a> implies a sequence of element-space ranges.
+<p>Here is <em>how</em> one output brick’s of a reduction is constructed.
+Consider one brick of <code>data</code> of shape <code>[time=3, x=5]</code> — and run
+<code>coarsen({"x": 2}).mean()</code>. The <code>view</code> is <code>{"x": Window { size: 2, stride: 2 }}</code>;
+<code>time</code> is absent, so it stays a full-extent loop axis.</p>
+<p>For each framed axis, the <a href="api/brix_array/expr/enum.Frame.html"><code>Frame</code></a> implies a sequence of element-space ranges.
 The cartesian product of those per-axis sequences gives the frames we aggregate
-over. <code>ArrayPayload::as_frame_iter(view)</code> yields <code>(state_frame_loc, framed_view)</code> pairs,
-where <code>state_frame_loc</code> is the destination <a href="api/brix/trait.State.html"><code>brix::State</code></a> location to fold into.
-Each <code>framed_view</code> is carved by using [<code>Index::slice</code>], reusing the existing slicing machinery.</p>
+over. For our example:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><code>state_frame_loc</code></th><th><code>framed_view</code> (<code>Index::slice</code>)</th><th>slot shape</th></tr>
+</thead>
+<tbody>
+<tr><td><code>{x: 0}</code></td><td><code>time ∈ 0..3, x ∈ 0..2</code></td><td><code>[3, 2]</code></td></tr>
+<tr><td><code>{x: 1}</code></td><td><code>time ∈ 0..3, x ∈ 2..4</code></td><td><code>[3, 2]</code></td></tr>
+<tr><td><code>{x: 2}</code></td><td><code>time ∈ 0..3, x ∈ 4..5</code></td><td><code>[3, 1]</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>Now <code>ArrayPayload::as_frame_iter(view)</code> yields <code>(state_frame_loc, framed_view)</code> pairs,
+where <code>state_frame_loc</code> is the destination <a href="api/brix/expr/trait.State.html"><code>brix::State</code></a> location to fold into.
+Each <code>framed_view</code> is created by using [<code>Index::slice</code>], reusing the existing slicing machinery.</p>
 <p><code>LoweredAccumulator::fold_left</code> calls <code>ArrayPayload::as_frame_iter(view)</code> in a loop,
 and passes the returned view to <code>ArrayAccumulator::fold_frame</code>, which folds it into <code>state</code>
-at the lane named by <code>state_frame_loc</code>.</p>
-<p>The <code>input</code> to be aggregate is a readonly-view encapsulated in <a href="api/brix/array/brick/enum.ReadFrame.html"><code>ReadFrame</code></a>:</p>
-<pre><code class="language-rust ignore">#[derive(Debug, Clone)]
-pub enum ReadFrame&lt;'a&gt; {
-    Dense(TypedView&lt;'a&gt;),
-    // Owned `FillArray` to reduce lifetime gymnastics.
-    // This is cheap to Clone so it doesn't matter
-    Fill(FillArray),
-    // Future: Sparse(SparseData), Mixed(MixedData)
-}</code></pre>
+at the location named by <code>state_frame_loc</code>.</p>
+<p>The <code>input</code> to be aggregated is passed in as an owned <a href="api/brix_array/enum.ArrayPayload.html"><code>ArrayPayload</code></a>; ideally this is a
+zero-copy slice of the input brick. <code>Dense</code> shares the brick’s buffer through
+<code>ArcArray</code>; ideally <code>Extension</code> implement implement similar buffer sharing.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="optimization"><a class="header" href="#optimization">Optimization</a></h1>
 <div id="admonition-warning-7" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
@@ -1740,27 +2114,23 @@ slice chains.</p>
 </div>
 
 <p><strong>Lowering</strong> is the single pass that turns the logical array IR into the
-array-agnostic <a href="#brix">Brix-IR</a> (<code>src/array/lower.rs</code>). It walks
-the <a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> post-order and, for each node:</p>
+array-agnostic <a href="#brix">Brix-IR</a> (<code>array/src/lower.rs</code>). It walks
+the <a href="api/brix_array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> post-order and, for each node:</p>
 <ul>
 <li>walks the DAG and picks an element-sized chunk grid per node given resource constraints as an input.</li>
-<li>bakes that grid into the concrete <a href="api/brix/trait.Source.html"><code>brix::Source</code></a> / <a href="api/brix/trait.Kernel.html"><code>brix::Kernel</code></a> / <a href="api/brix/trait.Accumulator.html"><code>brix::Accumulator</code></a> impls,</li>
+<li>bakes that grid into the concrete <a href="api/brix/expr/trait.Source.html"><code>brix::Source</code></a> / <a href="api/brix/expr/trait.Kernel.html"><code>brix::Kernel</code></a> / <a href="api/brix/expr/trait.Accumulator.html"><code>brix::Accumulator</code></a> impls,</li>
 <li>projects a counts-only <a href="api/brix/iteration_space/struct.IterationSpace.html"><code>brix::IterationSpace</code></a> onto the resulting <a href="api/brix/expr/struct.Expr.html"><code>brix::Expr</code></a> for the
 planner to consume.</li>
 </ul>
-<p>All chunk assignment happens in this one place. Transparent sources (Fill,
-Dense, …) have no inherent chunk grid and can generate any brick shape on
+<p>All chunk assignment happens in this one place. Transparent sources (FillSource,
+InMemorySource, …) have no inherent chunk grid and can generate any brick shape on
 demand; opaque sources (Zarr) have native grids that lowering reads through.
-The brix layer never names <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> — the rich per-axis chunk representation
+The brix layer never names <a href="api/brix_array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> — the rich per-axis chunk representation
 stays entirely in <code>array/</code>.</p>
 <p>The pass returns a <code>Lowered</code>:</p>
 <pre><code class="language-rust ignore">#[derive(Clone)]
 pub struct Lowered {
     pub expr: Arc&lt;Expr&gt;,
-    // FIXME: This `root_grid` is a wart that exists only because the final sink
-    // is not in the `expr`. It is passed separately, and so we need to carry the
-    // explicit array-level chunk grid for that final Sink.
-    pub root_grid: ChunkGrid,
     // This sidecar Map is simply to enable nice visualization/explainers.
     // It is *not* used for planning or execution at the brix layer.
     pub grids: HashMap&lt;ExprId, ChunkGrid&gt;,
@@ -1783,8 +2153,8 @@ pub struct Lowered {
 </div>
 
 <p>To pick a chunk grid “given resource constraints”, lowering needs to compare
-candidates. Each array-layer operand implements <a href="api/brix/array/trait.MaxCost.html"><code>MaxCost</code></a>, reporting the
-worst-case per-brick <a href="api/brix/cost/struct.Cost.html"><code>Cost</code></a> on a candidate output <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a>.</p>
+candidates. Each array-layer operand implements <a href="api/brix_array/trait.MaxCost.html"><code>MaxCost</code></a>, reporting the
+worst-case per-brick <a href="api/brix/cost/struct.Cost.html"><code>Cost</code></a> on a candidate output <a href="api/brix_array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a>.</p>
 <pre><code class="language-rust ignore">/// Worst-case per-brick cost on a candidate output [`ChunkGrid`].
 /// Used during planning when the array layer is choosing among
 /// candidate grids.
@@ -1795,89 +2165,43 @@ pub trait MaxCost {
 <h1 id="execution"><a class="header" href="#execution">Execution</a></h1>
 <p>The full pipeline — optimize → lower → plan → execute — is exercised end-to-end
 by the <code>compute</code> helper in <code>tests/common/mod.rs</code>:</p>
-<pre><code class="language-rust ignore">pub fn compute&lt;T: Element, A: ArrayLike + SinkFill&gt;(
-    execute: ExecuteFn,
+<pre><code class="language-rust ignore">pub fn compute&lt;T: Element, A: ArrayLike&gt;(
+    executor: impl Executor,
     arr: &amp;A,
     budget: usize,
 ) -&gt; ndarray::ArrayD&lt;T&gt; {
     init_tracing();
     let optimized = arr.optimize().unwrap();
-    let lowered = lower(&amp;optimized, budget).unwrap();
+    let rooted = optimized
+        .to_sink(Arc::new(InMemorySink::new(arr.sink_fill().map(Into::into))))
+        .expect("sink fill dtype matches the output dtype");
+    let lowered = lower(&amp;rooted, budget).unwrap();
     let physical = plan(&amp;lowered.expr).unwrap();
-    let _ = physical
-        .nodes
-        .iter()
-        .find(|(_, info)| matches!(info, NodeInfo::Sink { .. }))
-        .expect("plan must have a Sink node");
-    let sink = InMemorySink::new(lowered.root_grid, arr.dtype(), arr.sink_fill()).unwrap();
-    execute(&amp;physical, budget, &amp;sink).unwrap();
-    sink.into_array::&lt;T&gt;()
+    let outputs = executor.execute(&amp;physical).unwrap();
+    let payload = outputs.into_values().next().expect("in-memory sink yields one output");
+    ArrayPayload::from_payload(&amp;*payload)
+        .to_dense_dyn()
+        .expect("dense payload")
+        .into_array::&lt;T&gt;()
+        .expect("dtype matches T")
+        .into_owned()
 }</code></pre>
 <p>The <a href="#lowering">Lowering</a> output’s <code>expr</code> is planned into a <code>PhysicalPlan</code>,
-an <a href="api/brix/struct.InMemorySink.html"><code>InMemorySink</code></a> is sized from <code>root_grid</code>, and the chosen executor backend
+an <a href="api/brix_array/struct.InMemorySink.html"><code>InMemorySink</code></a> is sized from <code>root_grid</code>, and the chosen executor backend
 (<code>execute</code> is a function pointer so the same test body runs against every
 backend) streams bricks into the sink.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="brix"><a class="header" href="#brix">Brix</a></h1>
-<p>The <strong>brix layer</strong> is the array-agnostic Brix-IR (<code>src/brix/</code>). Think of it as a
-<strong>wiring diagram for routing bricks</strong>: it does not care about the contents of
-each brick, only where each brick needs to go.</p>
-<p>A brix node is characterized purely by a <strong>brick grid</strong> — a shape with a brick
-count along each dimension, but <em>no per-brick size</em>.</p>
-<div id="admonition-why-the-term-brick" class="admonition admonish-info" role="note" aria-labelledby="admonition-why-the-term-brick-title">
-<div class="admonition-title">
-<div id="admonition-why-the-term-brick-title">
-<p>Why the term brick?</p>
-</div>
-
-<a class="admonition-anchor-link" href="#admonition-why-the-term-brick"></a>
-</div>
-
-<div>
-<p>We use <em>brick</em> deliberately to avoid confusion with <em>chunks</em> and <em>shards</em> as
-used in the storage layer (e.g. Zarr); <em>tile</em> is another common term. The brick
-grid is for <em>orchestration</em> — it need not be identical to, or even aligned with,
-the chunk or shard grid of the dataset (though there are benefits to aligning).</p>
-</div>
-
-</div>
-
-<p>How a computation reaches and moves through this layer:</p>
-<ul>
-<li>An optimization pass runs on the <a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> (e.g. pushing indexing as low
-as possible).</li>
-<li>A brick-size target is computed from the available execution resources.</li>
-<li>The <a href="api/brix/array/expr/struct.ArrayExpr.html"><code>ArrayExpr</code></a> is <strong>lowered</strong> to an <a href="api/brix/expr/struct.Expr.html"><code>Expr</code></a> graph — the brix layer. Chosen
-chunk sizes are <em>stamped</em> onto each array <a href="api/brix/trait.Kernel.html"><code>Kernel</code></a> that will be applied.</li>
-<li>The <a href="api/brix/expr/struct.Expr.html"><code>Expr</code></a> graph formally tracks only the number of bricks along each
-dimension of the <a href="api/brix/iteration_space/struct.IterationSpace.html"><code>IterationSpace</code></a>; dtypes and actual chunk sizes ride along
-on the stamped kernels, not the graph.</li>
-<li>A <a href="api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a> is written from the graph — an abstract plan annotated with loop
-ranges and opportunities for parallelism — then handed to an executor.</li>
-</ul>
-<div id="admonition-memory-budget" class="admonition admonish-warning" role="note" aria-labelledby="admonition-memory-budget-title">
-<div class="admonition-title">
-<div id="admonition-memory-budget-title">
-<p>Memory budget</p>
-</div>
-
-<a class="admonition-anchor-link" href="#admonition-memory-budget"></a>
-</div>
-
-<div>
-<p>If a single brick exceeds the memory budget (e.g. a large Zarr chunk), this is a
-<strong>hard error</strong> for now rather than a silent compromise.</p>
-</div>
-
-</div>
-
-<p>The brix layer must never import from the <a href="#arrays">array</a> layer; the
-dependency is one-way.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="concepts-1"><a class="header" href="#concepts-1">Concepts</a></h1>
+<p>The <strong>brix layer</strong> is the array-agnostic Brix-IR (<code>brix/src/</code>). Think of it as a
+<strong>wiring diagram for routing bricks</strong>: it does not care about the contents of
+each brick, only where each brick needs to go.</p>
 <p>The Brix layer exists because the fundamental operations for orchestrating array computations
 do not care about the “array-nature” of the work. So this layer is insulated from array-level concerns
 (dtypes, chunk sizes, etc.) and simply operates by routing abstract “bricks” to the right places.</p>
+<p>The idea is to record the ‘wiring diagram’ parametrically so we can reason about it, both for execution,
+as well as for eventual incremental computation.</p>
 <div id="admonition-one-way-dependency" class="admonition admonish-warning" role="note" aria-labelledby="admonition-one-way-dependency-title">
 <div class="admonition-title">
 <div id="admonition-one-way-dependency-title">
@@ -1896,15 +2220,15 @@ do not care about the “array-nature” of the work. So this layer is insulated
 
 <h2 id="bricks"><a class="header" href="#bricks">Bricks</a></h2>
 <p>A <strong>brick</strong> is the unit of data routed through the brix layer
-(<code>src/brix/brick.rs</code>). Bricks are an <em>orchestration</em> concept: think of this layer
+(<code>brix/src/brick.rs</code>). Bricks are an <em>orchestration</em> concept: think of this layer
 as representing a wiring or circuit diagram for routing array chunks from producers to consumers.</p>
-<div id="admonition-why-the-term-brick-1" class="admonition admonish-info" role="note" aria-labelledby="admonition-why-the-term-brick-title">
+<div id="admonition-why-the-term-brick" class="admonition admonish-info" role="note" aria-labelledby="admonition-why-the-term-brick-title">
 <div class="admonition-title">
-<div id="admonition-why-the-term-brick-title-1">
+<div id="admonition-why-the-term-brick-title">
 <p>Why the term brick?</p>
 </div>
 
-<a class="admonition-anchor-link" href="#admonition-why-the-term-brick-1"></a>
+<a class="admonition-anchor-link" href="#admonition-why-the-term-brick"></a>
 </div>
 
 <div>
@@ -1915,7 +2239,7 @@ used in the storage layer (e.g. Zarr); <em>tile</em> is another common term.</p>
 </div>
 
 <p>Brick contents are described by the <a href="api/brix/brick/trait.BrickPayload.html"><code>BrickPayload</code></a> trait, which the array layer’s
-<a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> (<code>Dense</code>, <code>Fill</code>, …) implements. The brix layer routes bricks
+<a href="api/brix_array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> (<code>Dense</code>, <code>Fill</code>, …) implements. The brix layer routes bricks
 without inspecting their contents — it only needs to know where each brick goes:</p>
 <pre><code class="language-rust ignore">pub trait BrickPayload: Debug + Send + Sync + Any {
     /// Serialize for inter-process exchange (shared storage, DBSP checkpoint).
@@ -1933,6 +2257,7 @@ pub enum Op {
     Source(Arc&lt;dyn Source&gt;),
     Blockwise(Arc&lt;dyn Kernel&gt;),
     Reduce(Arc&lt;dyn Accumulator&gt;),
+    Sink(Arc&lt;dyn Sink&gt;),
     // Scan(Arc&lt;dyn Scanner&gt;)
 }</code></pre>
 <p>The vocabulary here is simpler than that at the <a href="#the-array-ir"><code>ArrayOp</code></a> layer, and is the
@@ -1951,17 +2276,17 @@ executor speak to.</p>
 <tr><th>Brix trait</th><th>Array-layer implementor(s)</th></tr>
 </thead>
 <tbody>
-<tr><td><a href="api/brix/brick/trait.BrickPayload.html"><code>BrickPayload</code></a></td><td><a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> (<code>Dense</code>, <code>Fill</code>)</td></tr>
-<tr><td><a href="api/brix/trait.Source.html"><code>Source</code></a></td><td>each <a href="api/brix/array/source/enum.TransparentSource.html"><code>TransparentSource</code></a> variant / <a href="api/brix/array/source/trait.OpaqueSource.html"><code>OpaqueSource</code></a></td></tr>
-<tr><td><a href="api/brix/trait.Sink.html"><code>Sink</code></a></td><td><a href="api/brix/array/sink/struct.InMemorySink.html"><code>InMemorySink</code></a></td></tr>
-<tr><td><a href="api/brix/trait.Kernel.html"><code>Kernel</code></a></td><td><a href="api/brix/array/kernels/ops/struct.UnaryKernel.html"><code>UnaryKernel</code></a>, <a href="api/brix/array/kernels/ops/struct.BinaryKernel.html"><code>BinaryKernel</code></a>, …</td></tr>
-<tr><td><a href="api/brix/trait.Accumulator.html"><code>Accumulator</code></a></td><td><a href="api/brix/array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a> wrapping an <a href="api/brix/array/trait.ArrayAccumulator.html"><code>ArrayAccumulator</code></a></td></tr>
+<tr><td><a href="api/brix/brick/trait.BrickPayload.html"><code>BrickPayload</code></a></td><td><a href="api/brix_array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> (<code>Dense</code>, <code>Fill</code>)</td></tr>
+<tr><td><a href="api/brix/expr/trait.Source.html"><code>Source</code></a></td><td>each <a href="api/brix_array/source/trait.TransparentSource.html"><code>TransparentSource</code></a> variant / <a href="api/brix_array/source/trait.OpaqueSource.html"><code>OpaqueSource</code></a></td></tr>
+<tr><td><a href="api/brix/expr/trait.Sink.html"><code>Sink</code></a></td><td><a href="api/brix_array/sink/struct.InMemorySink.html"><code>InMemorySink</code></a></td></tr>
+<tr><td><a href="api/brix/expr/trait.Kernel.html"><code>Kernel</code></a></td><td><a href="api/brix_array/kernels/ops/struct.UnaryKernel.html"><code>UnaryKernel</code></a>, <a href="api/brix_array/kernels/ops/struct.BinaryKernel.html"><code>BinaryKernel</code></a>, …</td></tr>
+<tr><td><a href="api/brix/expr/trait.Accumulator.html"><code>Accumulator</code></a></td><td><a href="api/brix_array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a> wrapping an <a href="api/brix_array/trait.ArrayAccumulator.html"><code>ArrayAccumulator</code></a></td></tr>
 </tbody>
 </table>
 </div>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="the-brix-ir"><a class="header" href="#the-brix-ir">The Brix-IR</a></h1>
-<p><a href="api/brix/expr/struct.Expr.html"><code>Expr</code></a> is the brix layer’s graph IR (<code>src/brix/expr.rs</code>) — the array-agnostic
+<p><a href="api/brix/expr/struct.Expr.html"><code>Expr</code></a> is the brix layer’s graph IR (<code>brix/src/expr.rs</code>) — the array-agnostic
 <strong>Brix-IR</strong> produced by <a href="#lowering">lowering</a>. It is a DAG of <a href="api/brix/expr/enum.Op.html"><code>Op</code></a> nodes
 (map / reduce / scan / …) whose vocabulary is simpler than the array layer’s.</p>
 <pre><code class="language-rust ignore">pub struct Expr {
@@ -1987,6 +2312,7 @@ pub enum Op {
     Source(Arc&lt;dyn Source&gt;),
     Blockwise(Arc&lt;dyn Kernel&gt;),
     Reduce(Arc&lt;dyn Accumulator&gt;),
+    Sink(Arc&lt;dyn Sink&gt;),
     // Scan(Arc&lt;dyn Scanner&gt;)
 }</code></pre>
 <h2 id="inputs"><a class="header" href="#inputs">Inputs</a></h2>
@@ -1998,21 +2324,21 @@ An <a href="api/brix/expr/enum.Op.html"><code>Op</code></a> may have multiple <a
 /// this producer along that axis.
 /// Axis transformations are either
 ///  - a `Composed` frame: planner applies these via `NamedLayout::compose`
-///    when constructing a [`crate::brix::schedule::Schedule::Domain`] iteration space; or
-///  - `Translated` per-coord override: imposed at runtime with [`crate::brix::schedule::AccessRelation::resolve_coord`].
+///    when constructing a [`crate::schedule::Schedule::Domain`] iteration space; or
+///  - `Translated` per-coord override: imposed at runtime with [`crate::schedule::AccessRelation::resolve_coord`].
 #[derive(Debug, Clone)]
 pub struct Input {
     pub expr: Arc&lt;Expr&gt;,
     pub access: HashMap&lt;AxisName, AxisAccess&gt;,
 }</code></pre>
 <h2 id="access-relations"><a class="header" href="#access-relations">Access relations</a></h2>
-<div id="admonition-note-1" class="admonition admonish-note" role="note" aria-labelledby="admonition-note-title">
+<div id="admonition-note-2" class="admonition admonish-note" role="note" aria-labelledby="admonition-note-title">
 <div class="admonition-title">
-<div id="admonition-note-title-1">
+<div id="admonition-note-title-2">
 <p>Note</p>
 </div>
 
-<a class="admonition-anchor-link" href="#admonition-note-1"></a>
+<a class="admonition-anchor-link" href="#admonition-note-2"></a>
 </div>
 
 <div>
@@ -2092,6 +2418,33 @@ pub enum TranslatedAccess {
 <p>At the <a href="#schedule">Schedule</a> layer these resolve into a concrete
 <code>AccessRelation</code> (with its <code>AffineAccess</code> layout); the Brix-IR holds only the
 declarative per-axis <code>AxisAccess</code> form.</p>
+<div id="admonition-analogs" class="admonition admonish-analogs" role="note" aria-labelledby="admonition-analogs-title">
+<div class="admonition-title">
+<div id="admonition-analogs-title">
+<p>Analogs</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-analogs"></a>
+</div>
+
+<div>
+<ol>
+<li><strong>Polyhedral model</strong> — Source of the term “access relation”. A map from a
+statement’s iteration domain to the array elements it touches, as in
+<a href="https://libisl.sourceforge.io/">ISL</a>/<a href="https://polly.llvm.org/">Polly</a>.</li>
+<li><strong>MLIR</strong> — <code>Composed</code> is an <a href="https://mlir.llvm.org/docs/Dialects/Affine/">affine map</a>:
+<code>linalg</code> structured ops use <a href="https://mlir.llvm.org/docs/Dialects/Linalg/"><code>indexing_maps</code></a>
+(<code>AffineMap</code>s) to relate the iteration space to each operand’s element access.</li>
+<li><strong>IREE</strong> — <code>Translated</code> is the non-affine escape hatch. IREE’s
+<a href="https://iree.dev/reference/mlir-dialects/LinalgExt/">LinalgExt</a> dialect adds <code>gather</code>,
+<code>scatter</code>, <code>sort</code>, <code>topk</code> — ops that don’t fit <code>linalg</code>’s affine-indexing model. Our
+<code>AxisOverride::Lookup</code> (gather) is the same move: pull the irregular access out of the
+affine layer and carry it as a runtime table.</li>
+</ol>
+</div>
+
+</div>
+
 <h3 id="example-block-windowed--coarsen-operations-with-composed"><a class="header" href="#example-block-windowed--coarsen-operations-with-composed">Example: Block windowed / coarsen operations with <code>Composed</code></a></h3>
 <p>Consider coarsening-by-2 along <code>x</code> as a windowed reduce.
 The <code>Frame::Window { size: 2, stride: 2 }</code> is <code>Composed</code>,
@@ -2104,13 +2457,12 @@ The axis survives the output, halved.</p>
     b1["Reduce&lt;br/&gt;grid: Dense[x:4]"]
     class b0 source;
     class b1 reduce;
-    b0 -- "core: {x}" --&gt; b1
+    b0 -- "core: {x: Win(2,2)}" --&gt; b1
 </pre>
 
 <p>That is, the planner tiles the producer’s flat <code>x:8</code> axis into a <em>nested</em> <code>(x_out:4, x_window:2)</code>
-iteration space, and the <a href="#schedule"><code>Schedule</code></a> grows a second <code>Loop</code> level over the window. Without
-the frame, <code>x</code> would be a single flat loop; the <code>Composed</code> frame is what inserts
-the inner fold:</p>
+iteration space. This is a <code>logical_divide</code> over the “x mode” in <a href="https://docs.nvidia.com/cutlass/latest/media/docs/cpp/cute/02_layout_algebra.html#division-tiling">CuTe Layout speak</a>.
+The <a href="#schedule"><code>Schedule</code></a> grows a second <code>Loop</code> level (mode 1) over the window.</p>
 <pre><code class="language-text">        identity read                         coarsen (Composed x)
   ──────────────────────────          ──────────────────────────────────────
   Domain  x:8                          Domain  x → (x_out:4, x_window:2)
@@ -2121,8 +2473,7 @@ the inner fold:</p>
                                           │  └─ Apply Reduce   (fold into acc)
                                           └─ Finalize Reduce        (emit chunk)
 </code></pre>
-<p>The <code>core: {x}</code> edge label is the IR-level shorthand for that inner <code>mode 1</code>
-window loop the planner will emit.</p>
+<p>The <code>core: {x: Win(2,2)}</code> edge label is the IR-level shorthand for “x is a core dimension with Frame Window(2,2)”.</p>
 <h3 id="example-orthogonal-indexing-with-translated"><a class="header" href="#example-orthogonal-indexing-with-translated">Example: Orthogonal indexing with <code>Translated</code></a></h3>
 <p>Orthogonally indexing <code>x</code> by an explicit list (here picking 3 arbitrary bricks out of 8)
 cannot be expressed affinely. The <code>Translated</code> variant allows us to express arbitrary translations
@@ -2158,17 +2509,62 @@ For simpler reasoning, we <em>choose</em> to implement slicing as a runtime tran
 <h1 id="iteration-space"><a class="header" href="#iteration-space">Iteration Space</a></h1>
 <p>The <a href="api/brix/iteration_space/struct.IterationSpace.html"><code>IterationSpace</code></a> is the brix layer’s counts-only view of a node’s brick
 grid: the number of bricks along each dimension, with no per-brick size.
-<a href="#lowering">Lowering</a> projects the array layer’s <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> to an <a href="api/brix/iteration_space/struct.IterationSpace.html"><code>IterationSpace</code></a>.
+<a href="#lowering">Lowering</a> projects the array layer’s <a href="api/brix_array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a> to an <a href="api/brix/iteration_space/struct.IterationSpace.html"><code>IterationSpace</code></a>.
 The planner resolves iteration order and parallelism over this space; it does not pick chunk sizes.</p>
 <pre><code class="language-rust ignore">pub struct IterationSpace {
     pub layout: NamedLayout,
     pub occupancy: Option&lt;Occupancy&gt;,
     pub limits: HashMap&lt;AxisName, usize&gt;,
 }</code></pre>
+<div id="admonition-analogs-1" class="admonition admonish-analogs" role="note" aria-labelledby="admonition-analogs-title">
+<div class="admonition-title">
+<div id="admonition-analogs-title-1">
+<p>Analogs</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-analogs-1"></a>
+</div>
+
+<div>
+<ol>
+<li><strong>Chapel</strong> — a <a href="https://chapel-lang.org/docs/primers/domains.html"><code>domain</code></a> defines both
+an iteration space and the shape of the arrays declared over it; <code>IterationSpace</code> plays the
+same role over the brick grid.</li>
+<li><strong>CuTe</strong> — <a href="https://docs.nvidia.com/cutlass/latest/media/docs/cpp/cute/01_layout.html">layouts</a>
+Layout as a representation of nested loops.</li>
+<li><strong>Halide</strong> — iteration domains with bounds inference.</li>
+<li><strong>Dex</strong> — <a href="https://arxiv.org/abs/2104.05372">index set</a>.
+The difference is that Dex’s index set is a static <em>type</em>;
+while <code>IterationSpace</code> is a runtime value projected during lowering.</li>
+</ol>
+</div>
+
+</div>
+
+<h2 id="named-layouts"><a class="header" href="#named-layouts">Named Layouts</a></h2>
 <p>The core data structure here is <a href="api/brix/layout/struct.NamedLayout.html"><code>NamedLayout</code></a>, an extension of <a href="https://docs.nvidia.com/cutlass/latest/media/docs/cpp/cute/01_layout.html">CuTe Layouts</a>
 that adds axis names.
 This structure was used to move quickly and because it provides convenient algebra (“logical divide”, “compose” etc).
+Chapel provides similar operations over their Domains.
 Honestly, our requirements are a bit more complicated (occupancy, non-affine transformations), so we may dump this structure in the future.</p>
+<p>A <strong>layout</strong> is CuTe’s <code>shape : stride</code> pair per mode.
+A <em>mode</em> is one dimension of a layout.
+The <em>shape</em> gives each mode’s extent, the <em>stride</em> the step it takes in the mapped space.
+Together they map a coordinate (one index per mode) to a single integer offset
+— the inner product of the coordinate with the strides (e.g. <code>(3,4):(4,1)</code> is a row-major 3×4 grid).
+So far this is the NumPy style shape/stride model.
+Now the difference: shapes and strides are hierarchical integer tuples, so any mode can itself
+nest a tuple of sub-modes.
+E.g. zarr chunks are nested with zarr shards.
+A flat axis has a single mode — its extent.
+<code>logical_divide</code> <em>subdivides</em> a mode into nested sub-modes, which we address as <code>axis.k</code>, the <code>(axis, mode_index)</code> pair:</p>
+<ul>
+<li>Before: <code>i</code> is a flat axis of 6 bricks: one mode, written <code>i</code> (extent 6).</li>
+<li>After: <code>logical_divide(i, 2)</code> (coarsen <code>i</code> by 2) — <code>i</code> splits into two
+sub-modes: <code>i.0</code> is the surviving outer mode (<code>ceil(6/2) = 3</code>, keeps the axis name)
+and <code>i.1</code> is the folded tile/window (<code>2</code>). The axis is still named <code>i</code>; it now owns modes <code>i.0</code> and <code>i.1</code>.</li>
+</ul>
+<p>A <a href="api/brix/layout/struct.NamedLayout.html"><code>NamedLayout</code></a> attaches an axis name to each top-level mode.</p>
 <h2 id="limit-override"><a class="header" href="#limit-override">Limit override</a></h2>
 <p><code>limits</code> records per-axis bounds for axes that <code>logical_divide</code> has
 split into nested sub-modes (coarsen / block-windows).
@@ -2191,10 +2587,26 @@ and executors are expected to use that method at runtime to ensure the loops are
     coords: Arc&lt;Vec&lt;Vec&lt;u32&gt;&gt;&gt;,
 }</code></pre>
 <p>This structure is useful for representing sparsely-populated iteration spaces (e.g. partly populated Zarr arrays).</p>
+<div id="admonition-analogs-1-1" class="admonition admonish-analogs" role="note" aria-labelledby="admonition-analogs-1-title">
+<div class="admonition-title">
+<div id="admonition-analogs-1-title">
+<p>Analogs</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-analogs-1-1"></a>
+</div>
+
+<div>
+<p>The analog here is Chapel’s <a href="https://chapel-lang.org/docs/primers/sparse.html">sparse domains</a>:
+a sparse index set carved from a bounding domain, whose present indices grow <em>at runtime</em>.</p>
+</div>
+
+</div>
+
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="sources--sinks-1"><a class="header" href="#sources--sinks-1">Sources &amp; Sinks</a></h1>
 <p>The brix layer defines two array-agnostic seams for getting bricks into and out
-of a plan: <a href="api/brix/trait.Source.html"><code>Source</code></a> produces brick payloads on demand, and <a href="api/brix/trait.Sink.html"><code>Sink</code></a> receives
+of a plan: <a href="api/brix/expr/trait.Source.html"><code>Source</code></a> produces brick payloads on demand, and <a href="api/brix/expr/trait.Sink.html"><code>Sink</code></a> receives
 them as they are produced. Both are <em>traits</em> here — the concrete implementations
 live in the <a href="#sources--sinks">array layer</a> and are baked into the IR
 at <a href="#lowering">lowering</a>.</p>
@@ -2208,7 +2620,7 @@ at <a href="#lowering">lowering</a>.</p>
 </div>
 
 <div>
-<p>The brix layer never names a <code>ChunkGrid</code> or a dtype. A <a href="api/brix/trait.Source.html"><code>Source</code></a>/<a href="api/brix/trait.Sink.html"><code>Sink</code></a> is
+<p>The brix layer never names a <code>ChunkGrid</code> or a dtype. A <a href="api/brix/expr/trait.Source.html"><code>Source</code></a>/<a href="api/brix/expr/trait.Sink.html"><code>Sink</code></a> is
 addressed purely by <a href="api/brix/brick/struct.BrickCoordinate.html"><code>BrickCoordinate</code></a>; the planner reads only the per-axis
 brick counts off the surrounding <a href="api/brix/expr/struct.Expr.html"><code>Expr::space</code></a>. Chunk sizes ride along, baked
 into the concrete impl as a private field.</p>
@@ -2217,7 +2629,7 @@ into the concrete impl as a private field.</p>
 </div>
 
 <h2 id="sources-1"><a class="header" href="#sources-1">Sources</a></h2>
-<p>A <a href="api/brix/trait.Source.html"><code>Source</code></a> produces a brick payload for a requested chunk coord; the executor
+<p>A <a href="api/brix/expr/trait.Source.html"><code>Source</code></a> produces a brick payload for a requested chunk coord; the executor
 re-attaches the coord to build a <code>Brick</code>. The array-layer implementations
 (<code>Fill</code>/<code>Dense</code>/Zarr) are documented under
 <a href="#sources--sinks">Sources &amp; Sinks</a>.</p>
@@ -2226,13 +2638,17 @@ re-attaches the coord to build a <code>Brick</code>. The array-layer implementat
     fn cost(&amp;self, coord: &amp;BrickCoordinate) -&gt; Cost;
 }</code></pre>
 <h2 id="sinks-1"><a class="header" href="#sinks-1">Sinks</a></h2>
-<p>A <a href="api/brix/trait.Sink.html"><code>Sink</code></a> is the destination handed to <code>execute()</code>, outside the expression DAG.
+<p>A <a href="api/brix/expr/trait.Sink.html"><code>Sink</code></a> is the destination handed to <code>execute()</code>, outside the expression DAG.
 <code>write_brick</code> takes <code>&amp;self</code> so writes can be concurrent; <code>init</code>/<code>finalize</code> bracket
 the run.</p>
 <pre><code class="language-rust ignore">pub trait Sink: Send + Sync {
     fn init(&amp;self) -&gt; BrixResult&lt;()&gt;;
     fn write_brick(&amp;self, brick: Brick) -&gt; BrixResult&lt;()&gt;;
-    fn finalize(&amp;self) -&gt; BrixResult&lt;()&gt;;
+    /// Close out the sink and yield any materialized output. In-memory sinks
+    /// return their assembled buffer; external sinks (Zarr, …) return `None`.
+    /// The executor collects the `Some` results into
+    /// the per-sink output map it returns from `execute`, keyed by node.
+    fn finalize(&amp;self) -&gt; BrixResult&lt;Option&lt;Arc&lt;dyn BrickPayload&gt;&gt;&gt;;
 }</code></pre>
 <div id="admonition-sink-placement-is-being-reworked" class="admonition admonish-warning" role="note" aria-labelledby="admonition-sink-placement-is-being-reworked-title">
 <div class="admonition-title">
@@ -2263,7 +2679,7 @@ the output shape and writes bricks into it by coordinate — see the array layer
 <a href="#sinks">Sinks</a> section.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="planner"><a class="header" href="#planner">Planner</a></h1>
-<p>The <strong>planner</strong> (<code>src/brix/planner.rs</code>) turns the <a href="#the-brix-ir"><code>Expr</code></a> graph into
+<p>The <strong>planner</strong> (<code>brix/src/planner.rs</code>) turns the <a href="#the-brix-ir"><code>Expr</code></a> graph into
 a <a href="#schedule"><code>Schedule</code></a>. It resolves <em>how</em> producers and consumers iterate
 together over the <a href="#iteration-space"><code>IterationSpace</code></a> — iteration order,
 placement of computation at loop levels, opportunities for parallelism — but it
@@ -2331,7 +2747,7 @@ executor.</p>
 
 </div>
 
-<p>A <a href="api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a> (<code>src/brix/schedule.rs</code>) is the abstract <em>plan</em> of a computation
+<p>A <a href="api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a> (<code>brix/src/schedule.rs</code>) is the abstract <em>plan</em> of a computation
 emitted by the planner.</p>
 <p>Conceptually, Brix considers all computations as effectively being loops
 over an iteration space.
@@ -2340,7 +2756,7 @@ The Brix layer is an <em>expression layer</em> (“what to compute”) that gets
 In principle, we could lower the Brix layer to many candidate Schedules.</p>
 <p>The schedule is a <em>tree</em> of nested loops that controls iteration order, computation placement
 at loop levels, and stage fusion.</p>
-<p>The <a href="api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a> is handed to an executor (<code>src/executor/</code>) for actual compute.</p>
+<p>The <a href="api/brix/schedule/enum.Schedule.html"><code>Schedule</code></a> is handed to an executor (<code>brix/src/executor/</code>) for actual compute.</p>
 <pre><code class="language-rust ignore">pub enum Schedule {
     /// Establish the iteration space for the enclosed body.
     /// `Loop` nodes inside look up their axis extents from here. One `Domain` per band;
@@ -2495,17 +2911,71 @@ compared point-by-point:</p>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Workload</th><th><a href="api/brix/array/expr/enum.ArrayOp.html"><code>ArrayOp</code></a></th><th>Brix <a href="api/brix/expr/enum.Op.html"><code>Op</code></a></th><th>Edge encoding</th></tr>
+<tr><th>Workload</th><th><a href="api/brix_array/expr/enum.ArrayOp.html"><code>ArrayOp</code></a></th><th>Brix <a href="api/brix/expr/enum.Op.html"><code>Op</code></a></th><th>Edge encoding</th></tr>
 </thead>
 <tbody>
-<tr><td><a href="#slicing">Slicing</a></td><td><a href="api/brix/array/expr/enum.ArrayOp.html#variant.Slice"><code>ArrayOp::Slice</code></a></td><td><code>Blockwise(</code><a href="api/brix/array/kernels/indexing/struct.SliceKernel.html"><code>SliceKernel</code></a><code>)</code></td><td><code>Translated(Independent(AxisOverride::Offset(k)))</code></td></tr>
-<tr><td><a href="#orthogonal-indexing">Oindex</a></td><td><a href="api/brix/array/expr/enum.ArrayOp.html#variant.Oindex"><code>ArrayOp::Oindex</code></a></td><td><code>Blockwise(</code><a href="api/brix/array/kernels/indexing/struct.GatherKernel.html"><code>GatherKernel</code></a><code>)</code></td><td><code>Translated(Independent(AxisOverride::Lookup(t)))</code></td></tr>
-<tr><td><a href="#vectorized-indexing">Vindex</a></td><td><a href="api/brix/array/expr/enum.ArrayOp.html#variant.Vindex"><code>ArrayOp::Vindex</code></a></td><td><code>Blockwise(</code><a href="api/brix/array/kernels/indexing/struct.VIndexKernel.html"><code>VIndexKernel</code></a><code>)</code></td><td><code>Translated(Zipped({follower: AxisOverride::Lookup(t)}))</code></td></tr>
-<tr><td><a href="#whole-axis-reduction-mean">Whole-axis mean</a></td><td><a href="api/brix/array/expr/enum.ArrayOp.html#variant.Reduce"><code>ArrayOp::Reduce</code></a></td><td><code>Reduce(</code><a href="api/brix/array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a><code>)</code></td><td><code>Composed(Frame::WholeAxis{keepdims})</code></td></tr>
-<tr><td><a href="#coarsen">Coarsen</a></td><td><a href="api/brix/array/expr/enum.ArrayOp.html#variant.Reduce"><code>ArrayOp::Reduce</code></a></td><td><code>Reduce(</code><a href="api/brix/array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a><code>)</code></td><td><code>Composed(Frame::Window{w,w})</code></td></tr>
+<tr><td><a href="#slicing">Slicing</a></td><td><a href="api/brix_array/expr/enum.ArrayOp.html#variant.Slice"><code>ArrayOp::Slice</code></a></td><td><code>Blockwise(</code><a href="api/brix_array/kernels/indexing/struct.SliceKernel.html"><code>SliceKernel</code></a><code>)</code></td><td><code>Translated(Independent(AxisOverride::Offset(k)))</code></td></tr>
+<tr><td><a href="#orthogonal-indexing">Oindex</a></td><td><a href="api/brix_array/expr/enum.ArrayOp.html#variant.Oindex"><code>ArrayOp::Oindex</code></a></td><td><code>Blockwise(</code><a href="api/brix_array/kernels/indexing/struct.GatherKernel.html"><code>GatherKernel</code></a><code>)</code></td><td><code>Translated(Independent(AxisOverride::Lookup(t)))</code></td></tr>
+<tr><td><a href="#vectorized-indexing">Vindex</a></td><td><a href="api/brix_array/expr/enum.ArrayOp.html#variant.Vindex"><code>ArrayOp::Vindex</code></a></td><td><code>Blockwise(</code><a href="api/brix_array/kernels/indexing/struct.VIndexKernel.html"><code>VIndexKernel</code></a><code>)</code></td><td><code>Translated(Zipped({follower: AxisOverride::Lookup(t)}))</code></td></tr>
+<tr><td><a href="#whole-axis-reduction-mean">Whole-axis mean</a></td><td><a href="api/brix_array/expr/enum.ArrayOp.html#variant.Reduce"><code>ArrayOp::Reduce</code></a></td><td><code>Reduce(</code><a href="api/brix_array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a><code>)</code></td><td><code>Composed(Frame::WholeAxis{keepdims})</code></td></tr>
+<tr><td><a href="#coarsen">Coarsen</a></td><td><a href="api/brix_array/expr/enum.ArrayOp.html#variant.Reduce"><code>ArrayOp::Reduce</code></a></td><td><code>Reduce(</code><a href="api/brix_array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a><code>)</code></td><td><code>Composed(Frame::Window{w,w})</code></td></tr>
 </tbody>
 </table>
 </div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="binary-ops-2"><a class="header" href="#binary-ops-2">Binary Ops</a></h1>
+<p>A binary op (<code>a + b</code>) has to answer two questions at plan time: <em>what is the
+result dtype</em>, and <em>which kernel runs</em>? For primitives that’s just promotion.
+The interesting case is extension dtypes — <code>datetime - datetime</code>, <code>minutes * i64</code> — where neither core nor the satellite alone has the whole picture. We
+resolve it with the same protocol Python uses for <a href="https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types">operator overloading</a>:
+<a href="https://docs.python.org/3/reference/datamodel.html#object.__radd__"><code>__op__</code> / <code>__rop__</code></a>.</p>
+<h2 id="dispatch-order"><a class="header" href="#dispatch-order">Dispatch order</a></h2>
+<p><a href="api/brix_array/expr/struct.ArrayExpr.html#method.binary"><code>ArrayExpr::binary</code></a> tries each leg in turn and takes the first that succeeds:</p>
+<ol>
+<li><strong>Primitive promotion.</strong> Both operands primitive → promote to a common dtype
+(see <a href="#data-types">Data Types</a>) and build a two-input <code>Binary</code>
+node. This is <code>a.__op__(b)</code> for the built-in numeric types.</li>
+<li><strong>The lhs’s capability</strong> (<code>a.__op__(b)</code>). If <code>a</code>’s dtype is an extension, ask
+<em>its</em> <a href="api/brix_array/extension/trait.BinaryCapability.html"><code>BinaryCapability</code></a> to build the node.</li>
+<li><strong>The rhs’s reflexive capability</strong> (<code>b.__rop__(a)</code>). If the op has a reflexive
+form, ask <code>b</code>’s capability with the operands swapped. <code>Add</code>/<code>Mul</code> are
+reflexive (commutative); <code>Sub</code> has none.</li>
+<li><strong>Otherwise</strong>, error: <code>ArrayOp::InvalidBinaryOpOperands</code> — the analogue of Python’s
+<code>TypeError</code> after both <code>__op__</code> and <code>__rop__</code> decline.</li>
+</ol>
+<h2 id="the-three-valued-reply"><a class="header" href="#the-three-valued-reply">The three-valued reply</a></h2>
+<p>Each capability leg returns an <code>Option&lt;Result&lt;…&gt;&gt;</code>, mirroring Python exactly:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>reply</th><th>meaning</th><th>Python</th></tr>
+</thead>
+<tbody>
+<tr><td><code>None</code></td><td>“not my op” — try the next leg</td><td><code>NotImplemented</code></td></tr>
+<tr><td><code>Some(Ok(_))</code></td><td>handled — here’s the built node</td><td>a returned value</td></tr>
+<tr><td><code>Some(Err(_))</code></td><td>“mine, but the operands are invalid”</td><td>a raised error</td></tr>
+</tbody>
+</table>
+</div>
+<p>The <code>None</code>-vs-<code>Some(Err)</code> distinction matters: a decline lets the protocol fall
+through to the reflexive leg, whereas an error stops it. So a capability declines
+<em>structurally</em> (wrong op, wrong other-dtype) and only errors once it has
+committed to handling the op.</p>
+<h2 id="what-the-kernel-sees"><a class="header" href="#what-the-kernel-sees">What the kernel sees</a></h2>
+<p>Whichever leg wins, the node it produces is an ordinary <code>Binary</code> over a <em>storage
+primitive</em> — extension dtypes never reach a kernel. A capability gets there one
+of two ways (see <a href="#extensions-1">Extensions</a>): resolve its operands to
+their storage primitive and reuse core’s kernel (re-tagging the result), or build
+a node for its own satellite kernel.</p>
+<p>So the runtime kernel is always monomorphic and primitive: <code>dispatch_dtype!</code> on
+the result tag picks one body, bounded on the <a href="api/brix_array/trait.Binary.html"><code>Binary</code></a> capability trait
+(<code>add</code>/<code>sub</code>/<code>mul</code> over a single <code>T</code>). Promotion guarantees both inputs already
+share that dtype, so the body never sees a mixed pair.</p>
+<h2 id="see-also-1"><a class="header" href="#see-also-1">See also</a></h2>
+<ul>
+<li><a href="#extensions-1">Extension Payloads</a> — the <a href="api/brix_array/extension/trait.BinaryCapability.html"><code>BinaryCapability</code></a> and
+<code>ArrayData</code> contracts a satellite implements, with a worked <code>minutes</code> example.</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="indexing"><a class="header" href="#indexing">Indexing</a></h1>
 <p>We treat indexing operations as <a href="api/brix/expr/enum.Op.html#variant.Blockwise"><code>Op::Blockwise</code></a> nodes with specialized access relations
@@ -2520,23 +2990,23 @@ Below we work through three cases slicing, orthogonal indexing, and vectorized i
 <li>The output chunk grid, given the input grid.</li>
 <li>Knowledge of which indexers to apply to which chunk.</li>
 </ol>
-<p>At runtime, the <a href="api/brix/array/kernels/indexing/struct.SliceKernel.html#method.clip"><code>SliceKernel::clip</code></a> receives an input brick, along with it’s (<a href="api/brix/brick/struct.BrickCoordinate.html"><code>BrickCoordinate</code></a>)
-in the input <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a>, as well as the output <a href="api/brix/brick/struct.BrickCoordinate.html"><code>BrickCoordinate</code></a> in the output <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a>.</p>
+<p>At runtime, the <a href="api/brix_array/kernels/indexing/struct.SliceKernel.html#method.clip"><code>SliceKernel::clip</code></a> receives an input brick, along with it’s (<a href="api/brix/brick/struct.BrickCoordinate.html"><code>BrickCoordinate</code></a>)
+in the input <a href="api/brix_array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a>, as well as the output <a href="api/brix/brick/struct.BrickCoordinate.html"><code>BrickCoordinate</code></a> in the output <a href="api/brix_array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a>.</p>
 <p>The kernel embeds both chunk grids and slicers. Combined with the input &amp; output coordinates,
-this is enough information to return an <a href="api/brix/array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> of the right size for each input Brick.</p>
+this is enough information to return an <a href="api/brix_array/enum.ArrayPayload.html"><code>ArrayPayload</code></a> of the right size for each input Brick.</p>
 <h3 id="array-layer"><a class="header" href="#array-layer">Array layer</a></h3>
 <pre><code class="language-rust ignore">a.isel({"i": Indexer::Slicer(Slice::new(4, 12, 1))})</code></pre>
-<p>builds <a href="api/brix/array/expr/enum.ArrayOp.html#variant.Slice"><code>ArrayOp::Slice</code></a><code>(HashMap&lt;AxisName, Slice&gt;)</code> — one <a href="api/brix/struct.Slice.html"><code>Slice</code></a> <code>{ start, end, step }</code>
+<p>builds <a href="api/brix_array/expr/enum.ArrayOp.html#variant.Slice"><code>ArrayOp::Slice</code></a><code>(HashMap&lt;AxisName, Slice&gt;)</code> — one <a href="api/brix/struct.Slice.html"><code>Slice</code></a> <code>{ start, end, step }</code>
 per indexed axis.</p>
 <h3 id="chunk-grid-inference"><a class="header" href="#chunk-grid-inference">Chunk grid inference</a></h3>
 <p>Per sliced axis, the size of each output chunk is the intersection of one source chunk with <code>[start, step, end)</code>.
-For now, we are clever and encode this as an output chunk grid that has <a href="api/brix/array/chunk_grid/enum.AxisChunks.html#variant.RLE"><code>AxisChunks::RLE</code></a> along the subset axes
-when the source chunk grid has <a href="api/brix/array/chunk_grid/enum.AxisChunks.html#variant.Uniform"><code>AxisChunks::Uniform</code></a>.</p>
+For now, we are clever and encode this as an output chunk grid that has <a href="api/brix_array/chunk_grid/enum.AxisChunks.html#variant.RLE"><code>AxisChunks::RLE</code></a> along the subset axes
+when the source chunk grid has <a href="api/brix_array/chunk_grid/enum.AxisChunks.html#variant.Uniform"><code>AxisChunks::Uniform</code></a>.</p>
 <h3 id="brix-layer"><a class="header" href="#brix-layer">Brix layer</a></h3>
-<p>If the <code>start</code> of the applied slice is on chunk-<code>k</code> of the input <a href="api/brix/array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a>,
+<p>If the <code>start</code> of the applied slice is on chunk-<code>k</code> of the input <a href="api/brix_array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a>,
 then output chunk <code>0</code> maps to input chunk-<code>k</code>.
 This information is recorded on the edge using</p>
-<pre><code>AxisAccess::Translated(
+<pre><code class="language-text">AxisAccess::Translated(
     TranslatedAccess::Independent(
         AxisOverride::Offset(k)
     )
@@ -2548,7 +3018,7 @@ This information is recorded on the edge using</p>
 applying an offset of <code>k</code> to the axis independent of the other axes participating in the Op.</p>
 </blockquote>
 <h3 id="runtime-per-brick"><a class="header" href="#runtime-per-brick">Runtime (per-brick)</a></h3>
-<p><a href="api/brix/array/kernels/indexing/struct.SliceKernel.html#method.clip"><code>SliceKernel::clip</code></a> constructs the output Brick by combining input and output chunk grids, with
+<p><a href="api/brix_array/kernels/indexing/struct.SliceKernel.html#method.clip"><code>SliceKernel::clip</code></a> constructs the output Brick by combining input and output chunk grids, with
 input and output brick coordinates together with the stored slicer.</p>
 <div id="admonition-not-yet-implemented" class="admonition admonish-warning" role="note" aria-labelledby="admonition-not-yet-implemented-title">
 <div class="admonition-title">
@@ -2562,7 +3032,7 @@ input and output brick coordinates together with the stored slicer.</p>
 <div>
 <ul>
 <li><code>step != 1</code> — rejected at <code>ArrayExpr::slice</code> construction.</li>
-<li>Slicing an <a href="api/brix/array/chunk_grid/enum.AxisChunks.html#variant.Variable"><code>AxisChunks::Variable</code></a> axis.</li>
+<li>Slicing an <a href="api/brix_array/chunk_grid/enum.AxisChunks.html#variant.Variable"><code>AxisChunks::Variable</code></a> axis.</li>
 <li>Reversed slices: <code>Slice</code> fields are <code>usize</code> and <code>step</code> must be positive —
 no negative indices or negative step.</li>
 </ul>
@@ -2575,14 +3045,14 @@ no negative indices or negative step.</li>
 The output is the input array indexed at the cartesian product of applied indexers.</p>
 <h3 id="array-layer-1"><a class="header" href="#array-layer-1">Array layer</a></h3>
 <pre><code class="language-rust ignore">a.isel({"i": Indexer::Outer(vec![1, 5]), "j": Indexer::Outer(vec![0, 3])})</code></pre>
-<p>builds <a href="api/brix/array/expr/enum.ArrayOp.html#variant.Oindex"><code>ArrayOp::Oindex</code></a><code>(HashMap&lt;AxisName, Vec&lt;usize&gt;&gt;)</code>.</p>
+<p>builds <a href="api/brix_array/expr/enum.ArrayOp.html#variant.Oindex"><code>ArrayOp::Oindex</code></a><code>(HashMap&lt;AxisName, Vec&lt;usize&gt;&gt;)</code>.</p>
 <h3 id="chunk-grid-inference-1"><a class="header" href="#chunk-grid-inference-1">Chunk grid inference</a></h3>
 <p>We partition each index vector into runs by source chunk.
-The output axis becomes <a href="api/brix/array/chunk_grid/enum.AxisChunks.html#variant.Variable"><code>AxisChunks::Variable</code></a><code>(run_sizes)</code> with one output chunk constructed
+The output axis becomes <a href="api/brix_array/chunk_grid/enum.AxisChunks.html#variant.Variable"><code>AxisChunks::Variable</code></a><code>(run_sizes)</code> with one output chunk constructed
 per <em>touched</em> source chunk. Untouched source chunks are never read.</p>
 <h3 id="brix-layer-1"><a class="header" href="#brix-layer-1">Brix layer</a></h3>
-<p><a href="api/brix/expr/enum.Op.html#variant.Blockwise"><code>Op::Blockwise</code></a><code>(</code><a href="api/brix/array/kernels/indexing/struct.GatherKernel.html"><code>GatherKernel</code></a><code>)</code>, with the edge carrying, per indexed axis,</p>
-<pre><code>AxisAccess::Translated(
+<p><a href="api/brix/expr/enum.Op.html#variant.Blockwise"><code>Op::Blockwise</code></a><code>(</code><a href="api/brix_array/kernels/indexing/struct.GatherKernel.html"><code>GatherKernel</code></a><code>)</code>, with the edge carrying, per indexed axis,</p>
+<pre><code class="language-text">AxisAccess::Translated(
     TranslatedAccess::Independent(
         AxisOverride::Lookup(table)
     )
@@ -2595,7 +3065,7 @@ applying a lookup table for each axis independent of the other axes participatin
 </blockquote>
 <p>Lookup <code>table[c]</code> maps the axis’s output chunk index to its run’s <code>source_chunk</code>.</p>
 <h3 id="runtime-per-brick-1"><a class="header" href="#runtime-per-brick-1">Runtime (per-brick)</a></h3>
-<p><a href="api/brix/array/kernels/indexing/struct.GatherKernel.html#method.gather"><code>GatherKernel::gather</code></a>: per indexed axis, slice the full index vector to
+<p><a href="api/brix_array/kernels/indexing/struct.GatherKernel.html#method.gather"><code>GatherKernel::gather</code></a>: per indexed axis, slice the full index vector to
 <code>output_bounds[axis]</code> (the positions this output chunk owns), subtract the
 input brick’s element start to get brick-local positions, and <code>select</code> along
 the axis. A <code>Fill</code> input short-circuits to a <code>Fill</code> at the output brick
@@ -2611,7 +3081,7 @@ shape.</p>
 
 <div>
 <ul>
-<li>Indexing an <a href="api/brix/array/chunk_grid/enum.AxisChunks.html#variant.Variable"><code>AxisChunks::Variable</code></a> source axis — hard error.</li>
+<li>Indexing an <a href="api/brix_array/chunk_grid/enum.AxisChunks.html#variant.Variable"><code>AxisChunks::Variable</code></a> source axis — hard error.</li>
 <li>Indices not sorted by source chunk — hard error.</li>
 <li><a href="api/brix/expr/enum.AxisOverride.html#variant.Lookup"><code>AxisOverride::Lookup</code></a> is a forward table assuming dense <code>0..len</code> keys; an
 inverted index for reversing the map is future work.</li>
@@ -2624,16 +3094,16 @@ inverted index for reversing the map is future work.</li>
 <p>One integer index vector per indexed axis, linked across axes.
 The output is the input array indexed after zipping the applied indexers together.</p>
 <h3 id="array-layer-2"><a class="header" href="#array-layer-2">Array layer</a></h3>
-<p><code>a.vindex(</code><a href="api/brix/array/indexer/struct.VectorizedIndexer.html"><code>VectorizedIndexer</code></a><code>::from_indices("k", indices))</code> builds
-<a href="api/brix/array/expr/enum.ArrayOp.html#variant.Vindex"><code>ArrayOp::Vindex</code></a> — equal-length integer index vectors per
+<p><code>a.vindex(</code><a href="api/brix_array/indexer/struct.VectorizedIndexer.html"><code>VectorizedIndexer</code></a><code>::from_indices("k", indices))</code> builds
+<a href="api/brix_array/expr/enum.ArrayOp.html#variant.Vindex"><code>ArrayOp::Vindex</code></a> — equal-length integer index vectors per
 consumed axis, zipped to produce a single new axis <code>k</code>.</p>
 <p>The indexed axes on the input are consumed, and a new axis <code>k</code> is produced.</p>
 <h3 id="chunk-grid-inference-2"><a class="header" href="#chunk-grid-inference-2">Chunk grid inference</a></h3>
 <p>We walk through the indexers, figure out a mapping from source chunk to destination chunk.
 Again input and output chunk grids are embedded in the kernel.
-The appropriate chunk grid is created (always <a href="api/brix/array/chunk_grid/enum.AxisChunks.html#variant.Variable"><code>AxisChunks::Variable</code></a>).</p>
+The appropriate chunk grid is created (always <a href="api/brix_array/chunk_grid/enum.AxisChunks.html#variant.Variable"><code>AxisChunks::Variable</code></a>).</p>
 <h3 id="brix-layer-2"><a class="header" href="#brix-layer-2">Brix layer</a></h3>
-<p><a href="api/brix/expr/enum.Op.html#variant.Blockwise"><code>Op::Blockwise</code></a><code>(</code><a href="api/brix/array/kernels/indexing/struct.VIndexKernel.html"><code>VIndexKernel</code></a><code>)</code>, with the edge access keyed by the <em>produced</em>
+<p><a href="api/brix/expr/enum.Op.html#variant.Blockwise"><code>Op::Blockwise</code></a><code>(</code><a href="api/brix_array/kernels/indexing/struct.VIndexKernel.html"><code>VIndexKernel</code></a><code>)</code>, with the edge access keyed by the <em>produced</em>
 axis, which does not exist on the producer grid:</p>
 <pre><code class="language-text">{"k" → AxisAccess::Translated(
     TranslatedAccess::Zipped(
@@ -2670,39 +3140,39 @@ are interpreted at runtime to generate the appropriate indexer for each provided
 <li>Vindex along a single consumed axes is rejected.
 This should become a property test in the future:
 oindex is identical to the appropriate vindex.</li>
-<li><a href="api/brix/array/chunk_grid/enum.AxisChunks.html#variant.Variable"><code>AxisChunks::Variable</code></a> consumed axes — hard error (mirrors oindex).</li>
+<li><a href="api/brix_array/chunk_grid/enum.AxisChunks.html#variant.Variable"><code>AxisChunks::Variable</code></a> consumed axes — hard error (mirrors oindex).</li>
 </ul>
 </div>
 
 </div>
 
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="reductions"><a class="header" href="#reductions">Reductions</a></h1>
+<h1 id="reductions-1"><a class="header" href="#reductions-1">Reductions</a></h1>
 <p>A reduction applies a fold along one or more axes. Every reduction — whole-axis
-mean, coarsen, and the rest — is the <em>same</em> <a href="api/brix/array/expr/enum.ArrayOp.html#variant.Reduce"><code>ArrayOp::Reduce</code></a> node:</p>
+mean, coarsen, and the rest — is the <em>same</em> <a href="api/brix_array/expr/enum.ArrayOp.html#variant.Reduce"><code>ArrayOp::Reduce</code></a> node:</p>
 <ul>
 <li>an accumulator says <em>what</em> to fold (sum, mean, …), and</li>
-<li>a per-axis <a href="api/brix/array/expr/enum.Frame.html"><code>Frame</code></a> says <em>over which frames</em> to fold it, in element space.</li>
+<li>a per-axis <a href="api/brix_array/expr/enum.Frame.html"><code>Frame</code></a> says <em>over which frames</em> to fold it, in element space.</li>
 </ul>
 <p>Only whole-axis and block window (coarsen) reductions are implemented.
 For these the access relation is <a href="api/brix/expr/enum.AxisAccess.html#variant.Composed"><code>AxisAccess::Composed</code></a>:
 the frame becomes <em>loop restructure</em> applied at <em>plan time</em>
 rather than a runtime translation of the brick coordinates.
-(Note this approach cannot work for the general groupby <a href="api/brix/array/expr/enum.Frame.html"><code>Frame</code></a>, but is fine
+(Note this approach cannot work for the general groupby <a href="api/brix_array/expr/enum.Frame.html"><code>Frame</code></a>, but is fine
 for whole axis, block window, and sliding window aggregations).</p>
 <h2 id="whole-axis-reduction-mean"><a class="header" href="#whole-axis-reduction-mean">Whole-axis reduction (mean)</a></h2>
 <p>Fold an entire axis away, leaving one value per remaining position.
 The dimension may be consumed or retained with (<code>keepdims: bool</code>)</p>
 <h3 id="array-layer-3"><a class="header" href="#array-layer-3">Array layer</a></h3>
 <pre><code class="language-rust ignore">a.over(&amp;["i"]).mean()</code></pre>
-<p>builds <a href="api/brix/array/expr/enum.ArrayOp.html#variant.Reduce"><code>ArrayOp::Reduce</code></a> with a <a href="api/brix/array/accumulators/struct.MeanAccumulator.html"><code>MeanAccumulator</code></a> and, per reduced axis, a
-<a href="api/brix/array/expr/enum.Frame.html#variant.WholeAxis"><code>Frame::WholeAxis</code></a><code> { keepdims }</code> view.</p>
+<p>builds <a href="api/brix_array/expr/enum.ArrayOp.html#variant.Reduce"><code>ArrayOp::Reduce</code></a> with a <a href="api/brix_array/accumulators/struct.MeanAccumulator.html"><code>MeanAccumulator</code></a> and, per reduced axis, a
+<a href="api/brix_array/expr/enum.Frame.html#variant.WholeAxis"><code>Frame::WholeAxis</code></a><code> { keepdims }</code> view.</p>
 <h3 id="chunk-grid-inference-3"><a class="header" href="#chunk-grid-inference-3">Chunk grid inference</a></h3>
-<p>With <code>keepdims</code> the reduced axis survives with size 1 (<a href="api/brix/array/chunk_grid/enum.AxisChunks.html#variant.Uniform"><code>AxisChunks::Uniform</code></a><code> { size: 1 }</code>).
+<p>With <code>keepdims</code> the reduced axis survives with size 1 (<a href="api/brix_array/chunk_grid/enum.AxisChunks.html#variant.Uniform"><code>AxisChunks::Uniform</code></a><code> { size: 1 }</code>).
 Otherwise, the reduced axis is dropped from the output chunk grid.</p>
 <h3 id="brix-layer-3"><a class="header" href="#brix-layer-3">Brix layer</a></h3>
-<p><a href="api/brix/expr/enum.Op.html#variant.Reduce"><code>Op::Reduce</code></a><code>(</code><a href="api/brix/array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a><code>)</code>, with the edge carrying, per reduced axis,</p>
-<pre><code>AxisAccess::Composed(Frame::WholeAxis { keepdims })
+<p><a href="api/brix/expr/enum.Op.html#variant.Reduce"><code>Op::Reduce</code></a><code>(</code><a href="api/brix_array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a><code>)</code>, with the edge carrying, per reduced axis,</p>
+<pre><code class="language-text">AxisAccess::Composed(Frame::WholeAxis { keepdims })
 </code></pre>
 <p>which reads as</p>
 <blockquote>
@@ -2713,9 +3183,9 @@ fold loop over it.</p>
 <h3 id="runtime-per-brick-3"><a class="header" href="#runtime-per-brick-3">Runtime (per-brick)</a></h3>
 <p>The accumulator <a href="#folding-over-frames">folds each incoming brick’s frames</a>
 into running state — for a whole-axis view the entire reduced extent is a single frame — and combines
-parallel states pairwise on <a href="api/brix/array/accumulators/struct.LoweredAccumulator.html#method.merge"><code>merge</code></a>. <a href="api/brix/array/accumulators/struct.LoweredAccumulator.html#method.finalize"><code>finalize</code></a> divides <code>sum / count</code> (mean over
-integers promotes to <a href="api/brix/array/enum.DType.html#variant.F64"><code>DType::F64</code></a>, NumPy-faithful) and squeezes out any axis
-whose view was <code>keepdims: false</code>. A <a href="api/brix/array/enum.ArrayPayload.html#variant.Fill"><code>Fill</code></a> brick contributes <code>value × volume</code>
+parallel states pairwise on <a href="api/brix_array/accumulators/struct.LoweredAccumulator.html#method.merge"><code>merge</code></a>. <a href="api/brix_array/accumulators/struct.LoweredAccumulator.html#method.finalize"><code>finalize</code></a> divides <code>sum / count</code> (mean over
+integers promotes to <a href="api/brix_array/enum.DType.html#variant.F64"><code>DType::F64</code></a>, NumPy-faithful) and squeezes out any axis
+whose view was <code>keepdims: false</code>. A <a href="api/brix_array/enum.ArrayPayload.html#variant.Fill"><code>Fill</code></a> brick contributes <code>value × volume</code>
 without densifying.</p>
 <div id="admonition-not-yet-implemented-3" class="admonition admonish-warning" role="note" aria-labelledby="admonition-not-yet-implemented-title">
 <div class="admonition-title">
@@ -2739,18 +3209,18 @@ without densifying.</p>
 <p>Block-reduce an axis with fixed-width windows.</p>
 <h3 id="array-layer-1-1"><a class="header" href="#array-layer-1-1">Array layer</a></h3>
 <pre><code class="language-rust ignore">a.coarsen({"i": 2}).sum()</code></pre>
-<p>builds <a href="api/brix/array/expr/enum.ArrayOp.html#variant.Reduce"><code>ArrayOp::Reduce</code></a> with a <a href="api/brix/array/expr/enum.Frame.html#variant.Window"><code>Frame::Window</code></a><code> { size: 2, stride: 2 }</code> view.</p>
+<p>builds <a href="api/brix_array/expr/enum.ArrayOp.html#variant.Reduce"><code>ArrayOp::Reduce</code></a> with a <a href="api/brix_array/expr/enum.Frame.html#variant.Window"><code>Frame::Window</code></a><code> { size: 2, stride: 2 }</code> view.</p>
 <h3 id="chunk-grid-inference-1-1"><a class="header" href="#chunk-grid-inference-1-1">Chunk grid inference</a></h3>
 <p>Instead of dropping the viewed axis, its chunks are <em>coarsened</em> — the output
 extent along it becomes <code>ceil(n / size)</code>.</p>
 <h3 id="brix-layer-1-1"><a class="header" href="#brix-layer-1-1">Brix layer</a></h3>
-<p><a href="api/brix/expr/enum.Op.html#variant.Reduce"><code>Op::Reduce</code></a><code>(</code><a href="api/brix/array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a><code>)</code>. The element-space window is translated to brick-space.
+<p><a href="api/brix/expr/enum.Op.html#variant.Reduce"><code>Op::Reduce</code></a><code>(</code><a href="api/brix_array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a><code>)</code>. The element-space window is translated to brick-space.
 There are two regimes (<code>w</code> = number of source bricks a window spans):</p>
 <p><strong><code>w == 1</code></strong> — one or more windows fit inside one brick. Here the access relation on the
 edge is identity. All folding happens in element space inside the accumulator, invisible to the planner.
 There is no cross-brick communication.</p>
 <p><strong><code>w &gt; 1</code></strong> — the window spans multiple bricks. The access relation is:</p>
-<pre><code>AxisAccess::Composed(Frame::Window { size: w, stride: w })
+<pre><code class="language-text">AxisAccess::Composed(Frame::Window { size: w, stride: w })
 </code></pre>
 <p>which reads as</p>
 <blockquote>
@@ -2797,7 +3267,7 @@ that lives inside one brick folds here rather than in the loop nest.</p>
 <div>
 <ul>
 <li>Sliding windows (<code>stride != size</code>) — hard error.</li>
-<li>The other <a href="api/brix/array/expr/enum.Frame.html"><code>Frame</code></a> variants (<code>Blocks</code>, <code>PeriodicBlocks</code>, <code>VariableWindow</code>,
+<li>The other <a href="api/brix_array/expr/enum.Frame.html"><code>Frame</code></a> variants (<code>Blocks</code>, <code>PeriodicBlocks</code>, <code>VariableWindow</code>,
 <code>Groups</code>) don’t lower yet.</li>
 <li>Reducing along a sparse axis — same restriction as above.</li>
 </ul>
@@ -2805,6 +3275,31 @@ that lives inside one brick folds here rather than in the loop nest.</p>
 
 </div>
 
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="notes"><a class="header" href="#notes">Notes</a></h1>
+<p>These are a collection of rough notes on implementation ideas for specific operations, that I do not plan to get to soon.</p>
+<h2 id="pad"><a class="header" href="#pad">Pad</a></h2>
+<ul>
+<li>Pad modifies first and last blocks; conceptually similar to slicing.</li>
+<li>Two ways; we modify the brick “in-place” i.e. number of bricks does not change
+<ul>
+<li>we add new smaller bricks on either end.</li>
+</ul>
+</li>
+</ul>
+<h2 id="overlap-1"><a class="header" href="#overlap-1">Overlap</a></h2>
+<ul>
+<li>Overlapping views are <code>stride≠1</code> on the access relation.</li>
+<li>How do we (avoid) doing comms?
+<ul>
+<li>we could always recompute input bricks.</li>
+<li>in this view we globally partition the strided iteration space between workers and each worker
+just recomputes what it needs. This removes the need to implement an exchange operator early on.</li>
+<li>requires optimization where we push striding on the access relation through blockwise as close to the source
+as possible.</li>
+</ul>
+</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="pipeline-visualizer"><a class="header" href="#pipeline-visualizer">Pipeline Visualizer</a></h1>
 <!-- Redirect chapter: the visualizer is a standalone full-page app (own
@@ -2817,6 +3312,8 @@ that lives inside one brick folds here rather than in the loop nest.</p>
 (or <code>just visualize</code> and copy <code>target/visualize/</code> to <code>docs/book/visualize/</code>).</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="api-docs"><a class="header" href="#api-docs">API Docs</a></h1>
+<p>The rustdoc API reference is generated by <code>cargo doc</code> and copied here by the
+<code>just docs</code> recipe, which overwrites this page. Run <code>just docs</code> (or <code>just serve</code>) to populate the full reference.</p>
 
                     </main>
 
@@ -2859,6 +3356,7 @@ that lives inside one brick folds here rather than in the loop nest.</p>
         <!-- Custom JS scripts -->
         <script src="mermaid-bf4a4f1d.min.js"></script>
         <script src="mermaid-init-ccf746f1.js"></script>
+        <script src="giscus-c90fddd3.js"></script>
 
         <script>
         window.addEventListener('load', function() {

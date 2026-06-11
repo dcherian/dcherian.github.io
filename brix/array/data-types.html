@@ -29,6 +29,7 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href=".././mdbook-admonish.css">
+        <link rel="stylesheet" href=".././mdbook-admonish-custom.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -36,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-7509ff32.js";
+            window.path_to_searchindex_js = "../searchindex-371300b0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-8e03c8ef.js"></script>
+        <script src="../toc-31366b7a.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -147,7 +148,7 @@
                         <a href="https://github.com/earth-mover/brix" title="Git repository" aria-label="Git repository">
                             <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
                         </a>
-                        <a href="https://github.com/earth-mover/brix/edit/main/docs/src/array/data-types.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                        <a href="https://github.com/earth-mover/brix/edit/main/docs-interim/src/array/data-types.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
                             <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
                         </a>
 
@@ -182,178 +183,127 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="data-types"><a class="header" href="#data-types">Data Types</a></h1>
-<h2 id="requirements"><a class="header" href="#requirements">Requirements</a></h2>
+<p>Every array carries a <a href="../api/brix_array/enum.DType.html"><code>DType</code></a>, and scalars are dtype-tagged values.
+We distinguish between <em>opaque</em> and <em>interpreted</em> variants:</p>
+<pre><code class="language-rust ignore">#[derive(Debug, Clone)]
+pub enum DType {
+    Primitive(PrimitiveType),
+    Extension(Arc&lt;dyn ExtensionDType&gt;),
+}</code></pre>
 <ul>
-<li>We need to support something like <code>Datetime { calendar, epoch, units }</code>.
-We expect an external <code>zax-cftime</code> crate to provide implementations for
-non-standard calendars (since this is a climate science-only requirement).</li>
-<li>We need to support Strings.</li>
-<li>We need to support Arrow geometry buffers. We can ignore arithmetic ops here
-but need to support slicing.</li>
+<li><code>Primitive</code> — those with a Rust equivalent (<code>i64</code>, <code>f64</code>). Core owns these because
+numeric promotion needs a <em>closed</em> set of rules implemented.</li>
+<li><code>Extension</code> — everything not primitive: datetime, categorical, string,
+geometry. Fully external, behind <code>Arc&lt;dyn ExtensionDType&gt;</code>.</li>
 </ul>
-<h2 id="approach"><a class="header" href="#approach">Approach</a></h2>
-<div id="admonition-warning" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
-<div class="admonition-title">
-<div id="admonition-warning-title">
-<p>Warning</p>
-</div>
-
-<a class="admonition-anchor-link" href="#admonition-warning"></a>
-</div>
-
-<div>
-<p>The dtype model is in flux as we work toward Zax (<code>zax-io</code>) integration. The
-shipped code is still the flat <code>DType { F64, I64 }</code> enum; the shape below is the
-migration target. Everything past the primitives is design intent — see
-<code>checkpoints/dtypes.md</code>.</p>
-</div>
-
-</div>
-
-<p>Brix is statically typed: every array carries a <a href="../api/brix/array/enum.DType.html"><code>DType</code></a>, and scalars are
-tagged <a href="../api/brix/enum.Value.html"><code>Value</code></a>s (<code>src/array/dtype.rs</code>).</p>
-<ul>
-<li><strong>Physical dtype</strong> — dtype of the runtime brick payload. These are primitive types
-(<code>i64</code>, <code>f64</code> etc.).</li>
-<li><strong>Logical dtype</strong> — what the values <em>mean</em> (<a href="../api/brix/array/enum.DType.html"><code>DType</code></a>): WE can wrap primitive types <code>Primitive</code>,
-and defined derived types on top of primitive types: <code>Datetime</code> (over <code>i64</code>), <code>Categorical</code>,
-or other types: <code>Utf8</code>, <code>Extension</code>.</li>
-<li><strong>Validity</strong> — a null mask parallel to the value buffer (discussed in Payloads).
-Dtypes don’t carry “nullability” (like Polars).</li>
-</ul>
-<h2 id="logical-dtypes"><a class="header" href="#logical-dtypes">Logical DTypes</a></h2>
-<p>A <code>Primitive(PrimitiveType)</code> variant wraps the closed primitive set, core-recognized
-logical types are their own variants, and <code>Extension</code> is the opaque escape hatch.</p>
-<pre><code class="language-rust ignore">pub enum PrimitiveType {
+<h2 id="primitivetype-and-promotion"><a class="header" href="#primitivetype-and-promotion"><code>PrimitiveType</code> and promotion</a></h2>
+<pre><code class="language-rust ignore">#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum PrimitiveType {
     F64,
     I64,
-}
-
-pub enum DType {
-    Primitive(PrimitiveType),              // F64/I64 (F32, U8 … later)
-    Datetime(Arc&lt;dyn DatetimeLikeDtype&gt;),  // unified numpy + CF time; physical = I64
-    Utf8,                                  // variable-length strings; String kind
-    Interval(???),
-    Categorical(???),
-    Extension(Arc&lt;dyn ExtensionDType&gt;),    // opaque (geometry); physical = None
-}</code></pre>
-<h3 id="datetime"><a class="header" href="#datetime">Datetime</a></h3>
-<p>We mode datetimes as one logical dtype backed by one trait.
-All datetimes are characterized by calendar, unit, and epoch.
-E.g. numpy’s <code>datetime64</code> has fixed <code>calendar = proleptic_gregorian</code> and a unix
-epoch. “cftime” provides non-standard calendars and an arbitrary epoch.
-We will represent all these as <code>i64</code> under the hood.
-We expect to have an external <code>zax-time</code> (or at least <code>zax-cftime</code>)
-so the core library defines traits (<code>DatetimeLikeDtype</code>) and enums (<code>TimeUnit</code>)</p>
-<pre><code class="language-rust ignore">DType::Datetime(Arc&lt;dyn DatetimeLikeDtype&gt;)
-
-pub trait DatetimeLikeDtype: Send + Sync + Debug {
-    fn unit(&amp;self) -&gt; TimeUnit;                       // S/Ms/Us/Ns/D…
-    fn storage(&amp;self) -&gt; PrimitiveType;               // = I64; feeds physical()
-    // calendar/tz-dependent behavior — the reason this is a trait:
-    // time-specific ops, e.g. for resampling
+    // Future: F32, I32, U8, Bool.
 }</code></pre>
 <ul>
-<li>Datetime arithmetic is implemented on the i64 kernel. <code>dt − dt</code>, <code>dt + td</code>,
-<code>dt &lt; dt</code> are calendar-independent by definition; only the output dtype <em>tag</em>
-changes. Cross-unit (<code>dt[s] + td[ns]</code>) is a plan-time unit-scaling <code>AsType</code>.</li>
-<li>Calendar-dependent ops (add months/years, resample buckets, decode, components) are
-deferred to specific external implementations (this needs to be sketched out later)</li>
-<li>Timezone is metadata on the gregorian calendar impl.</li>
+<li><code>PrimitiveType::promote</code> implements the single symmetric promotion ruleset,
+following the <a href="https://data-apis.org/array-api/latest/API_specification/type_promotion.html">Array API type-promotion rules</a>. It is deliberately closed
+over <code>DType::Primitive</code>. Extension dtypes have <em>no</em> promotion lattice with
+primitives — binary ops involving them are delegated to the external crate.</li>
+<li>A mixed-dtype binary op (e.g. <code>int + float</code>) inserts a plan-time <code>AsType</code> node
+(see <a href="./array-ir.html">The Array IR</a>) so unary op kernels never see mixed inputs.</li>
+<li>Scalar operands follow <em>weak</em> promotion (<code>promote_weak</code>), the Array API’s
+<a href="https://data-apis.org/array-api/latest/API_specification/type_promotion.html#mixing-arrays-and-python-scalars">mixing arrays and Python scalars</a> rule: a scalar contributes only its <em>kind</em>
+(integral vs. floating), never its width — <code>i64_arr + 2</code> stays <code>i64</code>,
+<code>i64_arr * 2.5</code> promotes to <code>f64</code>.</li>
+<li>Per-op output dtypes (e.g. <code>mean</code> → <code>f64</code>) live on the ops, not in the lattice.</li>
 </ul>
-<h3 id="string"><a class="header" href="#string">String</a></h3>
-<p>The logical dtype is <code>Utf8</code>; its physical layout
-(offsets + bytes) lives in a separate brick kind — see the
-<a href="./payloads.html#strings">String kind</a> in Payloads.</p>
-<h2 id="value"><a class="header" href="#value">Value</a></h2>
-<p>A typed scalar — used for fill values, reduction identities/absorbers, and
-constants:</p>
+<h2 id="scalars-value-and-scalarvalue"><a class="header" href="#scalars-value-and-scalarvalue">Scalars: <code>Value</code> and <code>ScalarValue</code></a></h2>
+<p>Again we have a primitive-vs-extension split:</p>
 <pre><code class="language-rust ignore">/// Typed scalar.
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Value {
     F64(f64),
     I64(i64),
 }</code></pre>
-<h2 id="promotion"><a class="header" href="#promotion">Promotion</a></h2>
-<p><code>DType::promote</code> defines a NumPy-style symmetric promotion rules.
-Per-op output dtypes (e.g. <code>mean</code> → f64) live on the ops themselves, not here.
-A mixed-dtype binary op (e.g. int + float) inserts a plan-time <code>AsType</code> node
-(see <a href="./array-ir.html">The Array IR</a>).
-This allows a “relatively simple” implementation of unary ops</p>
-<h2 id="typed-buffers"><a class="header" href="#typed-buffers">Typed buffers</a></h2>
-<p><a href="../api/brix/array/enum.DType.html"><code>DType</code></a>/<a href="../api/brix/enum.Value.html"><code>Value</code></a> describe a single element; a <em>brick’s worth</em> of dense values is
-held in a <a href="../api/brix/array/enum.TypedArray.html"><code>TypedArray</code></a> — a dtype-tagged <code>ArrayD&lt;T&gt;</code>. It’s the dense container
-only; sparse / extension kinds carry their own representation.</p>
-<pre><code class="language-rust ignore">/// Dense-kind value buffer, tagged by dtype. This is the dense container only —
-/// `ArrayD&lt;T&gt;` per primitive — not a universal typed buffer (sparse / extension
-/// kinds carry their own representation; see `checkpoints/dtypes.md`).
+<pre><code class="language-rust ignore">/// Host-side typed scalar across both dtype arms — [`Value`] is the
+/// primitive-only tagged union; this adds the extension arm. The dtype is
+/// derived from the value (mirroring `ArrayPayload::dtype`), not stored.
 #[derive(Debug, Clone)]
-pub enum TypedArray {
-    F64(ArrayD&lt;f64&gt;),
-    I64(ArrayD&lt;i64&gt;),
+pub enum ScalarValue {
+    Primitive(Value),
+    Extension(Arc&lt;dyn ExtensionScalar&gt;),
 }</code></pre>
-<p>Borrowed access goes through <a href="../api/brix/array/enum.TypedView.html"><code>TypedView</code></a>, the view-mirror of <a href="../api/brix/array/enum.TypedArray.html"><code>TypedArray</code></a> (the
-<code>Dense</code> arm of a <a href="../api/brix/array/brick/enum.ReadFrame.html"><code>ReadFrame</code></a>). A consumer that knows its concrete <code>T</code> recovers an
-<code>ArrayViewD&lt;T&gt;</code> via <code>TypedView::as_typed</code>.</p>
-<pre><code class="language-rust ignore">/// Borrowed, dtype-tagged view — the `Dense` arm of [`ReadFrame`]. Mirrors
-/// [`TypedArray`] for views. Consumers that know their `T` recover a concrete
-/// `ArrayViewD&lt;T&gt;` via [`TypedView::as_typed`].
-#[derive(Debug, Clone)]
-pub enum TypedView&lt;'a&gt; {
-    F64(ArrayViewD&lt;'a, f64&gt;),
-    I64(ArrayViewD&lt;'a, i64&gt;),
-}</code></pre>
-<h2 id="parameterizing-over-dtypes"><a class="header" href="#parameterizing-over-dtypes">Parameterizing over dtypes</a></h2>
-<p><a href="../api/brix/array/enum.DType.html"><code>DType</code></a>/<a href="../api/brix/enum.Value.html"><code>Value</code></a>/<a href="../api/brix/array/enum.TypedArray.html"><code>TypedArray</code></a> are <strong>runtime-tagged</strong> — a closed enum per concept.
-Generic code, however, wants to be written once over a static type parameter
-<code>T</code>. The <code>Element</code> trait is the bridge: it is implemented per primitive, and its
-<code>const DTYPE</code> ties the static <code>T</code> to the runtime tag.</p>
-<pre><code class="language-rust ignore">pub trait Element: Copy + Send + Sync + Debug + PartialEq + 'static {
-    const DTYPE: DType;
-    fn from_array(arr: ArrayD&lt;Self&gt;) -&gt; TypedArray;
-    fn from_scalar(v: Self) -&gt; Value;
-    fn from_value(v: Value) -&gt; Option&lt;Self&gt;;
+<p>A literal is embedded in the graph as an expression node (<a href="../api/brix_array/enum.ArrayOp.html#variant.Literal"><code>ArrayOp::Literal</code></a>), lowered to one
+rank-0 brick generated on demand. Example: <code>arr + 1</code> is a two-input Blockwise over
+the array and a rank-0 literal, broadcast by the planner’s absent-axis machinery.</p>
+<!-- ## Parameterizing over dtypes
+
+[`DType`]/[`Value`]/[`DenseArray`] are *runtime-tagged*: a closed enum with one
+arm per dtype, picked at runtime. Kernel bodies, by contrast, want to be written
+once over a static type parameter — `fn add<T: Numeric>(…)`. So we constantly
+need to cross between the runtime tag and the static `T`, in both directions.
+
+The `Element` trait is that bridge. It is implemented once per primitive, and
+its `const DTYPE` is the anchor that ties a static `T` to its runtime tag.
+
+```rust,ignore
+pub trait Element: Copy + Send + Sync + Debug + PartialEq + 'static {
+    const DTYPE: PrimitiveType;
+    /// Wrap a concrete buffer into the runtime-tagged `DenseArray`. Accepts
+    /// `ArrayD` (fresh kernel outputs — `into_shared` moves, no copy) and
+    /// `ArcArrayD` (zero-copy slices) alike.
+    fn from_array(arr: impl Into<ArcArrayD<Self>>) -> DenseArray;
+    fn from_scalar(v: Self) -> Value;
+    fn from_value(v: Value) -> Option<Self>;
 
     // -- type-erasure bridge --------------------------------------------------
-    // These let `dispatch_dtype!`/generic bodies recover a concretely-typed
-    // view/buffer out of the runtime-tagged `TypedView`/`TypedArray` enums.
-    // A generic fn can't coerce a `TypedView::F64` arm into `ArrayViewD&lt;T&gt;`,
-    // but a *concrete* impl (T = f64) can — so the peel lives here.
+    // These let `dispatch_dtype!` recover a concretely-typed
+    // view/buffer out of the runtime-tagged `DenseArray` enum.
 
-    /// Wrap a concrete view back into the runtime-tagged `TypedView`.
-    fn wrap_view(v: ArrayViewD&lt;'_, Self&gt;) -&gt; TypedView&lt;'_&gt;;
-    /// Peel a `TypedView` to this element's view, if the tag matches.
-    fn view_from_typed(tv: TypedView&lt;'_&gt;) -&gt; Option&lt;ArrayViewD&lt;'_, Self&gt;&gt;;
-    /// Mutable borrow of the inner buffer, if the tag matches.
-    fn array_mut_from_typed(ta: &amp;mut TypedArray) -&gt; Option&lt;&amp;mut ArrayD&lt;Self&gt;&gt;;
+    /// Borrow the inner buffer as this element's view, if the tag matches.
+    fn view_from_dense(da: &DenseArray) -> Option<ArrayViewD<'_, Self>>;
+    /// Mutable borrow of the inner buffer, if the tag matches. Copy-on-write:
+    /// callers must hold the buffer's sole reference (see [`DenseArray`]).
+    fn array_mut_from_dense(da: &mut DenseArray) -> Option<&mut ArcArrayD<Self>>;
     /// Take the inner buffer by value, if the tag matches.
-    fn array_from_typed(ta: TypedArray) -&gt; Option&lt;ArrayD&lt;Self&gt;&gt;;
-}</code></pre>
-<p>The trait carries a <strong>type-erasure bridge</strong>: a generic <code>fn</code> can’t coerce a
-<code>TypedView::F64</code> arm into <code>ArrayViewD&lt;T&gt;</code>, but a <em>concrete</em> impl (<code>T = f64</code>) can —
-so <code>wrap_view</code> / <code>view_from_typed</code> / <code>array_from_typed</code> live on <code>Element</code>, where
-<code>T</code> is known. Runtime dispatch in the other direction (tag → concrete body) goes
-through the <code>with_typed_array!</code> / <code>dispatch_dtype!</code> macros in <code>dtype.rs</code>.</p>
-<h3 id="capability-traits"><a class="header" href="#capability-traits">Capability traits</a></h3>
-<p>Op kernels don’t bound on <code>Element</code> directly — they bound on <strong>capability
-traits</strong> that bundle exactly the arithmetic a body needs. <code>Binary</code> (add / sub /
-mul plus the <code>Zero</code>/<code>One</code> reduction identities) is <strong>unsigned-compatible</strong>;
-<code>Unary</code> (negation, <code>abs</code>) is <strong>signed-only</strong> — <code>Signed</code> supplies both, so a future
-<code>u8</code> is correctly excluded. <code>Numeric</code> is the both-families bundle, granted free by
-a blanket impl:</p>
-<pre><code class="language-rust ignore">/// Capability umbrella for the `BinaryOp` family (add / sub / mul) plus the
+    fn array_from_dense(da: DenseArray) -> Option<ArcArrayD<Self>>;
+}
+```
+
+**Static `T` → runtime tag.** Code that already knows `T` reads `T::DTYPE` for
+the tag, and `T::from_array` / `from_scalar` wrap a concrete buffer or value into
+the tagged [`DenseArray`] / [`Value`].
+
+**Runtime tag → static `T`.** The harder direction, in two parts:
+
+- *Pulling a concrete buffer out of the enum.* A generic `fn` can't write
+  `match da { DenseArray::F64(a) => a }` and call the result `ArcArrayD<T>` —
+  that only type-checks when `T = f64`. So the extraction lives on the
+  per-primitive `Element` impl, where `T` *is* concrete: `view_from_dense` /
+  `array_from_dense` (and `from_value` for scalars).
+- *Running a generic body for a runtime tag.* The `dispatch_dtype!` /
+  `with_dense_array!` macros (in `dtype.rs`) expand to one `match` arm per dtype,
+  each binding a local type alias to the concrete type — so a single
+  `<T>`-generic body is monomorphized once per arm, all at one match site.
+
+### Capability traits
+
+Op kernels don't bound on `Element` directly — they bound on *capability
+traits* that bundle exactly the arithmetic a body needs:
+
+```rust,ignore
+/// Capability umbrella for the `BinaryOp` family (add / sub / mul) plus the
 /// `Zero`/`One` identities reductions need. **Unsigned-compatible** — a future
 /// `u8`/`u16` code-width dtype implements this, so binary ops / `sum` / `cast`
 /// stay open to it. The universal arithmetic bound; mirrors `BinaryOp`.
 pub trait Binary:
-    Element + Add&lt;Output = Self&gt; + Sub&lt;Output = Self&gt; + Mul&lt;Output = Self&gt; + Zero + One
+    Element + Add<Output = Self> + Sub<Output = Self> + Mul<Output = Self> + Zero + One
 {
 }
 
 /// Capability for the `UnaryOp` family (negation / absolute value). **Signed
 /// only** — `Signed` supplies both `Neg` and `abs`, so unsigned dtypes are
 /// correctly excluded. Mirrors `UnaryOp`.
-pub trait Unary: Element + Neg&lt;Output = Self&gt; + Signed {}
+pub trait Unary: Element + Neg<Output = Self> + Signed {}
 
 /// Fully numeric: both op families. The convenience bundle for code that needs
 /// everything; bodies that need only one family should bound on [`Binary`] or
@@ -365,54 +315,33 @@ pub trait Numeric: Binary + Unary {}
 
 // `Numeric` is a method-less bundle, so a blanket impl gives it for free to any
 // type that has both capabilities — no per-dtype `impl Numeric` line needed.
-impl&lt;T: Binary + Unary&gt; Numeric for T {}</code></pre>
-<p>All three are <strong>method-less</strong>: the behavior comes entirely from the supertrait
-bounds, so the per-primitive impls in <code>generated/dtypes.rs</code> are empty markers
-(<code>impl Unary for f64 {}</code>). A unary op runs one monomorphic body bounded
-<code>&lt;T: Unary&gt;</code>, reached by <code>dispatch_dtype!</code> on the runtime tag — <code>Neg =&gt; -x</code>,
-<code>Abs =&gt; x.abs()</code>.</p>
-<div id="admonition-where-per-dtype-code-lives" class="admonition admonish-note" role="note" aria-labelledby="admonition-where-per-dtype-code-lives-title">
-<div class="admonition-title">
-<div id="admonition-where-per-dtype-code-lives-title">
-<p>Where per-dtype code lives</p>
-</div>
+impl<T: Binary + Unary> Numeric for T {}
+```
 
-<a class="admonition-anchor-link" href="#admonition-where-per-dtype-code-lives"></a>
-</div>
+- `Binary` (add / sub / mul + the `Zero`/`One` reduction identities) is
+  *unsigned-compatible* — a future `u8` implements it, so `sum`/`cast` stay
+  open to it.
+- `Unary` (negation, `abs`) is *signed-only* (`Signed` supplies both), so a
+  future `u8` is correctly *excluded*.
+- `Numeric` is the both-families bundle, granted free by a blanket impl.
 
-<div>
-<p>The <em>contracts</em> — <code>Element</code> (and <code>Unary</code>/<code>Binary</code>), the <a href="../api/brix/array/enum.DType.html"><code>DType</code></a>/<a href="../api/brix/enum.Value.html"><code>Value</code></a> enums,
-and the dispatch macros — live in <code>array/dtype.rs</code>. The concrete
-<code>impl Element for f64 { … }</code> / <code>for i64 { … }</code> blocks are mechanically
-instantiated in <code>array/generated/dtypes.rs</code> — one block per primitive, the file
-you extend when a new dtype lands. (Folder convention, not codegen.)</p>
-</div>
+All three are *method-less*: behavior comes entirely from the supertrait
+bounds, so the per-primitive impls are empty markers (`impl Unary for f64 {}`). A
+unary op runs one monomorphic body bounded `<T: Unary>`, reached by
+`dispatch_dtype!` on the runtime tag — `Neg => -x`, `Abs => x.abs()`.
 
-</div>
-
+```admonish note title="Where per-dtype code lives"
+The *contracts* — `Element`, the capability traits, the [`DType`]/[`Value`]
+enums, and the dispatch macros — live in `array/dtype.rs`. The concrete
+`impl Element for f64 { … }` / `for i64 { … }` blocks are mechanically
+instantiated in `array/generated/dtypes.rs` — one block per primitive, the file
+you extend when a new primitive dtype lands. (Folder convention, not codegen.)
+```
+ -->
 <h2 id="extensions"><a class="header" href="#extensions">Extensions</a></h2>
-<ul>
-<li>Strings</li>
-<li>Arrow geometry buffers</li>
-<li>CFTime</li>
-<li>Interval Arrays</li>
-<li>Categorical Arrays</li>
-<li>Sparse Arrays</li>
-</ul>
-<p>Two of these are worked through in <a href="./extensions.html">Extensions</a>; their dtype
-treatment differs:</p>
-<p><strong>Geometry</strong> is an <em>extension dtype</em>: <code>DType</code> grows an
-<code>Extension(Arc&lt;dyn ExtensionDType&gt;)</code> arm whose <code>physical()</code> returns <code>None</code> —
-opaque, so it never enters <code>dispatch_dtype!</code>/<code>with_typed_array!</code>; geometry
-kernels live in <code>zax-geo</code> and downcast the payload. Type identity
-(extension name + CRS) drives the <code>Eq</code>/<code>Hash</code> alignment check, the same role
-<code>DType::F64</code> plays for native arrays.</p>
-<p><strong>Sparse</strong> is <em>not a dtype</em> — it’s a physical kind (a <code>BrickPayload</code> sibling
-of <code>Dense</code>/<code>Fill</code>). A sparse brick still carries an ordinary values dtype
-(<code>physical() = Some(F64)</code> etc.), so its nonzero values ride the normal
-<a href="../api/brix/array/trait.Element.html"><code>Element</code></a>/promotion path: a sparse-i64 × dense-f64 op gets the usual
-plan-time <code>AsType</code> before the kernel runs. Only the structure (nonzero
-pattern, formats) lives behind <code>dyn SparseArray</code>.</p>
+<p>The <code>Extension</code> arm — the dtype, host scalar, and payload contracts a satellite
+crate implements to plug in a new logical dtype — is covered in
+<a href="./extensions.html">Extensions</a>.</p>
 
                     </main>
 
@@ -467,6 +396,7 @@ pattern, formats) lives behind <code>dyn SparseArray</code>.</p>
         <!-- Custom JS scripts -->
         <script src="../mermaid-bf4a4f1d.min.js"></script>
         <script src="../mermaid-init-ccf746f1.js"></script>
+        <script src="../giscus-c90fddd3.js"></script>
 
 
 

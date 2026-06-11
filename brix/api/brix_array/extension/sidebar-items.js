@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ScalarValue"],"trait":["BinaryCapability","DynEqHash","ExtensionDType","ExtensionScalar"]};

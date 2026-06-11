@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Array-side sources."><title>brix_array::source - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-77263533.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="brix_array" data-themes="" data-resource-suffix="" data-rustdoc-version="1.94.0 (4a4ef493e 2026-03-02)" data-channel="1.94.0" data-search-js="search-9e2438ea.js" data-stringdex-js="stringdex-b897f86f.js" data-settings-js="settings-c38705f0.js" ><script src="../../static.files/storage-e2aeef58.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-7bab91a1.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-ffcac47a.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module source</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../brix_array/index.html">brix_<wbr>array</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module source</a></h2><h3><a href="#structs">Module Items</a></h3><ul class="block"><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#traits" title="Traits">Traits</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="../index.html">In crate brix_<wbr>array</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">brix_array</a></div><h1>Module <span>source</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/brix_array/source.rs.html#1-277">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Array-side sources.</p>
+<p>We categorize two types of sources:</p>
+<ul>
+<li>Opaque: Not in-memory (by some definition). These have chunk / shard
+preferences like Zarr, that are taken into account at planning time,
+and reads that can fail (I/O).</li>
+<li>Transparent: generate any requested brick on demand, cheaply.
+These sources are infallible: any error <em>should</em> have been caught at plan-time.
+A Source that can fail at read time must be an <a href="trait.OpaqueSource.html" title="trait brix_array::source::OpaqueSource"><code>OpaqueSource</code></a>.
+Example: In-memory arrays (<a href="struct.InMemorySource.html" title="struct brix_array::source::InMemorySource"><code>InMemorySource</code></a>) and <em>functional
+arrays</em> defined by an equation rather than stored data.
+Examples today are <a href="struct.FillSource.html" title="struct brix_array::source::FillSource"><code>FillSource</code></a> today; Later we may have arange / eye / date_range etc.
+No inherent chunk grid; lowering assigns one freely.</li>
+</ul>
+<p>Both are traits; lowering wraps each in a grid-carrying adapter
+(<a href="struct.LoweredTransparent.html" title="struct brix_array::source::LoweredTransparent"><code>LoweredTransparent</code></a> / <a href="struct.LoweredOpaque.html" title="struct brix_array::source::LoweredOpaque"><code>LoweredOpaque</code></a>) that implements
+[<code>brix::Source</code>].</p>
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.FillSource.html" title="struct brix_array::source::FillSource">Fill<wbr>Source</a></dt><dd>Constant functional array: <code>shape</code> filled with <code>value</code>. Emits
+materialized dense bricks — the runtime carries no constant payload
+kind; all-fill regions are an iteration-space (occupancy) concern.</dd><dt><a class="struct" href="struct.InMemorySource.html" title="struct brix_array::source::InMemorySource">InMemory<wbr>Source</a></dt><dd>In-memory data as a transparent source. Wraps the payload enum — not
+<code>DenseArray</code> — so one impl covers Dense and Extension (and future
+Sparse) data: post-Fill-deletion, <code>ArrayPayload</code> <em>is</em> “in-memory array
+data of any kind”. The entry point for satellite extension payloads.</dd><dt><a class="struct" href="struct.LoweredLiteral.html" title="struct brix_array::source::LoweredLiteral">Lowered<wbr>Literal</a></dt><dd>The lowered form of <a href="../expr/enum.ArrayOp.html#variant.Literal" title="variant brix_array::expr::ArrayOp::Literal"><code>crate::expr::ArrayOp::Literal</code></a>.
+TODO: I am unsure if modeling this as a source makes sense but it’s cute.
+we emit 0-rank arrays instead of scalars.
+We could add ArrayPayload::Scalar instead.</dd><dt><a class="struct" href="struct.LoweredOpaque.html" title="struct brix_array::source::LoweredOpaque">Lowered<wbr>Opaque</a></dt><dd>Wraps an opaque user-provided source with the grid lowering chose.
+<code>inner.read</code> is the user-facing element-space read; this adapter is
+the <code>brix::Source</code> impl.</dd><dt><a class="struct" href="struct.LoweredTransparent.html" title="struct brix_array::source::LoweredTransparent">Lowered<wbr>Transparent</a></dt><dd>Wraps a transparent source with the grid lowering chose — the single
+<code>brix::Source</code> impl for every transparent source, mirroring
+<a href="struct.LoweredOpaque.html" title="struct brix_array::source::LoweredOpaque"><code>LoweredOpaque</code></a>. Cost is <code>numel × itemsize</code> from grid + dtype
+(extension dtypes supply their own <code>itemsize</code>).</dd><dt><a class="struct" href="struct.SourceNativeChunkGrid.html" title="struct brix_array::source::SourceNativeChunkGrid">Source<wbr>Native<wbr>Chunk<wbr>Grid</a></dt><dd>The chunk grid an <code>OpaqueSource</code> owns natively — the on-disk / in-
+storage chunking the source was constructed with (Zarr chunks,
+block-sparse occupancy-carrying grids, etc.). Distinct,
+non-substitutable type so it can’t be confused with a plain
+<code>ChunkGrid</code> that the planner picked or one that flows through
+<code>LoweredOpaque</code> at runtime. Constructed explicitly via
+<code>SourceNativeChunkGrid(grid)</code> or <code>grid.into()</code>. Read access is
+transparent via <code>Deref&lt;Target=ChunkGrid&gt;</code>; mutation requires going
+through <code>.0</code> deliberately.</dd></dl><h2 id="traits" class="section-header">Traits<a href="#traits" class="anchor">§</a></h2><dl class="item-table"><dt><a class="trait" href="trait.OpaqueSource.html" title="trait brix_array::source::OpaqueSource">Opaque<wbr>Source</a></dt><dd>Opaque source — I/O-backed (Zarr, Arrow, etc.).
+The optimizer can’t see through this; it only knows shape, layout, and
+<code>ArrayPayloadKind</code>. The source owns its chunk grid (data is already chunked
+on disk).</dd><dt><a class="trait" href="trait.TransparentSource.html" title="trait brix_array::source::TransparentSource">Transparent<wbr>Source</a></dt><dd>Transparent source — generates any requested brick on demand, cheaply
+and infallibly. The trait behind functional arrays: an impl is a generation rule
+(constant, range, function) plus its shape and dtype.</dd></dl></section></div></main></body></html>

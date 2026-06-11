@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["DType","Value"],"macro":["dispatch_dtype","with_typed_array"],"trait":["Binary","Element","Numeric","Unary"]};

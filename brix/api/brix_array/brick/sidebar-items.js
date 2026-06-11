@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ArrayPayload","ArrayPayloadKind","BroadcastMode","PrimitivePayload","WriteFrame"],"fn":["broadcast_permutation"],"trait":["ArrayData","Index"]};

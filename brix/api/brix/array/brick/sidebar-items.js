@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["ArrayPayload","ArrayPayloadKind","BroadcastMode","ReadFrame","TypedArray","TypedView","WriteFrame"],"fn":["vindex_out_shape"],"struct":["DenseArray","FillArray"],"trait":["Index"]};

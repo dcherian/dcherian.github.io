@@ -29,6 +29,7 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href=".././mdbook-admonish.css">
+        <link rel="stylesheet" href=".././mdbook-admonish-custom.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -36,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-7509ff32.js";
+            window.path_to_searchindex_js = "../searchindex-371300b0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-8e03c8ef.js"></script>
+        <script src="../toc-31366b7a.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -147,7 +148,7 @@
                         <a href="https://github.com/earth-mover/brix" title="Git repository" aria-label="Git repository">
                             <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
                         </a>
-                        <a href="https://github.com/earth-mover/brix/edit/main/docs/src/array/aggregations.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                        <a href="https://github.com/earth-mover/brix/edit/main/docs-interim/src/array/aggregations.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
                             <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
                         </a>
 
@@ -184,35 +185,35 @@
                         <h1 id="aggregations"><a class="header" href="#aggregations">Aggregations</a></h1>
 <p>Aggregations are (at the moment) reductions over one or more axes — <code>sum</code>, <code>mean</code>, and friends.
 They are backed by <strong>accumulators</strong> and computed over a <strong>frame</strong>.</p>
-<pre class="playground"><code class="language-rust"><span class="boring">extern crate brix;
+<pre class="playground"><code class="language-rust"><span class="boring">extern crate brix_array;
 </span>use std::collections::HashMap;
-use brix::Array;
+use brix_array::{Array, ArrayError};
 
-<span class="boring">fn main() -&gt; Result&lt;(), brix::array::ArrayError&gt; {
-</span>let data = Array::fill(1.0, vec![3, 4], &amp;["time", "x"]);
+<span class="boring">fn main() -&gt; Result&lt;(), ArrayError&gt; {
+</span>let data = Array::fill(1.0, vec![3, 5], &amp;["time", "x"]);
 // Reduce over the whole `time` axis.
 let totals = data.clone().over(&amp;["time"])?.sum()?;
-// Coarsen `x` into width-2 blocks, then average each block.
+// Coarsen `x` into width-2 blocks; 5 isn't a multiple of 2, so the last block is a width-1 tail.
 let coarsened = data.coarsen(HashMap::from([("x", 2)]))?.mean()?;
 <span class="boring">Ok(())
 </span><span class="boring">}</span></code></pre>
 <h2 id="frames"><a class="header" href="#frames">Frames</a></h2>
 <p>A <strong>frame</strong> is a <em>lens</em> over an array: a way of viewing it as a stream of
-windows rather than as a flat block (<code>src/array/framed.rs</code>). The framing model
+windows rather than as a flat block (<code>array/src/framed.rs</code>). The framing model
 borrows from two places:</p>
 <ol>
-<li><strong>numpy <a href="https://numpy.org/doc/stable/reference/ufuncs.html#methods">ufunc methods</a></strong> — <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.reduce.html"><code>reduce</code></a> collapses a whole axis (<a href="../api/brix/array/expr/enum.Frame.html#variant.WholeAxis"><code>WholeAxis</code></a>),
-<a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.reduceat.html"><code>reduceat</code></a> reduces over segment boundaries (<a href="../api/brix/array/expr/enum.Frame.html#variant.Blocks"><code>Blocks</code></a>/<a href="../api/brix/array/expr/enum.Frame.html#variant.VariableWindow"><code>VariableWindow</code></a>),
-and <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.at.html"><code>at</code></a> scatters into indexed groups (<a href="../api/brix/array/expr/enum.Frame.html#variant.Groups"><code>Groups</code></a>). A <a href="../api/brix/array/expr/enum.Frame.html"><code>Frame</code></a> is the
+<li><strong>numpy <a href="https://numpy.org/doc/stable/reference/ufuncs.html#methods">ufunc methods</a></strong> — <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.reduce.html"><code>reduce</code></a> collapses a whole axis (<a href="../api/brix_array/expr/enum.Frame.html#variant.WholeAxis"><code>WholeAxis</code></a>),
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.reduceat.html"><code>reduceat</code></a> reduces over segment boundaries (<a href="../api/brix_array/expr/enum.Frame.html#variant.Blocks"><code>Blocks</code></a>/<a href="../api/brix_array/expr/enum.Frame.html#variant.VariableWindow"><code>VariableWindow</code></a>),
+and <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.at.html"><code>at</code></a> scatters into indexed groups (<a href="../api/brix_array/expr/enum.Frame.html#variant.Groups"><code>Groups</code></a>). A <a href="../api/brix_array/expr/enum.Frame.html"><code>Frame</code></a> is the
 descriptor that picks which behavior the same accumulator runs. Unlike ufuncs, our
 intent is to allow scans (“cumulative ops”, <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.accumulate.html"><code>accumulate</code></a>) to compose with these Frames.</li>
 <li><strong><a href="https://en.wikipedia.org/wiki/Window_function_(SQL)">SQL:2003 window functions</a></strong> — an aggregate evaluated against a moving <em>frame</em>
 rather than the whole input, spelled as an <code>OVER</code> clause (<code>SUM(x) OVER (...)</code>) and
 optionally factored out as a named <code>WINDOW W AS (...)</code>. Brix’s
 <a href="#framedarray"><code>over</code></a> plays the role of <code>OVER</code>, and a single frame model subsumes
-both halves of the clause: <code>PARTITION BY</code> grouping is <a href="../api/brix/array/expr/enum.Frame.html#variant.Groups"><code>Groups</code></a>
-(per-element labels), while the frame spec is <a href="../api/brix/array/expr/enum.Frame.html#variant.WholeAxis"><code>WholeAxis</code></a>,
-<a href="../api/brix/array/expr/enum.Frame.html#variant.Window"><code>Window</code></a>, or <a href="../api/brix/array/expr/enum.Frame.html#variant.Blocks"><code>Blocks</code></a>.</li>
+both halves of the clause: <code>PARTITION BY</code> grouping is <a href="../api/brix_array/expr/enum.Frame.html#variant.Groups"><code>Groups</code></a>
+(per-element labels), while the frame spec is <a href="../api/brix_array/expr/enum.Frame.html#variant.WholeAxis"><code>WholeAxis</code></a>,
+<a href="../api/brix_array/expr/enum.Frame.html#variant.Window"><code>Window</code></a>, or <a href="../api/brix_array/expr/enum.Frame.html#variant.Blocks"><code>Blocks</code></a>.</li>
 </ol>
 <p>All of these are just frame shapes fed to the same accumulator machinery.</p>
 <div id="admonition-warning" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
@@ -279,8 +280,8 @@ pub enum Frame {
 }</code></pre>
 <h2 id="framedarray"><a class="header" href="#framedarray">FramedArray</a></h2>
 <p>A <code>FramedArray&lt;F&gt;</code> is the array paired with its per-axis frames. The frame kind
-is a zero-size type parameter <code>F</code> — a sealed <code>Framed</code> marker (<a href="../api/brix/array/framed/struct.WholeAxis.html"><code>WholeAxis</code></a>,
-<a href="../api/brix/array/framed/struct.Window.html"><code>Window</code></a>, …) named to mirror the <a href="#frames"><code>Frame</code></a> variants — so frame-specific
+is a zero-size type parameter <code>F</code> — a sealed <code>Framed</code> marker (<a href="../api/brix_array/framed/struct.WholeAxis.html"><code>WholeAxis</code></a>,
+<a href="../api/brix_array/framed/struct.Window.html"><code>Window</code></a>, …) named to mirror the <a href="#frames"><code>Frame</code></a> variants — so frame-specific
 methods can be gated at the type level while the shared surface stays generic:</p>
 <pre><code class="language-rust ignore">pub trait Framed: private::Sealed {
     const NAME: &amp;'static str;
@@ -296,17 +297,17 @@ pub struct FramedArray&lt;F: Framed&gt; {
     view: HashMap&lt;AxisName, Frame&gt;,
     _framed: PhantomData&lt;F&gt;,
 }</code></pre>
-<p><a href="../api/brix/array/framed/struct.WholeAxis.html"><code>WholeAxis</code></a> and <a href="../api/brix/array/framed/struct.Window.html"><code>Window</code></a> are implemented today as <code>Array::over</code> and
+<p><a href="../api/brix_array/framed/struct.WholeAxis.html"><code>WholeAxis</code></a> and <a href="../api/brix_array/framed/struct.Window.html"><code>Window</code></a> are implemented today as <code>Array::over</code> and
 <code>Array::coarsen</code>, returning <code>FramedArray&lt;WholeAxis&gt;</code> and <code>FramedArray&lt;Window&gt;</code>.
 The aggregation surface (<code>reduce</code>, <code>sum</code>, <code>mean</code>) lives on
 <code>impl&lt;F: Framed&gt; FramedArray&lt;F&gt;</code>, so the same accumulator machinery serves plain
 reductions, coarsening, and rolling alike. Frame-specific methods (e.g.
-<code>keepdims</code> on <a href="../api/brix/array/framed/struct.WholeAxis.html"><code>WholeAxis</code></a>) live on the narrower <code>impl FramedArray&lt;WholeAxis&gt;</code>.</p>
+<code>keepdims</code> on <a href="../api/brix_array/framed/struct.WholeAxis.html"><code>WholeAxis</code></a>) live on the narrower <code>impl FramedArray&lt;WholeAxis&gt;</code>.</p>
 <h2 id="accumulators"><a class="header" href="#accumulators">Accumulators</a></h2>
-<p>Accumulators implement aggregations over a <a href="../api/brix/array/expr/enum.Frame.html"><code>Frame</code></a> in to a <a href="../api/brix/trait.State.html"><code>brix::State</code></a>.
+<p>Accumulators implement aggregations over a <a href="../api/brix_array/expr/enum.Frame.html"><code>Frame</code></a> in to a <a href="../api/brix/expr/trait.State.html"><code>brix::State</code></a>.
 For example, <code>Array::over(["time"]).sum()</code> records an <code>ArrayOp::Reduce { acc, view }</code>
 — the accumulator (<code>SumAccumulator</code>) <strong>plus the
-frame</strong>: <code>view</code> maps each reduced axis to a <a href="../api/brix/array/expr/enum.Frame.html"><code>Frame</code></a> (here
+frame</strong>: <code>view</code> maps each reduced axis to a <a href="../api/brix_array/expr/enum.Frame.html"><code>Frame</code></a> (here
 <code>{"time": Frame::WholeAxis { keepdims: false }}</code>).</p>
 <pre><code class="language-rust ignore">pub trait ArrayAccumulator: Debug + Send + Sync {
     /// Output dtype of this reduction.
@@ -333,12 +334,14 @@ frame</strong>: <code>view</code> maps each reduced axis to a <a href="../api/br
     fn fold_frame(
         &amp;self,
         // state to update
+        // For now, this mut is OK because we expect to be parallelizing over loop dimensions,
+        // constructing one State per output brick, and folding in to it.
         state: &amp;mut dyn State,
         // destination index in State to update
         // The accumulator is free to interpret that in the context of its own State.
         state_frame_loc: &amp;HashMap&lt;usize, usize&gt;,
-        // view to aggregate
-        input: ReadFrame&lt;'_&gt;,
+        // frame to aggregate (an owned ideally-zero-copy slice of the input brick)
+        input: ArrayPayload,
     ) -&gt; BrixResult&lt;()&gt;;
 
     /// Merge states (e.g. merge step of tree reduction)
@@ -366,8 +369,8 @@ pub trait State: Debug + Send + Any {
     fn as_any(&amp;self) -&gt; &amp;dyn Any;
     fn as_any_mut(&amp;mut self) -&gt; &amp;mut dyn Any;
 }</code></pre>
-<p>During <a href="./lowering.html">lowering</a>, each <a href="../api/brix/array/trait.ArrayAccumulator.html"><code>ArrayAccumulator</code></a> is wrapped in a
-<a href="../api/brix/array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a> adapter that implements the brix-layer
+<p>During <a href="./lowering.html">lowering</a>, each <a href="../api/brix_array/trait.ArrayAccumulator.html"><code>ArrayAccumulator</code></a> is wrapped in a
+<a href="../api/brix_array/accumulators/struct.LoweredAccumulator.html"><code>LoweredAccumulator</code></a> adapter that implements the brix-layer
 <a href="../brix/concepts.html"><code>brix::Accumulator</code></a> trait — mirroring how <code>OpaqueSource</code> becomes
 <code>LoweredOpaque</code>:</p>
 <pre><code class="language-rust ignore">#[derive(Debug, Clone)]
@@ -393,33 +396,42 @@ frames or chunk sizes.</p>
 
 <div>
 <ol>
-<li>We initialize <a href="../api/brix/trait.State.html"><code>brix::State</code></a> and accumulate <em>into</em> it, so <code>ArrayAccumulator::fold_left</code>
-takes <code>&amp;mut State</code>. An <em>ugly</em> choice, but it matches what low-allocation array
-aggregations need.</li>
+<li>We initialize <a href="../api/brix/expr/trait.State.html"><code>brix::State</code></a> per output brick and accumulate <em>into</em> it, so <code>ArrayAccumulator::fold_left</code>
+takes <code>&amp;mut State</code>. An <em>ugly</em> choice, but it reduces memory allocations.</li>
 <li>Aggregations <em>within</em> a brick are serial; we rely on cross-brick parallelism.</li>
 </ol>
 </div>
 
 </div>
 
-<p>Here is <em>how</em> one brick’s worth of a reduction runs.</p>
-<p>For each framed axis, the <a href="../api/brix/array/expr/enum.Frame.html"><code>Frame</code></a> implies a sequence of element-space ranges.
+<p>Here is <em>how</em> one output brick’s of a reduction is constructed.
+Consider one brick of <code>data</code> of shape <code>[time=3, x=5]</code> — and run
+<code>coarsen({"x": 2}).mean()</code>. The <code>view</code> is <code>{"x": Window { size: 2, stride: 2 }}</code>;
+<code>time</code> is absent, so it stays a full-extent loop axis.</p>
+<p>For each framed axis, the <a href="../api/brix_array/expr/enum.Frame.html"><code>Frame</code></a> implies a sequence of element-space ranges.
 The cartesian product of those per-axis sequences gives the frames we aggregate
-over. <code>ArrayPayload::as_frame_iter(view)</code> yields <code>(state_frame_loc, framed_view)</code> pairs,
-where <code>state_frame_loc</code> is the destination <a href="../api/brix/trait.State.html"><code>brix::State</code></a> location to fold into.
-Each <code>framed_view</code> is carved by using [<code>Index::slice</code>], reusing the existing slicing machinery.</p>
+over. For our example:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><code>state_frame_loc</code></th><th><code>framed_view</code> (<code>Index::slice</code>)</th><th>slot shape</th></tr>
+</thead>
+<tbody>
+<tr><td><code>{x: 0}</code></td><td><code>time ∈ 0..3, x ∈ 0..2</code></td><td><code>[3, 2]</code></td></tr>
+<tr><td><code>{x: 1}</code></td><td><code>time ∈ 0..3, x ∈ 2..4</code></td><td><code>[3, 2]</code></td></tr>
+<tr><td><code>{x: 2}</code></td><td><code>time ∈ 0..3, x ∈ 4..5</code></td><td><code>[3, 1]</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>Now <code>ArrayPayload::as_frame_iter(view)</code> yields <code>(state_frame_loc, framed_view)</code> pairs,
+where <code>state_frame_loc</code> is the destination <a href="../api/brix/expr/trait.State.html"><code>brix::State</code></a> location to fold into.
+Each <code>framed_view</code> is created by using [<code>Index::slice</code>], reusing the existing slicing machinery.</p>
 <p><code>LoweredAccumulator::fold_left</code> calls <code>ArrayPayload::as_frame_iter(view)</code> in a loop,
 and passes the returned view to <code>ArrayAccumulator::fold_frame</code>, which folds it into <code>state</code>
-at the lane named by <code>state_frame_loc</code>.</p>
-<p>The <code>input</code> to be aggregate is a readonly-view encapsulated in <a href="../api/brix/array/brick/enum.ReadFrame.html"><code>ReadFrame</code></a>:</p>
-<pre><code class="language-rust ignore">#[derive(Debug, Clone)]
-pub enum ReadFrame&lt;'a&gt; {
-    Dense(TypedView&lt;'a&gt;),
-    // Owned `FillArray` to reduce lifetime gymnastics.
-    // This is cheap to Clone so it doesn't matter
-    Fill(FillArray),
-    // Future: Sparse(SparseData), Mixed(MixedData)
-}</code></pre>
+at the location named by <code>state_frame_loc</code>.</p>
+<p>The <code>input</code> to be aggregated is passed in as an owned <a href="../api/brix_array/enum.ArrayPayload.html"><code>ArrayPayload</code></a>; ideally this is a
+zero-copy slice of the input brick. <code>Dense</code> shares the brick’s buffer through
+<code>ArcArray</code>; ideally <code>Extension</code> implement implement similar buffer sharing.</p>
 
                     </main>
 
@@ -474,6 +486,7 @@ pub enum ReadFrame&lt;'a&gt; {
         <!-- Custom JS scripts -->
         <script src="../mermaid-bf4a4f1d.min.js"></script>
         <script src="../mermaid-init-ccf746f1.js"></script>
+        <script src="../giscus-c90fddd3.js"></script>
 
 
 

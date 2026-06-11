@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["plan"]};
+window.SIDEBAR_ITEMS = {"fn":["build_nodes","emit_schedule","extend_iter_space_for_fold","extend_overrides","node_info","node_to_apply","plan","plan_stateful","plan_stateless","plan_subtree","port_sorted_inputs","translated_entries"],"struct":["IdGen","NodeTable"]};

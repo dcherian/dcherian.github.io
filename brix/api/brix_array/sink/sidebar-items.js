@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SinkBuffer"],"struct":["InMemorySink","LoweredInMemorySink"],"trait":["ArraySink"]};
