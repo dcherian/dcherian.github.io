@@ -37,7 +37,7 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-371300b0.js";
+            window.path_to_searchindex_js = "../searchindex-66844db8.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-31366b7a.js"></script>
@@ -235,109 +235,6 @@ pub enum ScalarValue {
 <p>A literal is embedded in the graph as an expression node (<a href="../api/brix_array/enum.ArrayOp.html#variant.Literal"><code>ArrayOp::Literal</code></a>), lowered to one
 rank-0 brick generated on demand. Example: <code>arr + 1</code> is a two-input Blockwise over
 the array and a rank-0 literal, broadcast by the planner’s absent-axis machinery.</p>
-<!-- ## Parameterizing over dtypes
-
-[`DType`]/[`Value`]/[`DenseArray`] are *runtime-tagged*: a closed enum with one
-arm per dtype, picked at runtime. Kernel bodies, by contrast, want to be written
-once over a static type parameter — `fn add<T: Numeric>(…)`. So we constantly
-need to cross between the runtime tag and the static `T`, in both directions.
-
-The `Element` trait is that bridge. It is implemented once per primitive, and
-its `const DTYPE` is the anchor that ties a static `T` to its runtime tag.
-
-```rust,ignore
-pub trait Element: Copy + Send + Sync + Debug + PartialEq + 'static {
-    const DTYPE: PrimitiveType;
-    /// Wrap a concrete buffer into the runtime-tagged `DenseArray`. Accepts
-    /// `ArrayD` (fresh kernel outputs — `into_shared` moves, no copy) and
-    /// `ArcArrayD` (zero-copy slices) alike.
-    fn from_array(arr: impl Into<ArcArrayD<Self>>) -> DenseArray;
-    fn from_scalar(v: Self) -> Value;
-    fn from_value(v: Value) -> Option<Self>;
-
-    // -- type-erasure bridge --------------------------------------------------
-    // These let `dispatch_dtype!` recover a concretely-typed
-    // view/buffer out of the runtime-tagged `DenseArray` enum.
-
-    /// Borrow the inner buffer as this element's view, if the tag matches.
-    fn view_from_dense(da: &DenseArray) -> Option<ArrayViewD<'_, Self>>;
-    /// Mutable borrow of the inner buffer, if the tag matches. Copy-on-write:
-    /// callers must hold the buffer's sole reference (see [`DenseArray`]).
-    fn array_mut_from_dense(da: &mut DenseArray) -> Option<&mut ArcArrayD<Self>>;
-    /// Take the inner buffer by value, if the tag matches.
-    fn array_from_dense(da: DenseArray) -> Option<ArcArrayD<Self>>;
-}
-```
-
-**Static `T` → runtime tag.** Code that already knows `T` reads `T::DTYPE` for
-the tag, and `T::from_array` / `from_scalar` wrap a concrete buffer or value into
-the tagged [`DenseArray`] / [`Value`].
-
-**Runtime tag → static `T`.** The harder direction, in two parts:
-
-- *Pulling a concrete buffer out of the enum.* A generic `fn` can't write
-  `match da { DenseArray::F64(a) => a }` and call the result `ArcArrayD<T>` —
-  that only type-checks when `T = f64`. So the extraction lives on the
-  per-primitive `Element` impl, where `T` *is* concrete: `view_from_dense` /
-  `array_from_dense` (and `from_value` for scalars).
-- *Running a generic body for a runtime tag.* The `dispatch_dtype!` /
-  `with_dense_array!` macros (in `dtype.rs`) expand to one `match` arm per dtype,
-  each binding a local type alias to the concrete type — so a single
-  `<T>`-generic body is monomorphized once per arm, all at one match site.
-
-### Capability traits
-
-Op kernels don't bound on `Element` directly — they bound on *capability
-traits* that bundle exactly the arithmetic a body needs:
-
-```rust,ignore
-/// Capability umbrella for the `BinaryOp` family (add / sub / mul) plus the
-/// `Zero`/`One` identities reductions need. **Unsigned-compatible** — a future
-/// `u8`/`u16` code-width dtype implements this, so binary ops / `sum` / `cast`
-/// stay open to it. The universal arithmetic bound; mirrors `BinaryOp`.
-pub trait Binary:
-    Element + Add<Output = Self> + Sub<Output = Self> + Mul<Output = Self> + Zero + One
-{
-}
-
-/// Capability for the `UnaryOp` family (negation / absolute value). **Signed
-/// only** — `Signed` supplies both `Neg` and `abs`, so unsigned dtypes are
-/// correctly excluded. Mirrors `UnaryOp`.
-pub trait Unary: Element + Neg<Output = Self> + Signed {}
-
-/// Fully numeric: both op families. The convenience bundle for code that needs
-/// everything; bodies that need only one family should bound on [`Binary`] or
-/// [`Unary`] directly so they don't over-constrain (e.g. exclude unsigned).
-pub trait Numeric: Binary + Unary {}
-
-// Concrete `impl Element/Binary/Unary for {f64,i64}` blocks live in
-// `array/generated/dtypes.rs` — one mechanical block per primitive dtype.
-
-// `Numeric` is a method-less bundle, so a blanket impl gives it for free to any
-// type that has both capabilities — no per-dtype `impl Numeric` line needed.
-impl<T: Binary + Unary> Numeric for T {}
-```
-
-- `Binary` (add / sub / mul + the `Zero`/`One` reduction identities) is
-  *unsigned-compatible* — a future `u8` implements it, so `sum`/`cast` stay
-  open to it.
-- `Unary` (negation, `abs`) is *signed-only* (`Signed` supplies both), so a
-  future `u8` is correctly *excluded*.
-- `Numeric` is the both-families bundle, granted free by a blanket impl.
-
-All three are *method-less*: behavior comes entirely from the supertrait
-bounds, so the per-primitive impls are empty markers (`impl Unary for f64 {}`). A
-unary op runs one monomorphic body bounded `<T: Unary>`, reached by
-`dispatch_dtype!` on the runtime tag — `Neg => -x`, `Abs => x.abs()`.
-
-```admonish note title="Where per-dtype code lives"
-The *contracts* — `Element`, the capability traits, the [`DType`]/[`Value`]
-enums, and the dispatch macros — live in `array/dtype.rs`. The concrete
-`impl Element for f64 { … }` / `for i64 { … }` blocks are mechanically
-instantiated in `array/generated/dtypes.rs` — one block per primitive, the file
-you extend when a new primitive dtype lands. (Folder convention, not codegen.)
-```
- -->
 <h2 id="extensions"><a class="header" href="#extensions">Extensions</a></h2>
 <p>The <code>Extension</code> arm — the dtype, host scalar, and payload contracts a satellite
 crate implements to plug in a new logical dtype — is covered in

@@ -1,9 +1,9 @@
 (function() {
-    const implementors = Object.fromEntries([["brix_array",[["impl Source for <a class=\"struct\" href=\"brix_array/source/struct.LoweredLiteral.html\" title=\"struct brix_array::source::LoweredLiteral\">LoweredLiteral</a>",0],["impl Source for <a class=\"struct\" href=\"brix_array/source/struct.LoweredOpaque.html\" title=\"struct brix_array::source::LoweredOpaque\">LoweredOpaque</a>",0],["impl Source for <a class=\"struct\" href=\"brix_array/source/struct.LoweredTransparent.html\" title=\"struct brix_array::source::LoweredTransparent\">LoweredTransparent</a>",0]]]]);
+    const implementors = Object.fromEntries([["brix_array",[["impl <a class=\"trait\" href=\"brix/expr/trait.Source.html\" title=\"trait brix::expr::Source\">Source</a> for <a class=\"struct\" href=\"brix_array/source/struct.LoweredLiteral.html\" title=\"struct brix_array::source::LoweredLiteral\">LoweredLiteral</a>",0],["impl <a class=\"trait\" href=\"brix/expr/trait.Source.html\" title=\"trait brix::expr::Source\">Source</a> for <a class=\"struct\" href=\"brix_array/source/struct.LoweredOpaque.html\" title=\"struct brix_array::source::LoweredOpaque\">LoweredOpaque</a>",0],["impl <a class=\"trait\" href=\"brix/expr/trait.Source.html\" title=\"trait brix::expr::Source\">Source</a> for <a class=\"struct\" href=\"brix_array/source/struct.LoweredTransparent.html\" title=\"struct brix_array::source::LoweredTransparent\">LoweredTransparent</a>",0]]],["brix_array",[["impl Source for <a class=\"struct\" href=\"brix_array/source/struct.LoweredLiteral.html\" title=\"struct brix_array::source::LoweredLiteral\">LoweredLiteral</a>",0],["impl Source for <a class=\"struct\" href=\"brix_array/source/struct.LoweredOpaque.html\" title=\"struct brix_array::source::LoweredOpaque\">LoweredOpaque</a>",0],["impl Source for <a class=\"struct\" href=\"brix_array/source/struct.LoweredTransparent.html\" title=\"struct brix_array::source::LoweredTransparent\">LoweredTransparent</a>",0]]]]);
     if (window.register_implementors) {
         window.register_implementors(implementors);
     } else {
         window.pending_implementors = implementors;
     }
 })()
-//{"start":59,"fragment_lengths":[526]}
+//{"start":59,"fragment_lengths":[811,527]}

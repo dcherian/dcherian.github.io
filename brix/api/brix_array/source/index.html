@@ -14,7 +14,7 @@ No inherent chunk grid; lowering assigns one freely.</li>
 </ul>
 <p>Both are traits; lowering wraps each in a grid-carrying adapter
 (<a href="struct.LoweredTransparent.html" title="struct brix_array::source::LoweredTransparent"><code>LoweredTransparent</code></a> / <a href="struct.LoweredOpaque.html" title="struct brix_array::source::LoweredOpaque"><code>LoweredOpaque</code></a>) that implements
-[<code>brix::Source</code>].</p>
+<a href="../../brix/expr/trait.Source.html" title="trait brix::expr::Source"><code>brix::Source</code></a>.</p>
 </div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.FillSource.html" title="struct brix_array::source::FillSource">Fill<wbr>Source</a></dt><dd>Constant functional array: <code>shape</code> filled with <code>value</code>. Emits
 materialized dense bricks — the runtime carries no constant payload
 kind; all-fill regions are an iteration-space (occupancy) concern.</dd><dt><a class="struct" href="struct.InMemorySource.html" title="struct brix_array::source::InMemorySource">InMemory<wbr>Source</a></dt><dd>In-memory data as a transparent source. Wraps the payload enum — not

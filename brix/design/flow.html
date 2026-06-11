@@ -37,7 +37,7 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-371300b0.js";
+            window.path_to_searchindex_js = "../searchindex-66844db8.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-31366b7a.js"></script>
@@ -211,15 +211,10 @@ to the <a href="../brix/planner.html"><code>PhysicalPlan</code></a></li>
     budget: usize,
 ) -&gt; ndarray::ArrayD&lt;T&gt; {
     init_tracing();
-    let optimized = arr.optimize().unwrap();
-    let rooted = optimized
-        .to_sink(Arc::new(InMemorySink::new(arr.sink_fill().map(Into::into))))
-        .expect("sink fill dtype matches the output dtype");
-    let lowered = lower(&amp;rooted, budget).unwrap();
-    let physical = plan(&amp;lowered.expr).unwrap();
-    let outputs = executor.execute(&amp;physical).unwrap();
-    let payload = outputs.into_values().next().expect("in-memory sink yields one output");
-    ArrayPayload::from_payload(&amp;*payload)
+    arr.load(executor, budget)
+        .expect("pipeline succeeds")
+        .payload()
+        .expect("load yields an in-memory array")
         .to_dense_dyn()
         .expect("dense payload")
         .into_array::&lt;T&gt;()

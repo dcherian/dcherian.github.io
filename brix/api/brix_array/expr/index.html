@@ -7,10 +7,10 @@
 </ul>
 <p>and a few convenient specializations</p>
 <p>The optimizer rewrites <a href="struct.ArrayExpr.html" title="struct brix_array::expr::ArrayExpr"><code>ArrayExpr</code></a> to <a href="struct.ArrayExpr.html" title="struct brix_array::expr::ArrayExpr"><code>ArrayExpr</code></a>.
-The optimized expression is <em>lowered</em> to “mid-IR” [<code>brix::Expr</code>].
+The optimized expression is <em>lowered</em> to “mid-IR” <a href="../../brix/expr/struct.Expr.html" title="struct brix::expr::Expr"><code>brix::Expr</code></a>.
 At the mid-IR layer, only num-chunks is needed.
 The planner (<code>brix/planner.rs</code>) converts mid-IR to a Schedule.</p>
-</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.ArrayExpr.html" title="struct brix_array::expr::ArrayExpr">Array<wbr>Expr</a></dt><dd>Array-level expression node.</dd><dt><a class="struct" href="struct.ArrayLayout.html" title="struct brix_array::expr::ArrayLayout">Array<wbr>Layout</a></dt><dd>Array-side layout — newtype wrapper around [<code>NamedLayout</code>] so the array
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.ArrayExpr.html" title="struct brix_array::expr::ArrayExpr">Array<wbr>Expr</a></dt><dd>Array-level expression node.</dd><dt><a class="struct" href="struct.ArrayLayout.html" title="struct brix_array::expr::ArrayLayout">Array<wbr>Layout</a></dt><dd>Array-side layout — newtype wrapper around <a href="../../brix/layout/struct.NamedLayout.html" title="struct brix::layout::NamedLayout"><code>NamedLayout</code></a> so the array
 surface can’t silently mix with the planner/schedule’s chunk-iter
 layouts. Always carries zero offsets — slice origins live on the
 underlying <code>Select</code> node, not on the layout.</dd></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.ArrayOp.html" title="enum brix_array::expr::ArrayOp">ArrayOp</a></dt><dd>Array-level op.

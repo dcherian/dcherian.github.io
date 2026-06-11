@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-371300b0.js";
+            window.path_to_searchindex_js = "searchindex-66844db8.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-31366b7a.js"></script>
@@ -433,15 +433,10 @@ to the <a href="#planner"><code>PhysicalPlan</code></a></li>
     budget: usize,
 ) -&gt; ndarray::ArrayD&lt;T&gt; {
     init_tracing();
-    let optimized = arr.optimize().unwrap();
-    let rooted = optimized
-        .to_sink(Arc::new(InMemorySink::new(arr.sink_fill().map(Into::into))))
-        .expect("sink fill dtype matches the output dtype");
-    let lowered = lower(&amp;rooted, budget).unwrap();
-    let physical = plan(&amp;lowered.expr).unwrap();
-    let outputs = executor.execute(&amp;physical).unwrap();
-    let payload = outputs.into_values().next().expect("in-memory sink yields one output");
-    ArrayPayload::from_payload(&amp;*payload)
+    arr.load(executor, budget)
+        .expect("pipeline succeeds")
+        .payload()
+        .expect("load yields an in-memory array")
         .to_dense_dyn()
         .expect("dense payload")
         .into_array::&lt;T&gt;()
@@ -792,6 +787,42 @@ pub trait ArrayLike: std::fmt::Debug + Send + Sync {
     /// dtype (e.g. a fill value of the wrong dtype) at construction.
     fn to_sink(&amp;self, sink: Arc&lt;dyn ArraySink&gt;) -&gt; ArrayResult&lt;Array&gt; {
         Ok(Array::from(Arc::new(ArrayExpr::sink(self.expr().clone(), sink)?)))
+    }
+
+    /// Materialize this (lazy) array and re-wrap the result as a fresh
+    /// in-memory `Array`. Runs the full pipeline — optimize → sink → lower →
+    /// plan → execute — into an [`InMemorySink`], then feeds the assembled
+    /// payload back through [`Array::from_payload`]. `memory_budget` bounds peak
+    /// memory during execution (see [`crate::lower::lower`]).
+    ///
+    /// Dtype-agnostic: dense and extension payloads round-trip identically.
+    fn load(&amp;self, executor: impl Executor, memory_budget: usize) -&gt; ArrayResult&lt;Array&gt;
+    where
+        Self: Sized,
+    {
+        let rooted = self
+            .optimize()?
+            .to_sink(Arc::new(InMemorySink::new(self.sink_fill().map(Into::into))))?;
+        let physical = plan(&amp;lower(&amp;rooted, memory_budget)?.expr)?;
+        let payload = executor
+            .execute(&amp;physical)?
+            .into_values()
+            .next()
+            .expect("in-memory sink always yields exactly one output");
+        Ok(Array::from_payload(ArrayPayload::from_payload(&amp;*payload).clone(), &amp;self.dims()))
+    }
+
+    /// The backing in-memory payload, when this array is a bare transparent
+    /// [`InMemorySource`] — i.e. one produced by [`Array::from_payload`] or
+    /// materialized by [`Self::load`]. `None` for any other expression
+    /// (constant fills, opaque/IO sources, or arrays carrying unevaluated ops).
+    fn payload(&amp;self) -&gt; Option&lt;&amp;ArrayPayload&gt; {
+        match &amp;self.expr().op {
+            ArrayOp::TransparentSource(src) =&gt; {
+                src.as_any().downcast_ref::&lt;InMemorySource&gt;().map(|s| &amp;s.0)
+            }
+            _ =&gt; None,
+        }
     }
 }</code></pre>
 <h2 id="arrays-are-lazy"><a class="header" href="#arrays-are-lazy">Arrays are lazy</a></h2>
@@ -1144,6 +1175,11 @@ pub trait ArrayData: Index + Send + Sync + Debug {
     /// The kernel-side downcast hook.
     fn as_any(&amp;self) -&gt; &amp;dyn Any;
 }</code></pre>
+<h2 id="see-also"><a class="header" href="#see-also">See also</a></h2>
+<ul>
+<li><a href="#binary-ops-2">Binary Ops</a> — the <code>__op__</code> / <code>__rop__</code> dispatch chain
+that picks a capability and the primitive kernel it lowers to.</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="data-types"><a class="header" href="#data-types">Data Types</a></h1>
 <p>Every array carries a <a href="api/brix_array/enum.DType.html"><code>DType</code></a>, and scalars are dtype-tagged values.
@@ -1198,109 +1234,6 @@ pub enum ScalarValue {
 <p>A literal is embedded in the graph as an expression node (<a href="api/brix_array/enum.ArrayOp.html#variant.Literal"><code>ArrayOp::Literal</code></a>), lowered to one
 rank-0 brick generated on demand. Example: <code>arr + 1</code> is a two-input Blockwise over
 the array and a rank-0 literal, broadcast by the planner’s absent-axis machinery.</p>
-<!-- ## Parameterizing over dtypes
-
-[`DType`]/[`Value`]/[`DenseArray`] are *runtime-tagged*: a closed enum with one
-arm per dtype, picked at runtime. Kernel bodies, by contrast, want to be written
-once over a static type parameter — `fn add<T: Numeric>(…)`. So we constantly
-need to cross between the runtime tag and the static `T`, in both directions.
-
-The `Element` trait is that bridge. It is implemented once per primitive, and
-its `const DTYPE` is the anchor that ties a static `T` to its runtime tag.
-
-```rust,ignore
-pub trait Element: Copy + Send + Sync + Debug + PartialEq + 'static {
-    const DTYPE: PrimitiveType;
-    /// Wrap a concrete buffer into the runtime-tagged `DenseArray`. Accepts
-    /// `ArrayD` (fresh kernel outputs — `into_shared` moves, no copy) and
-    /// `ArcArrayD` (zero-copy slices) alike.
-    fn from_array(arr: impl Into<ArcArrayD<Self>>) -> DenseArray;
-    fn from_scalar(v: Self) -> Value;
-    fn from_value(v: Value) -> Option<Self>;
-
-    // -- type-erasure bridge --------------------------------------------------
-    // These let `dispatch_dtype!` recover a concretely-typed
-    // view/buffer out of the runtime-tagged `DenseArray` enum.
-
-    /// Borrow the inner buffer as this element's view, if the tag matches.
-    fn view_from_dense(da: &DenseArray) -> Option<ArrayViewD<'_, Self>>;
-    /// Mutable borrow of the inner buffer, if the tag matches. Copy-on-write:
-    /// callers must hold the buffer's sole reference (see [`DenseArray`]).
-    fn array_mut_from_dense(da: &mut DenseArray) -> Option<&mut ArcArrayD<Self>>;
-    /// Take the inner buffer by value, if the tag matches.
-    fn array_from_dense(da: DenseArray) -> Option<ArcArrayD<Self>>;
-}
-```
-
-**Static `T` → runtime tag.** Code that already knows `T` reads `T::DTYPE` for
-the tag, and `T::from_array` / `from_scalar` wrap a concrete buffer or value into
-the tagged [`DenseArray`] / [`Value`].
-
-**Runtime tag → static `T`.** The harder direction, in two parts:
-
-- *Pulling a concrete buffer out of the enum.* A generic `fn` can't write
-  `match da { DenseArray::F64(a) => a }` and call the result `ArcArrayD<T>` —
-  that only type-checks when `T = f64`. So the extraction lives on the
-  per-primitive `Element` impl, where `T` *is* concrete: `view_from_dense` /
-  `array_from_dense` (and `from_value` for scalars).
-- *Running a generic body for a runtime tag.* The `dispatch_dtype!` /
-  `with_dense_array!` macros (in `dtype.rs`) expand to one `match` arm per dtype,
-  each binding a local type alias to the concrete type — so a single
-  `<T>`-generic body is monomorphized once per arm, all at one match site.
-
-### Capability traits
-
-Op kernels don't bound on `Element` directly — they bound on *capability
-traits* that bundle exactly the arithmetic a body needs:
-
-```rust,ignore
-/// Capability umbrella for the `BinaryOp` family (add / sub / mul) plus the
-/// `Zero`/`One` identities reductions need. **Unsigned-compatible** — a future
-/// `u8`/`u16` code-width dtype implements this, so binary ops / `sum` / `cast`
-/// stay open to it. The universal arithmetic bound; mirrors `BinaryOp`.
-pub trait Binary:
-    Element + Add<Output = Self> + Sub<Output = Self> + Mul<Output = Self> + Zero + One
-{
-}
-
-/// Capability for the `UnaryOp` family (negation / absolute value). **Signed
-/// only** — `Signed` supplies both `Neg` and `abs`, so unsigned dtypes are
-/// correctly excluded. Mirrors `UnaryOp`.
-pub trait Unary: Element + Neg<Output = Self> + Signed {}
-
-/// Fully numeric: both op families. The convenience bundle for code that needs
-/// everything; bodies that need only one family should bound on [`Binary`] or
-/// [`Unary`] directly so they don't over-constrain (e.g. exclude unsigned).
-pub trait Numeric: Binary + Unary {}
-
-// Concrete `impl Element/Binary/Unary for {f64,i64}` blocks live in
-// `array/generated/dtypes.rs` — one mechanical block per primitive dtype.
-
-// `Numeric` is a method-less bundle, so a blanket impl gives it for free to any
-// type that has both capabilities — no per-dtype `impl Numeric` line needed.
-impl<T: Binary + Unary> Numeric for T {}
-```
-
-- `Binary` (add / sub / mul + the `Zero`/`One` reduction identities) is
-  *unsigned-compatible* — a future `u8` implements it, so `sum`/`cast` stay
-  open to it.
-- `Unary` (negation, `abs`) is *signed-only* (`Signed` supplies both), so a
-  future `u8` is correctly *excluded*.
-- `Numeric` is the both-families bundle, granted free by a blanket impl.
-
-All three are *method-less*: behavior comes entirely from the supertrait
-bounds, so the per-primitive impls are empty markers (`impl Unary for f64 {}`). A
-unary op runs one monomorphic body bounded `<T: Unary>`, reached by
-`dispatch_dtype!` on the runtime tag — `Neg => -x`, `Abs => x.abs()`.
-
-```admonish note title="Where per-dtype code lives"
-The *contracts* — `Element`, the capability traits, the [`DType`]/[`Value`]
-enums, and the dispatch macros — live in `array/dtype.rs`. The concrete
-`impl Element for f64 { … }` / `for i64 { … }` blocks are mechanically
-instantiated in `array/generated/dtypes.rs` — one block per primitive, the file
-you extend when a new primitive dtype lands. (Folder convention, not codegen.)
-```
- -->
 <h2 id="extensions"><a class="header" href="#extensions">Extensions</a></h2>
 <p>The <code>Extension</code> arm — the dtype, host scalar, and payload contracts a satellite
 crate implements to plug in a new logical dtype — is covered in
@@ -1490,11 +1423,61 @@ pub trait ExtensionScalar: DynEqHash + Send + Sync + Debug {
     /// its `CategoricalDType`).
     fn dtype(&amp;self) -&gt; Arc&lt;dyn ExtensionDType&gt;;
 }</code></pre>
-<h2 id="example-a-minutes-payload"><a class="header" href="#example-a-minutes-payload">Example: a <code>minutes</code> payload</a></h2>
-<p>This toy <code>minutes</code> dtype stores an <code>i64</code> count per element.
-Its payload wraps an <code>ArrayD&lt;i64&gt;</code> and implements the <code>ArrayData</code> contract.
-<code>as_any</code> is the hook that lets a satellite kernel recover the
-concrete <code>MinutesArray</code> from the <code>dyn ArrayData</code> it was handed:</p>
+<h2 id="example-a-minutes-dtype"><a class="header" href="#example-a-minutes-dtype">Example: a <code>minutes</code> dtype</a></h2>
+<p>This toy <code>minutes</code> dtype stores an <code>i64</code> count per element. A full satellite
+spells out three structures — the dtype, the scalar, and the array payload —
+plus the binary capability that ties them together.</p>
+<h3 id="the-dtype"><a class="header" href="#the-dtype">The dtype</a></h3>
+<p>The dtype is identity (<code>name</code>, <code>itemsize</code>) plus the capability gates and the
+<code>empty</code>/<code>full</code> constructors. No compute lives here — it dispatches through the
+capabilities and the payload:</p>
+<pre><code class="language-rust ignore">/// Toy satellite dtype: an i64 count of minutes. `minutes ± minutes` and
+/// `minutes * i64` are mine (built over the i64 storage, retagged);
+/// everything else declines.
+#[derive(Debug, PartialEq, Eq, Hash)]
+struct Minutes;
+
+impl Minutes {
+    fn dtype() -&gt; DType {
+        DType::Extension(Arc::new(Minutes))
+    }
+}
+
+impl ExtensionDType for Minutes {
+    fn name(&amp;self) -&gt; &amp;str {
+        "minutes"
+    }
+    fn itemsize(&amp;self) -&gt; usize {
+        8
+    }
+    fn binary(&amp;self) -&gt; Option&lt;&amp;dyn BinaryCapability&gt; {
+        Some(self)
+    }
+    fn empty(&amp;self, shape: &amp;[usize]) -&gt; Box&lt;dyn ArrayData&gt; {
+        Box::new(MinutesArray(ArrayD::zeros(IxDyn(shape))))
+    }
+    fn full(&amp;self, fill: &amp;dyn ExtensionScalar, shape: &amp;[usize]) -&gt; Box&lt;dyn ArrayData&gt; {
+        let m = fill
+            .as_any()
+            .downcast_ref::&lt;MinutesScalar&gt;()
+            .expect("caller validated: a minutes fill for the minutes dtype");
+        Box::new(MinutesArray(ArrayD::from_elem(IxDyn(shape), m.0)))
+    }
+}</code></pre>
+<h3 id="the-scalar"><a class="header" href="#the-scalar">The scalar</a></h3>
+<p>The host-side rank-0 value is a literal count of minutes (<code>5min</code>); it only has
+to report its dtype so the binary protocol can route on it:</p>
+<pre><code class="language-rust ignore">/// Toy satellite scalar: a literal count of minutes (`5min`).
+#[derive(Debug, PartialEq, Eq, Hash)]
+struct MinutesScalar(i64);
+
+impl ExtensionScalar for MinutesScalar {
+    fn dtype(&amp;self) -&gt; Arc&lt;dyn ExtensionDType&gt; {
+        Arc::new(Minutes)
+    }
+}</code></pre>
+<h3 id="the-array-payload"><a class="header" href="#the-array-payload">The array payload</a></h3>
+<p>Its payload wraps an <code>ArrayD&lt;i64&gt;</code> and implements the <code>ArrayData</code> contract.</p>
 <pre><code class="language-rust ignore">/// Toy satellite payload: minutes stored as `ArrayD&lt;i64&gt;`. A real impl
 /// buffer-shares on `slice` (Arrow-style); this test impl copies.
 #[derive(Debug)]
@@ -1558,8 +1541,9 @@ impl ArrayData for MinutesArray {
         self
     }
 }</code></pre>
-<p><code>as_any</code> is what makes “core never matches, kernels downcast” work: core only
-sees <code>&amp;dyn ArrayData</code>, and a kernel selected for the <code>minutes</code> dtype calls
+<p><code>as_any</code> is the hook that lets a satellite kernel recover the
+concrete <code>MinutesArray</code> from the <code>dyn ArrayData</code> it was handed.
+The kernel selected for the <code>minutes</code> dtype calls
 <code>payload.downcast_ref::&lt;MinutesArray&gt;()</code> (which routes through <code>as_any</code>) to get
 back its <code>i64</code> buffer.</p>
 <h3 id="binary-ops-1"><a class="header" href="#binary-ops-1">Binary ops</a></h3>
@@ -1615,11 +1599,51 @@ impl BinaryCapability for Minutes {
         })())
     }
 }</code></pre>
-<h2 id="see-also"><a class="header" href="#see-also">See also</a></h2>
-<ul>
-<li><a href="#binary-ops-2">Binary Ops</a> — the <code>__op__</code> / <code>__rop__</code> dispatch chain
-that picks a capability and the primitive kernel it lowers to.</li>
-</ul>
+<h3 id="executing-end-to-end"><a class="header" href="#executing-end-to-end">Executing end-to-end</a></h3>
+<p>With the dtype and payload in hand, a <code>minutes</code> array runs through the full
+pipeline like any built-in dtype.</p>
+<pre><code class="language-rust ignore">#[test]
+fn in_memory_source_extension_round_trip() {
+    use brix::executor::SyncExecutor;
+    use brix_array::{Array, ArrayLike};
+
+    // Wrap an extension payload in a logical Array — positional, dim-named "t".
+    let values = ArrayD::from_shape_fn(IxDyn(&amp;[4]), |ix| ix[0] as i64);
+    let arr = Array::from_payload(
+        ArrayPayload::Extension(Arc::new(MinutesArray(values.clone()))),
+        &amp;["t"],
+    );
+
+    // `load` runs the whole optimize → sink → lower → plan → execute pipeline
+    // and re-wraps the materialized payload as a fresh in-memory Array. The
+    // budget (2 * 8 bytes) forces two bricks of 2 elements, so this exercises
+    // brick-wise reassembly of extension data.
+    let loaded = arr.load(SyncExecutor, 2 * 8).unwrap();
+
+    // `payload` hands back the reassembled buffer; downcast to MinutesArray.
+    let ArrayPayload::Extension(e) = loaded.payload().expect("load yields an in-memory array")
+    else {
+        panic!("expected an extension payload out of the pipeline");
+    };
+    let minutes = e.downcast_ref::&lt;MinutesArray&gt;().expect("payload is MinutesArray");
+    assert_eq!(minutes.0, values);
+}</code></pre>
+<div id="admonition-see-also" class="admonition admonish-note" role="note" aria-labelledby="admonition-see-also-title">
+<div class="admonition-title">
+<div id="admonition-see-also-title">
+<p>See Also</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-see-also"></a>
+</div>
+
+<div>
+<p><a href="#binary-ops-2">Binary Ops</a> — the <code>__op__</code> / <code>__rop__</code> dispatch chain
+that picks a capability and the primitive kernel it lowers to.</p>
+</div>
+
+</div>
+
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="extension-crates"><a class="header" href="#extension-crates">Extension Crates</a></h1>
 <div id="admonition-warning-3" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
@@ -2171,15 +2195,10 @@ by the <code>compute</code> helper in <code>tests/common/mod.rs</code>:</p>
     budget: usize,
 ) -&gt; ndarray::ArrayD&lt;T&gt; {
     init_tracing();
-    let optimized = arr.optimize().unwrap();
-    let rooted = optimized
-        .to_sink(Arc::new(InMemorySink::new(arr.sink_fill().map(Into::into))))
-        .expect("sink fill dtype matches the output dtype");
-    let lowered = lower(&amp;rooted, budget).unwrap();
-    let physical = plan(&amp;lowered.expr).unwrap();
-    let outputs = executor.execute(&amp;physical).unwrap();
-    let payload = outputs.into_values().next().expect("in-memory sink yields one output");
-    ArrayPayload::from_payload(&amp;*payload)
+    arr.load(executor, budget)
+        .expect("pipeline succeeds")
+        .payload()
+        .expect("load yields an in-memory array")
         .to_dense_dyn()
         .expect("dense payload")
         .into_array::&lt;T&gt;()

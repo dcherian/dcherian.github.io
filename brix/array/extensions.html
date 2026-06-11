@@ -37,7 +37,7 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-371300b0.js";
+            window.path_to_searchindex_js = "../searchindex-66844db8.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-31366b7a.js"></script>
@@ -366,11 +366,61 @@ pub trait ExtensionScalar: DynEqHash + Send + Sync + Debug {
     /// its `CategoricalDType`).
     fn dtype(&amp;self) -&gt; Arc&lt;dyn ExtensionDType&gt;;
 }</code></pre>
-<h2 id="example-a-minutes-payload"><a class="header" href="#example-a-minutes-payload">Example: a <code>minutes</code> payload</a></h2>
-<p>This toy <code>minutes</code> dtype stores an <code>i64</code> count per element.
-Its payload wraps an <code>ArrayD&lt;i64&gt;</code> and implements the <code>ArrayData</code> contract.
-<code>as_any</code> is the hook that lets a satellite kernel recover the
-concrete <code>MinutesArray</code> from the <code>dyn ArrayData</code> it was handed:</p>
+<h2 id="example-a-minutes-dtype"><a class="header" href="#example-a-minutes-dtype">Example: a <code>minutes</code> dtype</a></h2>
+<p>This toy <code>minutes</code> dtype stores an <code>i64</code> count per element. A full satellite
+spells out three structures — the dtype, the scalar, and the array payload —
+plus the binary capability that ties them together.</p>
+<h3 id="the-dtype"><a class="header" href="#the-dtype">The dtype</a></h3>
+<p>The dtype is identity (<code>name</code>, <code>itemsize</code>) plus the capability gates and the
+<code>empty</code>/<code>full</code> constructors. No compute lives here — it dispatches through the
+capabilities and the payload:</p>
+<pre><code class="language-rust ignore">/// Toy satellite dtype: an i64 count of minutes. `minutes ± minutes` and
+/// `minutes * i64` are mine (built over the i64 storage, retagged);
+/// everything else declines.
+#[derive(Debug, PartialEq, Eq, Hash)]
+struct Minutes;
+
+impl Minutes {
+    fn dtype() -&gt; DType {
+        DType::Extension(Arc::new(Minutes))
+    }
+}
+
+impl ExtensionDType for Minutes {
+    fn name(&amp;self) -&gt; &amp;str {
+        "minutes"
+    }
+    fn itemsize(&amp;self) -&gt; usize {
+        8
+    }
+    fn binary(&amp;self) -&gt; Option&lt;&amp;dyn BinaryCapability&gt; {
+        Some(self)
+    }
+    fn empty(&amp;self, shape: &amp;[usize]) -&gt; Box&lt;dyn ArrayData&gt; {
+        Box::new(MinutesArray(ArrayD::zeros(IxDyn(shape))))
+    }
+    fn full(&amp;self, fill: &amp;dyn ExtensionScalar, shape: &amp;[usize]) -&gt; Box&lt;dyn ArrayData&gt; {
+        let m = fill
+            .as_any()
+            .downcast_ref::&lt;MinutesScalar&gt;()
+            .expect("caller validated: a minutes fill for the minutes dtype");
+        Box::new(MinutesArray(ArrayD::from_elem(IxDyn(shape), m.0)))
+    }
+}</code></pre>
+<h3 id="the-scalar"><a class="header" href="#the-scalar">The scalar</a></h3>
+<p>The host-side rank-0 value is a literal count of minutes (<code>5min</code>); it only has
+to report its dtype so the binary protocol can route on it:</p>
+<pre><code class="language-rust ignore">/// Toy satellite scalar: a literal count of minutes (`5min`).
+#[derive(Debug, PartialEq, Eq, Hash)]
+struct MinutesScalar(i64);
+
+impl ExtensionScalar for MinutesScalar {
+    fn dtype(&amp;self) -&gt; Arc&lt;dyn ExtensionDType&gt; {
+        Arc::new(Minutes)
+    }
+}</code></pre>
+<h3 id="the-array-payload"><a class="header" href="#the-array-payload">The array payload</a></h3>
+<p>Its payload wraps an <code>ArrayD&lt;i64&gt;</code> and implements the <code>ArrayData</code> contract.</p>
 <pre><code class="language-rust ignore">/// Toy satellite payload: minutes stored as `ArrayD&lt;i64&gt;`. A real impl
 /// buffer-shares on `slice` (Arrow-style); this test impl copies.
 #[derive(Debug)]
@@ -434,8 +484,9 @@ impl ArrayData for MinutesArray {
         self
     }
 }</code></pre>
-<p><code>as_any</code> is what makes “core never matches, kernels downcast” work: core only
-sees <code>&amp;dyn ArrayData</code>, and a kernel selected for the <code>minutes</code> dtype calls
+<p><code>as_any</code> is the hook that lets a satellite kernel recover the
+concrete <code>MinutesArray</code> from the <code>dyn ArrayData</code> it was handed.
+The kernel selected for the <code>minutes</code> dtype calls
 <code>payload.downcast_ref::&lt;MinutesArray&gt;()</code> (which routes through <code>as_any</code>) to get
 back its <code>i64</code> buffer.</p>
 <h3 id="binary-ops-1"><a class="header" href="#binary-ops-1">Binary ops</a></h3>
@@ -491,11 +542,51 @@ impl BinaryCapability for Minutes {
         })())
     }
 }</code></pre>
-<h2 id="see-also"><a class="header" href="#see-also">See also</a></h2>
-<ul>
-<li><a href="../algorithms/binary.html">Binary Ops</a> — the <code>__op__</code> / <code>__rop__</code> dispatch chain
-that picks a capability and the primitive kernel it lowers to.</li>
-</ul>
+<h3 id="executing-end-to-end"><a class="header" href="#executing-end-to-end">Executing end-to-end</a></h3>
+<p>With the dtype and payload in hand, a <code>minutes</code> array runs through the full
+pipeline like any built-in dtype.</p>
+<pre><code class="language-rust ignore">#[test]
+fn in_memory_source_extension_round_trip() {
+    use brix::executor::SyncExecutor;
+    use brix_array::{Array, ArrayLike};
+
+    // Wrap an extension payload in a logical Array — positional, dim-named "t".
+    let values = ArrayD::from_shape_fn(IxDyn(&amp;[4]), |ix| ix[0] as i64);
+    let arr = Array::from_payload(
+        ArrayPayload::Extension(Arc::new(MinutesArray(values.clone()))),
+        &amp;["t"],
+    );
+
+    // `load` runs the whole optimize → sink → lower → plan → execute pipeline
+    // and re-wraps the materialized payload as a fresh in-memory Array. The
+    // budget (2 * 8 bytes) forces two bricks of 2 elements, so this exercises
+    // brick-wise reassembly of extension data.
+    let loaded = arr.load(SyncExecutor, 2 * 8).unwrap();
+
+    // `payload` hands back the reassembled buffer; downcast to MinutesArray.
+    let ArrayPayload::Extension(e) = loaded.payload().expect("load yields an in-memory array")
+    else {
+        panic!("expected an extension payload out of the pipeline");
+    };
+    let minutes = e.downcast_ref::&lt;MinutesArray&gt;().expect("payload is MinutesArray");
+    assert_eq!(minutes.0, values);
+}</code></pre>
+<div id="admonition-see-also" class="admonition admonish-note" role="note" aria-labelledby="admonition-see-also-title">
+<div class="admonition-title">
+<div id="admonition-see-also-title">
+<p>See Also</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-see-also"></a>
+</div>
+
+<div>
+<p><a href="../algorithms/binary.html">Binary Ops</a> — the <code>__op__</code> / <code>__rop__</code> dispatch chain
+that picks a capability and the primitive kernel it lowers to.</p>
+</div>
+
+</div>
+
 
                     </main>
 

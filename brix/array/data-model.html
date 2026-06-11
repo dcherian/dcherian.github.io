@@ -37,7 +37,7 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-371300b0.js";
+            window.path_to_searchindex_js = "../searchindex-66844db8.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-31366b7a.js"></script>
@@ -228,6 +228,42 @@ pub trait ArrayLike: std::fmt::Debug + Send + Sync {
     /// dtype (e.g. a fill value of the wrong dtype) at construction.
     fn to_sink(&amp;self, sink: Arc&lt;dyn ArraySink&gt;) -&gt; ArrayResult&lt;Array&gt; {
         Ok(Array::from(Arc::new(ArrayExpr::sink(self.expr().clone(), sink)?)))
+    }
+
+    /// Materialize this (lazy) array and re-wrap the result as a fresh
+    /// in-memory `Array`. Runs the full pipeline — optimize → sink → lower →
+    /// plan → execute — into an [`InMemorySink`], then feeds the assembled
+    /// payload back through [`Array::from_payload`]. `memory_budget` bounds peak
+    /// memory during execution (see [`crate::lower::lower`]).
+    ///
+    /// Dtype-agnostic: dense and extension payloads round-trip identically.
+    fn load(&amp;self, executor: impl Executor, memory_budget: usize) -&gt; ArrayResult&lt;Array&gt;
+    where
+        Self: Sized,
+    {
+        let rooted = self
+            .optimize()?
+            .to_sink(Arc::new(InMemorySink::new(self.sink_fill().map(Into::into))))?;
+        let physical = plan(&amp;lower(&amp;rooted, memory_budget)?.expr)?;
+        let payload = executor
+            .execute(&amp;physical)?
+            .into_values()
+            .next()
+            .expect("in-memory sink always yields exactly one output");
+        Ok(Array::from_payload(ArrayPayload::from_payload(&amp;*payload).clone(), &amp;self.dims()))
+    }
+
+    /// The backing in-memory payload, when this array is a bare transparent
+    /// [`InMemorySource`] — i.e. one produced by [`Array::from_payload`] or
+    /// materialized by [`Self::load`]. `None` for any other expression
+    /// (constant fills, opaque/IO sources, or arrays carrying unevaluated ops).
+    fn payload(&amp;self) -&gt; Option&lt;&amp;ArrayPayload&gt; {
+        match &amp;self.expr().op {
+            ArrayOp::TransparentSource(src) =&gt; {
+                src.as_any().downcast_ref::&lt;InMemorySource&gt;().map(|s| &amp;s.0)
+            }
+            _ =&gt; None,
+        }
     }
 }</code></pre>
 <h2 id="arrays-are-lazy"><a class="header" href="#arrays-are-lazy">Arrays are lazy</a></h2>

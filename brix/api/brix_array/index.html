@@ -36,7 +36,7 @@ e.g. ArrayData is too much for SinkBuffer;
 Note: traits cant have constructors, so <code>empty</code> is not here but on the DType.
 DType is the only thing the LoweredSink holds.</dd><dt><a class="trait" href="trait.ArrayLike.html" title="trait brix_array::ArrayLike">Array<wbr>Like</a></dt><dd>Trait for user-facing array variants (<a href="struct.Array.html" title="struct brix_array::Array"><code>Array</code></a>, <a href="struct.BlockSparseArray.html" title="struct brix_array::BlockSparseArray"><code>BlockSparseArray</code></a>).
 Required method: <a href="trait.ArrayLike.html#tymethod.expr" title="method brix_array::ArrayLike::expr"><code>Self::expr</code></a>.
-Everything else has a default that reads through the expr.</dd><dt><a class="trait" href="trait.ArraySink.html" title="trait brix_array::ArraySink">Array<wbr>Sink</a></dt><dd>Array-level sink descriptor, lowered into a concrete [<code>brix::Sink</code>] once the grid is chosen
+Everything else has a default that reads through the expr.</dd><dt><a class="trait" href="trait.ArraySink.html" title="trait brix_array::ArraySink">Array<wbr>Sink</a></dt><dd>Array-level sink descriptor, lowered into a concrete <a href="../brix/expr/trait.Sink.html" title="trait brix::expr::Sink"><code>brix::Sink</code></a> once the grid is chosen
 (mirrors <code>OpaqueSource</code> → <code>LoweredOpaque</code>). The materialized result is
 returned by <code>execute</code> (keyed by the sink node’s name), not held here.</dd><dt><a class="trait" href="trait.Binary.html" title="trait brix_array::Binary">Binary</a></dt><dd>Capability umbrella for the <code>BinaryOp</code> family (add / sub / mul) plus the
 <code>Zero</code>/<code>One</code> identities reductions need. <strong>Unsigned-compatible</strong> — a future

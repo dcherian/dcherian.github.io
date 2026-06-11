@@ -6,7 +6,7 @@ accumulator in a <a href="struct.LoweredAccumulator.html" title="struct brix_arr
 <p>Computation over a single brick is <em>serial</em>. We leave parallelism to across-brick.</p>
 <p>Things I don’t like</p>
 <ul>
-<li>we have a generic [<code>State</code>]. This requires a <code>state.as_any_mut().downcast_mut::&lt;SumState&gt;().unwrap()</code>
+<li>we have a generic <a href="../../brix/expr/trait.State.html" title="trait brix::expr::State"><code>State</code></a>. This requires a <code>state.as_any_mut().downcast_mut::&lt;SumState&gt;().unwrap()</code>
 dance for each accumulator here.</li>
 </ul>
 </div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.LoweredAccumulator.html" title="struct brix_array::accumulators::LoweredAccumulator">Lowered<wbr>Accumulator</a></dt><dd>Mirrors <a href="../source/struct.LoweredOpaque.html" title="struct brix_array::source::LoweredOpaque"><code>crate::source::LoweredOpaque</code></a>: the user constructs
