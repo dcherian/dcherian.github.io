@@ -37,7 +37,7 @@
             const path_to_root = "../";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-66844db8.js";
+            window.path_to_searchindex_js = "../searchindex-8167ce62.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-31366b7a.js"></script>
@@ -184,37 +184,31 @@
                     <main>
                         <h1 id="risks-as-of-jun-2-2026"><a class="header" href="#risks-as-of-jun-2-2026">Risks (as of Jun 2, 2026)</a></h1>
 <h2 id="known-unknowns"><a class="header" href="#known-unknowns">Known Unknowns</a></h2>
+<h3 id="rust"><a class="header" href="#rust">Rust</a></h3>
+<p>The Rust scientific computing ecosystem is quite immature.</p>
+<p>For example, our regridding workload would need <code>tensordor(sparse, dense)</code>
+which doesn’t seem to exist in Rust land. In Python, <code>numpy</code> is special-cased everywhere
+so things end up “just working”. We will end up spending time re-engineering some core
+operations like that one.</p>
+<p>Rust’s ownership semantics mean my Python intuition doesn’t carry over that well.</p>
 <h3 id="dtypes-validity--extension-array-model"><a class="header" href="#dtypes-validity--extension-array-model">DTypes, validity &amp; extension array model</a></h3>
-<h3 id="functional-array-payloads"><a class="header" href="#functional-array-payloads">Functional array payloads</a></h3>
-<p>E.g. we could generate array values on the fly (think affine transform based coordinate systems),
-or very-large <code>np.arange</code> style coordinate arrays.
-To do so we need to convert the <a href="../api/brix/brick/struct.BrickCoordinate.html"><code>BrickCoordinate</code></a> to an array element-space <code>Vec&lt;Range&gt;</code>, and pass that in.
-Alternatively, we make it so that the node embeds the <a href="../api/brix_array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a>, as the other nodes do.</p>
-<p>For reference, <code>dask.array.map_blocks</code> can provide the following input to each chunk:</p>
-<pre><code class="language-python">&gt;&gt;&gt; block_info
-{0: {'shape': (1000,), # input brick
-     'num-chunks': (10,),
-     'chunk-location': (4,),
-     'array-location': [(400, 500)]},
- None: {'shape': (1000,),  # Output brick
-        'num-chunks': (10,),
-        'chunk-location': (4,),
-        'array-location': [(400, 500)],
-        'chunk-shape': (100,),
-        'dtype': dtype('float64')}}
-</code></pre>
+<p>Dtypes, extension arrays have been designed and up for review in https://github.com/earth-mover/zax/issues/53.</p>
+<p>We should have two external consumers soon (<code>zax-time</code>, <code>zax-strings</code>).</p>
+<p>Our approach to validity is still undefined.</p>
+<p>Our approach to aggregations (min/max e.g.) for extension arrays is still undefined.</p>
 <h2 id="unknowns"><a class="header" href="#unknowns">Unknowns</a></h2>
 <p>There are <em>unknown</em> because I haven’t really tried them out yet.</p>
 <h3 id="array-level-planner"><a class="header" href="#array-level-planner">Array-level planner</a></h3>
 <h3 id="array-level-optimizer"><a class="header" href="#array-level-optimizer">Array-level Optimizer</a></h3>
-<h3 id="shuffle"><a class="header" href="#shuffle">Shuffle</a></h3>
-<h3 id="fan-infan-out"><a class="header" href="#fan-infan-out">Fan-In/Fan-out</a></h3>
-<h3 id="overlap"><a class="header" href="#overlap">Overlap</a></h3>
 <h3 id="materialization-barriers"><a class="header" href="#materialization-barriers">Materialization barriers</a></h3>
 <ul>
 <li>building iteration spaces at runtime</li>
-<li></li>
+<li>How does the planner react to this?</li>
+<li>Do we re-plan after a barrier?</li>
 </ul>
+<h3 id="shuffle"><a class="header" href="#shuffle">Shuffle</a></h3>
+<h3 id="fan-infan-out"><a class="header" href="#fan-infan-out">Fan-In/Fan-out</a></h3>
+<h3 id="overlap"><a class="header" href="#overlap">Overlap</a></h3>
 <h3 id="udfs"><a class="header" href="#udfs">UDFs</a></h3>
 <h3 id="incremental-compute-story"><a class="header" href="#incremental-compute-story">Incremental compute story</a></h3>
 

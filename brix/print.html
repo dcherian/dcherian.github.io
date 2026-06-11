@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "rust";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-66844db8.js";
+            window.path_to_searchindex_js = "searchindex-8167ce62.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-31366b7a.js"></script>
@@ -535,7 +535,7 @@ It makes it clear that the core orchestration is manipulating arbitrary data pay
 over a iteration space (‘brix grid’) that only cares about the Cost per brick rather than
 details (dtype/chunk size/ etc.)
 This leaves us open to orchestrate other arbitrary data payloads in the future, for example
-orchestrating a grid of filenames for ingest.
+orchestrating a grid of filenames for (virtual) ingest.
 As prior art, Xarray uses dask as a pure task scheduling engine precisely at ingest time, where
 manipulating a list of filenames in parallel is necessary to construct a data cube.</p>
 <p>An implication that has both down-side and up-side is that the same concept is commonly expressed
@@ -558,6 +558,47 @@ array workloads we have a <strong>lot</strong> of information available at plan-
 merge the two layers but not too hard with Claude. I belive the separation makes the codebase easier
 to understand, and Claude code easier to audit.</p>
 <p>The choice to add an iteration layer is a two-way door (below).</p>
+</div>
+
+</div>
+
+<h2 id="static-shapes"><a class="header" href="#static-shapes">Static shapes</a></h2>
+<p>An <em>extremely</em> important choice is whether concrete shapes (axis extents) are known at plan-time.
+Concrete shapes help us choose <em>concrete</em> brick grids / iteration spaces at lowering-time.
+This limitation applies to Xarray today. Dask has limited ability to support arrays with
+“unknown” shapes  (only known at compute-time), mostly so as to convert from DataFrames
+of unknown size.</p>
+<p>Unknown shapes are mostly useful only with 1D input and less so with nD.
+For e.g. <code>a[a &gt; 0]</code> with numpy returns a 1D array regardless of the dimensionality of <code>a</code>.
+In general, such a <em>filter</em> operation in nD generally results in a ragged array which most
+array packages can’t represent so they return a flattened 1D array as a result.</p>
+<p>One way to think of this is as conceptualizing arrays are <em>bounded</em> or <em>unbounded</em> streams of chunks.
+When we know shapes at plan-time, we can do random access within streams, partition them etc.</p>
+<p>Similarly the same issue pops up on <code>array.unique()</code>. This one is interesting. To find all unique values you
+must look through all bricks (using a tree-reduction say).
+You don’t know how many unique values exist a-priori, so the output is unknown-size.
+If <code>array</code> is of known shape, then you <em>do</em> know how many bricks you have to process.
+This is still a reduction over a bounded stream.</p>
+<p>Another use case where unknown shapes pop-up is when grouping by an out-of-core array
+(<a href="https://github.com/pydata/xarray/issues/2852">example</a>). If you don’t know number of
+unique groups then the result (<code>groupby(large_array).mean()</code>) has a dimension of unknown size.
+That said, there’s almost always sidecar metadata that will specify number of unique groups
+(at least) and the group labels. Again we could just insert a barrier that calculates the
+unique groups (and perhaps their distribution) and uses that to plan the following stages.</p>
+<div id="admonition-one-way-door-1" class="admonition admonish-note" role="note" aria-labelledby="admonition-one-way-door-1-title">
+<div class="admonition-title">
+<div id="admonition-one-way-door-1-title">
+<p>One-way door</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-one-way-door-1"></a>
+</div>
+
+<div>
+<p>Supporting unknown shapes would be a pretty major change to execution.</p>
+<p>A place this may bite us is we are trying to join against or convert from tables of unknown extent
+e.g. a filtered dataframe.
+We could require a materialization barrier if we wanted to support this workflow nicely.</p>
 </div>
 
 </div>
@@ -609,47 +650,16 @@ But this need not be true. We could pass an <a href="api/brix/expr/struct.Expr.h
 
 </div>
 
-<h2 id="static-shapes"><a class="header" href="#static-shapes">Static shapes</a></h2>
-<p>A core principle is that concrete shapes (axis extents) are known at plan-time.</p>
-<p>This limitation applies to Xarray today. Dask has limited ability to support arrays with
-“unknown” shapes  (only known at compute-time), mostly so as to convert from DataFrames
-of unknown size.</p>
-<p>Unknown shapes are mostly useful only with 1D input and less so with nD.
-For e.g. <code>a[a &gt; 0]</code> with numpy returns a 1D array regardless of the dimensionality of <code>a</code>.
-In general, such a <em>filter</em> operation in nD generally results in a ragged array which most
-array packages can’t represent so they return a flattened 1D array as a result.</p>
-<div id="admonition-one-way-door-1" class="admonition admonish-note" role="note" aria-labelledby="admonition-one-way-door-1-title">
-<div class="admonition-title">
-<div id="admonition-one-way-door-1-title">
-<p>One-way door</p>
-</div>
-
-<a class="admonition-anchor-link" href="#admonition-one-way-door-1"></a>
-</div>
-
-<div>
-<p>Supporting unknown shapes would be a pretty major change to execution.</p>
-<p>A place this may bite us is we are trying to join against or convert from tables of unknown extent
-e.g. a filtered dataframe.
-We could require a materialization barrier if we wanted to support this workflow nicely.</p>
-</div>
-
-</div>
-
-<h2 id="handling-of-sinks"><a class="header" href="#handling-of-sinks">Handling of Sinks</a></h2>
-<p>Currently we have one Sink trait. At the moment <a href="api/brix_array/struct.InMemorySink.html"><code>InMemorySink</code></a> is the only impl.
-The intent is for this trait to cover streaming data sinks too (Icechunk/Zarr), which is at odds with
-collecting in to an in memory buffer.</p>
-<p>So I made a choice to gather bricks in a Vec and concatenate them in <code>finalize</code>.
-This is 2X memory use. Technically, we can use <code>ArrayD::axis_iter_chunks_mut</code> to grab disjoint
-slices and write bricks to the output buffer as they stream in for lower memory.
-We may want this level of optimization because:</p>
-<ol>
-<li><a href="api/brix_array/struct.InMemorySink.html"><code>InMemorySink</code></a> will be very useful for smaller rechunks (e.g. for permuting after <code>oindex</code> or <code>vindex</code>).</li>
-<li>It’s not uncommon to grab 10-20GB in total across multiple arrays, and work with it in-memory. We’d like those operations
-to succeed with as little memory as possible.</li>
-</ol>
-<p>I am deferring this optimization to when we build a concurrent local executor.</p>
+<h2 id="incorporating-ndarrays-mutable-views--in-place-mutation"><a class="header" href="#incorporating-ndarrays-mutable-views--in-place-mutation">Incorporating ndarray’s mutable views / in-place mutation</a></h2>
+<p>ndarray has the ability to represent both readonly and <a href="https://docs.rs/ndarray/latest/ndarray/struct.ArrayRef.html#method.axis_chunks_iter_mut">disjoint mutable views</a> of the data.
+Allocating once and writing in parallel to disjoint regions is an important optimization (usually).</p>
+<p>I am unsure about how well this will play with a concurrent executor given Rust’s ownership semantics.</p>
+<p>There are a couple of places I do this today:</p>
+<ul>
+<li>Updating <code>State</code> in aggregations.</li>
+<li><code>InMemorySink</code> writes to ranges of an buffer wrapped in a Mutex.</li>
+</ul>
+<p>I am deferring thinking about this more to when we build a concurrent local executor.</p>
 <div id="admonition-two-way-door-1" class="admonition admonish-note" role="note" aria-labelledby="admonition-two-way-door-1-title">
 <div class="admonition-title">
 <div id="admonition-two-way-door-1-title">
@@ -660,16 +670,41 @@ to succeed with as little memory as possible.</li>
 </div>
 
 <div>
-<p>Two-way door; there will be some churn around <a href="api/brix_array/struct.InMemorySink.html"><code>InMemorySink</code></a> but it will be contained.</p>
+<p>Two-way door; there will be some churn around <a href="api/brix_array/struct.InMemorySink.html"><code>InMemorySink</code></a> and Aggregations but it will be contained.</p>
 </div>
 
 </div>
 
-<h2 id="incorporating-ndarrays-views"><a class="header" href="#incorporating-ndarrays-views">Incorporating ndarray’s views</a></h2>
-<p>ndarray has the ability to represent both readonly and <a href="https://docs.rs/ndarray/latest/ndarray/struct.ArrayRef.html#method.axis_chunks_iter_mut">disjoint mutable views</a> of the data.
-Allocating once and writing in parallel to disjoint regions is an important optimization (usually).</p>
-<p>I am unsure about how well this will play with a concurrent executor given Rust’s ownership semantics.</p>
-<h2 id="aggregation-trait-and-folding-in-to-mutable-state"><a class="header" href="#aggregation-trait-and-folding-in-to-mutable-state">Aggregation trait and folding in to mutable <code>State</code></a></h2>
+<h2 id="handling-of-sinks"><a class="header" href="#handling-of-sinks">Handling of Sinks</a></h2>
+<p>Currently we have one Sink trait. At the moment <a href="api/brix_array/struct.InMemorySink.html"><code>InMemorySink</code></a> is the only impl.
+The intent is for this trait to cover streaming data sinks too (Icechunk/Zarr), which is at odds with
+collecting in to an in memory buffer.</p>
+<p>These are pretty different Sinks though.</p>
+<p>Technically, we can use <code>ArrayD::axis_iter_chunks_mut</code> to grab disjoint
+slices and write bricks to the output buffer as they stream in for lower memory.
+We may want this level of optimization because:</p>
+<ol>
+<li><a href="api/brix_array/struct.InMemorySink.html"><code>InMemorySink</code></a> will be very useful for smaller rechunks (e.g. for permuting after <code>oindex</code> or <code>vindex</code>).</li>
+<li>It’s not uncommon to grab 10-20GB in total across multiple arrays, and work with it in-memory. We’d like those operations
+to succeed with as little memory as possible.</li>
+</ol>
+<p>With Icechunk, we may end up needing to merge across distributed Sessions.</p>
+<p>I am deferring thinking about this more to when we build a concurrent local executor.</p>
+<div id="admonition-two-way-door-2" class="admonition admonish-note" role="note" aria-labelledby="admonition-two-way-door-2-title">
+<div class="admonition-title">
+<div id="admonition-two-way-door-2-title">
+<p>Two-way door</p>
+</div>
+
+<a class="admonition-anchor-link" href="#admonition-two-way-door-2"></a>
+</div>
+
+<div>
+<p>Two-way door; there will be some churn around <a href="api/brix_array/struct.InMemorySink.html"><code>InMemorySink</code></a> and Aggregations but it will be contained.</p>
+</div>
+
+</div>
+
 <h2 id="array-payload-representation"><a class="header" href="#array-payload-representation">Array Payload representation</a></h2>
 <p>Handling complex data types (datetimes, strings, geometries) etc.</p>
 <p><strong>This is in flux at the moment.</strong></p>
@@ -705,37 +740,31 @@ Why?
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="risks-as-of-jun-2-2026"><a class="header" href="#risks-as-of-jun-2-2026">Risks (as of Jun 2, 2026)</a></h1>
 <h2 id="known-unknowns"><a class="header" href="#known-unknowns">Known Unknowns</a></h2>
+<h3 id="rust"><a class="header" href="#rust">Rust</a></h3>
+<p>The Rust scientific computing ecosystem is quite immature.</p>
+<p>For example, our regridding workload would need <code>tensordor(sparse, dense)</code>
+which doesn’t seem to exist in Rust land. In Python, <code>numpy</code> is special-cased everywhere
+so things end up “just working”. We will end up spending time re-engineering some core
+operations like that one.</p>
+<p>Rust’s ownership semantics mean my Python intuition doesn’t carry over that well.</p>
 <h3 id="dtypes-validity--extension-array-model"><a class="header" href="#dtypes-validity--extension-array-model">DTypes, validity &amp; extension array model</a></h3>
-<h3 id="functional-array-payloads"><a class="header" href="#functional-array-payloads">Functional array payloads</a></h3>
-<p>E.g. we could generate array values on the fly (think affine transform based coordinate systems),
-or very-large <code>np.arange</code> style coordinate arrays.
-To do so we need to convert the <a href="api/brix/brick/struct.BrickCoordinate.html"><code>BrickCoordinate</code></a> to an array element-space <code>Vec&lt;Range&gt;</code>, and pass that in.
-Alternatively, we make it so that the node embeds the <a href="api/brix_array/chunk_grid/struct.ChunkGrid.html"><code>ChunkGrid</code></a>, as the other nodes do.</p>
-<p>For reference, <code>dask.array.map_blocks</code> can provide the following input to each chunk:</p>
-<pre><code class="language-python">&gt;&gt;&gt; block_info
-{0: {'shape': (1000,), # input brick
-     'num-chunks': (10,),
-     'chunk-location': (4,),
-     'array-location': [(400, 500)]},
- None: {'shape': (1000,),  # Output brick
-        'num-chunks': (10,),
-        'chunk-location': (4,),
-        'array-location': [(400, 500)],
-        'chunk-shape': (100,),
-        'dtype': dtype('float64')}}
-</code></pre>
+<p>Dtypes, extension arrays have been designed and up for review in https://github.com/earth-mover/zax/issues/53.</p>
+<p>We should have two external consumers soon (<code>zax-time</code>, <code>zax-strings</code>).</p>
+<p>Our approach to validity is still undefined.</p>
+<p>Our approach to aggregations (min/max e.g.) for extension arrays is still undefined.</p>
 <h2 id="unknowns"><a class="header" href="#unknowns">Unknowns</a></h2>
 <p>There are <em>unknown</em> because I haven’t really tried them out yet.</p>
 <h3 id="array-level-planner"><a class="header" href="#array-level-planner">Array-level planner</a></h3>
 <h3 id="array-level-optimizer"><a class="header" href="#array-level-optimizer">Array-level Optimizer</a></h3>
-<h3 id="shuffle"><a class="header" href="#shuffle">Shuffle</a></h3>
-<h3 id="fan-infan-out"><a class="header" href="#fan-infan-out">Fan-In/Fan-out</a></h3>
-<h3 id="overlap"><a class="header" href="#overlap">Overlap</a></h3>
 <h3 id="materialization-barriers"><a class="header" href="#materialization-barriers">Materialization barriers</a></h3>
 <ul>
 <li>building iteration spaces at runtime</li>
-<li></li>
+<li>How does the planner react to this?</li>
+<li>Do we re-plan after a barrier?</li>
 </ul>
+<h3 id="shuffle"><a class="header" href="#shuffle">Shuffle</a></h3>
+<h3 id="fan-infan-out"><a class="header" href="#fan-infan-out">Fan-In/Fan-out</a></h3>
+<h3 id="overlap"><a class="header" href="#overlap">Overlap</a></h3>
 <h3 id="udfs"><a class="header" href="#udfs">UDFs</a></h3>
 <h3 id="incremental-compute-story"><a class="header" href="#incremental-compute-story">Incremental compute story</a></h3>
 <div style="break-before: page; page-break-before: always;"></div>
